@@ -1,0 +1,13 @@
+{
+    "name": "my_app",
+    "version": "0.1.0",
+    "author": "my_author",
+    "license": "UNLICENSED",
+    "scripts": {
+        "start": "cd app && node scripts/start.js",
+        "build": "cd app &&  node scripts/build.js",
+        "test": "cd app && node scripts/test.js"
+      },
+    "devDependencies": {},
+    "dependencies": {}
+  }
