@@ -17,3 +17,7 @@ coverage*
 
 # production
 build*
+
+# misc
+react-app-env.d.ts
+serviceWorker.ts
