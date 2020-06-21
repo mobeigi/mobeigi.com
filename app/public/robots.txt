@@ -1,3 +1,19 @@
-# https://www.robotstxt.org/robotstxt.html
+#         _____
+#       .'/L|__`.
+#      / =[_]O|` \
+#      |"+_____":|
+#    __:='|____`-:__
+#   ||[] ||====| []||
+#   ||[] | |=| | []||
+#   |:||_|=|U| |_||:|
+#   |:|||]_=_ =[_||:|
+#   | |||] [_][]C|| |
+#   | ||-'"""""`-|| |
+#   /|\\_\_|_|_/_//|\
+#  |___|   /|\   |___|   R2D2 Astromech Droid
+#  `---'  |___|  `---' 
+#         `---'
+
 User-agent: *
-Disallow:
+Disallow: /sec/
+Sitemap: https://mobeigi.com/blog/sitemap.xml
