@@ -1,0 +1,9 @@
+{
+  "eslint.workingDirectories": [
+    {
+      "directory": "./app",
+      "changeProcessCWD": true
+    }
+  ],
+  "files.eol": "\n"
+}
