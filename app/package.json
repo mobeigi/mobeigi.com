@@ -152,7 +152,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "env FORCE_COLOR=1 lint-staged"
     }
   },
   "lint-staged": {
