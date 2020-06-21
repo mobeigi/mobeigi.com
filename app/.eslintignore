@@ -1,0 +1,19 @@
+!**/.eslintrc*
+node_modules*
+dist
+*.svg
+*.ico
+*.json
+.gitignore
+*.md
+*.log
+*.lock
+
+# public
+public*
+
+# testing
+coverage*
+
+# production
+build*
