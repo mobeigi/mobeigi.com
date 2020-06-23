@@ -1,38 +1,36 @@
-.App {
-  text-align: center;
+/* Theme */
+
+body {
+  background: #000
+    url("https://mobeigi.com/blog/wp/wp-content/themes/bytetheme/images/bg.jpg");
+  background-repeat: repeat;
+  color: #ededed;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+main > .tagline {
+  color: #c1c1c1;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.icons-social a {
+  color: #c1c1c1;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.icons-social a svg path {
+  fill: #c1c1c1;
 }
 
-.App-link {
-  color: #61dafb;
+.icons-social a:hover svg path {
+  fill: #ffffff;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+footer {
+  color: #c1c1c1;
+}
+
+footer #footer-links a {
+  color: #c1c1c1;
+}
+
+footer #footer-copyright a {
+  color: #c1c1c1;
 }
