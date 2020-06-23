@@ -56,20 +56,6 @@ main {
 	padding-bottom: 85px;   /* Height of the footer */
 }
 
-main > .intro {
-	margin: 0 auto;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-}
-
-main > .intro > #headline {
-	font-family: 'Reem Kufi', sans-serif;
-	font-size: 4.75em;
-	font-weight: 600;
-	margin-bottom: -20px;
-}
-
 main > .tagline {
 	font-family: 'Reem Kufi', sans-serif;
 	font-size: 1.5rem;
@@ -121,15 +107,6 @@ footer p#footer-links a:hover {
   display: inline-block;
   width: 70px;
   margin: 6px 10px 6px 10px;
-}
-
-#logo-image {
-	background-image: url(/blog/images/logo/avatar_500x500.png);
-	width: 150px;
-	height: 150px;
-	display: inline-block;
-	background-size: 150px 150px;
-	background-repeat: no-repeat
 }
 
 #blog-link a {
