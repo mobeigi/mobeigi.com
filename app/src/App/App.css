@@ -1,6 +1,4 @@
-/* Theme */
-
-body {
+.App {
   background: #000
     url("https://mobeigi.com/blog/wp/wp-content/themes/bytetheme/images/bg.jpg");
   background-repeat: repeat;
