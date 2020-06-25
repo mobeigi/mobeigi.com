@@ -23,9 +23,6 @@ const reemKufiFontFace = () => css`
 const StyledText = styled.span`
   ${reemKufiFontFace}
   font-family: 'Reem Kufi', sans-serif;
-  font-size: 90px;
-  font-weight: 600;
-  margin-bottom: -20px;
 `;
 
 export default StyledText;

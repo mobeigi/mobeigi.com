@@ -1,14 +1,29 @@
 import React from 'react';
 import Text from './Text';
+
 import {
-  StyledHeader, LogoDiv,
+  TopComponent, LogoDiv,
 } from './styled';
+import COLOURS from '../../styles/Colors';
 
 const Header = () => (
-  <StyledHeader>
-    <LogoDiv image="https://mobeigi.com/blog/images/logo/avatar_500x500.png" />
-    <Text>Mo Beigi</Text>
-  </StyledHeader>
+  <>
+    <TopComponent>
+      <LogoDiv image="https://mobeigi.com/blog/images/logo/avatar_500x500.png" />
+      <Text style={{
+        fontSize: '80px', fontWeight: '600', marginBottom: '-20px', color: COLOURS.white,
+      }}
+      >
+        Mo Beigi
+      </Text>
+    </TopComponent>
+    <Text style={{
+      fontSize: '27px', fontWeight: '100', margin: '14px 0 14px 0', color: COLOURS.grey,
+    }}
+    >
+      Software Engineer&nbsp;&nbsp;&#183;&nbsp;&nbsp;Sydney, Australia
+    </Text>
+  </>
 );
 
 export default Header;
