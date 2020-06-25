@@ -4,7 +4,7 @@ import Text from './Text';
 import {
   TopComponent, LogoDiv,
 } from './styled';
-import COLOURS from '../../styles/Colors';
+import COLOURS from '../../constants/Colors';
 
 const Header = () => (
   <>

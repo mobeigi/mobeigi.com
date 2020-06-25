@@ -18,6 +18,9 @@ coverage*
 # production
 build*
 
+# third party assets
+src/shared/assets
+
 # misc
 react-app-env.d.ts
 serviceWorker.ts
