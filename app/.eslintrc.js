@@ -48,6 +48,8 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
   },
   settings: {
     'import/resolver': {
