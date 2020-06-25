@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export const StyledHeader = styled.div`
+export const TopComponent = styled.div`
   margin: 0 auto;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: flex-end;
 `;
 
@@ -28,4 +28,4 @@ LogoDiv.defaultProps = {
   height: '150px',
 };
 
-export default { StyledHeader, LogoDiv };
+export default { TopComponent, LogoDiv };

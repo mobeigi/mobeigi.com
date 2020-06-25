@@ -2,10 +2,13 @@ import React from 'react';
 
 import StyledText from './styled';
 
-interface Props {}
+type Props = {
+  style?: any,
+}
 
-const Text = ({ children }: React.Props<Props>) => (
-  <StyledText>
+const Text = ({ children, ...props }: React.PropsWithChildren<Props>) => (
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  <StyledText {...props}>
     {children}
   </StyledText>
 );
