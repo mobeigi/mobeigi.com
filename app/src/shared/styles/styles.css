@@ -34,10 +34,6 @@ body {
 	}
 }
 
-.icons-social i {
-	font-size: 3em;
-}
-
 /* Custom Styles */
 
 #wrapper {
@@ -75,10 +71,6 @@ footer p#footer-links a:hover {
 	text-decoration: underline;
 }
 
-#icons-social i {
-	padding: 10px;
-}
-
 .devto {
 	margin-bottom: -0.20rem;
 }
@@ -88,18 +80,6 @@ footer p#footer-links a:hover {
 	margin-left: 0.675rem;;
 	width: 2.65rem;
 	height: 2.65rem;
-}
-
-.icons-social {
-  max-width: 600px;
-  width: 60%;
-  margin: 10px auto;
-}
-
-.icons-social a {
-  display: inline-block;
-  width: 70px;
-  margin: 6px 10px 6px 10px;
 }
 
 #blog-link a {

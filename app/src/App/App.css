@@ -5,18 +5,6 @@
   color: #ededed;
 }
 
-.icons-social a {
-  color: #c1c1c1;
-}
-
-.icons-social a svg path {
-  fill: #c1c1c1;
-}
-
-.icons-social a:hover svg path {
-  fill: #ffffff;
-}
-
 footer {
   color: #c1c1c1;
 }
