@@ -8,6 +8,7 @@ import '../shared/assets/bootstrap-themes/slate.min.css';
 import '../shared/styles/reset.css';
 import '../shared/styles/styles.css';
 import './App.css';
+import { MonospacedParagraph, StyledButton } from '../shared/styles/common';
 
 const myStuffSBG = [
   { link: '/blog', title: 'Mo Beigi\'s Blog', socialButton: { brandStyle: 'fas', iconName: 'fa-blog', iconSize: 'fa-3x' } },
@@ -46,11 +47,17 @@ const App = () => (
     <main>
       <Header />
       <br />
-      <p style={{ fontFamily: 'monospace' }}>My Stuff</p>
+      <MonospacedParagraph>My Stuff</MonospacedParagraph>
       <div style={{ maxWidth: '400px', margin: '0 auto' }}><SocialButtonGroup data={myStuffSBG} /></div>
       <br />
-      <p style={{ fontFamily: 'monospace' }}>Networks</p>
+      <MonospacedParagraph>Networks</MonospacedParagraph>
       <div style={{ maxWidth: '600px', margin: '0 auto' }}><SocialButtonGroup data={networks} /></div>
+      <br />
+      <a href={myStuffSBG[0].link} title={myStuffSBG[0].title}>
+        <StyledButton type="button" style={{ margin: '0 auto' }}>
+          CONTINUE TO BLOG
+        </StyledButton>
+      </a>
     </main>
     <footer />
   </div>
