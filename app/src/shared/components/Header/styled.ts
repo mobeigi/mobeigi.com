@@ -8,17 +8,17 @@ export const TopComponent = styled.div`
 `;
 
 type LogoDivProps = {
-  image?: String;
-  width?: String;
-  height?: String;
-}
+  image?: string;
+  width?: string;
+  height?: string;
+};
 
 export const LogoDiv = styled.div<LogoDivProps>`
-  background-image: url(${(props: any) => props.image});
-  width: ${(props: any) => props.width};
-  height: ${(props: any) => props.height};
+  background-image: url(${(props) => props.image});
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
   display: inline-block;
-  background-size: ${(props: any) => props.width} ${(props: any) => props.height};
+  background-size: ${(props) => props.width} ${(props) => props.height};
   background-repeat: no-repeat;
 `;
 
