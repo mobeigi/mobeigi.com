@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from '../../utils/Link';
 import SocialButton from './SocialButton';
 import type { SocialButtonProps } from './SocialButton/SocialButton';
 import { StyledSocialButtonGroup } from './styled';
@@ -49,9 +50,9 @@ class SocialButtonGroup extends React.Component<Props, State> {
         socialButtonWithLink.nofollow,
       );
       return (
-        <a
+        <Link
           key={socialButtonWithLink.title}
-          href={socialButtonWithLink.link}
+          to={socialButtonWithLink.link}
           title={socialButtonWithLink.title}
           aria-label={socialButtonWithLink.title}
           rel={relAttribute || undefined}
@@ -61,7 +62,7 @@ class SocialButtonGroup extends React.Component<Props, State> {
             iconName={socialButtonWithLink.socialButton.iconName}
             iconSize={socialButtonWithLink.socialButton.iconSize}
           />
-        </a>
+        </Link>
       );
     });
     return <StyledSocialButtonGroup>{socialButtons}</StyledSocialButtonGroup>;

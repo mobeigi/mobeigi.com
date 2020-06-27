@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyledFooter } from './styled';
+import Link from '../../utils/Link';
 
+import { StyledFooter } from './styled';
 import COMMON from '../../constants/Common';
 
 const footerItemList = [
@@ -15,7 +16,7 @@ const footerItemList = [
 
 const Footer : React.FunctionComponent = () => {
   const footerItems = footerItemList.map<React.ReactNode>(
-    (footerItem) => <a key={footerItem.text} href={footerItem.link}>{footerItem.text}</a>,
+    (footerItem) => <Link key={footerItem.text} to={footerItem.link}>{footerItem.text}</Link>,
   ).reduce((prev, curr) => [prev, '|', curr]);
 
   return (
