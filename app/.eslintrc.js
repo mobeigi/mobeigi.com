@@ -30,6 +30,7 @@ module.exports = {
       jsx: true,
     },
     ecmaVersion: 2018,
+    project: 'tsconfig.json',
     sourceType: 'module',
   },
   plugins: [
@@ -38,6 +39,10 @@ module.exports = {
   ],
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
+    'react/static-property-placement': ['warn', 'property assignment', {
+      defaultProps: 'static public field',
+      propTypes: 'static public field',
+    }],
     'import/extensions': [
       'error',
       'ignorePackages',
