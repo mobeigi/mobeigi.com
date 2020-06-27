@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from '../shared/utils/Link';
+import COMMON from '../shared/constants/Common';
 
 import SocialButtonGroup from '../shared/components/SocialButtonGroup';
 import { MonospacedParagraph, StyledButton } from '../shared/styles/common';
@@ -76,20 +77,25 @@ const networks = [
   },
 ];
 
-const Homepage = () => (
-  <>
-    <MonospacedParagraph>My Stuff</MonospacedParagraph>
-    <div style={{ maxWidth: '400px', margin: '0 auto' }}><SocialButtonGroup data={myStuffSBG} /></div>
-    <br />
-    <MonospacedParagraph>Networks</MonospacedParagraph>
-    <div style={{ maxWidth: '600px', margin: '0 auto' }}><SocialButtonGroup data={networks} /></div>
-    <br />
-    <Link to={myStuffSBG[0].link} title={myStuffSBG[0].title}>
-      <StyledButton type="button" style={{ margin: '0 auto' }}>
-        CONTINUE TO BLOG
-      </StyledButton>
-    </Link>
-  </>
-);
+const Homepage = () => {
+  useEffect(() => {
+    document.title = `${COMMON.WEBSITE.titlePrefix}Software Engineer`;
+  });
+  return (
+    <>
+      <MonospacedParagraph>My Stuff</MonospacedParagraph>
+      <div style={{ maxWidth: '400px', margin: '0 auto' }}><SocialButtonGroup data={myStuffSBG} /></div>
+      <br />
+      <MonospacedParagraph>Networks</MonospacedParagraph>
+      <div style={{ maxWidth: '600px', margin: '0 auto' }}><SocialButtonGroup data={networks} /></div>
+      <br />
+      <Link to={myStuffSBG[0].link} title={myStuffSBG[0].title}>
+        <StyledButton type="button" style={{ margin: '0 auto' }}>
+          CONTINUE TO BLOG
+        </StyledButton>
+      </Link>
+    </>
+  );
+};
 
 export default Homepage;

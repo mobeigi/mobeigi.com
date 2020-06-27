@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Switch,
   Route,
-  Redirect,
 } from 'react-router-dom';
 
 import Header from '../shared/components/Header';
@@ -24,8 +23,7 @@ const App : React.FunctionComponent = () => (
       <Switch>
         <Route exact path="/" component={Homepage} />
         <Route exact path="/trades" component={TradePage} />
-        <Route exact path="/404" component={NotFoundPage} />
-        <Redirect to="/404" />
+        <Route component={NotFoundPage} />
       </Switch>
     </main>
     <Footer />

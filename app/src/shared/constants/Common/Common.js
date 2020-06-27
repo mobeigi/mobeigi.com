@@ -5,6 +5,7 @@ const OWNER = {
 };
 
 const WEBSITE = {
+  titlePrefix: 'Mo Beigi: ',
   foundingYear: 2012,
 };
 
