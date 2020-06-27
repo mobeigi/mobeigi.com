@@ -1,12 +1,12 @@
 import React from 'react';
 
 import Header from '../shared/components/Header';
+import Footer from '../shared/components/Footer';
 import SocialButtonGroup from '../shared/components/SocialButtonGroup';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../shared/assets/bootstrap-themes/slate.min.css';
-import '../shared/styles/reset.css';
-import '../shared/styles/styles.css';
+import './reset.css';
 import './App.css';
 import { MonospacedParagraph, StyledButton } from '../shared/styles/common';
 
@@ -99,7 +99,7 @@ const App : React.FunctionComponent = () => (
         </StyledButton>
       </a>
     </main>
-    <footer />
+    <Footer />
   </div>
 );
 
