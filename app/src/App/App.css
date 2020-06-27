@@ -1,18 +1,56 @@
 .App {
+  font-family: Arial, "Trebuchet MS", Sans-Serif;
   background: #000
     url("https://mobeigi.com/blog/wp/wp-content/themes/bytetheme/images/bg.jpg");
   background-repeat: repeat;
   color: #ededed;
+  position: relative; /* Footer position fix */
 }
 
-footer {
-  color: #c1c1c1;
+.App main {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	justify-content: center;
+	padding: 0 30px;
+	text-align: center;
+	padding:10px;
+	padding-bottom: 85px;   /* Height of the footer */
 }
 
-footer #footer-links a {
-  color: #c1c1c1;
+/* Typography */
+@media (min-width: 576px) {
+	html {
+		font-size: 14px;
+	}
 }
 
-footer #footer-copyright a {
-  color: #c1c1c1;
+@media (min-width: 768px) {
+	html {
+		font-size: 16px;
+	}
+}
+
+@media (min-width: 992px) {
+	html {
+		font-size: 18px;
+	}
+}
+
+@media (min-width: 1200px) {
+	html {
+		font-size: 20px;
+	}
+}
+
+/* Custom Styles */
+
+.keyInvalid {
+	color: #D8000C;
+	font-weight: bold;
+}
+
+.keyValid {
+	color: #4F8A10;
+	font-weight: bold;
 }
