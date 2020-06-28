@@ -42,15 +42,3 @@
 		font-size: 20px;
 	}
 }
-
-/* Custom Styles */
-
-.keyInvalid {
-	color: #D8000C;
-	font-weight: bold;
-}
-
-.keyValid {
-	color: #4F8A10;
-	font-weight: bold;
-}

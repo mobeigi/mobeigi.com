@@ -1,6 +1,8 @@
 import React from 'react';
 import Modal from 'react-modal';
+import Axios from 'axios';
 
+import { InvalidStatus, ValidStatus } from './styled';
 import COMMON from '../../shared/constants/Common';
 import COLOURS from '../../shared/constants/Colors';
 
@@ -28,6 +30,7 @@ type Props = {
 }
 
 type State = {
+  authKey: string,
   isAuthCorrect: boolean,
 }
 
@@ -35,6 +38,7 @@ class ResumeModal extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      authKey: '',
       isAuthCorrect: false,
     };
   }
@@ -49,21 +53,30 @@ class ResumeModal extends React.Component<Props, State> {
   }
 
     onAuthKeyInput = (e: React.FormEvent<HTMLInputElement>) => {
-      // Check auth
-      const inputPassword = e.currentTarget.value;
-      let isAuthCorrect = false;
-      if (inputPassword === 'temp test') {
-        isAuthCorrect = true;
-      }
+      const authKey = e.currentTarget.value;
       this.setState((prevState) => ({
         ...prevState,
-        isAuthCorrect,
+        authKey,
       }));
+
+      // Check auth
+      Axios.post('https://mobeigi.com/resume/ajax_validate.php', { auth_key: authKey })
+        .then((response) => {
+          let isAuthCorrect = false;
+          if (response.status === 200) {
+            isAuthCorrect = true;
+          }
+
+          this.setState((prevState) => ({
+            ...prevState,
+            isAuthCorrect,
+          }));
+        });
     };
 
     render() {
       const { isOpen, onRequestClose } = this.props;
-      const { isAuthCorrect } = this.state;
+      const { authKey, isAuthCorrect } = this.state;
       return (
         <Modal
           isOpen={isOpen}
@@ -85,9 +98,9 @@ class ResumeModal extends React.Component<Props, State> {
               <br />
               <label htmlFor="authKeyInput">
                 Auth Key&nbsp;
-                <input id="authKeyInput" name="auth_key" type="password" maxLength={32} onInput={this.onAuthKeyInput} />
+                <input id="authKeyInput" name="auth_key" type="password" maxLength={32} value={authKey} onInput={this.onAuthKeyInput} />
               </label>
-              <p id="authKeyStatus" />
+              { (authKey.trim() !== '' && (isAuthCorrect ? <ValidStatus>Valid Auth Key</ValidStatus> : <InvalidStatus>Invalid Auth Key</InvalidStatus>))}
             </div>
             <div className="modal-footer">
               <button id="resumeDownloadButton" type="submit" className="btn btn-primary" aria-label="Download" disabled={!isAuthCorrect}>Download</button>
