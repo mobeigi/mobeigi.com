@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from '../../utils/Link';
+import TargetAwareLink from '../../utils/TargetAwareLink';
 import SocialButton from './SocialButton';
 import type { SocialButtonProps } from './SocialButton/SocialButton';
 import { StyledSocialButtonGroup } from './styled';
@@ -9,6 +9,7 @@ type SocialButtonWithLinkType = {
   title: string,
   external?: boolean,
   nofollow?: boolean,
+  forceReload?: boolean,
   socialButton: SocialButtonProps,
 };
 
@@ -24,6 +25,7 @@ class SocialButtonGroup extends React.Component<Props, State> {
   static defaultProps = {
     external: false,
     nofollow: false,
+    forceReload: false,
   };
 
   static propTypes = {
@@ -50,19 +52,20 @@ class SocialButtonGroup extends React.Component<Props, State> {
         socialButtonWithLink.nofollow,
       );
       return (
-        <Link
+        <TargetAwareLink
           key={socialButtonWithLink.title}
           to={socialButtonWithLink.link}
           title={socialButtonWithLink.title}
           aria-label={socialButtonWithLink.title}
           rel={relAttribute || undefined}
+          forceReload={socialButtonWithLink.forceReload}
         >
           <SocialButton
             brandStyle={socialButtonWithLink.socialButton.brandStyle}
             iconName={socialButtonWithLink.socialButton.iconName}
             iconSize={socialButtonWithLink.socialButton.iconSize}
           />
-        </Link>
+        </TargetAwareLink>
       );
     });
     return <StyledSocialButtonGroup>{socialButtons}</StyledSocialButtonGroup>;

@@ -1,22 +1,30 @@
 import React from 'react';
-import Link from '../../utils/Link';
+import TargetAwareLink from '../../utils/TargetAwareLink';
 
 import { StyledFooter } from './styled';
 import COMMON from '../../constants/Common';
 
 const footerItemList = [
   { link: '/', text: 'Home' },
-  { link: '/blog', text: 'Blog' },
-  { link: '/blog/projects', text: 'Projects' },
-  { link: '/blog/easter-eggs', text: 'Easter Eggs' },
-  { link: '/blog/about', text: 'About Me' },
-  { link: '/blog/contact', text: 'Contact Me' },
-  { link: '/blog/feed/rss', text: 'RSS' },
+  { link: '/blog', forceReload: true, text: 'Blog' },
+  { link: '/blog/projects', forceReload: true, text: 'Projects' },
+  { link: '/blog/easter-eggs', forceReload: true, text: 'Easter Eggs' },
+  { link: '/blog/about', forceReload: true, text: 'About Me' },
+  { link: '/blog/contact', forceReload: true, text: 'Contact Me' },
+  { link: '/blog/feed/rss', forceReload: true, text: 'RSS' },
 ];
 
 const Footer : React.FunctionComponent = () => {
   const footerItems = footerItemList.map<React.ReactNode>(
-    (footerItem) => <Link key={footerItem.text} to={footerItem.link}>{footerItem.text}</Link>,
+    (footerItem) => (
+      <TargetAwareLink
+        key={footerItem.text}
+        to={footerItem.link}
+        forceReload={footerItem.forceReload}
+      >
+        {footerItem.text}
+      </TargetAwareLink>
+    ),
   ).reduce((prev, curr) => [prev, '|', curr]);
 
   return (
