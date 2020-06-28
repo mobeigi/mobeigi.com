@@ -22,8 +22,11 @@ const App : React.FunctionComponent = () => (
       <Header />
       <br />
       <Switch>
+        {/* Pages */}
         <Route exact path="/" component={Homepage} />
         <Route exact path="/trades" component={TradePage} />
+
+        {/* Catch All */}
         <Route component={NotFoundPage} />
       </Switch>
     </main>
