@@ -7,7 +7,7 @@ import { MonospacedParagraph } from '../shared/styles/common';
 const NotFoundPage = () => {
   useEffect(() => {
     document.title = `${COMMON.WEBSITE.titlePrefix}404 error`;
-  });
+  }, []);
   return (
     <MonospacedParagraph>
       Uh oh! A 404 error, thats not good.
