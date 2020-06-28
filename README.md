@@ -13,9 +13,8 @@
 </p>
 
 ## Description
-Source code for the [mobeigi.com](http://mobeigi.com/) website.
-This is a rewrite of my original website in React.
-In its current state its mostly a stateless app with no backend.
+Source code for the [mobeigi.com](http://mobeigi.com/) website. This is a rewrite of my original PHP website in React.  
+In its current state its mostly a stateless app with no backend.  
 
 ## Contributions
 Contributions are always welcome!
