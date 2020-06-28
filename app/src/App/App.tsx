@@ -11,7 +11,8 @@ import TradePage from '../TradePage';
 import Footer from '../shared/components/Footer';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../shared/assets/bootstrap-themes/slate.min.css';
+import '../shared/assets/bootstrap-themes/slate.css';
+import './SlateOverrides.css';
 import './reset.css';
 import './App.css';
 
