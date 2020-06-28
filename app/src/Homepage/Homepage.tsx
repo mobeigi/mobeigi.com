@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useHistory, RouteComponentProps } from 'react-router-dom';
-import Link from '../shared/utils/Link';
 import COMMON from '../shared/constants/Common';
 
 import ResumeModal from './ResumeModal';
@@ -8,7 +7,9 @@ import SocialButtonGroup from '../shared/components/SocialButtonGroup';
 import { MonospacedParagraph, StyledButton } from '../shared/styles/common';
 
 const myStuffSBG = [
-  { link: '/blog', title: 'Mo Beigi\'s Blog', socialButton: { brandStyle: 'fas', iconName: 'fa-blog', iconSize: 'fa-3x' } },
+  {
+    link: '/blog', title: 'Mo Beigi\'s Blog', forceReload: true, socialButton: { brandStyle: 'fas', iconName: 'fa-blog', iconSize: 'fa-3x' },
+  },
   { link: 'https://paste.mobeigi.com', title: 'Mo\'s Privatebin', socialButton: { brandStyle: 'fas', iconName: 'fa-paste', iconSize: 'fa-3x' } },
   {
     link: 'https://mobeigi.atlassian.net/', title: 'Mo\'s Jira', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-jira', iconSize: 'fa-3x' },
@@ -18,8 +19,12 @@ const myStuffSBG = [
   },
   { link: '/trades', title: 'Trades', socialButton: { brandStyle: 'fas', iconName: 'fa-chart-line', iconSize: 'fa-3x' } },
   { link: '#resume', title: 'Mo Beigi\'s Résumé', socialButton: { brandStyle: 'fas', iconName: 'fa-file-certificate', iconSize: 'fa-3x' } },
-  { link: '/sec/mo-beigi-pgp-pub.asc', title: 'Mo\'s PGP Key', socialButton: { brandStyle: 'fas', iconName: 'fa-key', iconSize: 'fa-3x' } },
-  { link: '/blog/contact/', title: 'Contact Me', socialButton: { brandStyle: 'fas', iconName: 'fa-envelope', iconSize: 'fa-3x' } },
+  {
+    link: '/sec/mo-beigi-pgp-pub.asc', title: 'Mo\'s PGP Key', forceReload: true, socialButton: { brandStyle: 'fas', iconName: 'fa-key', iconSize: 'fa-3x' },
+  },
+  {
+    link: '/blog/contact/', title: 'Contact Me', forceReload: true, socialButton: { brandStyle: 'fas', iconName: 'fa-envelope', iconSize: 'fa-3x' },
+  },
 ];
 
 const networks = [
@@ -123,11 +128,11 @@ const Homepage = (props: RouteComponentProps) => {
       <MonospacedParagraph>Networks</MonospacedParagraph>
       <div style={{ maxWidth: '600px', margin: '0 auto' }}><SocialButtonGroup data={networks} /></div>
       <br />
-      <Link to={myStuffSBG[0].link} title={myStuffSBG[0].title}>
+      <a href={myStuffSBG[0].link} title={myStuffSBG[0].title}>
         <StyledButton type="button" style={{ margin: '0 auto' }}>
           CONTINUE TO BLOG
         </StyledButton>
-      </Link>
+      </a>
     </>
   );
 };
