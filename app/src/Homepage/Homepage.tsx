@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useHistory, RouteComponentProps } from 'react-router-dom';
-import COMMON from '../shared/constants/Common';
+import { Helmet } from 'react-helmet';
 
+import COMMON from '../shared/constants/Common';
 import ResumeModal from './ResumeModal';
 import SocialButtonGroup from '../shared/components/SocialButtonGroup';
 import { MonospacedParagraph, StyledButton } from '../shared/styles/common';
@@ -104,12 +105,6 @@ const Homepage = (props: RouteComponentProps) => {
   };
 
   useEffect(() => {
-    if (!state.isResumeModalOpen) {
-      document.title = `${COMMON.WEBSITE.titlePrefix}Software Engineer`;
-    }
-  }, [state.isResumeModalOpen]);
-
-  useEffect(() => {
     // Trigger modal
     if (!state.isResumeModalOpen && props.location.hash === '#resume') {
       openResumeModal();
@@ -118,6 +113,15 @@ const Homepage = (props: RouteComponentProps) => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          {COMMON.WEBSITE.titlePrefix}
+          Software Engineer
+        </title>
+        <link rel="canonical" href={COMMON.WEBSITE.baseUrl} />
+        <meta name="description" content="Howdy, I&#039;m Mo and this is my personal website. Please check out my programming blog and hit me up if you would like to chat!" />
+        <meta name="keywords" content="mo beigi, mobeigi, ghasembeigi, mohammadg, persianmg, security, hacker, programming, coding, website development, software engineer, sydney, australia" />
+      </Helmet>
       <ResumeModal
         isOpen={state.isResumeModalOpen}
         onRequestClose={closeResumeModal}

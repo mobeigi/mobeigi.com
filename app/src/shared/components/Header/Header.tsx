@@ -9,7 +9,7 @@ import COLOURS from '../../constants/Colors';
 const Header : React.FunctionComponent = () => (
   <>
     <TopComponent>
-      <LogoDiv image="https://mobeigi.com/blog/images/logo/avatar_500x500.png" />
+      <LogoDiv image="/blog/images/logo/avatar_500x500.png" />
       <Text style={{
         fontSize: '80px', fontWeight: 600, marginBottom: '-20px', color: COLOURS.white,
       }}
