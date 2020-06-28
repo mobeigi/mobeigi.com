@@ -5,7 +5,7 @@ import { StyledIFrameContainer, StyledIFrame } from './styled';
 const TradePage = () => {
   useEffect(() => {
     document.title = `${COMMON.WEBSITE.titlePrefix}Trades`;
-  });
+  }, []);
 
   return (
     <StyledIFrameContainer>
