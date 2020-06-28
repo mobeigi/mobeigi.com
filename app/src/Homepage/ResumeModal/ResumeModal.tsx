@@ -100,7 +100,7 @@ class ResumeModal extends React.Component<Props, State> {
                   <br />
                   <label htmlFor="authKeyInput">
                     Auth Key&nbsp;
-                    <input id="authKeyInput" name="auth_key" type="password" maxLength={32} value={authKey} onInput={this.onAuthKeyInput} />
+                    <input id="authKeyInput" name="auth_key" type="password" maxLength={32} onInput={this.onAuthKeyInput} />
                   </label>
                   { (authKey.trim() !== '' && (isAuthCorrect ? <ValidStatus>Valid Auth Key</ValidStatus> : <InvalidStatus>Invalid Auth Key</InvalidStatus>))}
                 </div>
