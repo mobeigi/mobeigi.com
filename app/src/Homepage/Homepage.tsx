@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { useHistory, RouteComponentProps } from 'react-router-dom';
+import Modal from 'react-modal';
 import Link from '../shared/utils/Link';
 import COMMON from '../shared/constants/Common';
 
@@ -77,12 +79,98 @@ const networks = [
   },
 ];
 
-const Homepage = () => {
+const customStyles = {
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+  },
+
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    minWidth: '500px',
+    maxWidth: '35%',
+  },
+};
+
+const Homepage = (props: RouteComponentProps) => {
+  const [state, setState] = React.useState({ isResumeModalOpen: false, isAuthCorrect: false });
+  const history = useHistory();
+
+  const openResumeModal = () => {
+    document.title = `${COMMON.WEBSITE.titlePrefix}My Resume`;
+    setState((prevState) => ({
+      ...prevState,
+      isResumeModalOpen: true,
+    }));
+  };
+
+  const closeResumeModal = () => {
+    setState((prevState) => ({
+      ...prevState,
+      isResumeModalOpen: false,
+    }));
+    history.push('/');
+  };
+
+  const onAuthKeyInput = (e: React.FormEvent<HTMLInputElement>) => {
+    // Check auth
+    const inputPassword = e.currentTarget.value;
+    let isAuthCorrect = false;
+    if (inputPassword === 'temp test') {
+      isAuthCorrect = true;
+    }
+    setState((prevState) => ({
+      ...prevState,
+      isAuthCorrect,
+    }));
+  };
+
   useEffect(() => {
     document.title = `${COMMON.WEBSITE.titlePrefix}Software Engineer`;
+
+    // Trigger modal
+    if (!state.isResumeModalOpen && props.location.hash === '#resume') {
+      openResumeModal();
+    }
   });
+
   return (
     <>
+      <Modal
+        isOpen={state.isResumeModalOpen}
+        onRequestClose={closeResumeModal}
+        contentLabel="Resume Modal"
+        className="modal-content"
+        style={customStyles}
+      >
+        <div className="modal-header">
+          <h5 className="modal-title">My Résumé</h5>
+          <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={closeResumeModal}>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="/resume/download.php" id="resume-form" method="post" name="resume-form">
+          <div className="modal-body">
+            Please enter an auth key to download my Résumé.
+            <br />
+            <br />
+            <label htmlFor="authKeyInput">
+              Auth Key
+              <input id="authKeyInput" name="auth_key" type="password" maxLength={32} onInput={onAuthKeyInput} />
+            </label>
+            <p id="authKeyStatus" />
+          </div>
+          <div className="modal-footer">
+            <button id="resumeDownloadButton" type="submit" className="btn btn-primary" disabled>Download</button>
+            <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={closeResumeModal}>Close</button>
+          </div>
+        </form>
+      </Modal>
+
       <MonospacedParagraph>My Stuff</MonospacedParagraph>
       <div style={{ maxWidth: '400px', margin: '0 auto' }}><SocialButtonGroup data={myStuffSBG} /></div>
       <br />
