@@ -1,0 +1,22 @@
+# remove www from host, redirect to https
+RewriteEngine On
+RewriteBase /
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# Misc rewrites
+RewriteRule ^security.txt$ /.well-known/security.txt [L]
+
+# React Config
+# https://gist.github.com/alexsasharegan/173878f9d67055bfef63449fa7136042
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteRule . /index.html [L]
+</IfModule>
+
+Options -Indexes
