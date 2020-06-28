@@ -5,6 +5,7 @@ const OWNER = {
 };
 
 const WEBSITE = {
+  baseUrl: 'https://mobeigi.com',
   titlePrefix: 'Mo Beigi: ',
   foundingYear: 2012,
 };

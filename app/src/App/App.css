@@ -1,7 +1,7 @@
 .App {
   font-family: Arial, "Trebuchet MS", Sans-Serif;
   background: #000
-    url("https://mobeigi.com/blog/wp/wp-content/themes/bytetheme/images/bg.jpg");
+    url("/blog/wp/wp-content/themes/bytetheme/images/bg.jpg");
   background-repeat: repeat;
   color: #ededed;
   position: relative; /* Footer position fix */
