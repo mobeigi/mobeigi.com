@@ -25,7 +25,7 @@ const networks = [
     link: 'https://github.com/mobeigi', title: 'Github (mobeigi)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-github', iconSize: 'fa-3x' },
   },
   {
-    link: 'https://bitbucket.org/mobeigi', title: 'Bitbucket (mobeigi)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-bitbucket', iconSize: 'fa-3x' },
+    link: 'https://bitbucket.org/mobeigi/', title: 'Bitbucket (mobeigi)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-bitbucket', iconSize: 'fa-3x' },
   },
   {
     link: 'https://gitlab.com/mobeigi', title: 'Gitlab (mobeigi)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-gitlab', iconSize: 'fa-3x' },
@@ -49,7 +49,7 @@ const networks = [
     link: 'https://play.google.com/store/apps/developer?id=Mo+Beigi', title: 'Play Store (Mo Beigi)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-google-play', iconSize: 'fa-3x' },
   },
   {
-    link: 'https://www.invexgaming.com.au/member.php?action=profile&uid=1', title: 'Invex Gaming (Byte)', external: true, nofollow: true, socialButton: { brandStyle: 'fas', iconName: 'fa-dragon', iconSize: 'fa-3x' },
+    link: 'https://invex.gg/member.php?action=profile&uid=1', title: 'Invex Gaming (Byte)', external: true, nofollow: true, socialButton: { brandStyle: 'fas', iconName: 'fa-dragon', iconSize: 'fa-3x' },
   },
   {
     link: 'https://discordapp.com/users/356003102169759755', title: 'Discord (Byte#0017)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-discord', iconSize: 'fa-3x' },
@@ -67,7 +67,7 @@ const networks = [
     link: 'https://www.facebook.com/mobeigi', title: 'Facebook (mobeigi)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-facebook-square', iconSize: 'fa-3x' },
   },
   {
-    link: 'https://www.instagram.com/persianmg1', title: 'Instagram (persianmg1)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-instagram', iconSize: 'fa-3x' },
+    link: 'https://www.instagram.com/persianmg1/', title: 'Instagram (persianmg1)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-instagram', iconSize: 'fa-3x' },
   },
   {
     link: 'https://twitter.com/persianmg', title: 'Twitter (persianmg)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-twitter', iconSize: 'fa-3x' },
