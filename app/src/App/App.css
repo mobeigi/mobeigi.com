@@ -1,10 +1,10 @@
 .App {
-  font-family: Arial, "Trebuchet MS", Sans-Serif;
-  background: #000
-    url("/images/bg/bg.jpg");
-  background-repeat: repeat;
-  color: #ededed;
-  position: relative; /* Footer position fix */
+	font-family: Arial, "Trebuchet MS", Sans-Serif;
+	background: #000
+	url("/images/bg/bg.jpg");
+	background-repeat: repeat;
+	color: #ededed;
+	position: relative; /* Footer position fix */
 }
 
 .App main {
@@ -19,26 +19,6 @@
 }
 
 /* Typography */
-/* @media (min-width: 576px) {
-	html {
-		font-size: 14px;
-	}
+html {
+	font-size: 20px;
 }
-
-@media (min-width: 768px) {
-	html {
-		font-size: 16px;
-	}
-}
-
-@media (min-width: 992px) {
-	html {
-		font-size: 18px;
-	}
-}
-
-@media (min-width: 1200px) {
-	html {
-		font-size: 20px;
-	}
-} */
