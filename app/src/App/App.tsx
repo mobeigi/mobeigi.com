@@ -5,6 +5,8 @@ import {
   useLocation,
 } from 'react-router-dom';
 import ReactGA from 'react-ga';
+import { useMediaQuery } from 'react-responsive';
+import MediaQuery from '../shared/utils/MediaQuery';
 
 import Header from '../shared/components/Header';
 import Homepage from '../Homepage';
@@ -24,6 +26,13 @@ ReactGA.initialize(COMMON.ANALYTICS.gaTrackingId);
 
 const App : React.FunctionComponent = () => {
   const location = useLocation();
+  const isTablet = useMediaQuery(MediaQuery.tabletDimensions);
+  const isMobile = useMediaQuery(MediaQuery.mobileDimensions);
+
+  // Desktop
+  let responsiveFontSize = 1.6;
+  if (isTablet) { responsiveFontSize *= MediaQuery.tabletSizeModifier; }
+  if (isMobile) { responsiveFontSize *= MediaQuery.mobileSizeModifier; }
 
   const printConsoleMessage = () => {
     const msg = '%c  __  __         ____       _       _ \n |  \\/  |       |  _ \\     (_)     (_)\n | \\  / | ___   | |_) | ___ _  __ _ _ \n | |\\/| |/ _ \\  |  _ < / _ \\ |/ _` | |\n | |  | | (_) | | |_) |  __/ | (_| | |\n |_|  |_|\\___/  |____/ \\___|_|\\__, |_|\n                               __/ |  \n                              |___/   '
@@ -46,7 +55,7 @@ const App : React.FunctionComponent = () => {
   }, [location]);
 
   return (
-    <div className="App">
+    <div className="App" style={{ fontSize: `${responsiveFontSize}em` }}>
       <main>
         <Header />
         <br />

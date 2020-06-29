@@ -1,7 +1,7 @@
 .App {
   font-family: Arial, "Trebuchet MS", Sans-Serif;
   background: #000
-    url("/blog/wp/wp-content/themes/bytetheme/images/bg.jpg");
+    url("/images/bg/bg.jpg");
   background-repeat: repeat;
   color: #ededed;
   position: relative; /* Footer position fix */
@@ -19,7 +19,7 @@
 }
 
 /* Typography */
-@media (min-width: 576px) {
+/* @media (min-width: 576px) {
 	html {
 		font-size: 14px;
 	}
@@ -41,4 +41,4 @@
 	html {
 		font-size: 20px;
 	}
-}
+} */
