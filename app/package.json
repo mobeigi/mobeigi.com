@@ -170,9 +170,12 @@
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11"
   },
+  "optionalDependencies": {
+    "fsevents": "*"
+  },
   "husky": {
     "hooks": {
-      "pre-commit": "env FORCE_COLOR=1 lint-staged"
+      "pre-commit": "yarn install --check-files && env FORCE_COLOR=1 lint-staged"
     }
   },
   "lint-staged": {
