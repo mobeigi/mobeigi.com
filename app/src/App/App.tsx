@@ -30,9 +30,9 @@ const App : React.FunctionComponent = () => {
   const isMobile = useMediaQuery(MediaQuery.mobileDimensions);
 
   // Desktop
-  let responsiveFontSize = 1.6;
-  if (isTablet) { responsiveFontSize *= MediaQuery.tabletSizeModifier; }
-  if (isMobile) { responsiveFontSize *= MediaQuery.mobileSizeModifier; }
+  let responsiveEmFontSize = 1.0;
+  if (isTablet) { responsiveEmFontSize *= MediaQuery.tabletSizeModifier; }
+  if (isMobile) { responsiveEmFontSize *= MediaQuery.mobileSizeModifier; }
 
   const printConsoleMessage = () => {
     const msg = '%c  __  __         ____       _       _ \n |  \\/  |       |  _ \\     (_)     (_)\n | \\  / | ___   | |_) | ___ _  __ _ _ \n | |\\/| |/ _ \\  |  _ < / _ \\ |/ _` | |\n | |  | | (_) | | |_) |  __/ | (_| | |\n |_|  |_|\\___/  |____/ \\___|_|\\__, |_|\n                               __/ |  \n                              |___/   '
@@ -55,7 +55,7 @@ const App : React.FunctionComponent = () => {
   }, [location]);
 
   return (
-    <div className="App" style={{ fontSize: `${responsiveFontSize}em` }}>
+    <div className="App" style={{ fontSize: `${responsiveEmFontSize}em` }}>
       <main>
         <Header />
         <br />

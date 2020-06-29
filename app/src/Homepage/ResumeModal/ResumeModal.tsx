@@ -7,6 +7,24 @@ import { InvalidStatus, ValidStatus } from './styled';
 import COMMON from '../../shared/constants/Common';
 import COLOURS from '../../shared/constants/Colors';
 
+const customStyles = {
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+  },
+
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    minWidth: '350px',
+    maxWidth: '35%',
+    color: COLOURS.white,
+  },
+};
+
 type Props = {
     isOpen: boolean,
     onRequestClose: () => void,
@@ -22,24 +40,6 @@ const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
     authKey: '',
     isAuthCorrect: false,
   });
-
-  const customStyles = {
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.75)',
-    },
-
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      minWidth: '350px',
-      maxWidth: '35%',
-      color: COLOURS.white,
-    },
-  };
 
   const onAuthKeyInput = (e: React.FormEvent<HTMLInputElement>) => {
     const authKey = e.currentTarget.value;
@@ -84,7 +84,7 @@ const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
             style={customStyles}
           >
             <div className="modal-header">
-              <h2 className="modal-title">My Résumé</h2>
+              <h5 className="modal-title">My Résumé</h5>
               <button type="button" className="close" aria-label="Close" onClick={onRequestClose}>
                 <span aria-hidden="true">&times;</span>
               </button>
