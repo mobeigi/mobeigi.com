@@ -23,7 +23,6 @@ export const StyledButton = styled.button`
     display:inline-block;
     cursor:pointer;
     color:#777777;
-    font-size:18px;
     font-weight:bold;
     padding:6px 24px;
     text-decoration:none;

@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://mobeigi.com/blog/images/logo/avatar_500x500.png" height="96px" width="96px"/>
+<img src="https://mobeigi.com/images/avatar/avatar_500x500.png" height="96px" width="96px"/>
 <br/>
 <h3 align="center">mobeigi.com</h3>
 <p align="center">Source code for the mobeigi.com website. Powered by React.</p>

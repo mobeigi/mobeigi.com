@@ -4,7 +4,7 @@ import COLOURS from '../../constants/Colors';
 export const StyledFooter = styled.footer`
     padding: 30px 0 30px;
     text-align: center;
-    font-size: 14px;
+    font-size: 80%;
     position: absolute;
     left: 0;
     bottom:0;
