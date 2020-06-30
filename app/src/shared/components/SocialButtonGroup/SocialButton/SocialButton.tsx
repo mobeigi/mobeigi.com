@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../../../assets/fontawesomepro/5.8.2/css/all.min.css';
+import '../../../assets/fontawesomepro/5.13.1/css/all.min.css';
 import { StyledSocialButton } from './styled';
 
 export type SocialButtonProps = {
