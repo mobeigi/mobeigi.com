@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet';
 import { InvalidStatus, ValidStatus } from './styled';
 import COMMON from '../../shared/constants/Common';
 import COLOURS from '../../shared/constants/Colors';
+import './react-modal-global-style.css';
 
 const customStyles = {
   overlay: {
@@ -64,49 +65,49 @@ const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
 
   const { authKey, isAuthCorrect } = state;
   return (
-    isOpen
-      ? (
-        <>
-          <Helmet>
-            <title>
-              {COMMON.WEBSITE.titlePrefix}
-              My Resume
-            </title>
-            <link rel="canonical" href={`${COMMON.WEBSITE.baseUrl}#resume`} />
-          </Helmet>
+    <>
+      {isOpen
+      && (
+      <Helmet>
+        <title>
+          {COMMON.WEBSITE.titlePrefix}
+          My Resume
+        </title>
+        <link rel="canonical" href={`${COMMON.WEBSITE.baseUrl}#resume`} />
+      </Helmet>
+      )}
 
-          <Modal
-            isOpen={isOpen}
-            onRequestClose={onRequestClose}
-            contentLabel="Resume Modal"
-            className="modal-content"
-            style={customStyles}
-          >
-            <div className="modal-header">
-              <h5 className="modal-title">My Résumé</h5>
-              <button type="button" className="close" aria-label="Close" onClick={onRequestClose}>
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <form method="post" action="/resume/download.php" id="resume-form" name="resume-form">
-              <div className="modal-body" style={{ textAlign: 'center' }}>
-                <p>Please enter an auth key to download my Résumé.</p>
-                <br />
-                <label htmlFor="authKeyInput">
-                  <span>Auth Key&nbsp;</span>
-                  <input id="authKeyInput" name="auth_key" type="password" maxLength={32} onInput={onAuthKeyInput} />
-                </label>
-                { (authKey.trim() !== '' && (isAuthCorrect ? <ValidStatus>Valid Auth Key</ValidStatus> : <InvalidStatus>Invalid Auth Key</InvalidStatus>))}
-              </div>
-              <div className="modal-footer">
-                <button id="resumeDownloadButton" type="submit" className="btn btn-primary" aria-label="Download" disabled={!isAuthCorrect}>Download</button>
-                <button type="button" className="btn btn-secondary" aria-label="Close" onClick={onRequestClose}>Close</button>
-              </div>
-            </form>
-          </Modal>
-        </>
-      )
-      : null
+      <Modal
+        isOpen={isOpen}
+        closeTimeoutMS={300}
+        onRequestClose={onRequestClose}
+        contentLabel="Resume Modal"
+        className="modal-content"
+        style={customStyles}
+      >
+        <div className="modal-header">
+          <h5 className="modal-title">My Résumé</h5>
+          <button type="button" className="close" aria-label="Close" onClick={onRequestClose}>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="post" action="/resume/download.php" id="resume-form" name="resume-form">
+          <div className="modal-body" style={{ textAlign: 'center' }}>
+            <p>Please enter an auth key to download my Résumé.</p>
+            <br />
+            <label htmlFor="authKeyInput">
+              <span>Auth Key&nbsp;</span>
+              <input id="authKeyInput" name="auth_key" type="password" maxLength={32} onInput={onAuthKeyInput} />
+            </label>
+            { (authKey.trim() !== '' && (isAuthCorrect ? <ValidStatus>Valid Auth Key</ValidStatus> : <InvalidStatus>Invalid Auth Key</InvalidStatus>))}
+          </div>
+          <div className="modal-footer">
+            <button id="resumeDownloadButton" type="submit" className="btn btn-primary" aria-label="Download" disabled={!isAuthCorrect}>Download</button>
+            <button type="button" className="btn btn-secondary" aria-label="Close" onClick={onRequestClose}>Close</button>
+          </div>
+        </form>
+      </Modal>
+    </>
   );
 };
 
