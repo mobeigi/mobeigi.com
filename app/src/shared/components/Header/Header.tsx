@@ -13,17 +13,10 @@ const Header : React.FunctionComponent = () => {
   const isMobile = useMediaQuery(MediaQuery.mobileDimensions);
 
   // Desktop
-  let nameFontSize = 80;
-  let tagLineFontSize = 27;
   let logoSize = 150;
-
   if (isTablet) {
-    nameFontSize *= MediaQuery.tabletSizeModifier;
-    tagLineFontSize *= MediaQuery.tabletSizeModifier;
     logoSize *= MediaQuery.tabletSizeModifier;
   } else if (isMobile) {
-    nameFontSize *= MediaQuery.mobileSizeModifier;
-    tagLineFontSize *= MediaQuery.mobileSizeModifier;
     logoSize *= MediaQuery.mobileSizeModifier;
   }
 
@@ -32,7 +25,7 @@ const Header : React.FunctionComponent = () => {
       <TopComponent>
         <LogoDiv image="/images/avatar/avatar_500x500.png" width={logoSize} height={logoSize} />
         <Text style={{
-          fontSize: nameFontSize, fontWeight: 600, lineHeight: 0.9, color: COLOURS.white,
+          fontSize: '4.5rem', fontWeight: 600, lineHeight: 0.9, color: COLOURS.white,
         }}
         >
           Mo Beigi
@@ -40,7 +33,7 @@ const Header : React.FunctionComponent = () => {
       </TopComponent>
 
       <Text style={{
-        fontSize: tagLineFontSize, fontWeight: 100, margin: '14px 0 14px 0', color: COLOURS.grey,
+        fontSize: '1.5rem', fontWeight: 100, margin: '14px 0 14px 0', color: COLOURS.grey,
       }}
       >
         Software Engineer&nbsp;&nbsp;&#183;&nbsp;&nbsp;Sydney, Australia

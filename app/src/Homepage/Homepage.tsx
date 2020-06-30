@@ -126,10 +126,10 @@ const Homepage = (props: RouteComponentProps) => {
         isOpen={state.isResumeModalOpen}
         onRequestClose={closeResumeModal}
       />
-      <MonospacedParagraph>My Stuff</MonospacedParagraph>
+      <MonospacedParagraph style={{ fontSize: '1.2rem' }}>My Stuff</MonospacedParagraph>
       <div style={{ maxWidth: '400px', margin: '0 auto' }}><SocialButtonGroup data={myStuffSBG} /></div>
       <br />
-      <MonospacedParagraph>Networks</MonospacedParagraph>
+      <MonospacedParagraph style={{ fontSize: '1.2rem' }}>Networks</MonospacedParagraph>
       <div style={{ maxWidth: '600px', margin: '0 auto' }}><SocialButtonGroup data={networks} /></div>
       <br />
       <a href={myStuffSBG[0].link} title={myStuffSBG[0].title}>
