@@ -23,7 +23,7 @@ const Header : React.FunctionComponent = () => {
   return (
     <>
       <TopComponent>
-        <LogoDiv image="/images/avatar/avatar_500x500.png" width={logoSize} height={logoSize} />
+        <LogoDiv image="/images/avatar/avatar.svg" width={logoSize} height={logoSize} />
         <Text style={{
           fontSize: '4.5rem', fontWeight: 600, lineHeight: 0.9, color: COLOURS.white,
         }}
