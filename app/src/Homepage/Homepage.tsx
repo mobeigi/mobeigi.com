@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useHistory, RouteComponentProps } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import COMMON from '../shared/constants/Common';
@@ -85,9 +85,10 @@ const networks = [
   },
 ];
 
-const Homepage = (props: RouteComponentProps) => {
+const Homepage = () => {
   const [state, setState] = React.useState({ isResumeModalOpen: false });
   const history = useHistory();
+  const location = useLocation();
 
   const openResumeModal = () => {
     setState((prevState) => ({
@@ -106,10 +107,10 @@ const Homepage = (props: RouteComponentProps) => {
 
   useEffect(() => {
     // Trigger modal
-    if (!state.isResumeModalOpen && props.location.hash === '#resume') {
+    if (!state.isResumeModalOpen && location.hash === '#resume') {
       openResumeModal();
     }
-  });
+  }, [location.hash]);
 
   return (
     <>
