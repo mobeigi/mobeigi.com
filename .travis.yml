@@ -4,9 +4,20 @@ node_js:
 before_install:
   - cd $TRAVIS_BUILD_DIR/.travis
   - openssl aes-256-cbc -K $encrypted_f217180e22ee_key -iv $encrypted_f217180e22ee_iv -in id_rsa.enc -out id_rsa -d
+  - mv id_rsa $HOME/.ssh/
+  - echo $HOST_SSH_FINGERPRINT >> $HOME/.ssh/known_hosts
 after_success:
   - cd $TRAVIS_BUILD_DIR/.travis
-  - bash deploy.sh
+  - git config --global push.default matching
+  - git remote add deploy ssh://git@$IP:$PORT$DEPLOY_DIR
+  - git push deploy master
+  # Post Deployment Steps
+  - >
+    ssh apps@$IP -p $PORT <<EOF
+      cd $DEPLOY_DIR
+      echo "Test"
+    EOF
+
 cache:
   yarn: true
   directories:
