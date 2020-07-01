@@ -4,9 +4,10 @@ node_js:
 cache:
   yarn: true
   directories:
-    - node_modules
+    - app/node_modules
 script:
   - cd app
+  - yarn install
   - yarn lint
   - yarn test
   - yarn build
