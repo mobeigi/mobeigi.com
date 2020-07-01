@@ -12,7 +12,7 @@ after_success:
   - ls
   - eval "$(ssh-agent -s)"
   - ssh-add
-  - rsync -avz -e ssh --progress $TRAVIS_BUILD_DIR/app/build/* git@$IP:$DEPLOY_DIR
+  - rsync -avz -e ssh --progress --delete $TRAVIS_BUILD_DIR/app/build/* git@$IP:$DEPLOY_DIR
 
 cache:
   yarn: true
