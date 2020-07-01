@@ -10,6 +10,8 @@ before_install:
 deploy:
   - provider: script
     script: bash $TRAVIS_BUILD_DIR/.travis/deploy.sh
+    on:
+      branch: master
 cache:
   yarn: true
   directories:
@@ -20,4 +22,3 @@ script:
   - yarn lint
   - yarn test
   - yarn build
-  
