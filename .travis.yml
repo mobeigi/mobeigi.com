@@ -4,8 +4,10 @@ node_js:
 before_install:
   - cd $TRAVIS_BUILD_DIR/.travis
   - openssl aes-256-cbc -K $encrypted_f217180e22ee_key -iv $encrypted_f217180e22ee_iv -in id_rsa.enc -out id_rsa -d
+  - ls
 after_success:
   - cd $TRAVIS_BUILD_DIR/.travis
+  - ls
   - bash deploy.sh
 cache:
   yarn: true
