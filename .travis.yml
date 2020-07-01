@@ -9,6 +9,8 @@ before_install:
   - cat server.pub >> $HOME/.ssh/known_hosts
 after_success:
   - cd $TRAVIS_BUILD_DIR
+  - eval "$(ssh-agent -s)"
+  - ssh-add
   - rsync -rq --delete --rsync-path="mkdir -p react-app && rsync" \
     $TRAVIS_BUILD_DIR/app/build ssh://git@$IP:$PORT$DEPLOY_DIR
 
