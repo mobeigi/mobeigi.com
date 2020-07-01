@@ -12,7 +12,7 @@ after_success:
   - eval "$(ssh-agent -s)"
   - ssh-add
   - rsync -rq --delete --rsync-path="mkdir -p react-app && rsync" \
-    $TRAVIS_BUILD_DIR/app/build ssh://git@$IP:$PORT$DEPLOY_DIR
+    $TRAVIS_BUILD_DIR/app/build git@$IP:$DEPLOY_DIR
 
 cache:
   yarn: true
