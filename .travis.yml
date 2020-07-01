@@ -8,12 +8,17 @@ before_install:
   - mv id_rsa $HOME/.ssh/
   - cat server.pub >> $HOME/.ssh/known_hosts
 after_success:
+  - test $TRAVIS_BRANCH = "master" && test $TRAVIS_PULL_REQUEST = "false" || ("Deployment only occurs on master branch." && exit 0)
   - cd $TRAVIS_BUILD_DIR
   - ls
   - eval "$(ssh-agent -s)"
   - ssh-add
   - rsync -avz --delete -e ssh $TRAVIS_BUILD_DIR/app/build/ git@$IP:$DEPLOY_DIR
-
+deploy:
+  provider: script
+  script: bash scripts/deploy.sh
+  on:
+    branch: develop
 cache:
   yarn: true
   directories:
