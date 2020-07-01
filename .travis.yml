@@ -8,7 +8,7 @@ before_install:
   - mv id_rsa $HOME/.ssh/
   - cat server.pub >> $HOME/.ssh/known_hosts
 after_success:
-  - cd $TRAVIS_BUILD_DIR/.travis
+  - cd $TRAVIS_BUILD_DIR
   - git config --global push.default matching
   - git remote add deploy ssh://git@$IP:$PORT$DEPLOY_DIR
   - git push deploy master
