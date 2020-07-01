@@ -9,15 +9,8 @@ before_install:
   - cat server.pub >> $HOME/.ssh/known_hosts
 after_success:
   - cd $TRAVIS_BUILD_DIR
-  - git config --global push.default matching
-  - git remote add deploy ssh://git@$IP:$PORT$DEPLOY_DIR
-  - git push deploy master
-  # Post Deployment Steps
-  - >
-    ssh apps@$IP -p $PORT <<EOF
-      cd $DEPLOY_DIR
-      echo "Test"
-    EOF
+  - rsync -rq --delete --rsync-path="mkdir -p react-app && rsync" \
+    $TRAVIS_BUILD_DIR/app/build ssh://git@$IP:$PORT$DEPLOY_DIR
 
 cache:
   yarn: true
