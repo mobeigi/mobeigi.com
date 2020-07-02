@@ -18,7 +18,7 @@ const myStuffSBG = [
   {
     link: 'https://mobeigi.atlassian.net/wiki', title: 'Mo\'s Confluence', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-confluence', iconSize: 'fa-3x' },
   },
-  { link: '/trades', title: 'Trades', socialButton: { brandStyle: 'fas', iconName: 'fa-chart-line', iconSize: 'fa-3x' } },
+  { link: '/trades', title: 'Trades', socialButton: { brandStyle: 'fas', iconName: 'fa-sack-dollar', iconSize: 'fa-3x' } },
   { link: '#resume', title: 'Mo Beigi\'s Résumé', socialButton: { brandStyle: 'fas', iconName: 'fa-file-certificate', iconSize: 'fa-3x' } },
   {
     link: '/sec/mo-beigi-pgp-pub.asc', title: 'Mo\'s PGP Key', forceReload: true, socialButton: { brandStyle: 'fas', iconName: 'fa-key', iconSize: 'fa-3x' },
