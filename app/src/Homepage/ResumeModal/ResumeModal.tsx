@@ -49,16 +49,22 @@ const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
     }));
 
     // Check auth
-    Axios.post('/resume/ajax_validate.php', { auth_key: authKey })
+    Axios.post('/resume/auth', { authKey })
       .then((response) => {
         let isAuthCorrect = false;
-        if (response.status === 200) {
+        if (response.status === 204) {
           isAuthCorrect = true;
         }
 
         setState((prevState) => ({
           ...prevState,
           isAuthCorrect,
+        }));
+      })
+      .catch(() => {
+        setState((prevState) => ({
+          ...prevState,
+          isAuthCorrect: false,
         }));
       });
   };
@@ -73,7 +79,7 @@ const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
           {COMMON.WEBSITE.titlePrefix}
           My Resume
         </title>
-        <link rel="canonical" href={`${COMMON.WEBSITE.baseUrl}#resume`} />
+        <link rel="canonical" href={`${COMMON.WEBSITE.baseURL}#resume`} />
       </Helmet>
       )}
 
@@ -91,13 +97,13 @@ const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form method="post" action="/resume/download.php" id="resume-form" name="resume-form">
+        <form method="post" action={`${COMMON.SERVER.baseURL}/resume/download`} id="resume-form" name="resume-form">
           <div className="modal-body" style={{ textAlign: 'center' }}>
             <p>Please enter an auth key to download my Résumé.</p>
             <br />
             <label htmlFor="authKeyInput">
               <span>Auth Key&nbsp;</span>
-              <input id="authKeyInput" name="auth_key" type="password" maxLength={32} onInput={onAuthKeyInput} />
+              <input id="authKeyInput" name="authKey" type="password" maxLength={32} onInput={onAuthKeyInput} />
             </label>
             { (authKey.trim() !== '' && (isAuthCorrect ? <ValidStatus>Valid Auth Key</ValidStatus> : <InvalidStatus>Invalid Auth Key</InvalidStatus>))}
           </div>

@@ -12,7 +12,7 @@ const NotFoundPage = () => (
         {COMMON.WEBSITE.titlePrefix}
         404 Error
       </title>
-      <link rel="canonical" href={`${COMMON.WEBSITE.baseUrl}/404`} />
+      <link rel="canonical" href={`${COMMON.WEBSITE.baseURL}/404`} />
     </Helmet>
     <MonospacedParagraph>
       Uh oh! A 404 error, thats not good.

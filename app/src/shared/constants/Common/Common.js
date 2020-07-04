@@ -9,14 +9,19 @@ const ANALYTICS = {
 };
 
 const WEBSITE = {
-  baseUrl: 'https://mobeigi.com',
+  baseURL: 'https://mobeigi.com',
   titlePrefix: 'Mo Beigi: ',
   foundingYear: 2012,
+};
+
+const SERVER = {
+  baseURL: 'https://mobeigi.com/api',
 };
 
 const COMMON = {
   ANALYTICS,
   OWNER,
+  SERVER,
   WEBSITE,
 };
 
