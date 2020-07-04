@@ -119,7 +119,7 @@ const Homepage = () => {
           {COMMON.WEBSITE.titlePrefix}
           Software Engineer
         </title>
-        <link rel="canonical" href={COMMON.WEBSITE.baseUrl} />
+        <link rel="canonical" href={COMMON.WEBSITE.baseURL} />
         <meta name="description" content="Howdy, I&#039;m Mo and this is my personal website. Please check out my programming blog and hit me up if you would like to chat!" />
         <meta name="keywords" content="mo beigi, mobeigi, ghasembeigi, mohammadg, persianmg, security, hacker, programming, coding, website development, software engineer, sydney, australia" />
       </Helmet>

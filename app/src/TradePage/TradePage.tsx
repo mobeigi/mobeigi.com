@@ -11,7 +11,7 @@ const TradePage = () => (
         {COMMON.WEBSITE.titlePrefix}
         Trades
       </title>
-      <link rel="canonical" href={`${COMMON.WEBSITE.baseUrl}/trades`} />
+      <link rel="canonical" href={`${COMMON.WEBSITE.baseURL}/trades`} />
     </Helmet>
     <StyledIFrameContainer>
       <StyledIFrame
