@@ -16,9 +16,9 @@
 ## Description
 Source code for the [mobeigi.com](http://mobeigi.com/) website.  
 
-<span align="center">
-<img src="https://i.imgur.com/LUwmlIO.png" />
-</span>
+<p align="center">
+<img src="https://i.imgur.com/LUwmlIO.png" width="600px" />
+</p>
 
 ## Contributions
 Contributions are always welcome!
