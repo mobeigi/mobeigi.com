@@ -15,5 +15,5 @@ ssh git@$IP /bin/bash << EOF
     /bin/cp -rf ../server_private_files/* .
     yarn install
     sudo systemctl start mobeigi-express
-    systemctl is-active mobeigi-express
+    sleep 30 && systemctl is-active mobeigi-express
 EOF
