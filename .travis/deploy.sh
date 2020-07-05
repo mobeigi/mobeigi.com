@@ -4,5 +4,14 @@
 eval "$(ssh-agent -s)"
 ssh-add
 
-# Copy files to deployment directory
-rsync -avz --delete -e ssh $TRAVIS_BUILD_DIR/app/build/ git@$IP:$DEPLOY_DIR
+# Deploy app
+rsync -avz --delete -e ssh $TRAVIS_BUILD_DIR/app/build/ git@$IP:$APP_DEPLOY_DIR
+
+# Deploy server
+ssh git@$IP sudo systemctl stop mobeigi-express
+rsync -avz --delete -e ssh $TRAVIS_BUILD_DIR/server/ git@$IP:$SERVER_DEPLOY_DIR
+ssh git@$IP /bin/bash << EOF
+    cd $SERVER_DEPLOY_DIR
+    yarn install
+    sudo systemctl start mobeigi-express
+EOF
