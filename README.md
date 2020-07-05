@@ -1,8 +1,8 @@
 <p align="center">
-<img src="https://mobeigi.com/images/avatar/avatar_500x500.png" height="96px" width="96px"/>
+<img src="https://mobeigi.com/images/avatar/avatar.svg" height="96px" width="96px"/>
 <br/>
 <h3 align="center">mobeigi.com</h3>
-<p align="center">Source code for the mobeigi.com website. Powered by React.</p>
+<p align="center">Source code for the mobeigi.com website.</p>
 <h2></h2>
 </p>
 <br />
@@ -14,8 +14,11 @@
 </p>
 
 ## Description
-Source code for the [mobeigi.com](http://mobeigi.com/) website. This is a rewrite of my original PHP website in React.  
-In its current state its mostly a stateless app with no backend.  
+Source code for the [mobeigi.com](http://mobeigi.com/) website.  
+
+<span align="center">
+<img src="https://i.imgur.com/LUwmlIO.png" />
+</span>
 
 ## Contributions
 Contributions are always welcome!
@@ -26,9 +29,10 @@ TBA
 
 ## Available Scripts
 
+### App
 In the project directory, you can run:
 
-### `yarn start`
+#### `yarn start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -36,24 +40,35 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-### `yarn build`
+#### `yarn build`
 
 Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.<br />
 
-### `yarn test`
+#### `yarn test`
 
 Launches the test runner in a non-watch mode.<br />
 
 
-### `yarn clean`
+#### `yarn clean`
 
 Clean up temporary directories like `node_modules` and `build`.<br />
 
 
-### `yarn lint`
+#### `yarn lint`
 
 Run ESLint against all source files.<br />
 A lint will also occur on staged files via a pre-commit hook.
+
+### Server
+
+#### `yarn start`
+
+Runs the server.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+#### `yarn clean`
+
+Clean up temporary directories like `node_modules`.<br />
