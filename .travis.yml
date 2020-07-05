@@ -17,9 +17,11 @@ script:
   - yarn lint
   - yarn test
   - yarn build
+  - cd $TRAVIS_BUILD_DIR/server
+  - yarn install
+  - yarn clean
 deploy:
   - provider: script
     script: bash $TRAVIS_BUILD_DIR/.travis/deploy.sh
     skip_cleanup: true
-    on:
-      branch: master
+
