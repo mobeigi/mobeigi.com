@@ -42,6 +42,7 @@ const baseState = {
 
 const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
   const [state, setState] = React.useState(baseState);
+  const authKeyInput = React.createRef<HTMLInputElement>();
 
   const onAuthKeyInput = (e: React.FormEvent<HTMLInputElement>) => {
     const authKey = e.currentTarget.value;
@@ -71,6 +72,11 @@ const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
       });
   };
 
+  const onAfterOpen = () => {
+    // eslint-disable-next-line no-unused-expressions
+    authKeyInput?.current?.focus();
+  };
+
   const onAfterClose = () => {
     setState(baseState);
   };
@@ -92,6 +98,7 @@ const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
       <Modal
         isOpen={isOpen}
         closeTimeoutMS={300}
+        onAfterOpen={onAfterOpen}
         onRequestClose={onRequestClose}
         onAfterClose={onAfterClose}
         contentLabel="Resume Modal"
@@ -110,7 +117,7 @@ const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
             <br />
             <label htmlFor="authKeyInput">
               <span>Auth Key&nbsp;</span>
-              <input id="authKeyInput" name="authKey" type="password" maxLength={32} onInput={onAuthKeyInput} />
+              <input ref={authKeyInput} id="authKeyInput" name="authKey" type="password" maxLength={32} onInput={onAuthKeyInput} />
             </label>
             { (authKey.trim() !== '' && (isAuthCorrect ? <ValidStatus>Valid Auth Key</ValidStatus> : <InvalidStatus>Invalid Auth Key</InvalidStatus>))}
           </div>
