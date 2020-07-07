@@ -35,11 +35,13 @@ type State = {
   isAuthCorrect: boolean,
 }
 
+const baseState = {
+  authKey: '',
+  isAuthCorrect: false,
+};
+
 const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
-  const [state, setState] = React.useState({
-    authKey: '',
-    isAuthCorrect: false,
-  });
+  const [state, setState] = React.useState(baseState);
 
   const onAuthKeyInput = (e: React.FormEvent<HTMLInputElement>) => {
     const authKey = e.currentTarget.value;
@@ -69,6 +71,10 @@ const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
       });
   };
 
+  const onAfterClose = () => {
+    setState(baseState);
+  };
+
   const { authKey, isAuthCorrect } = state;
   return (
     <>
@@ -87,6 +93,7 @@ const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
         isOpen={isOpen}
         closeTimeoutMS={300}
         onRequestClose={onRequestClose}
+        onAfterClose={onAfterClose}
         contentLabel="Resume Modal"
         className="modal-content"
         style={customStyles}
