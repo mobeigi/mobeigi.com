@@ -54,7 +54,7 @@ const networks = [
     link: 'https://dev.to/mobeigi', title: 'DEV (mobeigi)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-dev', iconSize: 'fa-3x' },
   },
   {
-    link: 'https://play.google.com/store/apps/developer?id=Mo+Beigi', title: 'Play Store (Mo Beigi)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-google-play', iconSize: 'fa-3x' },
+    link: 'https://play.google.com/store/apps/dev?id=7760934167916887403', title: 'Play Store (Mo Beigi)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-google-play', iconSize: 'fa-3x' },
   },
   {
     link: 'https://invex.gg/member.php?action=profile&uid=1', title: 'Invex Gaming (Byte)', external: true, nofollow: true, socialButton: { brandStyle: 'fas', iconName: 'fa-dragon', iconSize: 'fa-3x' },
