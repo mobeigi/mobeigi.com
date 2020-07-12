@@ -18,6 +18,9 @@ const myStuffSBG = [
   {
     link: 'https://mobeigi.atlassian.net/wiki', title: 'Mo\'s Confluence', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-confluence', iconSize: 'fa-3x' },
   },
+  {
+    link: 'https://obs.mobeigi.com', title: 'Observability', external: true, nofollow: true, socialButton: { brandStyle: 'fas', iconName: 'fa-radar', iconSize: 'fa-3x' },
+  },
   { link: '/trades', title: 'Trades', socialButton: { brandStyle: 'fas', iconName: 'fa-sack-dollar', iconSize: 'fa-3x' } },
   { link: '#resume', title: 'Mo Beigi\'s Résumé', socialButton: { brandStyle: 'fas', iconName: 'fa-file-certificate', iconSize: 'fa-3x' } },
   {
@@ -128,7 +131,7 @@ const Homepage = () => {
         onRequestClose={closeResumeModal}
       />
       <MonospacedParagraph style={{ fontSize: '1.2rem' }}>My Stuff</MonospacedParagraph>
-      <div style={{ maxWidth: '400px', margin: '0 auto' }}><SocialButtonGroup data={myStuffSBG} /></div>
+      <div style={{ maxWidth: '450px', margin: '0 auto' }}><SocialButtonGroup data={myStuffSBG} /></div>
       <br />
       <MonospacedParagraph style={{ fontSize: '1.2rem' }}>Networks</MonospacedParagraph>
       <div style={{ maxWidth: '600px', margin: '0 auto' }}><SocialButtonGroup data={networks} /></div>
