@@ -43,6 +43,7 @@ module.exports = {
       defaultProps: 'static public field',
       propTypes: 'static public field',
     }],
+    'react/prop-types': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',

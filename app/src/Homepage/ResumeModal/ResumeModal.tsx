@@ -73,7 +73,6 @@ const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
   };
 
   const onAfterOpen = () => {
-    // eslint-disable-next-line no-unused-expressions
     authKeyInput?.current?.focus();
   };
 
