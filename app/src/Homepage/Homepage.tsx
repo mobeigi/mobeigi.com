@@ -78,10 +78,10 @@ const networks = [
     link: 'https://www.facebook.com/mobeigi', title: 'Facebook (mobeigi)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-facebook-square', iconSize: 'fa-3x' },
   },
   {
-    link: 'https://www.instagram.com/persianmg1/', title: 'Instagram (persianmg1)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-instagram', iconSize: 'fa-3x' },
+    link: 'https://www.instagram.com/mobeigi17/', title: 'Instagram (mobeigi17)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-instagram', iconSize: 'fa-3x' },
   },
   {
-    link: 'https://twitter.com/persianmg', title: 'Twitter (persianmg)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-twitter', iconSize: 'fa-3x' },
+    link: 'https://twitter.com/mobeigi17', title: 'Twitter (mobeigi17)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-twitter', iconSize: 'fa-3x' },
   },
   {
     link: 'https://www.snapchat.com/add/persianmg', title: 'Snapchat (persianmg)', external: true, nofollow: true, socialButton: { brandStyle: 'fab', iconName: 'fa-snapchat-ghost', iconSize: 'fa-3x' },
@@ -124,7 +124,7 @@ const Homepage = () => {
         </title>
         <link rel="canonical" href={COMMON.WEBSITE.baseURL} />
         <meta name="description" content="Howdy, I&#039;m Mo and this is my personal website. Please check out my programming blog and hit me up if you would like to chat!" />
-        <meta name="keywords" content="mo beigi, mobeigi, ghasembeigi, mohammadg, persianmg, security, hacker, programming, coding, website development, software engineer, sydney, australia" />
+        <meta name="keywords" content="mo beigi, mobeigi, mobeigi17, ghasembeigi, mohammadg, persianmg, security, hacker, programming, coding, website development, software engineer, sydney, australia" />
       </Helmet>
       <ResumeModal
         isOpen={state.isResumeModalOpen}
