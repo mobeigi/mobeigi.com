@@ -19,6 +19,7 @@ const TradePage = () => {
       .then((response) => {
         if (response.status === 200) {
           const trades = response.data.trades.reverse()
+            .filter((trade : Trade) => trade.symbol !== 'AUD.USD') // filter currency conversion trades
             .map((trade : Trade) => ({
               ...trade,
               tradeID: Number(trade.tradeID),
@@ -102,7 +103,6 @@ const TradePage = () => {
               </thead>
               <tbody>
                 {state.trades
-                  .filter((s) => s.symbol !== 'AUD.USD') // filter currency conversion trades
                   .map((trade) => (
                     <tr key={trade.tradeID}>
                       <td>
