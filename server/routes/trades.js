@@ -18,7 +18,7 @@ cron.schedule("0 */1 * * *", async () => {
     console.info('Completed updateLast365CalendarDaysXmlFile Cron Job. Status: ' + status);
 }).start();
 
-const updateLast365CalendarDaysXmlFile = () => {
+const updateLast365CalendarDaysXmlFile = async () => {
 
     // Make request to SendRequest endpoint
     const status = Axios.get(FLEX_STATEMENT_SENDREQUEST_ENDPOINT, { params: {t: TOKEN, q: LAST_365_CALENDAR_DAYS_FLEX_QUERY_ID, v: 3}})
@@ -71,6 +71,7 @@ router.get('/Last365CalendarDays', function(req, res, next) {
     const exists = fs.existsSync('private/trades/' + FILE_NAME);
 
     if (!exists) {
+        updateLast365CalendarDaysXmlFile(); // Asynchronous call update
         return res.status(404).contentType('json').send(JSON.stringify({ error: "File '" + FILE_NAME + "' not found."}));
     }
 
