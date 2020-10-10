@@ -71,7 +71,6 @@ router.get('/Last365CalendarDays', function(req, res, next) {
     const exists = fs.existsSync('private/trades/' + FILE_NAME);
 
     if (!exists) {
-        updateLast365CalendarDaysXmlFile(); // Asynchronous call update
         return res.status(404).contentType('json').send(JSON.stringify({ error: "File '" + FILE_NAME + "' not found."}));
     }
 
@@ -89,5 +88,8 @@ router.get('/Last365CalendarDays', function(req, res, next) {
     
     return res.status(200).contentType('json').send(JSON.stringify({ whenGenerated, trades }));
 });
+
+// Perform initial update on start
+updateLast365CalendarDaysXmlFile();
 
 module.exports = router;
