@@ -13,7 +13,7 @@ interface TargetAwareLink extends LinkProps {
 }
 
 const Link: React.FunctionComponent<TargetAwareLink> = ({
-  to, forceReload = false, children, ...props
+  to, forceReload, children, ...props
 }: TargetAwareLink) => (
   (forceReload || (/^https?:\/\//.test(to.toString())))
     ? (
@@ -22,5 +22,9 @@ const Link: React.FunctionComponent<TargetAwareLink> = ({
       </a>
     )
     : <RouterLink to={to} {...props}>{children}</RouterLink>);
+
+Link.defaultProps = {
+  forceReload: false,
+};
 
 export default Link;

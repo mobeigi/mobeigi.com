@@ -3,6 +3,9 @@ import { Helmet } from 'react-helmet';
 import Axios from 'axios';
 import moment from 'moment';
 import 'moment-timezone';
+import { MoonLoader } from 'react-spinners';
+import COLORS from '../shared/constants/Colors';
+import { LoaderCss, FadeInDiv } from '../shared/styles/common';
 import TargetAwareLink from '../shared/utils/TargetAwareLink';
 
 import { StyledTable } from './styled';
@@ -16,6 +19,7 @@ const TradePage = () => {
     whenGenerated: null,
     lastUpdated: null,
     timezone: 'Australia/Sydney',
+    loading: true,
     error: false,
   });
 
@@ -42,11 +46,13 @@ const TradePage = () => {
             lastUpdated: new Date(response.data.lastUpdated),
             timezone: response.data.timezone,
             trades,
+            loading: false,
           }));
         } else {
           setState((prevState) => ({
             ...prevState,
             error: true,
+            loading: false,
           }));
         }
       })
@@ -54,6 +60,7 @@ const TradePage = () => {
         setState((prevState) => ({
           ...prevState,
           error: true,
+          loading: false,
         }));
       });
   }, []);
@@ -67,103 +74,114 @@ const TradePage = () => {
         </title>
         <link rel="canonical" href={`${COMMON.WEBSITE.baseURL}/trades`} />
       </Helmet>
-      {state.error
-        ? <p>There was an error fetching the requested trades.</p>
-        : (
-          <>
-            <p>
-              {'Showing '}
-              <strong>{state.trades.length}</strong>
-              {' trades over the last '}
-              <strong>365</strong>
-              {' days.'}
-            </p>
-            <p>
-              <strong>Last Updated: </strong>
-              {state.lastUpdated && new Intl.DateTimeFormat('en-GB', {
-                year: 'numeric',
-                month: 'long',
-                day: '2-digit',
-                hour: 'numeric',
-                minute: 'numeric',
-                second: 'numeric',
-              }).format(state.lastUpdated)}
-              {` ${moment.tz(state.timezone).zoneName()}`}
-            </p>
-            <br />
-            <StyledTable className="table table-hover table-active">
-              <thead>
-                <tr>
-                  <th>
-                    Date
-                    <br />
-                    (
-                    {moment.tz(state.timezone).zoneName()}
-                    )
-                  </th>
-                  <th>Quantity</th>
-                  <th>Symbol</th>
-                  <th>Strike</th>
-                  <th>Put / Call</th>
-                  <th>Expiry</th>
-                  <th>Price Per Unit</th>
-                  <th>Total Price</th>
-                  <th>Commission</th>
-                  <th>Currency</th>
-                </tr>
-              </thead>
-              <tbody>
-                {state.trades
-                  .map((trade) => (
-                    <tr key={trade.tradeID}>
-                      <td>
-                        {new Intl.DateTimeFormat('en-GB', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: '2-digit',
-                          hour: 'numeric',
-                          minute: 'numeric',
-                          second: 'numeric',
-                        }).format(trade.dateTime)}
-                      </td>
-                      <td>{trade.quantity}</td>
-                      <td>
-                        <TargetAwareLink
-                          to={`https://finance.yahoo.com/quote/${trade.symbol.split(' ')[0]}`}
-                          title={`Symbol: ${trade.symbol.split(' ')[0]}`}
-                          aria-label={`Symbol: ${trade.symbol.split(' ')[0]}`}
-                          rel="external nofollow"
-                        >
-                          {trade.symbol.split(' ')[0]}
-                        </TargetAwareLink>
-                      </td>
-                      <td>{trade?.strike?.toFixed(0)}</td>
-                      <td>{getPutOrCallFullText({ putCall: trade.putCall })}</td>
-                      <td>
-                        {trade.expiry && new Intl.DateTimeFormat('en-GB', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: '2-digit',
-                        }).format(trade.expiry)}
 
-                      </td>
-                      <td>{trade.tradePrice.toFixed(2)}</td>
-                      <td>
-                        {calcTotalPrice({
-                          pricePerShare: trade.tradePrice,
-                          quantity: trade.quantity,
-                          isOptionContract: !!trade.putCall,
-                        })
-                          .toFixed(2)}
-                      </td>
-                      <td>{trade.ibCommission.toFixed(2)}</td>
-                      <td>{trade.currency}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </StyledTable>
-          </>
-        )}
+      <MoonLoader
+        css={LoaderCss}
+        size={50}
+        color={COLORS.white}
+        loading={state.loading}
+      />
+
+      {state.error && (
+      <FadeInDiv>
+        <p>There was an error fetching the requested trades.</p>
+      </FadeInDiv>
+      )}
+      {!state.loading && !state.error && (
+        <FadeInDiv>
+          <p>
+            {'Showing '}
+            <strong>{state.trades.length}</strong>
+            {' trades over the last '}
+            <strong>365</strong>
+            {' days.'}
+          </p>
+          <p>
+            <strong>Last Updated: </strong>
+            {state.lastUpdated && new Intl.DateTimeFormat('en-GB', {
+              year: 'numeric',
+              month: 'long',
+              day: '2-digit',
+              hour: 'numeric',
+              minute: 'numeric',
+              second: 'numeric',
+            }).format(state.lastUpdated)}
+            {` ${moment.tz(state.timezone).zoneName()}`}
+          </p>
+          <br />
+          <StyledTable className="table table-hover table-active">
+            <thead>
+              <tr>
+                <th>
+                  Date
+                  <br />
+                  (
+                  {moment.tz(state.timezone).zoneName()}
+                  )
+                </th>
+                <th>Quantity</th>
+                <th>Symbol</th>
+                <th>Strike</th>
+                <th>Put / Call</th>
+                <th>Expiry</th>
+                <th>Price Per Unit</th>
+                <th>Total Price</th>
+                <th>Commission</th>
+                <th>Currency</th>
+              </tr>
+            </thead>
+            <tbody>
+              {state.trades
+                .map((trade) => (
+                  <tr key={trade.tradeID}>
+                    <td>
+                      {new Intl.DateTimeFormat('en-GB', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: '2-digit',
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        second: 'numeric',
+                      }).format(trade.dateTime)}
+                    </td>
+                    <td>{trade.quantity}</td>
+                    <td>
+                      <TargetAwareLink
+                        to={`https://finance.yahoo.com/quote/${trade.symbol.split(' ')[0]}`}
+                        title={`Symbol: ${trade.symbol.split(' ')[0]}`}
+                        aria-label={`Symbol: ${trade.symbol.split(' ')[0]}`}
+                        rel="external nofollow"
+                      >
+                        {trade.symbol.split(' ')[0]}
+                      </TargetAwareLink>
+                    </td>
+                    <td>{trade?.strike?.toFixed(0)}</td>
+                    <td>{getPutOrCallFullText({ putCall: trade.putCall })}</td>
+                    <td>
+                      {trade.expiry && new Intl.DateTimeFormat('en-GB', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: '2-digit',
+                      }).format(trade.expiry)}
+
+                    </td>
+                    <td>{trade.tradePrice.toFixed(2)}</td>
+                    <td>
+                      {calcTotalPrice({
+                        pricePerShare: trade.tradePrice,
+                        quantity: trade.quantity,
+                        isOptionContract: !!trade.putCall,
+                      })
+                        .toFixed(2)}
+                    </td>
+                    <td>{trade.ibCommission.toFixed(2)}</td>
+                    <td>{trade.currency}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </StyledTable>
+        </FadeInDiv>
+      )}
     </>
   );
 };
