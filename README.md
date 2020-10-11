@@ -25,7 +25,7 @@ Contributions are always welcome!
 Just make a [pull request](../../pulls).
 
 ## Licence
-TBA
+All rights reserved.
 
 ## Available Scripts
 
