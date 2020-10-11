@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import Axios from 'axios';
 import moment from 'moment';
 import 'moment-timezone';
+import TargetAwareLink from '../shared/utils/TargetAwareLink';
 
 import { StyledTable } from './styled';
 import type { State, Trade } from './types';
@@ -126,9 +127,14 @@ const TradePage = () => {
                       </td>
                       <td>{trade.quantity}</td>
                       <td>
-                        <a href={`https://finance.yahoo.com/quote/${trade.symbol.split(' ')[0]}`}>
+                        <TargetAwareLink
+                          to={`https://finance.yahoo.com/quote/${trade.symbol.split(' ')[0]}`}
+                          title={`Symbol: ${trade.symbol.split(' ')[0]}`}
+                          aria-label={`Symbol: ${trade.symbol.split(' ')[0]}`}
+                          rel="external nofollow"
+                        >
                           {trade.symbol.split(' ')[0]}
-                        </a>
+                        </TargetAwareLink>
                       </td>
                       <td>{trade.strike.toFixed(0)}</td>
                       <td>{trade.putCall}</td>
