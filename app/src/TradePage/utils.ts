@@ -8,4 +8,14 @@ export const calcTotalPrice = (
   { pricePerShare, quantity, isOptionContract }: CalcTotalPriceType,
 ) => pricePerShare * quantity * (isOptionContract ? 100 : 1);
 
-export default { calcTotalPrice };
+type GetPutOrCallFullTextType = {
+  putCall: string | null
+}
+
+export const getPutOrCallFullText = ({ putCall } : GetPutOrCallFullTextType) => {
+  if (!putCall) { return ''; }
+
+  return putCall === 'P' ? 'PUT' : 'CALL';
+};
+
+export default { calcTotalPrice, getPutOrCallFullText };
