@@ -2,7 +2,7 @@ export type Trade = {
     tradeID: number,
     symbol: string,
     strike: number,
-    expiry: string,
+    expiry: Date | null,
     putCall: string,
     dateTime: Date,
     quantity: number,

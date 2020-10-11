@@ -79,8 +79,9 @@ router.get('/Last365CalendarDays', function(req, res, next) {
     var json = parser.toJson(xml, {object: true});
     var trades = json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["Trades"]["Trade"];
     trades.map( (trade) => {
-        // Transform date
+        // Transform dates
         trade["dateTime"] = moment(trade["dateTime"], "YYYYMMDD;HHmmss");
+        trade["expiry"] = trade["expiry"] ? moment(trade["expiry"], "YYYYMMDD") : null;
     });
     trades.sort( (a, b) => a["dateTime"] - b["dateTime"])
 
