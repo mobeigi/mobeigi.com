@@ -17,5 +17,6 @@ export type State = {
     whenGenerated: Date | null,
     lastUpdated: Date | null,
     timezone: string,
+    loading: boolean,
     error: boolean,
 }
