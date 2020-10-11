@@ -29,6 +29,7 @@ const TradePage = () => {
               ...trade,
               tradeID: Number(trade.tradeID),
               strike: Number(trade.strike),
+              expiry: trade.expiry ? new Date(trade.expiry) : null,
               dateTime: new Date(trade.dateTime),
               quantity: Number(trade.quantity),
               tradePrice: Number(trade.tradePrice),
@@ -138,7 +139,14 @@ const TradePage = () => {
                       </td>
                       <td>{trade.strike.toFixed(0)}</td>
                       <td>{trade.putCall}</td>
-                      <td>{trade.expiry}</td>
+                      <td>
+                        {trade.expiry && new Intl.DateTimeFormat('en-GB', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: '2-digit',
+                        }).format(trade.expiry)}
+
+                      </td>
                       <td>{trade.tradePrice.toFixed(2)}</td>
                       <td>
                         {calcTotalPrice({
