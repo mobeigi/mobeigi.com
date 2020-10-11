@@ -85,8 +85,15 @@ router.get('/Last365CalendarDays', function(req, res, next) {
     trades.sort( (a, b) => a["dateTime"] - b["dateTime"])
 
     const whenGenerated = moment(json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["whenGenerated"], "YYYYMMDD;HHmmss");
-    
-    return res.status(200).contentType('json').send(JSON.stringify({ whenGenerated, trades }));
+
+    const stat = fs.statSync('private/trades/' + FILE_NAME);
+
+    return res.status(200).contentType('json').send(JSON.stringify({ 
+        whenGenerated, 
+        lastUpdated: stat.mtime, 
+        timezone: 'Australia/Sydney', 
+        trades 
+    }));
 });
 
 // Perform initial update on start
