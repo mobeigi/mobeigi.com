@@ -1,3 +1,5 @@
+const reactIsInDevelomentMode = () => process.env.NODE_ENV === 'development';
+
 const OWNER = {
   firstName: 'Mo',
   lastName: 'Beigi',
@@ -9,13 +11,13 @@ const ANALYTICS = {
 };
 
 const WEBSITE = {
-  baseURL: 'https://mobeigi.com',
+  baseURL: reactIsInDevelomentMode() ? 'http://localhost:3001' : 'https://mobeigi.com',
   titlePrefix: 'Mo Beigi: ',
   foundingYear: 2012,
 };
 
 const SERVER = {
-  baseURL: 'https://mobeigi.com/api',
+  baseURL: reactIsInDevelomentMode() ? 'http://localhost:3000' : 'https://mobeigi.com/api',
 };
 
 const COMMON = {
