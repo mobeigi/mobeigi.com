@@ -1,9 +1,9 @@
 export type Trade = {
     tradeID: number,
     symbol: string,
-    strike: number,
+    strike: number | null,
     expiry: Date | null,
-    putCall: string,
+    putCall: string | null,
     dateTime: Date,
     quantity: number,
     tradePrice: number,

@@ -7,7 +7,7 @@ import TargetAwareLink from '../shared/utils/TargetAwareLink';
 
 import { StyledTable } from './styled';
 import type { State, Trade } from './types';
-import { calcTotalPrice } from './utils';
+import { calcTotalPrice, getPutOrCallFullText } from './utils';
 import COMMON from '../shared/constants/Common';
 
 const TradePage = () => {
@@ -28,7 +28,7 @@ const TradePage = () => {
             .map((trade : Trade) => ({
               ...trade,
               tradeID: Number(trade.tradeID),
-              strike: Number(trade.strike),
+              strike: Number(trade.strike) || null,
               expiry: trade.expiry ? new Date(trade.expiry) : null,
               dateTime: new Date(trade.dateTime),
               quantity: Number(trade.quantity),
@@ -137,8 +137,8 @@ const TradePage = () => {
                           {trade.symbol.split(' ')[0]}
                         </TargetAwareLink>
                       </td>
-                      <td>{trade.strike.toFixed(0)}</td>
-                      <td>{trade.putCall}</td>
+                      <td>{trade?.strike?.toFixed(0)}</td>
+                      <td>{getPutOrCallFullText({ putCall: trade.putCall })}</td>
                       <td>
                         {trade.expiry && new Intl.DateTimeFormat('en-GB', {
                           year: 'numeric',
@@ -152,7 +152,7 @@ const TradePage = () => {
                         {calcTotalPrice({
                           pricePerShare: trade.tradePrice,
                           quantity: trade.quantity,
-                          isOptionContract: trade.putCall !== '',
+                          isOptionContract: !!trade.putCall,
                         })
                           .toFixed(2)}
                       </td>
