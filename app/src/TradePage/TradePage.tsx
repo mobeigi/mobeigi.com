@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import Axios from 'axios';
+import moment from 'moment';
+import 'moment-timezone';
 
 import { StyledTable } from './styled';
 import type { State, Trade } from './types';
@@ -11,6 +13,8 @@ const TradePage = () => {
   const [state, setState] = React.useState<State>({
     trades: [],
     whenGenerated: null,
+    lastUpdated: null,
+    timezone: 'Australia/Sydney',
     error: false,
   });
 
@@ -33,6 +37,8 @@ const TradePage = () => {
           setState((prevState) => ({
             ...prevState,
             whenGenerated: new Date(response.data.whenGenerated),
+            lastUpdated: new Date(response.data.lastUpdated),
+            timezone: response.data.timezone,
             trades,
           }));
         } else {
@@ -72,14 +78,15 @@ const TradePage = () => {
             </p>
             <p>
               <strong>Last Updated: </strong>
-              {state.whenGenerated && new Intl.DateTimeFormat('en-GB', {
+              {state.lastUpdated && new Intl.DateTimeFormat('en-GB', {
                 year: 'numeric',
                 month: 'long',
                 day: '2-digit',
                 hour: 'numeric',
                 minute: 'numeric',
                 second: 'numeric',
-              }).format(state.whenGenerated)}
+              }).format(state.lastUpdated)}
+              {` ${moment.tz(state.timezone).zoneName()}`}
             </p>
             <br />
             <StyledTable className="table table-hover table-active">
@@ -88,7 +95,9 @@ const TradePage = () => {
                   <th>
                     Date
                     <br />
-                    (SYD)
+                    (
+                    {moment.tz(state.timezone).zoneName()}
+                    )
                   </th>
                   <th>Quantity</th>
                   <th>Symbol</th>
