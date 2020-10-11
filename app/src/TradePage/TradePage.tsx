@@ -125,7 +125,11 @@ const TradePage = () => {
                         }).format(trade.dateTime)}
                       </td>
                       <td>{trade.quantity}</td>
-                      <td>{trade.symbol}</td>
+                      <td>
+                        <a href={`https://finance.yahoo.com/quote/${trade.symbol.split(' ')[0]}`}>
+                          {trade.symbol.split(' ')[0]}
+                        </a>
+                      </td>
                       <td>{trade.strike.toFixed(0)}</td>
                       <td>{trade.putCall}</td>
                       <td>{trade.expiry}</td>
