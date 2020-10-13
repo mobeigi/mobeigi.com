@@ -26,6 +26,7 @@
     "express": "^4.17.1",
     "http-errors": "^1.8.0",
     "moment": "^2.29.0",
+    "moment-timezone": "^0.5.31",
     "morgan": "^1.10.0",
     "node-cron": "^2.0.3",
     "pug": "^3.0.0",

@@ -9,15 +9,15 @@ import { LoaderCss, FadeInDiv } from '../shared/styles/common';
 import TargetAwareLink from '../shared/utils/TargetAwareLink';
 
 import { StyledTable } from './styled';
-import type { State, Trade } from './types';
+import type { OpenPosition, State, Trade } from './types';
 import { calcTotalPrice, getPutOrCallFullText } from './utils';
 import COMMON from '../shared/constants/Common';
 
 const TradePage = () => {
   const [state, setState] = React.useState<State>({
     trades: [],
+    openPositions: [],
     whenGenerated: null,
-    lastUpdated: null,
     timezone: 'Australia/Sydney',
     loading: true,
     error: false,
@@ -40,12 +40,20 @@ const TradePage = () => {
               ibCommission: Number(trade.ibCommission),
             }));
 
+          const openPositions = response.data.openPositions.map((openPosition: OpenPosition) => ({
+            ...openPosition,
+            strike: Number(openPosition.strike) || null,
+            expiry: openPosition.expiry ? new Date(openPosition.expiry) : null,
+            position: Number(openPosition.position),
+            markPrice: Number(openPosition.markPrice),
+          }));
+
           setState((prevState) => ({
             ...prevState,
             whenGenerated: new Date(response.data.whenGenerated),
-            lastUpdated: new Date(response.data.lastUpdated),
             timezone: response.data.timezone,
             trades,
+            openPositions,
             loading: false,
           }));
         } else {
@@ -98,16 +106,74 @@ const TradePage = () => {
           </p>
           <p>
             <strong>Last Updated: </strong>
-            {state.lastUpdated && new Intl.DateTimeFormat('en-GB', {
+            {state.whenGenerated && new Intl.DateTimeFormat('en-GB', {
               year: 'numeric',
               month: 'long',
               day: '2-digit',
               hour: 'numeric',
               minute: 'numeric',
               second: 'numeric',
-            }).format(state.lastUpdated)}
+            }).format(state.whenGenerated)}
             {` ${moment.tz(state.timezone).zoneName()}`}
           </p>
+          <br />
+          <h2>Open Positions</h2>
+          <br />
+          <StyledTable className="table table-hover table-active">
+            <thead>
+              <tr>
+                <th>Quantity</th>
+                <th>Symbol</th>
+                <th>Strike</th>
+                <th>Put / Call</th>
+                <th>Expiry</th>
+                <th>Last Price Per Unit</th>
+                <th>Total Price</th>
+                <th>Currency</th>
+              </tr>
+            </thead>
+            <tbody>
+              {state.openPositions
+                .map((openPosition) => (
+                  <tr key={openPosition.symbol}>
+                    <td>{openPosition.position}</td>
+                    <td>
+                      <TargetAwareLink
+                        to={`https://finance.yahoo.com/quote/${openPosition.symbol.split(' ')[0]}`}
+                        title={`${openPosition.symbol.split(' ')[0]} (${openPosition.description})`}
+                        aria-label={`${openPosition.symbol.split(' ')[0]} (${openPosition.description})`}
+                        rel="external nofollow"
+                      >
+                        {openPosition.symbol.split(' ')[0]}
+                      </TargetAwareLink>
+                    </td>
+                    <td>{openPosition?.strike?.toFixed(0)}</td>
+                    <td>{getPutOrCallFullText({ putCall: openPosition.putCall })}</td>
+                    <td>
+                      {openPosition.expiry && new Intl.DateTimeFormat('en-GB', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: '2-digit',
+                      }).format(openPosition.expiry)}
+
+                    </td>
+                    <td>{openPosition.markPrice.toFixed(2)}</td>
+                    <td>
+                      {calcTotalPrice({
+                        pricePerShare: openPosition.markPrice,
+                        quantity: openPosition.position,
+                        isOptionContract: !!openPosition.putCall,
+                      })
+                        .toFixed(2)}
+                    </td>
+                    <td>{openPosition.currency}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </StyledTable>
+          <br />
+          <br />
+          <h2>Trades</h2>
           <br />
           <StyledTable className="table table-hover table-active">
             <thead>
@@ -148,8 +214,8 @@ const TradePage = () => {
                     <td>
                       <TargetAwareLink
                         to={`https://finance.yahoo.com/quote/${trade.symbol.split(' ')[0]}`}
-                        title={`Symbol: ${trade.symbol.split(' ')[0]}`}
-                        aria-label={`Symbol: ${trade.symbol.split(' ')[0]}`}
+                        title={`${trade.symbol.split(' ')[0]} (${trade.description})`}
+                        aria-label={`${trade.symbol.split(' ')[0]} (${trade.description})`}
                         rel="external nofollow"
                       >
                         {trade.symbol.split(' ')[0]}
