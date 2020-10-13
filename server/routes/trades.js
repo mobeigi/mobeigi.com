@@ -94,11 +94,8 @@ router.get('/Last365CalendarDays', function(req, res, next) {
 
     const whenGenerated = moment.tz(json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["whenGenerated"], "YYYYMMDD;HHmmss", "America/New_York");
 
-    const stat = fs.statSync('private/trades/' + FILE_NAME);
-
     return res.status(200).contentType('json').send(JSON.stringify({ 
-        whenGenerated, 
-        lastUpdated: stat.mtime, 
+        whenGenerated,
         timezone: 'Australia/Sydney', 
         trades 
     }));

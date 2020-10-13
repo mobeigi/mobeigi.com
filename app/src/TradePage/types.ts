@@ -15,7 +15,6 @@ export type Trade = {
 export type State = {
     trades: Trade[],
     whenGenerated: Date | null,
-    lastUpdated: Date | null,
     timezone: string,
     loading: boolean,
     error: boolean,
