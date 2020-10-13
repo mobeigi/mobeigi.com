@@ -82,6 +82,7 @@ router.get('/Last365CalendarDays', function(req, res, next) {
     // Parse stored file
     var xml = fs.readFileSync('private/trades/' + FILE_NAME).toString();
     var json = parser.toJson(xml, {object: true});
+
     var trades = json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["Trades"]["Trade"];
     trades.map( (trade) => {
         // Transform data
@@ -90,14 +91,24 @@ router.get('/Last365CalendarDays', function(req, res, next) {
         trade["expiry"] = trade["expiry"] ? moment(trade["expiry"], "YYYYMMDD") : null;
         trade["putCall"] = trade["putCall"] || null;
     });
-    trades.sort( (a, b) => a["dateTime"] - b["dateTime"])
+    trades.sort( (a, b) => a["dateTime"] - b["dateTime"]); // ascending date
+
+    var openPositions = json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["OpenPositions"]["OpenPosition"];
+    openPositions.map( (position) => {
+        // Transform data
+        position["strike"] = position["strike"] || null;
+        position["expiry"] = position["expiry"] ? moment(position["expiry"], "YYYYMMDD") : null;
+        position["putCall"] = position["putCall"] || null;
+    });
+    openPositions.sort( (a, b) => b["position"] - a["position"]); // decending position number
 
     const whenGenerated = moment.tz(json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["whenGenerated"], "YYYYMMDD;HHmmss", "America/New_York");
 
     return res.status(200).contentType('json').send(JSON.stringify({ 
         whenGenerated,
         timezone: 'Australia/Sydney', 
-        trades 
+        trades,
+        openPositions
     }));
 });
 
