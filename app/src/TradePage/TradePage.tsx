@@ -17,7 +17,6 @@ const TradePage = () => {
   const [state, setState] = React.useState<State>({
     trades: [],
     whenGenerated: null,
-    lastUpdated: null,
     timezone: 'Australia/Sydney',
     loading: true,
     error: false,
@@ -43,7 +42,6 @@ const TradePage = () => {
           setState((prevState) => ({
             ...prevState,
             whenGenerated: new Date(response.data.whenGenerated),
-            lastUpdated: new Date(response.data.lastUpdated),
             timezone: response.data.timezone,
             trades,
             loading: false,
