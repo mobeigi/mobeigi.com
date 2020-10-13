@@ -3,6 +3,7 @@ var router = express.Router();
 var fs = require('fs');
 var parser = require('xml2json');
 var moment = require('moment');
+require('moment-timezone');
 const { default: Axios } = require('axios');
 var cron = require('node-cron');
 
@@ -12,11 +13,15 @@ const TOKEN = CONFIG.token;
 const LAST_365_CALENDAR_DAYS_FLEX_QUERY_ID = CONFIG.Last365CalendarDaysFlexQueryId;
 const FLEX_STATEMENT_SENDREQUEST_ENDPOINT = 'https://ndcdyn.interactivebrokers.com/Universal/servlet/FlexStatementService.SendRequest';
 
-cron.schedule("0 */1 * * *", async () => {
+// Report is generated a few minutes past midnight NY time
+// Fetch the new report 5 mins, 15 mins and 30 mins past midnight
+cron.schedule("5,15,30 0 * * *", async () => {
     console.info('Starting updateLast365CalendarDaysXmlFile Cron Job');
     const status = await updateLast365CalendarDaysXmlFile();
     console.info('Completed updateLast365CalendarDaysXmlFile Cron Job. Status: ' + status);
-}).start();
+},
+{ timezone: 'America/New_York' }
+).start();
 
 const updateLast365CalendarDaysXmlFile = async () => {
 
@@ -77,6 +82,7 @@ router.get('/Last365CalendarDays', function(req, res, next) {
     // Parse stored file
     var xml = fs.readFileSync('private/trades/' + FILE_NAME).toString();
     var json = parser.toJson(xml, {object: true});
+
     var trades = json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["Trades"]["Trade"];
     trades.map( (trade) => {
         // Transform data
@@ -85,17 +91,24 @@ router.get('/Last365CalendarDays', function(req, res, next) {
         trade["expiry"] = trade["expiry"] ? moment(trade["expiry"], "YYYYMMDD") : null;
         trade["putCall"] = trade["putCall"] || null;
     });
-    trades.sort( (a, b) => a["dateTime"] - b["dateTime"])
+    trades.sort( (a, b) => a["dateTime"] - b["dateTime"]); // ascending date
 
-    const whenGenerated = moment(json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["whenGenerated"], "YYYYMMDD;HHmmss");
+    var openPositions = json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["OpenPositions"]["OpenPosition"];
+    openPositions.map( (position) => {
+        // Transform data
+        position["strike"] = position["strike"] || null;
+        position["expiry"] = position["expiry"] ? moment(position["expiry"], "YYYYMMDD") : null;
+        position["putCall"] = position["putCall"] || null;
+    });
+    openPositions.sort( (a, b) => b["position"] - a["position"]); // decending position number
 
-    const stat = fs.statSync('private/trades/' + FILE_NAME);
+    const whenGenerated = moment.tz(json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["whenGenerated"], "YYYYMMDD;HHmmss", "America/New_York");
 
     return res.status(200).contentType('json').send(JSON.stringify({ 
-        whenGenerated, 
-        lastUpdated: stat.mtime, 
+        whenGenerated,
         timezone: 'Australia/Sydney', 
-        trades 
+        trades,
+        openPositions
     }));
 });
 
