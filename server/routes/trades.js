@@ -13,11 +13,15 @@ const TOKEN = CONFIG.token;
 const LAST_365_CALENDAR_DAYS_FLEX_QUERY_ID = CONFIG.Last365CalendarDaysFlexQueryId;
 const FLEX_STATEMENT_SENDREQUEST_ENDPOINT = 'https://ndcdyn.interactivebrokers.com/Universal/servlet/FlexStatementService.SendRequest';
 
-cron.schedule("0 */1 * * *", async () => {
+// Report is generated a few minutes past midnight NY time
+// Fetch the new report 5 mins, 15 mins and 30 mins past midnight
+cron.schedule("5,15,30 0 * * *", async () => {
     console.info('Starting updateLast365CalendarDaysXmlFile Cron Job');
     const status = await updateLast365CalendarDaysXmlFile();
     console.info('Completed updateLast365CalendarDaysXmlFile Cron Job. Status: ' + status);
-}).start();
+},
+{ timezone: 'America/New_York' }
+).start();
 
 const updateLast365CalendarDaysXmlFile = async () => {
 
