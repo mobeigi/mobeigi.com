@@ -3,6 +3,7 @@ var router = express.Router();
 var fs = require('fs');
 var parser = require('xml2json');
 var moment = require('moment');
+require('moment-timezone');
 const { default: Axios } = require('axios');
 var cron = require('node-cron');
 
@@ -87,7 +88,7 @@ router.get('/Last365CalendarDays', function(req, res, next) {
     });
     trades.sort( (a, b) => a["dateTime"] - b["dateTime"])
 
-    const whenGenerated = moment(json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["whenGenerated"], "YYYYMMDD;HHmmss");
+    const whenGenerated = moment.tz(json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["whenGenerated"], "YYYYMMDD;HHmmss", "America/New_York");
 
     const stat = fs.statSync('private/trades/' + FILE_NAME);
 

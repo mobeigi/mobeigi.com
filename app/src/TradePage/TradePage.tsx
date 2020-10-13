@@ -98,14 +98,14 @@ const TradePage = () => {
           </p>
           <p>
             <strong>Last Updated: </strong>
-            {state.lastUpdated && new Intl.DateTimeFormat('en-GB', {
+            {state.whenGenerated && new Intl.DateTimeFormat('en-GB', {
               year: 'numeric',
               month: 'long',
               day: '2-digit',
               hour: 'numeric',
               minute: 'numeric',
               second: 'numeric',
-            }).format(state.lastUpdated)}
+            }).format(state.whenGenerated)}
             {` ${moment.tz(state.timezone).zoneName()}`}
           </p>
           <br />
