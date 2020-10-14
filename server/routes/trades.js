@@ -12,63 +12,89 @@ const CONFIG = JSON.parse(fs.readFileSync('private/trades/config.json'));
 const TOKEN = CONFIG.token;
 const LAST_365_CALENDAR_DAYS_FLEX_QUERY_ID = CONFIG.Last365CalendarDaysFlexQueryId;
 const FLEX_STATEMENT_SENDREQUEST_ENDPOINT = 'https://ndcdyn.interactivebrokers.com/Universal/servlet/FlexStatementService.SendRequest';
+const MAX_RETRIES = 5;
+const RETRY_TIMEOUT = 60000;
 
-// Report is generated a few minutes past midnight NY time
-// Fetch the new report 5 mins, 15 mins and 30 mins past midnight
-cron.schedule("5,15,30 0 * * *", async () => {
+// New report is only generated past midnight NY time
+// Prior to this a cached report is returned which does not contain new (daily) trades
+cron.schedule("15 */1 * * *", async () => {
     console.info('Starting updateLast365CalendarDaysXmlFile Cron Job');
     const status = await updateLast365CalendarDaysXmlFile();
     console.info('Completed updateLast365CalendarDaysXmlFile Cron Job. Status: ' + status);
-},
-{ timezone: 'America/New_York' }
-).start();
+}).start();
 
 const updateLast365CalendarDaysXmlFile = async () => {
+    const sendRequestResponse = await sendRequestEndpoint( { sendRequestEndpointUrl: FLEX_STATEMENT_SENDREQUEST_ENDPOINT, queryId: LAST_365_CALENDAR_DAYS_FLEX_QUERY_ID, apiVersion: 3 } );
+    const sendRequestResponseJson = parser.toJson(sendRequestResponse.data, {object: true});
+    if (sendRequestResponse.status) {
+        for (let retryCount = 1; retryCount <= MAX_RETRIES; retryCount++) {
+            const getStatementResponse = await getStatementRequest( { getStatementEndpointUrl: sendRequestResponseJson["FlexStatementResponse"]["Url"], queryId: sendRequestResponseJson["FlexStatementResponse"]["ReferenceCode"], apiVersion: 3 } );
+            if (getStatementResponse.status) {
+                fs.writeFileSync('private/trades/' + FILE_NAME, getStatementResponse.data);
+                console.info("updateLast365CalendarDaysXmlFile: Successfully updated " + FILE_NAME);
+                return true;
+            }
+            else {
+                // Delay before retry
+                console.warn("updateLast365CalendarDaysXmlFile: Retry attempt " + retryCount);
+                await new Promise(resolve => setTimeout(resolve, RETRY_TIMEOUT));
+                continue;
+            }
+        }
+    }
 
-    // Make request to SendRequest endpoint
-    const status = Axios.get(FLEX_STATEMENT_SENDREQUEST_ENDPOINT, { params: {t: TOKEN, q: LAST_365_CALENDAR_DAYS_FLEX_QUERY_ID, v: 3}})
-            .then(async (response) => {
-                if (response.status === 200) {
-                    const sendRequestJson = parser.toJson(response.data, {object: true});
-                    if (sendRequestJson["FlexStatementResponse"]["Status"] === 'Success') {
-                        // Delay request for 30 seconds to allow time for report generation to complete
-                        // TODO: Replace this in future with more elegant retry mechanism with timeout
-                        await new Promise(resolve => setTimeout(resolve, 30000));
+    return false;
+}
 
-                        // Make secondary request to GetStatement endpoint
-                        const sendRequestStatus = Axios.get(sendRequestJson["FlexStatementResponse"]["Url"], { params: {t: TOKEN, q: sendRequestJson["FlexStatementResponse"]["ReferenceCode"], v: 3}})
-                            .then((response) => {
-                                if (response.status === 200) {
-                                    fs.writeFileSync('private/trades/' + FILE_NAME, response.data);
-                                    return true;
-                                }
-                                else {
-                                    console.error("GetStatement: Received status code of " + response.status);
-                                    return false;
-                                }
-                            })
-                            .catch(() => {
-                                console.error("GetStatement: Caught error during request");
-                                return false;
-                            });
-                        return sendRequestStatus;
-                    }
-                    else {
-                        console.error("FlexStatementResponse.Status: Received non-success status " + JSON.stringify(sendRequestJson["FlexStatementResponse"]));
-                        return false;
-                    }
+const sendRequestEndpoint = async ( { sendRequestEndpointUrl, queryId, apiVersion } ) => {
+    const sendRequestResponse = await Axios.get(sendRequestEndpointUrl, { params: {t: TOKEN, q: queryId, v: apiVersion}})
+    .then((response) => {
+        if (response.status === 200) {
+            const sendRequestJson = parser.toJson(response.data, {object: true});
+            if (sendRequestJson["FlexStatementResponse"]["Status"] === 'Success') {
+                return { status: true, data: response.data };
+            }
+            else {
+                console.error("FlexStatementResponse.Status: Received non-success status " + JSON.stringify(sendRequestJson["FlexStatementResponse"]));
+                return { status: false, data: null };
+            }
+        }
+        else {
+            console.error("SendRequest: Received status code of " + response.status);
+            return { status: false, data: null };
+        }
+    })
+    .catch((error) => {
+        console.error("SendRequest: Caught error during request. " + error);
+        return { status: false, data: null };
+    });
+
+    return sendRequestResponse;
+}
+
+const getStatementRequest = async ( { getStatementEndpointUrl, queryId, apiVersion } ) => {
+    const getStatementResponse = await Axios.get(getStatementEndpointUrl, { params: {t: TOKEN, q: queryId, v: apiVersion}})
+        .then((response) => {
+            if (response.status === 200) {
+                const getStatementJson = parser.toJson(response.data, {object: true});
+                if (getStatementJson["FlexQueryResponse"]) {
+                    return { status: true, data: response.data };
                 }
                 else {
-                    console.error("SendRequest: Received status code of " + response.status);
-                    return false;
+                    return { status: false, data: null };
                 }
-            })
-            .catch(() => {
-                console.error("SendRequest: Caught error during request");
-                return false;
-            });
+            }
+            else {
+                console.error("GetStatement: Received status code of " + response.status);
+                return { status: false, data: null };
+            }
+        })
+        .catch((error) => {
+            console.error("GetStatement: Caught error during request. " + error);
+            return { status: false, data: null };
+        });
 
-    return status;
+    return getStatementResponse;
 }
 
 router.get('/Last365CalendarDays', function(req, res, next) {
