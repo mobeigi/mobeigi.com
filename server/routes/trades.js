@@ -6,7 +6,6 @@ var moment = require('moment');
 require('moment-timezone');
 const { default: Axios } = require('axios');
 var cron = require('node-cron');
-const e = require('express');
 
 const FILE_NAME = 'Last365CalendarDays.xml';
 const CONFIG = JSON.parse(fs.readFileSync('private/trades/config.json'));
