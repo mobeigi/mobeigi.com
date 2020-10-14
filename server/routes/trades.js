@@ -13,15 +13,13 @@ const TOKEN = CONFIG.token;
 const LAST_365_CALENDAR_DAYS_FLEX_QUERY_ID = CONFIG.Last365CalendarDaysFlexQueryId;
 const FLEX_STATEMENT_SENDREQUEST_ENDPOINT = 'https://ndcdyn.interactivebrokers.com/Universal/servlet/FlexStatementService.SendRequest';
 
-// Report is generated a few minutes past midnight NY time
-// Fetch the new report 5 mins, 15 mins and 30 mins past midnight
-cron.schedule("5,15,30 0 * * *", async () => {
+// New report is only generated past midnight NY time
+// Prior to this a cached report is returned which does not contain new (daily) trades
+cron.schedule("15 */1 * * *", async () => {
     console.info('Starting updateLast365CalendarDaysXmlFile Cron Job');
     const status = await updateLast365CalendarDaysXmlFile();
     console.info('Completed updateLast365CalendarDaysXmlFile Cron Job. Status: ' + status);
-},
-{ timezone: 'America/New_York' }
-).start();
+}).start();
 
 const updateLast365CalendarDaysXmlFile = async () => {
 
