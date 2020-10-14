@@ -185,6 +185,7 @@ const TradePage = () => {
                   {moment.tz(state.timezone).zoneName()}
                   )
                 </th>
+                <th>Buy / Sell</th>
                 <th>Quantity</th>
                 <th>Symbol</th>
                 <th>Strike</th>
@@ -210,13 +211,17 @@ const TradePage = () => {
                         second: 'numeric',
                       }).format(trade.dateTime)}
                     </td>
-                    <td>{trade.quantity}</td>
+                    <td>
+                      {trade.quantity >= 0 ? <span className="badge badge-success">BUY</span>
+                        : <span className="badge badge-danger">SELL</span> }
+                    </td>
+                    <td>{Math.abs(trade.quantity)}</td>
                     <td>
                       <TargetAwareLink
-                        to={`https://finance.yahoo.com/quote/${trade.symbol.split(' ')[0]}`}
-                        title={`${trade.symbol.split(' ')[0]} (${trade.description})`}
-                        aria-label={`${trade.symbol.split(' ')[0]} (${trade.description})`}
-                        rel="external nofollow"
+                          to={`https://finance.yahoo.com/quote/${trade.symbol.split(' ')[0]}`}
+                          title={`${trade.symbol.split(' ')[0]} (${trade.description})`}
+                          aria-label={`${trade.symbol.split(' ')[0]} (${trade.description})`}
+                          rel="external nofollow"
                       >
                         {trade.symbol.split(' ')[0]}
                       </TargetAwareLink>

@@ -6,7 +6,7 @@ type CalcTotalPriceType = {
 
 export const calcTotalPrice = (
   { pricePerShare, quantity, isOptionContract }: CalcTotalPriceType,
-) => pricePerShare * quantity * (isOptionContract ? 100 : 1);
+) => Math.abs(pricePerShare * quantity * (isOptionContract ? 100 : 1));
 
 type GetPutOrCallFullTextType = {
   putCall: string | null
