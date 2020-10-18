@@ -10,7 +10,9 @@ import TargetAwareLink from '../shared/utils/TargetAwareLink';
 
 import { StyledTable } from './styled';
 import type { OpenPosition, State, Trade } from './types';
-import { calcTotalPrice, getPutOrCallFullText } from './utils';
+import {
+  calcTotalPrice, getPutOrCallFullText, displayFractionAsPercentage, getOpenPositionTotalPrice,
+} from './utils';
 import COMMON from '../shared/constants/Common';
 
 const TradePage = () => {
@@ -130,6 +132,7 @@ const TradePage = () => {
                 <th>Last Price Per Unit</th>
                 <th>Total Price</th>
                 <th>Currency</th>
+                <th>Weight</th>
               </tr>
             </thead>
             <tbody>
@@ -167,6 +170,15 @@ const TradePage = () => {
                         .toFixed(2)}
                     </td>
                     <td>{openPosition.currency}</td>
+                    <td>
+                      {displayFractionAsPercentage(
+                        {
+                          fraction:
+                          (openPosition.position * openPosition.markPrice)
+                          / getOpenPositionTotalPrice({ openPositions: state.openPositions }),
+                        },
+                      )}
+                    </td>
                   </tr>
                 ))}
             </tbody>
