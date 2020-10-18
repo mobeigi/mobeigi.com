@@ -6,7 +6,7 @@ import { StockTwitsIFrame } from './styles';
 import { LoaderCss } from '../../shared/styles/common';
 import COLORS from '../../shared/constants/Colors';
 
-const stockTwitsStreamUrl = 'http://api.stocktwits.com/widgets/stream';
+const stockTwitsStreamUrl = 'https://api.stocktwits.com/widgets/stream';
 const widgetOptions = {
   width: '800',
   height: '400',
