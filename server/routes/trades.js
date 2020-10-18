@@ -1,11 +1,11 @@
-var express = require('express');
-var router = express.Router();
-var fs = require('fs');
-var parser = require('xml2json');
-var moment = require('moment');
+const express = require('express');
+const router = express.Router();
+const fs = require('fs');
+const parser = require('xml2json');
+const moment = require('moment');
 require('moment-timezone');
 const { default: Axios } = require('axios');
-var cron = require('node-cron');
+const cron = require('node-cron');
 
 const FILE_NAME = 'Last365CalendarDays.xml';
 const CONFIG = JSON.parse(fs.readFileSync('private/trades/config.json'));
@@ -97,19 +97,8 @@ const getStatementRequest = async ( { getStatementEndpointUrl, queryId, apiVersi
     return getStatementResponse;
 }
 
-router.get('/Last365CalendarDays', function(req, res, next) {
-    // Check if file exists on disk
-    const exists = fs.existsSync('private/trades/' + FILE_NAME);
-
-    if (!exists) {
-        return res.status(404).contentType('json').send(JSON.stringify({ error: "File '" + FILE_NAME + "' not found."}));
-    }
-
-    // Parse stored file
-    var xml = fs.readFileSync('private/trades/' + FILE_NAME).toString();
-    var json = parser.toJson(xml, {object: true});
-
-    var trades = json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["Trades"]["Trade"];
+const transformLast365CalendarDaysData = ({ json }) => {
+    let trades = json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["Trades"]["Trade"];
     trades.map( (trade) => {
         // Transform data
         trade["strike"] = trade["strike"] || null;
@@ -119,23 +108,39 @@ router.get('/Last365CalendarDays', function(req, res, next) {
     });
     trades.sort( (a, b) => a["dateTime"] - b["dateTime"]); // ascending date
 
-    var openPositions = json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["OpenPositions"]["OpenPosition"];
+    let openPositions = json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["OpenPositions"]["OpenPosition"];
     openPositions.map( (position) => {
         // Transform data
         position["strike"] = position["strike"] || null;
         position["expiry"] = position["expiry"] ? moment(position["expiry"], "YYYYMMDD") : null;
         position["putCall"] = position["putCall"] || null;
     });
-    openPositions.sort( (a, b) => b["position"] - a["position"]); // decending position number
+    openPositions.sort( (a, b) => (b["position"] * b["markPrice"]) - (a["position"] * a["markPrice"])); // decending total price
 
     const whenGenerated = moment.tz(json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["whenGenerated"], "YYYYMMDD;HHmmss", "America/New_York");
 
-    return res.status(200).contentType('json').send(JSON.stringify({ 
+    return { 
         whenGenerated,
         timezone: 'Australia/Sydney', 
         trades,
         openPositions
-    }));
+    };
+}
+
+router.get('/Last365CalendarDays', function(req, res, next) {
+    // Check if file exists on disk
+    const exists = fs.existsSync('private/trades/' + FILE_NAME);
+
+    if (!exists) {
+        return res.status(404).contentType('json').send(JSON.stringify({ error: "File '" + FILE_NAME + "' not found."}));
+    }
+
+    // Parse stored file
+    const xml = fs.readFileSync('private/trades/' + FILE_NAME).toString();
+    const json = parser.toJson(xml, {object: true});
+    const transformedData = transformLast365CalendarDaysData({ json });
+
+    return res.status(200).contentType('json').send(JSON.stringify(transformedData));
 });
 
 // Perform initial update on start
