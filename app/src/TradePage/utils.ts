@@ -1,21 +1,26 @@
-type CalcTotalPriceType = {
-    pricePerShare: number,
-    quantity: number,
-    isOptionContract: boolean
-}
+import type {
+  CalcTotalPriceType,
+  GetPutOrCallFullTextType,
+  GetOpenPositionTotalPriceType,
+  DisplayFractionAsPercentageType,
+} from './utils.types';
 
 export const calcTotalPrice = (
   { pricePerShare, quantity, isOptionContract }: CalcTotalPriceType,
 ) => Math.abs(pricePerShare * quantity * (isOptionContract ? 100 : 1));
 
-type GetPutOrCallFullTextType = {
-  putCall: string | null
-}
-
-export const getPutOrCallFullText = ({ putCall } : GetPutOrCallFullTextType) => {
+export const getPutOrCallFullText = ({ putCall }: GetPutOrCallFullTextType) => {
   if (!putCall) { return ''; }
 
   return putCall === 'P' ? 'PUT' : 'CALL';
 };
 
-export default { calcTotalPrice, getPutOrCallFullText };
+export const getOpenPositionTotalPrice = (
+  { openPositions }: GetOpenPositionTotalPriceType,
+) => openPositions.reduce((total, cur) => total + (cur.position * cur.markPrice), 0);
+
+export const displayFractionAsPercentage = ({ fraction }: DisplayFractionAsPercentageType) => `${((fraction) * 100).toFixed(2)}%`;
+
+export default {
+  calcTotalPrice, getPutOrCallFullText, getOpenPositionTotalPrice, displayFractionAsPercentage,
+};
