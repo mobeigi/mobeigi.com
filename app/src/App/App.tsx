@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import ReactGA from 'react-ga';
 
+import * as jquery from 'jquery';
 import Header from '../shared/components/Header';
 import Homepage from '../Homepage';
 import NotFoundPage from '../NotFoundPage';
@@ -19,6 +20,17 @@ import './SlateOverrides.css';
 import './reset.css';
 import './typography.css';
 import './App.css';
+
+// Add jQuery to window object
+declare global {
+  interface Window { $: any, jQuery: any }
+}
+
+window.$ = jquery || {};
+window.jQuery = jquery || {};
+
+// Load all of Bootstrap’s jQuery plugins onto the jQuery object
+require('bootstrap');
 
 // Init Google Analytics
 ReactGA.initialize(COMMON.ANALYTICS.gaTrackingId);
