@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { css } from '@emotion/core';
+import { css as coreCss } from '@emotion/core';
 
 export const MonospacedParagraph = styled.p`
     font-family: monospace;
@@ -47,24 +47,11 @@ export const StyledButton = styled.button`
     }
 `;
 
-export const LoaderCss = css`
+export const LoaderCss = coreCss`
     display: block;
     margin: 0 auto;
 `;
 
-export const FadeInDiv = styled.div`
-    @keyframes fadein {
-        from {
-            opacity:0;
-        }
-        to {
-            opacity:1;
-        }
-    }
-
-    animation: fadein 1s;
-`;
-
 export default {
-  MonospacedParagraph, StyledButton, LoaderCss, FadeInDiv,
+  MonospacedParagraph, StyledButton, LoaderCss,
 };

@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 
-export const StyledTable = styled.table`
-    width: 90%;
+export const TabContainer = styled.div`
+    margin-top: 55px;
+`;
+
+export const Nav = styled.nav`
+    width: 60%;
     margin: 0 auto;
 `;
 
-export default { StyledTable };
+export default { Nav, TabContainer };
