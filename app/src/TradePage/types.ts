@@ -1,27 +1,10 @@
-export type Trade = {
-    tradeID: number,
-    symbol: string,
-    description: string,
-    strike: number | null,
-    expiry: Date | null,
-    putCall: string | null,
-    dateTime: Date,
-    quantity: number,
-    tradePrice: number,
-    ibCommission: number,
-    orderType: string,
-    currency: string,
-}
+import type { OpenPosition, Trade } from './common/types';
 
-export type OpenPosition = {
-    currency: string,
-    symbol: string,
-    description: string,
-    strike: number | null,
-    expiry: Date | null,
-    putCall: string | null,
-    position: number,
-    markPrice: number,
+export enum NavTab {
+    Overview = 'overview',
+    OpenPositions = 'openpositions',
+    TradeHistory = 'tradehistory',
+    StockTwits = 'stocktwits',
 }
 
 export type State = {
@@ -31,4 +14,5 @@ export type State = {
     timezone: string,
     loading: boolean,
     error: boolean,
+    currentNavTab: NavTab
 }
