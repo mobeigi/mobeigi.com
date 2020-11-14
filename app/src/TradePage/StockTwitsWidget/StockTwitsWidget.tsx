@@ -9,7 +9,7 @@ import COLORS from '../../shared/constants/Colors';
 const stockTwitsStreamUrl = 'https://api.stocktwits.com/widgets/stream';
 const widgetOptions = {
   width: '800',
-  height: '400',
+  height: '800',
   user: 'mobeigi',
   avatars: '1',
   scrollbars: '1',
@@ -59,7 +59,7 @@ const StockTwitsWidget = () => {
         src={`${stockTwitsStreamUrl}?${new URLSearchParams(widgetOptions).toString()}`}
         style={{ display: state.loading ? 'none' : 'initial' }}
         scrolling="no"
-        onLoad={() => setState((prevState) => ({ ...prevState, loading: false }))}
+        onLoad={() => setState((prevState: State) => ({ ...prevState, loading: false }))}
       />
     </div>
   );
