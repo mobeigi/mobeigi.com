@@ -2,7 +2,6 @@ import type {
   CalcTotalPriceType,
   GetPutOrCallFullTextType,
   GetOpenPositionTotalPriceType,
-  DisplayFractionAsPercentageType,
 } from './utils.types';
 
 export const calcTotalPrice = (
@@ -19,8 +18,6 @@ export const getOpenPositionTotalPrice = (
   { openPositions }: GetOpenPositionTotalPriceType,
 ) => openPositions.reduce((total, cur) => total + (cur.position * cur.markPrice), 0);
 
-export const displayFractionAsPercentage = ({ fraction }: DisplayFractionAsPercentageType) => `${((fraction) * 100).toFixed(2)}%`;
-
 export default {
-  calcTotalPrice, getPutOrCallFullText, getOpenPositionTotalPrice, displayFractionAsPercentage,
+  calcTotalPrice, getPutOrCallFullText, getOpenPositionTotalPrice,
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import { StyledTable } from '../common/styled';
 import TargetAwareLink from '../../shared/utils/TargetAwareLink';
 import {
-  calcTotalPrice, getPutOrCallFullText, displayFractionAsPercentage, getOpenPositionTotalPrice,
+  calcTotalPrice, getPutOrCallFullText, getOpenPositionTotalPrice,
 } from '../common/utils';
 import type { Props } from './types';
 
@@ -65,13 +65,11 @@ const OpenPositions = ({ openPositions, lastUpdated }: Props) => (
               </td>
               <td>{openPosition.currency}</td>
               <td>
-                {displayFractionAsPercentage(
-                  {
-                    fraction:
-                  (openPosition.position * openPosition.markPrice)
-                  / getOpenPositionTotalPrice({ openPositions }),
-                  },
-                )}
+                {
+                  (((openPosition.position * openPosition.markPrice)
+                  / getOpenPositionTotalPrice({ openPositions })) * 100).toFixed(2)
+                }
+                %
               </td>
             </tr>
           ))}

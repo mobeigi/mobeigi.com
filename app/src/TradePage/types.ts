@@ -1,4 +1,6 @@
-import type { OpenPosition, Trade } from './common/types';
+import type {
+  OpenPosition, Trade, DepositsWithdrawal, EquitySummaryInBase,
+} from './common/types';
 
 export enum NavTab {
     Overview = 'overview',
@@ -7,12 +9,17 @@ export enum NavTab {
     StockTwits = 'stocktwits',
 }
 
-export type State = {
-    trades: Trade[],
-    openPositions: OpenPosition[],
+type Last365CalendarDays = {
     whenGenerated: Date | null,
     timezone: string,
+    trades: Trade[],
+    openPositions: OpenPosition[],
+    depositsWithdrawals: DepositsWithdrawal[],
+    equitySummaryInBase: EquitySummaryInBase[],
+}
+
+export type State = Last365CalendarDays & {
+    currentNavTab: NavTab
     loading: boolean,
     error: boolean,
-    currentNavTab: NavTab
 }
