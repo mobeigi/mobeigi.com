@@ -13,7 +13,3 @@ export type GetPutOrCallFullTextType = {
 export type GetOpenPositionTotalPriceType = {
     openPositions: OpenPosition[]
 }
-
-export type DisplayFractionAsPercentageType = {
-    fraction: number
-}

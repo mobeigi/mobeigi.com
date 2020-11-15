@@ -23,3 +23,16 @@ export type OpenPosition = {
     position: number,
     markPrice: number,
 }
+
+export type DepositsWithdrawal = {
+    dateTime: Date,
+    amount: number,
+    type: string
+}
+
+export type EquitySummaryInBase = {
+    reportDate: Date,
+    total: number,
+    totalLong: number,
+    totalShort: number,
+}
