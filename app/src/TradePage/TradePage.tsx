@@ -1,6 +1,3 @@
-/* eslint-disable no-script-url */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -16,7 +13,9 @@ import type {
   State,
 } from './types';
 import { NavTab } from './types';
-import type { OpenPosition, Trade } from './common/types';
+import type {
+  OpenPosition, Trade, DepositsWithdrawal, EquitySummaryInBase,
+} from './common/types';
 import COMMON from '../shared/constants/Common';
 import FadeIn from '../shared/components/FadeIn';
 import { Nav, TabContainer } from './styled';
@@ -32,9 +31,11 @@ const TradePage = () => {
     openPositions: [],
     whenGenerated: null,
     timezone: 'Australia/Sydney',
+    depositsWithdrawals: [],
+    equitySummaryInBase: [],
+    currentNavTab: NavTab.Overview,
     loading: true,
     error: false,
-    currentNavTab: NavTab.Overview,
   });
   const location = useLocation();
 
@@ -63,12 +64,32 @@ const TradePage = () => {
             markPrice: Number(openPosition.markPrice),
           }));
 
+          const depositsWithdrawals = response.data.depositsWithdrawals.map(
+            (depositsWithdrawal: DepositsWithdrawal) => ({
+              ...depositsWithdrawal,
+              dateTime: new Date(depositsWithdrawal.dateTime),
+              amount: Number(depositsWithdrawal.amount),
+            }),
+          );
+
+          const equitySummaryInBase = response.data.equitySummaryInBase.map(
+            (equitySummaryInBaseEntry: EquitySummaryInBase) => ({
+              ...equitySummaryInBaseEntry,
+              reportDate: new Date(equitySummaryInBaseEntry.reportDate),
+              total: Number(equitySummaryInBaseEntry.total),
+              totalLong: Number(equitySummaryInBaseEntry.totalLong),
+              totalShort: Number(equitySummaryInBaseEntry.totalShort),
+            }),
+          );
+
           setState((prevState: State) => ({
             ...prevState,
             whenGenerated: new Date(response.data.whenGenerated),
             timezone: response.data.timezone,
             trades,
             openPositions,
+            depositsWithdrawals,
+            equitySummaryInBase,
             loading: false,
           }));
         } else {
@@ -205,7 +226,16 @@ const TradePage = () => {
 
           {/* Tab Containers */}
           <TabContainer>
-            { (state.currentNavTab === NavTab.Overview && <FadeIn><Overview /></FadeIn>)
+            { (state.currentNavTab === NavTab.Overview && (
+            <FadeIn>
+              <Overview
+                trades={state.trades}
+                lastUpdated={lastUpdated}
+                depositsWithdrawals={state.depositsWithdrawals}
+                equitySummaryInBase={state.equitySummaryInBase}
+              />
+            </FadeIn>
+            ))
             || (state.currentNavTab === NavTab.OpenPositions
             && (
             <FadeIn>

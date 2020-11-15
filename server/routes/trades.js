@@ -117,13 +117,28 @@ const transformLast365CalendarDaysData = ({ json }) => {
     });
     openPositions.sort( (a, b) => (b["position"] * b["markPrice"]) - (a["position"] * a["markPrice"])); // decending total price
 
+    let cashTransactions = json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["CashTransactions"]["CashTransaction"];
+    cashTransactions.map( (cashTransaction) => {
+        // Transform data
+        cashTransaction["dateTime"] = moment(cashTransaction["dateTime"], "YYYYMMDD;HHmmss");
+    });
+    const depositsWithdrawals = cashTransactions.filter((cashTransaction) => cashTransaction["type"] === 'Deposits/Withdrawals');
+
+    let equitySummaryInBase = json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["EquitySummaryInBase"]["EquitySummaryByReportDateInBase"];
+    equitySummaryInBase.map( (equitySummaryByReportDateInBase) => {
+        // Transform data
+        equitySummaryByReportDateInBase["reportDate"] = equitySummaryByReportDateInBase["reportDate"] ? moment(equitySummaryByReportDateInBase["reportDate"], "YYYYMMDD") : null;
+    });
+
     const whenGenerated = moment.tz(json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["whenGenerated"], "YYYYMMDD;HHmmss", "America/New_York");
 
     return { 
         whenGenerated,
-        timezone: 'Australia/Sydney', 
+        timezone: 'Australia/Sydney',
         trades,
-        openPositions
+        openPositions,
+        depositsWithdrawals,
+        equitySummaryInBase
     };
 }
 
