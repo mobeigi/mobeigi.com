@@ -27,7 +27,9 @@ export type OpenPosition = {
 export type DepositsWithdrawal = {
     dateTime: Date,
     amount: number,
-    type: string
+    type: string,
+    currency: string,
+    fxRateToBase: number,
 }
 
 export type EquitySummaryInBase = {
