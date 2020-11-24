@@ -69,6 +69,7 @@ const TradePage = () => {
               ...depositsWithdrawal,
               dateTime: new Date(depositsWithdrawal.dateTime),
               amount: Number(depositsWithdrawal.amount),
+              fxRateToBase: Number(depositsWithdrawal.fxRateToBase),
             }),
           );
 
