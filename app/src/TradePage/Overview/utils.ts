@@ -3,7 +3,7 @@ import {
   GetTradesInRangeProps,
   FilterStockTradesProps,
   FilterOptionsTradesProps,
-  GetNetDepositWithdrawalInRangeProps,
+  GetNetDepositWithdrawalInBaseInRangeProps,
   GetEquitySummaryInBaseForDayProps,
 } from './utils.types';
 
@@ -34,13 +34,13 @@ export const getEquitySummaryInBaseForDay = (
     (equitySummaryInBaseEntry) => moment(equitySummaryInBaseEntry.reportDate).isSame(moment(date)),
   ));
 
-export const getNetDepositWithdrawalInRange = (
-  { depositsWithdrawals, from, to }: GetNetDepositWithdrawalInRangeProps,
+export const getNetDepositWithdrawalInBaseInRange = (
+  { depositsWithdrawals, from, to }: GetNetDepositWithdrawalInBaseInRangeProps,
 ) => depositsWithdrawals
   .filter(
     (depositsWithdrawal) => depositsWithdrawal.dateTime > from && depositsWithdrawal.dateTime < to,
   )
-  .reduce((accumulator, current) => accumulator + current.amount, 0);
+  .reduce((accumulator, current) => accumulator + (current.amount * current.fxRateToBase), 0);
 
 export default {
   getCurrentFinancialYearStartDate,
@@ -48,5 +48,5 @@ export default {
   filterStockTrades,
   filterOptionTrades,
   getEquitySummaryInBaseForDay,
-  getNetDepositWithdrawalInRange,
+  getNetDepositWithdrawalInBaseInRange,
 };

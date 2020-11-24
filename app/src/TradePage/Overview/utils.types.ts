@@ -14,7 +14,7 @@ export type FilterOptionsTradesProps = {
     trades: Trade[],
 }
 
-export type GetNetDepositWithdrawalInRangeProps = {
+export type GetNetDepositWithdrawalInBaseInRangeProps = {
     depositsWithdrawals: DepositsWithdrawal[],
     from: Date,
     to: Date,

@@ -10,7 +10,7 @@ import {
   getTradesInRange,
   filterStockTrades,
   filterOptionTrades,
-  getNetDepositWithdrawalInRange,
+  getNetDepositWithdrawalInBaseInRange,
   getEquitySummaryInBaseForDay,
 } from './utils';
 
@@ -28,7 +28,7 @@ const Overview = ({
     / currentFinancialYearTrades.length;
   const optionTradingFrequency = filterOptionTrades({ trades: currentFinancialYearTrades }).length
     / currentFinancialYearTrades.length;
-  const currentFinancialYearNetDepositWithdrawal = getNetDepositWithdrawalInRange(
+  const currentFinancialYearNetDepositWithdrawal = getNetDepositWithdrawalInBaseInRange(
     {
       depositsWithdrawals,
       from: currentFinancialYearStartDate,
