@@ -1,0 +1,58 @@
+name: Build, Test and Deploy
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build_test_app:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install, lint, test and build
+      working-directory: ./app
+      run: |
+        yarn install
+        yarn lint
+        yarn test
+        yarn build
+      
+  build_server:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install
+      working-directory: ./server
+      run: |
+        yarn install
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [ build_test_app, build_server ]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    steps:
+    - name: Deploy via webhook
+      uses: distributhor/workflow-webhook@v1
+      env:
+        webhook_url: ${{ secrets.WEBHOOK_URL }}
+        webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
