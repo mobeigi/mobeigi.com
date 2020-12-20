@@ -1,4 +1,4 @@
-name: mobeigi.com Build
+name: Build and Test
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build_app:
+  build_test_app:
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,7 +20,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: cd GITHUB_WORKSPACE/app
+    - run: cd $GITHUB_WORKSPACE/app
     - run: yarn install
     - run: yarn lint
     - run: yarn test
@@ -39,5 +39,5 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: cd GITHUB_WORKSPACE/server
+    - run: cd $GITHUB_WORKSPACE/server
     - run: yarn install

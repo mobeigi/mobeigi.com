@@ -1,0 +1,19 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  deply:
+    runs-on: ubuntu-latest
+
+    needs: [ build_test_app, build_server ]
+    steps:
+    - name: Deploy via webhook
+      uses: distributhor/workflow-webhook@v1
+      env:
+        webhook_url: ${{ secrets.WEBHOOK_URL }}
+        webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
