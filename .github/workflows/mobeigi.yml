@@ -49,7 +49,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: [ build_test_app, build_server ]
-    if: github.ref == 'refs/heads/mobeigi-add-github-actions'
     steps:
     - name: Deploy via webhook
       uses: distributhor/workflow-webhook@v1
