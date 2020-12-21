@@ -97,38 +97,51 @@ const getStatementRequest = async ( { getStatementEndpointUrl, queryId, apiVersi
     return getStatementResponse;
 }
 
+const nullableDataToFlatArray = ({ data }) => {
+    return data ? [data].flat() : [];
+}
+
 const transformLast365CalendarDaysData = ({ json }) => {
-    let trades = json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["Trades"]["Trade"];
-    trades.map( (trade) => {
-        // Transform data
-        trade["strike"] = trade["strike"] || null;
-        trade["dateTime"] = moment(trade["dateTime"], "YYYYMMDD;HHmmss");
-        trade["expiry"] = trade["expiry"] ? moment(trade["expiry"], "YYYYMMDD") : null;
-        trade["putCall"] = trade["putCall"] || null;
-    });
-    trades.sort( (a, b) => a["dateTime"] - b["dateTime"]); // ascending date
+    let trades = nullableDataToFlatArray({ data: json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["Trades"]["Trade"] });
+    if (trades.length > 0) {
+        trades.map( (trade) => {
+            // Transform data
+            trade["strike"] = trade["strike"] || null;
+            trade["dateTime"] = moment(trade["dateTime"], "YYYYMMDD;HHmmss");
+            trade["expiry"] = trade["expiry"] ? moment(trade["expiry"], "YYYYMMDD") : null;
+            trade["putCall"] = trade["putCall"] || null;
+        });
+        trades.sort( (a, b) => a["dateTime"] - b["dateTime"]); // ascending date
+    }
 
-    let openPositions = json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["OpenPositions"]["OpenPosition"];
-    openPositions.map( (position) => {
-        // Transform data
-        position["strike"] = position["strike"] || null;
-        position["expiry"] = position["expiry"] ? moment(position["expiry"], "YYYYMMDD") : null;
-        position["putCall"] = position["putCall"] || null;
-    });
-    openPositions.sort( (a, b) => (b["position"] * b["markPrice"]) - (a["position"] * a["markPrice"])); // decending total price
+    let openPositions = nullableDataToFlatArray({ data: json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["OpenPositions"]["OpenPosition"] });
+    if (openPositions.length > 0) {
+        openPositions.map( (position) => {
+            // Transform data
+            position["strike"] = position["strike"] || null;
+            position["expiry"] = position["expiry"] ? moment(position["expiry"], "YYYYMMDD") : null;
+            position["putCall"] = position["putCall"] || null;
+        });
+        openPositions.sort( (a, b) => (b["position"] * b["markPrice"]) - (a["position"] * a["markPrice"])); // decending total price
+    }
 
-    let cashTransactions = json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["CashTransactions"]["CashTransaction"];
-    cashTransactions.map( (cashTransaction) => {
-        // Transform data
-        cashTransaction["dateTime"] = moment(cashTransaction["dateTime"], "YYYYMMDD;HHmmss");
-    });
-    const depositsWithdrawals = cashTransactions.filter((cashTransaction) => cashTransaction["type"] === 'Deposits/Withdrawals');
+    let cashTransactions = nullableDataToFlatArray({ data: json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["CashTransactions"]["CashTransaction"] });
+    let depositsWithdrawals = [];
+    if (cashTransactions.length > 0) {
+        cashTransactions.map( (cashTransaction) => {
+            // Transform data
+            cashTransaction["dateTime"] = moment(cashTransaction["dateTime"], "YYYYMMDD;HHmmss");
+        });
+        depositsWithdrawals = cashTransactions.filter((cashTransaction) => cashTransaction["type"] === 'Deposits/Withdrawals');
+    }
 
-    let equitySummaryInBase = json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["EquitySummaryInBase"]["EquitySummaryByReportDateInBase"];
-    equitySummaryInBase.map( (equitySummaryByReportDateInBase) => {
-        // Transform data
-        equitySummaryByReportDateInBase["reportDate"] = equitySummaryByReportDateInBase["reportDate"] ? moment(equitySummaryByReportDateInBase["reportDate"], "YYYYMMDD") : null;
-    });
+    let equitySummaryInBase = nullableDataToFlatArray({ data: json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["EquitySummaryInBase"]["EquitySummaryByReportDateInBase"] });
+    if (equitySummaryInBase.length > 0) {
+        equitySummaryInBase.map( (equitySummaryByReportDateInBase) => {
+            // Transform data
+            equitySummaryByReportDateInBase["reportDate"] = equitySummaryByReportDateInBase["reportDate"] ? moment(equitySummaryByReportDateInBase["reportDate"], "YYYYMMDD") : null;
+        });
+    }
 
     const whenGenerated = moment.tz(json["FlexQueryResponse"]["FlexStatements"]["FlexStatement"]["whenGenerated"], "YYYYMMDD;HHmmss", "America/New_York");
 
