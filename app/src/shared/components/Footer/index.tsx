@@ -1,7 +1,7 @@
 import React from 'react';
 import TargetAwareLink from '../../utils/TargetAwareLink';
 
-import { StyledFooter } from './styled';
+import { StyledFooter, LinkWrapper, FlexOuterItem } from './styled';
 import COMMON from '../../constants/Common';
 
 const footerItemList = [
@@ -17,27 +17,56 @@ const footerItemList = [
 const Footer : React.FunctionComponent = () => {
   const footerItems = footerItemList.map<React.ReactNode>(
     (footerItem) => (
-      <TargetAwareLink
-        key={footerItem.text}
-        to={footerItem.link}
-        forceReload={footerItem.forceReload}
-      >
-        {footerItem.text}
-      </TargetAwareLink>
+      <LinkWrapper>
+        <TargetAwareLink
+          key={footerItem.text}
+          to={footerItem.link}
+          forceReload={footerItem.forceReload}
+        >
+          {footerItem.text}
+        </TargetAwareLink>
+      </LinkWrapper>
     ),
   ).reduce((prev, curr) => [prev, '|', curr]);
 
   return (
     <StyledFooter>
+      <FlexOuterItem />
+
       <p>
-        {footerItems}
+        <p>
+          {footerItems}
+        </p>
+        <p>
+          Copyright &copy;
+          {` ${COMMON.WEBSITE.foundingYear} - ${new Date().getFullYear()} · `}
+          {`${COMMON.OWNER.fullName()} · `}
+          All rights reserved
+        </p>
       </p>
-      <p>
-        Copyright &copy;
-        {` ${COMMON.WEBSITE.foundingYear} - ${new Date().getFullYear()}. `}
-        {` ${COMMON.OWNER.fullName()}. `}
-        All rights reserved.
-      </p>
+
+      <FlexOuterItem>
+        <p>
+          <strong>Build: </strong>
+          <TargetAwareLink
+            to={`https://github.com/mobeigi/mobeigi.com/commit/${__COMMIT_HASH__}`}
+            rel="external nofollow"
+            forceReload
+          >
+            {__COMMIT_HASH__}
+          </TargetAwareLink>
+        </p>
+        <p>
+          <strong>Source: </strong>
+          <TargetAwareLink
+            to="https://github.com/mobeigi/mobeigi.com"
+            rel="external nofollow"
+            forceReload
+          >
+            mobeigi/mobeigi.com
+          </TargetAwareLink>
+        </p>
+      </FlexOuterItem>
     </StyledFooter>
   );
 };

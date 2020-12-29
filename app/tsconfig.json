@@ -21,6 +21,7 @@
   },
   "include": [
     "src",
-    ".eslintrc.js"
+    ".eslintrc.js",
+    "global.d.ts"
   ]
 }
