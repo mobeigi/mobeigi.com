@@ -10,6 +10,7 @@ module.exports = {
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
+    __COMMIT_HASH__: 'readonly',
   },
   overrides: [
     {
