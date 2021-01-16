@@ -3,8 +3,11 @@ import {
   GetTradesInRangeProps,
   FilterStockTradesProps,
   FilterOptionsTradesProps,
-  GetNetDepositWithdrawalInBaseInRangeProps,
+  GetDepositWithdrawalInRangeProps,
+  GetEquitySummaryInBaseInRangeProps,
   GetEquitySummaryInBaseForDayProps,
+  TimeWeightedReturn,
+  GetTimeWeightedReturnProps,
 } from './utils.types';
 
 export const getCurrentFinancialYearStartDate = () => {
@@ -27,6 +30,13 @@ export const filterOptionTrades = ({ trades }: FilterOptionsTradesProps) => trad
   (trade) => trade.putCall !== null,
 );
 
+export const getEquitySummaryInBaseInRange = (
+  { equitySummaryInBase, from, to }: GetEquitySummaryInBaseInRangeProps,
+) => equitySummaryInBase.filter(
+  (equitySummaryInBaseEntry) => equitySummaryInBaseEntry.reportDate >= from
+  && equitySummaryInBaseEntry.reportDate <= to,
+);
+
 export const getEquitySummaryInBaseForDay = (
   { equitySummaryInBase, date }: GetEquitySummaryInBaseForDayProps,
 ) => (
@@ -34,13 +44,50 @@ export const getEquitySummaryInBaseForDay = (
     (equitySummaryInBaseEntry) => moment(equitySummaryInBaseEntry.reportDate).isSame(moment(date)),
   ));
 
-export const getNetDepositWithdrawalInBaseInRange = (
-  { depositsWithdrawals, from, to }: GetNetDepositWithdrawalInBaseInRangeProps,
+export const getDepositWithdrawalInRange = (
+  { depositsWithdrawals, from, to }: GetDepositWithdrawalInRangeProps,
 ) => depositsWithdrawals
   .filter(
-    (depositsWithdrawal) => depositsWithdrawal.dateTime > from && depositsWithdrawal.dateTime < to,
-  )
-  .reduce((accumulator, current) => accumulator + (current.amount * current.fxRateToBase), 0);
+    (depositsWithdrawal) => depositsWithdrawal.dateTime >= from
+    && depositsWithdrawal.dateTime <= to,
+  );
+
+export const getTimeWeightedReturn = (
+  {
+    equitySummaryInBase, depositsWithdrawals,
+  }: GetTimeWeightedReturnProps,
+) => {
+  const timeWeightedReturnArray = [] as TimeWeightedReturn[];
+  const netDepositWithdrawal = depositsWithdrawals
+    .reduce((accumulator, current) => accumulator + (current.amount * current.fxRateToBase), 0);
+
+  // Cost basis is total deposits + starting balance
+  const totalCostBasis = netDepositWithdrawal + equitySummaryInBase[0].total;
+
+  equitySummaryInBase.forEach((equitySummaryInBaseEntry) => {
+    const netDepositWithdrawalTillDate = depositsWithdrawals
+      .filter((depositsWithdrawal) => {
+        depositsWithdrawal.dateTime.setHours(0, 0, 0, 0);
+        return (
+          depositsWithdrawal.dateTime <= equitySummaryInBaseEntry.reportDate
+        );
+      })
+      .reduce((accumulator, current) => accumulator + (current.amount * current.fxRateToBase), 0);
+
+    const totalDiff = equitySummaryInBaseEntry.total
+     - (netDepositWithdrawalTillDate + equitySummaryInBase[0].total);
+
+    const timeWeightedReturnValue = totalDiff / totalCostBasis;
+    const timeWeightedReturn = {
+      date: equitySummaryInBaseEntry.reportDate,
+      return: timeWeightedReturnValue,
+      totalDiff,
+    } as TimeWeightedReturn;
+    timeWeightedReturnArray.push(timeWeightedReturn);
+  });
+
+  return timeWeightedReturnArray;
+};
 
 export default {
   getCurrentFinancialYearStartDate,
@@ -48,5 +95,5 @@ export default {
   filterStockTrades,
   filterOptionTrades,
   getEquitySummaryInBaseForDay,
-  getNetDepositWithdrawalInBaseInRange,
+  getDepositWithdrawalInRange,
 };
