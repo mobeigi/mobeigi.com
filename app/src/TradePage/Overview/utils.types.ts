@@ -14,8 +14,14 @@ export type FilterOptionsTradesProps = {
     trades: Trade[],
 }
 
-export type GetNetDepositWithdrawalInBaseInRangeProps = {
+export type GetDepositWithdrawalInRangeProps = {
     depositsWithdrawals: DepositsWithdrawal[],
+    from: Date,
+    to: Date,
+}
+
+export type GetEquitySummaryInBaseInRangeProps = {
+    equitySummaryInBase: EquitySummaryInBase[],
     from: Date,
     to: Date,
 }
@@ -23,4 +29,15 @@ export type GetNetDepositWithdrawalInBaseInRangeProps = {
 export type GetEquitySummaryInBaseForDayProps = {
     equitySummaryInBase: EquitySummaryInBase[],
     date: Date,
+}
+
+export type TimeWeightedReturn = {
+    date: Date,
+    return: number,
+    totalDiff: number
+}
+
+export type GetTimeWeightedReturnProps = {
+    equitySummaryInBase: EquitySummaryInBase[],
+    depositsWithdrawals: DepositsWithdrawal[]
 }

@@ -2,16 +2,19 @@ import React from 'react';
 import moment from 'moment';
 import { useSpring, animated } from 'react-spring';
 
+import TimeWeightedReturnChart from './TimeWeightedReturnChart';
 import type { Props } from './types';
 import { StyledTable } from '../common/styled';
-import { StatisticValue } from './styled';
+import { StatisticValue, TimeWeightedReturnChartContainer } from './styled';
 import {
   getCurrentFinancialYearStartDate,
   getTradesInRange,
   filterStockTrades,
   filterOptionTrades,
-  getNetDepositWithdrawalInBaseInRange,
+  getDepositWithdrawalInRange,
+  getEquitySummaryInBaseInRange,
   getEquitySummaryInBaseForDay,
+  getTimeWeightedReturn,
 } from './utils';
 
 const Overview = ({
@@ -28,19 +31,34 @@ const Overview = ({
     / currentFinancialYearTrades.length;
   const optionTradingFrequency = filterOptionTrades({ trades: currentFinancialYearTrades }).length
     / currentFinancialYearTrades.length;
-  const currentFinancialYearNetDepositWithdrawal = getNetDepositWithdrawalInBaseInRange(
+  const currentFinancialYearDepositWithdrawal = getDepositWithdrawalInRange(
     {
       depositsWithdrawals,
       from: currentFinancialYearStartDate,
       to: new Date(),
     },
   );
+
+  const currentFinancialYearNetDepositWithdrawal = currentFinancialYearDepositWithdrawal
+    .reduce((accumulator, current) => accumulator + (current.amount * current.fxRateToBase), 0);
+
   const currentFinancialYearStartDateEquitySummaryInBase = getEquitySummaryInBaseForDay(
     {
       equitySummaryInBase,
       date: currentFinancialYearStartDate,
     },
   );
+
+  const currentFinancialYearEquitySummaryInBase = getEquitySummaryInBaseInRange({
+    equitySummaryInBase,
+    from: currentFinancialYearStartDate,
+    to: new Date(),
+  });
+
+  const timeWeightedReturnData = getTimeWeightedReturn({
+    equitySummaryInBase: currentFinancialYearEquitySummaryInBase,
+    depositsWithdrawals: currentFinancialYearDepositWithdrawal,
+  });
 
   if (!currentFinancialYearStartDateEquitySummaryInBase) {
     throw new Error(`Failed to get getEquitySummaryInBaseForDay for date ${currentFinancialYearStartDate}`);
@@ -86,12 +104,6 @@ const Overview = ({
     <div>
       <h2>Overview</h2>
       <p>
-        My trades page includes my positions, history and thoughts. Enjoy!
-        <span role="img" aria-label="money-bag-emoji"> 💰</span>
-      </p>
-      <br />
-      <h2>Statistics</h2>
-      <p>
         Tracked from the start of the current Australian Financial Year (
         <strong>
           {`FY${moment(currentFinancialYearStartDate).year().toString().substr(2)}/${moment(currentFinancialYearStartDate).add(1, 'year').year().toString()
@@ -100,6 +112,9 @@ const Overview = ({
         )
       </p>
       {lastUpdated}
+      <TimeWeightedReturnChartContainer>
+        <TimeWeightedReturnChart data={timeWeightedReturnData} />
+      </TimeWeightedReturnChartContainer>
       <br />
       <StyledTable className="table table-hover table-active">
         <thead>
