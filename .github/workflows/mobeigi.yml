@@ -45,6 +45,8 @@ jobs:
       working-directory: ./server
       run: |
         yarn install
+        yarn lint
+        yarn build
 
   deploy:
     runs-on: ubuntu-latest
