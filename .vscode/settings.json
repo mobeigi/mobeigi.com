@@ -3,6 +3,10 @@
     {
       "directory": "./app",
       "changeProcessCWD": true
+    },
+    {
+      "directory": "./server",
+      "changeProcessCWD": true
     }
   ],
   "files.eol": "\n"
