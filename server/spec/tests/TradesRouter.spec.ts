@@ -20,7 +20,7 @@ describe('TradesRouter', () => {
       // Call API
       void agent.get(tradesPath)
         .end((err: Error, res: Response) => {
-          expect(res.status).toBe(NOT_FOUND+500);
+          expect(res.status).toBe(NOT_FOUND);
           done();
         });
     }, 30000);
