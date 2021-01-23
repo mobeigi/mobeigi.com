@@ -9,15 +9,6 @@ dist
 *.log
 *.lock
 
-# public
-public*
-
-# testing
-coverage*
-
-# production
-build*
-
 # Private files
 private/*
 
