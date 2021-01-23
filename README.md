@@ -50,16 +50,14 @@ The build is minified and the filenames include the hashes.<br />
 
 Launches the test runner in a non-watch mode.<br />
 
-
-#### `yarn clean`
-
-Clean up temporary directories like `node_modules` and `build`.<br />
-
-
 #### `yarn lint`
 
 Run ESLint against all source files.<br />
 A lint will also occur on staged files via a pre-commit hook.
+
+#### `yarn clean`
+
+Clean up temporary directories like `node_modules` and `build`.<br />
 
 ### Server
 
@@ -67,6 +65,23 @@ A lint will also occur on staged files via a pre-commit hook.
 
 Runs the server.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+#### `yarn start:dev`
+
+Runs the server with nodemon hot reloading.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+#### `yarn test`
+
+Launches the test runner.<br />
+
+#### `yarn test:dev`
+
+Launches the test runner with nodemon hot reloading.<br />
+
+#### `yarn lint`
+
+Run ESLint against all source files.<br />
 
 #### `yarn clean`
 
