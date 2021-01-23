@@ -1,5 +1,5 @@
 import supertest, { SuperTest, Test } from 'supertest';
-import StatusCodes, { NOT_FOUND } from 'http-status-codes';
+import StatusCodes from 'http-status-codes';
 import app from '@server';
 import type { Response } from 'supertest';
 
@@ -16,7 +16,7 @@ describe('TradesRouter', () => {
   });
 
   describe(`"GET: ${tradesPath}"`, () => {
-    it('should return not found for missing file', async (done) => {
+    it('should return not found for missing file', (done) => {
       // Call API
       void agent.get(tradesPath)
         .end((err: Error, res: Response) => {
