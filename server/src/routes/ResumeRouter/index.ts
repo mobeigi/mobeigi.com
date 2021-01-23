@@ -1,6 +1,6 @@
+import fs from 'fs';
 import { Request, Response, Router } from 'express';
 import StatusCodes from 'http-status-codes';
-import fs from 'fs';
 
 import type { AuthRequestType } from './types';
 
@@ -10,7 +10,6 @@ const { NO_CONTENT, UNPROCESSABLE_ENTITY, UNAUTHORIZED } = StatusCodes;
 const validKeyArray = fs.readFileSync('private/resume/authKeyList.txt').toString().split('\n');
 const paramError = { error: 'The \'authKey\' parameter is required.'};
 const authKeyError = { error: 'Provided \'authKey\' is not authorised.'};
-
 
 router.post('/auth', (req: Request, res: Response) => {
   const authRequest = req.body as AuthRequestType;

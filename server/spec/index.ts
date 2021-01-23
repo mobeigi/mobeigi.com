@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import commandLineArgs from 'command-line-args';
 import logger from '@shared/components/Logger';
 
-
 // Setup command line options
 const options = commandLineArgs([
   {
@@ -15,13 +14,12 @@ const options = commandLineArgs([
 ]);
 
 // Set the env file
-const result2 = dotenv.config({
+const envResult = dotenv.config({
   path: './src/pre-start/env/test.env',
 });
-if (result2.error) {
-  throw result2.error;
+if (envResult.error) {
+  throw envResult.error;
 }
-
 
 // Init Jasmine
 const jasmine = new Jasmine(null);
@@ -39,10 +37,11 @@ jasmine.loadConfig({
 // On complete callback function
 jasmine.onComplete((passed: boolean) => {
   if (passed) {
-    logger.info('All tests have passed :)');
+    logger.info('All tests have passed.');
   } else {
-    logger.err('At least one test has failed :(');
+    logger.err('At least one test has failed.');
   }
+  jasmine.exitCodeCompletion(passed);
 });
 
 // Run all or a single unit-test

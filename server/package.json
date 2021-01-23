@@ -19,7 +19,8 @@
     "lint": "eslint . --ext .ts",
     "start": "node -r module-alias/register ./dist --env=production",
     "start:dev": "nodemon",
-    "test": "nodemon --config ./spec/nodemon.json",
+    "test": "ts-node -r tsconfig-paths/register ./spec",
+    "test:dev": "nodemon --config ./spec/nodemon.json",
     "clean": "rm -rf node_modules/ dist/"
   },
   "nodemonConfig": {
@@ -74,6 +75,7 @@
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
     "eslint": "^7.18.0",
+    "eslint-plugin-import": "^2.22.1",
     "find": "^0.3.0",
     "fs-extra": "^9.1.0",
     "jasmine": "^3.6.4",

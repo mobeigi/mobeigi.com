@@ -7,31 +7,17 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking'
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
   ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly'
   },
-  overrides: [
-    {
-      files: [
-        '**/*.test.js',
-        '**/*.test.jsx',
-        '**/*.test.ts',
-        '**/*.test.tsx',
-      ],
-      env: {
-        jest: true,
-      },
-    },
-  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 2018,
     project: 'tsconfig.json',
     sourceType: 'module',
   },
@@ -39,7 +25,6 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
-    'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-unsafe-return': 'off',
@@ -48,12 +33,16 @@ module.exports = {
     'indent': ['error', 2],
     'no-multi-spaces': ['error'],
     'no-trailing-spaces': ['error'],
-    'no-multiple-empty-lines': ['error'],
+    'no-multiple-empty-lines': ['error', { max: 1 }],
+    'import/no-unresolved': 'off', // TODO: Does not work with module-aliases
+    'import/order': ['error'],
+    'max-len': [ 'error', { 'code': 120 } ],
+    'no-console': 1,
   },
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        extensions: ['.ts'],
       },
     },
   },
