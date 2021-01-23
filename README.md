@@ -61,6 +61,11 @@ Clean up temporary directories like `node_modules` and `build`.<br />
 
 ### Server
 
+
+#### `yarn build`
+
+Builds the app for production to the `dist` folder.<br />
+
 #### `yarn start`
 
 Runs the server.<br />
@@ -85,4 +90,4 @@ Run ESLint against all source files.<br />
 
 #### `yarn clean`
 
-Clean up temporary directories like `node_modules`.<br />
+Clean up temporary directories like `node_modules` and `dist`.<br />
