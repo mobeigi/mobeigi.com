@@ -9,13 +9,9 @@ import { MoonLoader } from 'react-spinners';
 import COLORS from '../shared/constants/Colors';
 import { LoaderCss } from '../shared/styles/common';
 import TargetAwareLink from '../shared/utils/TargetAwareLink';
-import type {
-  State,
-} from './types';
+import type { State } from './types';
 import { NavTab } from './types';
-import type {
-  OpenPosition, Trade, DepositsWithdrawal, EquitySummaryInBase,
-} from './common/types';
+import type { OpenPosition, Trade, DepositsWithdrawal, EquitySummaryInBase } from './common/types';
 import COMMON from '../shared/constants/Common';
 import FadeIn from '../shared/components/FadeIn';
 import { Nav, TabContainer } from './styled';
@@ -43,9 +39,10 @@ const TradePage = () => {
     Axios.get('/trades/Last365CalendarDays')
       .then((response) => {
         if (response.status === 200) {
-          const trades = response.data.trades.reverse()
-            .filter((trade : Trade) => trade.symbol !== 'AUD.USD') // filter currency conversion trades
-            .map((trade : Trade) => ({
+          const trades = response.data.trades
+            .reverse()
+            .filter((trade: Trade) => trade.symbol !== 'AUD.USD') // filter currency conversion trades
+            .map((trade: Trade) => ({
               ...trade,
               tradeID: Number(trade.tradeID),
               strike: Number(trade.strike) || null,
@@ -70,7 +67,7 @@ const TradePage = () => {
               dateTime: new Date(depositsWithdrawal.dateTime),
               amount: Number(depositsWithdrawal.amount),
               fxRateToBase: Number(depositsWithdrawal.fxRateToBase),
-            }),
+            })
           );
 
           const equitySummaryInBase = response.data.equitySummaryInBase.map(
@@ -80,7 +77,7 @@ const TradePage = () => {
               total: Number(equitySummaryInBaseEntry.total),
               totalLong: Number(equitySummaryInBaseEntry.totalLong),
               totalShort: Number(equitySummaryInBaseEntry.totalShort),
-            }),
+            })
           );
 
           setState((prevState: State) => ({
@@ -110,8 +107,7 @@ const TradePage = () => {
       });
   }, []);
 
-  const updateCurrentNavTab = ({ e, newNavTab }:
-    { e: React.MouseEvent<HTMLElement>, newNavTab: NavTab }) => {
+  const updateCurrentNavTab = ({ e, newNavTab }: { e: React.MouseEvent<HTMLElement>; newNavTab: NavTab }) => {
     // Prevent changing location to same nav tab
     if (state.currentNavTab === newNavTab) {
       e.preventDefault();
@@ -143,14 +139,15 @@ const TradePage = () => {
   const lastUpdated = (
     <p>
       <strong>Last Updated: </strong>
-      {state.whenGenerated && new Intl.DateTimeFormat('en-GB', {
-        year: 'numeric',
-        month: 'long',
-        day: '2-digit',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric',
-      }).format(state.whenGenerated)}
+      {state.whenGenerated &&
+        new Intl.DateTimeFormat('en-GB', {
+          year: 'numeric',
+          month: 'long',
+          day: '2-digit',
+          hour: 'numeric',
+          minute: 'numeric',
+          second: 'numeric',
+        }).format(state.whenGenerated)}
       {` ${moment.tz(state.timezone).zoneName()}`}
     </p>
   );
@@ -165,12 +162,7 @@ const TradePage = () => {
         <link rel="canonical" href={`${COMMON.WEBSITE.baseURL}/trades`} />
       </Helmet>
 
-      <MoonLoader
-        css={LoaderCss}
-        size={50}
-        color={COLORS.white}
-        loading={state.loading}
-      />
+      <MoonLoader css={LoaderCss} size={50} color={COLORS.white} loading={state.loading} />
 
       {state.error && (
         <FadeIn>
@@ -179,12 +171,17 @@ const TradePage = () => {
         </FadeIn>
       )}
 
-      {!state.loading && !state.error
-        && (
+      {!state.loading && !state.error && (
         <>
           {/* Nav */}
           <Nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a className="navbar-brand" href="#overview" onClick={(e) => updateCurrentNavTab({ e, newNavTab: NavTab.Overview })}>Trades</a>
+            <a
+              className="navbar-brand"
+              href="#overview"
+              onClick={(e) => updateCurrentNavTab({ e, newNavTab: NavTab.Overview })}
+            >
+              Trades
+            </a>
             <button
               className="navbar-toggler"
               type="button"
@@ -200,12 +197,20 @@ const TradePage = () => {
             <div className="collapse navbar-collapse" id="trades-nav">
               <ul className="navbar-nav mr-auto">
                 <li className={`nav-item ${state.currentNavTab === NavTab.Overview && 'active'}`}>
-                  <a className="nav-link" href="#overview" onClick={(e) => updateCurrentNavTab({ e, newNavTab: NavTab.Overview })}>
+                  <a
+                    className="nav-link"
+                    href="#overview"
+                    onClick={(e) => updateCurrentNavTab({ e, newNavTab: NavTab.Overview })}
+                  >
                     Overview
                   </a>
                 </li>
                 <li className={`nav-item ${state.currentNavTab === NavTab.OpenPositions && 'active'}`}>
-                  <a className="nav-link" href="#openpositions" onClick={(e) => updateCurrentNavTab({ e, newNavTab: NavTab.OpenPositions })}>
+                  <a
+                    className="nav-link"
+                    href="#openpositions"
+                    onClick={(e) => updateCurrentNavTab({ e, newNavTab: NavTab.OpenPositions })}
+                  >
                     Open Positions
                   </a>
                 </li>
@@ -219,7 +224,13 @@ const TradePage = () => {
                   </a>
                 </li>
                 <li className={`nav-item ${state.currentNavTab === NavTab.StockTwits && 'active'}`}>
-                  <a className="nav-link" href="#stocktwits" onClick={(e) => updateCurrentNavTab({ e, newNavTab: NavTab.StockTwits })}>StockTwits</a>
+                  <a
+                    className="nav-link"
+                    href="#stocktwits"
+                    onClick={(e) => updateCurrentNavTab({ e, newNavTab: NavTab.StockTwits })}
+                  >
+                    StockTwits
+                  </a>
                 </li>
               </ul>
             </div>
@@ -227,59 +238,49 @@ const TradePage = () => {
 
           {/* Tab Containers */}
           <TabContainer>
-            { (state.currentNavTab === NavTab.Overview && (
-            <FadeIn>
-              <Overview
-                trades={state.trades}
-                lastUpdated={lastUpdated}
-                depositsWithdrawals={state.depositsWithdrawals}
-                equitySummaryInBase={state.equitySummaryInBase}
-              />
-            </FadeIn>
-            ))
-            || (state.currentNavTab === NavTab.OpenPositions
-            && (
-            <FadeIn>
-              <OpenPositions
-                openPositions={state.openPositions}
-                lastUpdated={lastUpdated}
-              />
-            </FadeIn>
-            ))
-            || (state.currentNavTab === NavTab.TradeHistory
-              && (
+            {(state.currentNavTab === NavTab.Overview && (
               <FadeIn>
-                <TradeHistory
+                <Overview
                   trades={state.trades}
                   lastUpdated={lastUpdated}
-                  timezone={state.timezone}
+                  depositsWithdrawals={state.depositsWithdrawals}
+                  equitySummaryInBase={state.equitySummaryInBase}
                 />
               </FadeIn>
-              ))
-            || (state.currentNavTab === NavTab.StockTwits && (
-            <FadeIn>
-              <div>
-                <h2>
-                  StockTwits
-                  (
-                  <TargetAwareLink
-                    to="https://stocktwits.com/mobeigi"
-                    title="StockTwits (@mobeigi)"
-                    aria-label="StockTwits (@mobeigi)"
-                    rel="external nofollow"
-                  >
-                    @mobeigi
-                  </TargetAwareLink>
-                  )
-                </h2>
-                <br />
-                <StockTwitsWidget />
-              </div>
-            </FadeIn>
-            ))}
+            )) ||
+              (state.currentNavTab === NavTab.OpenPositions && (
+                <FadeIn>
+                  <OpenPositions openPositions={state.openPositions} lastUpdated={lastUpdated} />
+                </FadeIn>
+              )) ||
+              (state.currentNavTab === NavTab.TradeHistory && (
+                <FadeIn>
+                  <TradeHistory trades={state.trades} lastUpdated={lastUpdated} timezone={state.timezone} />
+                </FadeIn>
+              )) ||
+              (state.currentNavTab === NavTab.StockTwits && (
+                <FadeIn>
+                  <div>
+                    <h2>
+                      StockTwits (
+                      <TargetAwareLink
+                        to="https://stocktwits.com/mobeigi"
+                        title="StockTwits (@mobeigi)"
+                        aria-label="StockTwits (@mobeigi)"
+                        rel="external nofollow"
+                      >
+                        @mobeigi
+                      </TargetAwareLink>
+                      )
+                    </h2>
+                    <br />
+                    <StockTwitsWidget />
+                  </div>
+                </FadeIn>
+              ))}
           </TabContainer>
         </>
-        )}
+      )}
     </>
   );
 };

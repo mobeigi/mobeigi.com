@@ -6,7 +6,7 @@ export const mobileDimensions = { maxWidth: 767 };
 
 export const desktopSizeModifier = 1.0;
 export const tabletSizeModifier = 0.85;
-export const mobileSizeModifier = 0.70;
+export const mobileSizeModifier = 0.7;
 
 export const Desktop: React.FunctionComponent<any> = ({ children }) => {
   const isDesktop = useMediaQuery(desktopDimensions);

@@ -6,6 +6,10 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'airbnb',
+    'prettier',
+    'prettier/@typescript-eslint',
+    'prettier/react',
+    'plugin:prettier/recommended',
   ],
   globals: {
     Atomics: 'readonly',
@@ -14,12 +18,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: [
-        '**/*.test.js',
-        '**/*.test.jsx',
-        '**/*.test.ts',
-        '**/*.test.tsx',
-      ],
+      files: ['**/*.test.js', '**/*.test.jsx', '**/*.test.ts', '**/*.test.tsx'],
       env: {
         jest: true,
       },
@@ -34,16 +33,17 @@ module.exports = {
     project: 'tsconfig.json',
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-    '@typescript-eslint',
-  ],
+  plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
-    'react/static-property-placement': ['warn', 'property assignment', {
-      defaultProps: 'static public field',
-      propTypes: 'static public field',
-    }],
+    'react/static-property-placement': [
+      'warn',
+      'property assignment',
+      {
+        defaultProps: 'static public field',
+        propTypes: 'static public field',
+      },
+    ],
     'react/prop-types': 'off',
     'import/extensions': [
       'error',
@@ -57,6 +57,7 @@ module.exports = {
     ],
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
+    'prettier/prettier': ['error'],
   },
   settings: {
     'import/resolver': {

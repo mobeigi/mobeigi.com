@@ -1,9 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  Switch,
-  Route,
-  useLocation,
-} from 'react-router-dom';
+import { Switch, Route, useLocation } from 'react-router-dom';
 import ReactGA from 'react-ga';
 
 import * as jquery from 'jquery';
@@ -23,7 +19,10 @@ import './App.css';
 
 // Add jQuery to window object
 declare global {
-  interface Window { $: any, jQuery: any }
+  interface Window {
+    $: any;
+    jQuery: any;
+  }
 }
 
 window.$ = jquery || {};
@@ -35,17 +34,22 @@ require('bootstrap');
 // Init Google Analytics
 ReactGA.initialize(COMMON.ANALYTICS.gaTrackingId);
 
-const App : React.FunctionComponent = () => {
+const App: React.FunctionComponent = () => {
   const location = useLocation();
 
   const printConsoleMessage = () => {
-    const msg = '%c  __  __         ____       _       _ \n |  \\/  |       |  _ \\     (_)     (_)\n | \\  / | ___   | |_) | ___ _  __ _ _ \n | |\\/| |/ _ \\  |  _ < / _ \\ |/ _` | |\n | |  | | (_) | | |_) |  __/ | (_| | |\n |_|  |_|\\___/  |____/ \\___|_|\\__, |_|\n                               __/ |  \n                              |___/   '
-      + '%c\n ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ '
-      + '\n\n Welcome! Need to contact me? https://mobeigi.com/blog/contact/ '
-      + '\n ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ';
+    const msg =
+      '%c  __  __         ____       _       _ \n |  \\/  |       |  _ \\     (_)     (_)\n | \\  / | ___   | |_) | ___ _  __ _ _ \n | |\\/| |/ _ \\  |  _ < / _ \\ |/ _` | |\n | |  | | (_) | | |_) |  __/ | (_| | |\n |_|  |_|\\___/  |____/ \\___|_|\\__, |_|\n                               __/ |  \n                              |___/   ' +
+      '%c\n ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ' +
+      '\n\n Welcome! Need to contact me? https://mobeigi.com/blog/contact/ ' +
+      '\n ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ____ ';
 
     // eslint-disable-next-line no-console
-    console.log(msg, 'font-size: 18px; font-family: monospace; color: #6699CC;', 'font-size: 12px; font-family: monospace; color: #6699CC;');
+    console.log(
+      msg,
+      'font-size: 18px; font-family: monospace; color: #6699CC;',
+      'font-size: 12px; font-family: monospace; color: #6699CC;'
+    );
   };
 
   // Fired on load

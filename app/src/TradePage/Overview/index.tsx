@@ -17,9 +17,7 @@ import {
   getTimeWeightedReturn,
 } from './utils';
 
-const Overview = ({
-  trades, lastUpdated, depositsWithdrawals, equitySummaryInBase,
-}: Props) => {
+const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySummaryInBase }: Props) => {
   // Perform statisitc calculations
   const currentFinancialYearStartDate = getCurrentFinancialYearStartDate();
   const currentFinancialYearTrades = getTradesInRange({
@@ -27,27 +25,25 @@ const Overview = ({
     from: currentFinancialYearStartDate,
     to: new Date(),
   });
-  const stockTradingFrequency = filterStockTrades({ trades: currentFinancialYearTrades }).length
-    / currentFinancialYearTrades.length;
-  const optionTradingFrequency = filterOptionTrades({ trades: currentFinancialYearTrades }).length
-    / currentFinancialYearTrades.length;
-  const currentFinancialYearDepositWithdrawal = getDepositWithdrawalInRange(
-    {
-      depositsWithdrawals,
-      from: currentFinancialYearStartDate,
-      to: new Date(),
-    },
+  const stockTradingFrequency =
+    filterStockTrades({ trades: currentFinancialYearTrades }).length / currentFinancialYearTrades.length;
+  const optionTradingFrequency =
+    filterOptionTrades({ trades: currentFinancialYearTrades }).length / currentFinancialYearTrades.length;
+  const currentFinancialYearDepositWithdrawal = getDepositWithdrawalInRange({
+    depositsWithdrawals,
+    from: currentFinancialYearStartDate,
+    to: new Date(),
+  });
+
+  const currentFinancialYearNetDepositWithdrawal = currentFinancialYearDepositWithdrawal.reduce(
+    (accumulator, current) => accumulator + current.amount * current.fxRateToBase,
+    0
   );
 
-  const currentFinancialYearNetDepositWithdrawal = currentFinancialYearDepositWithdrawal
-    .reduce((accumulator, current) => accumulator + (current.amount * current.fxRateToBase), 0);
-
-  const currentFinancialYearStartDateEquitySummaryInBase = getEquitySummaryInBaseForDay(
-    {
-      equitySummaryInBase,
-      date: currentFinancialYearStartDate,
-    },
-  );
+  const currentFinancialYearStartDateEquitySummaryInBase = getEquitySummaryInBaseForDay({
+    equitySummaryInBase,
+    date: currentFinancialYearStartDate,
+  });
 
   const currentFinancialYearEquitySummaryInBase = getEquitySummaryInBaseInRange({
     equitySummaryInBase,
@@ -64,8 +60,8 @@ const Overview = ({
     throw new Error(`Failed to get getEquitySummaryInBaseForDay for date ${currentFinancialYearStartDate}`);
   }
 
-  const totalCostBasis = currentFinancialYearNetDepositWithdrawal
-    + currentFinancialYearStartDateEquitySummaryInBase.total;
+  const totalCostBasis =
+    currentFinancialYearNetDepositWithdrawal + currentFinancialYearStartDateEquitySummaryInBase.total;
   const currentNetLiquidity = equitySummaryInBase.slice(-1)[0].total;
   const fytdReturn = (currentNetLiquidity - totalCostBasis) / totalCostBasis;
 
@@ -106,7 +102,12 @@ const Overview = ({
       <p>
         Tracked from the start of the current Australian Financial Year (
         <strong>
-          {`FY${moment(currentFinancialYearStartDate).year().toString().substr(2)}/${moment(currentFinancialYearStartDate).add(1, 'year').year().toString()
+          {`FY${moment(currentFinancialYearStartDate).year().toString().substr(2)}/${moment(
+            currentFinancialYearStartDate
+          )
+            .add(1, 'year')
+            .year()
+            .toString()
             .substr(2)}`}
         </strong>
         )
@@ -127,15 +128,10 @@ const Overview = ({
         <tbody>
           <tr>
             <td>Return (%)</td>
-            <td>
-              Computed as difference between net liquidity and cost basis.
-            </td>
+            <td>Computed as difference between net liquidity and cost basis.</td>
             <td>
               <StatisticValue className={`badge ${fytdReturn > 0 ? 'badge-success' : 'badge-danger'}`}>
-                <animated.span>
-                  {fytdReturnAnimation.number.interpolate((val) => val.toFixed(2))}
-                </animated.span>
-                %
+                <animated.span>{fytdReturnAnimation.number.interpolate((val) => val.toFixed(2))}</animated.span>%
               </StatisticValue>
             </td>
           </tr>
@@ -148,7 +144,6 @@ const Overview = ({
                   {averageTradesAnimation.number.interpolate((val) => Number(val.toFixed(2)))}
                 </animated.span>
               </StatisticValue>
-
             </td>
           </tr>
           <tr>
@@ -160,7 +155,6 @@ const Overview = ({
                   {currentFinancialYearTradesAnimation.number.interpolate((val) => Math.floor(val))}
                 </animated.span>
               </StatisticValue>
-
             </td>
           </tr>
           <tr>
@@ -173,7 +167,6 @@ const Overview = ({
                 </animated.span>
                 %
               </StatisticValue>
-
             </td>
           </tr>
           <tr>
@@ -186,12 +179,10 @@ const Overview = ({
                 </animated.span>
                 %
               </StatisticValue>
-
             </td>
           </tr>
         </tbody>
       </StyledTable>
-
     </div>
   );
 };
