@@ -7,6 +7,7 @@ import 'moment-timezone';
 import Axios from 'axios';
 import cron from 'node-cron';
 import logger from '@shared/components/Logger';
+import { getPrivatePath } from '@shared/utils/GetPrivatePath';
 import type { RequestEndpointProps,
   TransformLast365CalendarDaysDataProps,
   FlexStatementResponseType,
@@ -28,7 +29,7 @@ const router = Router();
 const { OK, NOT_FOUND } = StatusCodes;
 
 const FILE_NAME = 'Last365CalendarDays.xml';
-const CONFIG = JSON.parse(fs.readFileSync('private/trades/config.json').toString()) as ConfigType;
+const CONFIG = JSON.parse(fs.readFileSync(`${getPrivatePath()}/trades/config.json`).toString()) as ConfigType;
 const TOKEN = CONFIG.token;
 const LAST_365_CALENDAR_DAYS_FLEX_QUERY_ID = CONFIG.Last365CalendarDaysFlexQueryId;
 const FLEX_STATEMENT_SENDREQUEST_ENDPOINT =
@@ -61,7 +62,7 @@ const updateLast365CalendarDaysXmlFile = async () => {
           apiVersion: 3
         });
       if (getStatementResponse.status) {
-        fs.writeFileSync('private/trades/' + FILE_NAME, getStatementResponse.data);
+        fs.writeFileSync(`${getPrivatePath()}/trades/${FILE_NAME}`, getStatementResponse.data);
         logger.info('updateLast365CalendarDaysXmlFile: Successfully updated ' + FILE_NAME);
         return true;
       }
@@ -227,7 +228,7 @@ const transformLast365CalendarDaysData = ({ json }: TransformLast365CalendarDays
 
 router.get('/Last365CalendarDays', (req: Request, res: Response) => {
   // Check if file exists on disk
-  const exists = fs.existsSync('private/trades/' + FILE_NAME);
+  const exists = fs.existsSync(`${getPrivatePath()}/trades/${FILE_NAME}`);
 
   if (!exists) {
     return res.status(NOT_FOUND).contentType('json')
@@ -235,7 +236,7 @@ router.get('/Last365CalendarDays', (req: Request, res: Response) => {
   }
 
   // Parse stored file
-  const xml = fs.readFileSync('private/trades/' + FILE_NAME).toString();
+  const xml = fs.readFileSync(`${getPrivatePath()}/trades/${FILE_NAME}`).toString();
   const json = parser.toJson(xml, {object: true}) as FlexQueryResponseType;
   const transformedData = transformLast365CalendarDaysData({ json });
 
