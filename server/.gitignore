@@ -1,5 +1,5 @@
-# Private files
-private/
+# Root private folder
+/private
 
 # Logs
 logs
