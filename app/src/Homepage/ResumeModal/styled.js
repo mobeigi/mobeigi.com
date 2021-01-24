@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 export const InvalidStatus = styled.p`
-  color: #D8000C;
+  color: #d8000c;
   font-weight: bold;
 `;
 
 export const ValidStatus = styled.p`
-  color: #4F8A10;
+  color: #4f8a10;
   font-weight: bold;
 `;
 

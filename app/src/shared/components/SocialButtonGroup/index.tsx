@@ -5,16 +5,16 @@ import type { SocialButtonProps } from './SocialButton';
 import { StyledSocialButtonGroup } from './styled';
 
 type SocialButtonWithLinkType = {
-  link: string,
-  title: string,
-  external?: boolean,
-  nofollow?: boolean,
-  forceReload?: boolean,
-  socialButton: SocialButtonProps,
+  link: string;
+  title: string;
+  external?: boolean;
+  nofollow?: boolean;
+  forceReload?: boolean;
+  socialButton: SocialButtonProps;
 };
 
 type Props = {
-  data: SocialButtonWithLinkType[],
+  data: SocialButtonWithLinkType[];
 };
 
 type State = {
@@ -28,8 +28,7 @@ class SocialButtonGroup extends React.Component<Props, State> {
     forceReload: false,
   };
 
-  static propTypes = {
-  };
+  static propTypes = {};
 
   constructor(props: Props) {
     super(props);
@@ -39,18 +38,19 @@ class SocialButtonGroup extends React.Component<Props, State> {
 
   getRelAttribute = (external?: boolean, nofollow?: boolean): string => {
     const arr = [];
-    if (external) { arr.push('external'); }
-    if (nofollow) { arr.push('nofollow'); }
+    if (external) {
+      arr.push('external');
+    }
+    if (nofollow) {
+      arr.push('nofollow');
+    }
     return arr.join(' ');
   };
 
-  render() : JSX.Element {
+  render(): JSX.Element {
     const { socialButtonWithLinkList } = this.state;
     const socialButtons = socialButtonWithLinkList.map((socialButtonWithLink) => {
-      const relAttribute = this.getRelAttribute(
-        socialButtonWithLink.external,
-        socialButtonWithLink.nofollow,
-      );
+      const relAttribute = this.getRelAttribute(socialButtonWithLink.external, socialButtonWithLink.nofollow);
       return (
         <TargetAwareLink
           key={socialButtonWithLink.title}

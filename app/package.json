@@ -19,7 +19,7 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --watchAll=false --passWithNoTests",
     "clean": "rm -rf node_modules/ build/",
-    "lint": "./node_modules/.bin/eslint src --quiet --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint src --quiet --ext .js,.jsx,.ts,.tsx"
   },
   "husky": {
     "hooks": {
@@ -191,14 +191,17 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^7.5.0",
     "eslint-config-airbnb-typescript": "^9.0.0",
+    "eslint-config-prettier": "^7.2.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-flowtype": "^5.2.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-react-hooks": "^4.0.8",
     "husky": "^4.2.5",
-    "lint-staged": "^10.2.11"
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.2.1"
   },
   "optionalDependencies": {
     "fsevents": "*"

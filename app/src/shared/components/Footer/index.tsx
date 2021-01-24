@@ -14,29 +14,23 @@ const footerItemList = [
   { link: '/blog/feed/rss', forceReload: true, text: 'RSS' },
 ];
 
-const Footer : React.FunctionComponent = () => {
-  const footerItems = footerItemList.map<React.ReactNode>(
-    (footerItem) => (
+const Footer: React.FunctionComponent = () => {
+  const footerItems = footerItemList
+    .map<React.ReactNode>((footerItem) => (
       <LinkWrapper>
-        <TargetAwareLink
-          key={footerItem.text}
-          to={footerItem.link}
-          forceReload={footerItem.forceReload}
-        >
+        <TargetAwareLink key={footerItem.text} to={footerItem.link} forceReload={footerItem.forceReload}>
           {footerItem.text}
         </TargetAwareLink>
       </LinkWrapper>
-    ),
-  ).reduce((prev, curr) => [prev, '|', curr]);
+    ))
+    .reduce((prev, curr) => [prev, '|', curr]);
 
   return (
     <StyledFooter>
       <FlexOuterItem />
 
       <p>
-        <p>
-          {footerItems}
-        </p>
+        <p>{footerItems}</p>
         <p>
           Copyright &copy;
           {` ${COMMON.WEBSITE.foundingYear} - ${new Date().getFullYear()} · `}
@@ -58,11 +52,7 @@ const Footer : React.FunctionComponent = () => {
         </p>
         <p>
           <strong>Source: </strong>
-          <TargetAwareLink
-            to="https://github.com/mobeigi/mobeigi.com"
-            rel="external nofollow"
-            forceReload
-          >
+          <TargetAwareLink to="https://github.com/mobeigi/mobeigi.com" rel="external nofollow" forceReload>
             mobeigi/mobeigi.com
           </TargetAwareLink>
         </p>

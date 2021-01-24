@@ -28,9 +28,7 @@ const jasmine = new Jasmine(null);
 jasmine.loadConfig({
   random: true,
   spec_dir: 'spec',
-  spec_files: [
-    './tests/**/*.spec.ts',
-  ],
+  spec_files: ['./tests/**/*.spec.ts'],
   stopSpecOnExpectationFailure: false,
 });
 

@@ -78,6 +78,7 @@
     "src/**/*.ts",
     "spec/**/*.ts",
     ".eslintrc.js",
+    ".prettierrc",
   ],
   "exclude": [
     "src/public/"

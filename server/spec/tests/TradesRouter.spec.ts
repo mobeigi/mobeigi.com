@@ -4,7 +4,6 @@ import app from '@server';
 import type { Response } from 'supertest';
 
 describe('TradesRouter', () => {
-
   const tradesPath = '/trades/Last365CalendarDays';
 
   const { NOT_FOUND } = StatusCodes;
@@ -18,11 +17,10 @@ describe('TradesRouter', () => {
   describe(`"GET: ${tradesPath}"`, () => {
     it('should return not found for missing file', (done) => {
       // Call API
-      void agent.get(tradesPath)
-        .end((err: Error, res: Response) => {
-          expect(res.status).toBe(NOT_FOUND);
-          done();
-        });
+      void agent.get(tradesPath).end((err: Error, res: Response) => {
+        expect(res.status).toBe(NOT_FOUND);
+        done();
+      });
     }, 30000);
   });
 });

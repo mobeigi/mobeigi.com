@@ -17,10 +17,10 @@ const NotFoundPage = () => (
     <MonospacedParagraph>
       Uh oh! A 404 error, thats not good.
       <br />
-      Try visiting the
-      {' '}
-      <Link to="/" title="Homepage">homepage</Link>
-      {' '}
+      Try visiting the{' '}
+      <Link to="/" title="Homepage">
+        homepage
+      </Link>{' '}
       instead.
     </MonospacedParagraph>
   </>
