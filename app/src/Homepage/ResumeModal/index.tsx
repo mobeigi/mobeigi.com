@@ -26,14 +26,14 @@ const customStyles = {
 };
 
 type Props = {
-    isOpen: boolean,
-    onRequestClose: () => void,
-}
+  isOpen: boolean;
+  onRequestClose: () => void;
+};
 
 type State = {
-  authKey: string,
-  isAuthCorrect: boolean,
-}
+  authKey: string;
+  isAuthCorrect: boolean;
+};
 
 const baseState = {
   authKey: '',
@@ -83,15 +83,14 @@ const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
   const { authKey, isAuthCorrect } = state;
   return (
     <>
-      {isOpen
-      && (
-      <Helmet>
-        <title>
-          {COMMON.WEBSITE.titlePrefix}
-          My Resume
-        </title>
-        <link rel="canonical" href={`${COMMON.WEBSITE.baseURL}#resume`} />
-      </Helmet>
+      {isOpen && (
+        <Helmet>
+          <title>
+            {COMMON.WEBSITE.titlePrefix}
+            My Resume
+          </title>
+          <link rel="canonical" href={`${COMMON.WEBSITE.baseURL}#resume`} />
+        </Helmet>
       )}
 
       <Modal
@@ -116,13 +115,35 @@ const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
             <br />
             <label htmlFor="authKeyInput">
               <span>Auth Key&nbsp;</span>
-              <input ref={authKeyInput} id="authKeyInput" name="authKey" type="password" maxLength={32} onInput={onAuthKeyInput} />
+              <input
+                ref={authKeyInput}
+                id="authKeyInput"
+                name="authKey"
+                type="password"
+                maxLength={32}
+                onInput={onAuthKeyInput}
+              />
             </label>
-            { (authKey.trim() !== '' && (isAuthCorrect ? <ValidStatus>Valid Auth Key</ValidStatus> : <InvalidStatus>Invalid Auth Key</InvalidStatus>))}
+            {authKey.trim() !== '' &&
+              (isAuthCorrect ? (
+                <ValidStatus>Valid Auth Key</ValidStatus>
+              ) : (
+                <InvalidStatus>Invalid Auth Key</InvalidStatus>
+              ))}
           </div>
           <div className="modal-footer">
-            <button id="resumeDownloadButton" type="submit" className="btn btn-primary" aria-label="Download" disabled={!isAuthCorrect}>Download</button>
-            <button type="button" className="btn btn-secondary" aria-label="Close" onClick={onRequestClose}>Close</button>
+            <button
+              id="resumeDownloadButton"
+              type="submit"
+              className="btn btn-primary"
+              aria-label="Download"
+              disabled={!isAuthCorrect}
+            >
+              Download
+            </button>
+            <button type="button" className="btn btn-secondary" aria-label="Close" onClick={onRequestClose}>
+              Close
+            </button>
           </div>
         </form>
       </Modal>

@@ -18,48 +18,37 @@ export const getCurrentFinancialYearStartDate = () => {
   return startOfFinancialYear.toDate();
 };
 
-export const getTradesInRange = ({ trades, from, to }: GetTradesInRangeProps) => trades.filter(
-  (trade) => trade.dateTime > from && trade.dateTime < to,
-);
+export const getTradesInRange = ({ trades, from, to }: GetTradesInRangeProps) =>
+  trades.filter((trade) => trade.dateTime > from && trade.dateTime < to);
 
-export const filterStockTrades = ({ trades }: FilterStockTradesProps) => trades.filter(
-  (trade) => trade.putCall === null,
-);
+export const filterStockTrades = ({ trades }: FilterStockTradesProps) =>
+  trades.filter((trade) => trade.putCall === null);
 
-export const filterOptionTrades = ({ trades }: FilterOptionsTradesProps) => trades.filter(
-  (trade) => trade.putCall !== null,
-);
+export const filterOptionTrades = ({ trades }: FilterOptionsTradesProps) =>
+  trades.filter((trade) => trade.putCall !== null);
 
-export const getEquitySummaryInBaseInRange = (
-  { equitySummaryInBase, from, to }: GetEquitySummaryInBaseInRangeProps,
-) => equitySummaryInBase.filter(
-  (equitySummaryInBaseEntry) => equitySummaryInBaseEntry.reportDate >= from
-  && equitySummaryInBaseEntry.reportDate <= to,
-);
-
-export const getEquitySummaryInBaseForDay = (
-  { equitySummaryInBase, date }: GetEquitySummaryInBaseForDayProps,
-) => (
-  equitySummaryInBase.find(
-    (equitySummaryInBaseEntry) => moment(equitySummaryInBaseEntry.reportDate).isSame(moment(date)),
-  ));
-
-export const getDepositWithdrawalInRange = (
-  { depositsWithdrawals, from, to }: GetDepositWithdrawalInRangeProps,
-) => depositsWithdrawals
-  .filter(
-    (depositsWithdrawal) => depositsWithdrawal.dateTime >= from
-    && depositsWithdrawal.dateTime <= to,
+export const getEquitySummaryInBaseInRange = ({ equitySummaryInBase, from, to }: GetEquitySummaryInBaseInRangeProps) =>
+  equitySummaryInBase.filter(
+    (equitySummaryInBaseEntry) =>
+      equitySummaryInBaseEntry.reportDate >= from && equitySummaryInBaseEntry.reportDate <= to
   );
 
-export const getTimeWeightedReturn = (
-  {
-    equitySummaryInBase, depositsWithdrawals,
-  }: GetTimeWeightedReturnProps,
-) => {
+export const getEquitySummaryInBaseForDay = ({ equitySummaryInBase, date }: GetEquitySummaryInBaseForDayProps) =>
+  equitySummaryInBase.find((equitySummaryInBaseEntry) =>
+    moment(equitySummaryInBaseEntry.reportDate).isSame(moment(date))
+  );
+
+export const getDepositWithdrawalInRange = ({ depositsWithdrawals, from, to }: GetDepositWithdrawalInRangeProps) =>
+  depositsWithdrawals.filter(
+    (depositsWithdrawal) => depositsWithdrawal.dateTime >= from && depositsWithdrawal.dateTime <= to
+  );
+
+export const getTimeWeightedReturn = ({ equitySummaryInBase, depositsWithdrawals }: GetTimeWeightedReturnProps) => {
   const timeWeightedReturnArray = [] as TimeWeightedReturn[];
-  const netDepositWithdrawal = depositsWithdrawals
-    .reduce((accumulator, current) => accumulator + (current.amount * current.fxRateToBase), 0);
+  const netDepositWithdrawal = depositsWithdrawals.reduce(
+    (accumulator, current) => accumulator + current.amount * current.fxRateToBase,
+    0
+  );
 
   // Cost basis is total deposits + starting balance
   const totalCostBasis = netDepositWithdrawal + equitySummaryInBase[0].total;
@@ -68,14 +57,11 @@ export const getTimeWeightedReturn = (
     const netDepositWithdrawalTillDate = depositsWithdrawals
       .filter((depositsWithdrawal) => {
         depositsWithdrawal.dateTime.setHours(0, 0, 0, 0);
-        return (
-          depositsWithdrawal.dateTime <= equitySummaryInBaseEntry.reportDate
-        );
+        return depositsWithdrawal.dateTime <= equitySummaryInBaseEntry.reportDate;
       })
-      .reduce((accumulator, current) => accumulator + (current.amount * current.fxRateToBase), 0);
+      .reduce((accumulator, current) => accumulator + current.amount * current.fxRateToBase, 0);
 
-    const totalDiff = equitySummaryInBaseEntry.total
-     - (netDepositWithdrawalTillDate + equitySummaryInBase[0].total);
+    const totalDiff = equitySummaryInBaseEntry.total - (netDepositWithdrawalTillDate + equitySummaryInBase[0].total);
 
     const timeWeightedReturnValue = totalDiff / totalCostBasis;
     const timeWeightedReturn = {

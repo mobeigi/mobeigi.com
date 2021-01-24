@@ -47,12 +47,7 @@ const StockTwitsWidget = () => {
 
   return (
     <div>
-      <MoonLoader
-        css={LoaderCss}
-        size={50}
-        color={COLORS.white}
-        loading={state.loading}
-      />
+      <MoonLoader css={LoaderCss} size={50} color={COLORS.white} loading={state.loading} />
 
       <StockTwitsIFrame
         title="StockTwits (@mobeigi)"

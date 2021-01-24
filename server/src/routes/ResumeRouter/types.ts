@@ -1,3 +1,3 @@
 export type AuthRequestType = {
-    authKey: string,
+  authKey: string;
 };

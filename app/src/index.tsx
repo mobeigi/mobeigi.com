@@ -16,10 +16,12 @@ ReactDOM.render(
       <App />
     </Router>
   </React.StrictMode>,
-  rootElement,
+  rootElement
 );
 // Set app element
-if (rootElement != null) { Modal.setAppElement(rootElement); }
+if (rootElement != null) {
+  Modal.setAppElement(rootElement);
+}
 
 // Set Axios base url
 Axios.defaults.baseURL = COMMON.SERVER.baseURL;

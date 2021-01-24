@@ -7,10 +7,9 @@ import type { AuthRequestType } from './types';
 const router = Router();
 const { NO_CONTENT, UNPROCESSABLE_ENTITY, UNAUTHORIZED } = StatusCodes;
 
-const validKeyArray = fs.readFileSync(`${getPrivatePath()}/resume/authKeyList.txt`)
-  .toString().split('\n');
-const paramError = { error: 'The \'authKey\' parameter is required.'};
-const authKeyError = { error: 'Provided \'authKey\' is not authorised.'};
+const validKeyArray = fs.readFileSync(`${getPrivatePath()}/resume/authKeyList.txt`).toString().split('\n');
+const paramError = { error: "The 'authKey' parameter is required." };
+const authKeyError = { error: "Provided 'authKey' is not authorised." };
 
 router.post('/auth', (req: Request, res: Response) => {
   const authRequest = req.body as AuthRequestType;
@@ -20,8 +19,7 @@ router.post('/auth', (req: Request, res: Response) => {
   const key = authRequest.authKey;
   if (validKeyArray.indexOf(key) > -1) {
     return res.status(NO_CONTENT).contentType('json').end();
-  }
-  else {
+  } else {
     return res.status(UNAUTHORIZED).contentType('json').send(JSON.stringify(authKeyError));
   }
 });
@@ -35,8 +33,7 @@ router.post('/download', (req: Request, res: Response) => {
   const key = authRequest.authKey;
   if (validKeyArray.indexOf(key) > -1) {
     return res.download(`${getPrivatePath()}/resume/resume.pdf`);
-  }
-  else {
+  } else {
     return res.status(UNAUTHORIZED).contentType('json').send(JSON.stringify(authKeyError));
   }
 });
