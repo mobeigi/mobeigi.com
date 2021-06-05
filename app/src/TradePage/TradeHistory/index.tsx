@@ -4,7 +4,7 @@ import 'moment-timezone';
 
 import TargetAwareLink from '../../shared/utils/TargetAwareLink';
 import { StyledTable } from '../common/styled';
-import { calcTotalPrice, getPutOrCallFullText } from '../common/utils';
+import { calcSecurityTotalPrice, getPutOrCallFullText } from '../common/utils';
 import type { Props } from './types';
 
 const TradeHistory = ({ trades, lastUpdated, timezone }: Props) => (
@@ -82,7 +82,7 @@ const TradeHistory = ({ trades, lastUpdated, timezone }: Props) => (
             </td>
             <td>{trade.tradePrice.toFixed(2)}</td>
             <td>
-              {calcTotalPrice({
+              {calcSecurityTotalPrice({
                 pricePerShare: trade.tradePrice,
                 quantity: trade.quantity,
                 isOptionContract: !!trade.putCall,
