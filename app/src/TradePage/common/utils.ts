@@ -1,6 +1,11 @@
-import type { CalcTotalPriceType, GetPutOrCallFullTextType, GetOpenPositionTotalPriceType } from './utils.types';
+import type {
+  CalcSecurityTotalPriceType,
+  GetPutOrCallFullTextType,
+  GetOpenPositionTotalPriceType,
+  IsOptionContractType,
+} from './utils.types';
 
-export const calcTotalPrice = ({ pricePerShare, quantity, isOptionContract }: CalcTotalPriceType) =>
+export const calcSecurityTotalPrice = ({ pricePerShare, quantity, isOptionContract }: CalcSecurityTotalPriceType) =>
   Math.abs(pricePerShare * quantity * (isOptionContract ? 100 : 1));
 
 export const getPutOrCallFullText = ({ putCall }: GetPutOrCallFullTextType) => {
@@ -11,11 +16,18 @@ export const getPutOrCallFullText = ({ putCall }: GetPutOrCallFullTextType) => {
   return putCall === 'P' ? 'PUT' : 'CALL';
 };
 
-export const getOpenPositionTotalPrice = ({ openPositions }: GetOpenPositionTotalPriceType) =>
-  openPositions.reduce((total, cur) => total + cur.position * cur.markPrice, 0);
-
-export default {
-  calcTotalPrice,
-  getPutOrCallFullText,
-  getOpenPositionTotalPrice,
+export const isOptionContract = ({ position }: IsOptionContractType) => {
+  return !!position.putCall;
 };
+
+export const getOpenPositionTotalPrice = ({ openPositions }: GetOpenPositionTotalPriceType) =>
+  openPositions.reduce(
+    (total, cur) =>
+      total +
+      calcSecurityTotalPrice({
+        pricePerShare: cur.markPrice,
+        quantity: cur.position,
+        isOptionContract: isOptionContract({ position: cur }),
+      }),
+    0
+  );
