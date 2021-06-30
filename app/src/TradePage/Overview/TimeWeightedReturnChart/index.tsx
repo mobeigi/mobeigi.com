@@ -30,11 +30,11 @@ const TimeWeightedReturnChart = ({ data }: Props) => {
         },
       },
       formatter: (params: any) => {
-        const icon = `<span data-tooltip="implied-high" style="border-radius: 2px;display: inline-block;height: 12px;margin-right:2px;width: 20px;"><span style="background-color:${params[0].color};border: 1px solid ${params[0].color};border-radius:50%;display:block;height:10px;margin-left:7px;margin-top:3px;width:10px;"></span></span>`;
+        const icon = `<span style="background-color:${params[0].color};border: 1px solid ${params[0].color};border-radius:50%;display:inline-block;height:10px;margin-left:7px;margin-top:3px;width:10px;"></span>`;
         const niceDate = moment(params[0].data[0]).format('DD MMMM YYYY');
         const returnColour = params[0].data[1] >= 0 ? COLORS.slateGreen : COLORS.slateRed;
 
-        return `<span><tt>${niceDate}</tt><br />${icon} ${params[0].seriesName}:&nbsp;&nbsp;&nbsp;<span style="color: ${returnColour};"><strong>${params[0].data[1]}%</strong></span></span>`;
+        return `<span>${icon}&nbsp;&nbsp;&nbsp;<tt>${niceDate} </tt><br />${params[0].seriesName}:&nbsp;&nbsp;&nbsp;<span style="color: ${returnColour};"><strong>${params[0].data[1]}%</strong></span></span>`;
       },
       backgroundColor: 'rgba(245, 245, 245, 0.9)',
       borderWidth: 1,
