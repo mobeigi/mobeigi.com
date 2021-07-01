@@ -51,7 +51,8 @@ export const getTimeWeightedReturn = ({ equitySummaryInBase, depositsWithdrawals
   );
 
   // Cost basis is total deposits + starting balance
-  const totalCostBasis = netDepositWithdrawal + equitySummaryInBase[0].total;
+  const startingBalance = equitySummaryInBase[0]?.total || 0;
+  const totalCostBasis = netDepositWithdrawal + startingBalance;
 
   equitySummaryInBase.forEach((equitySummaryInBaseEntry) => {
     const netDepositWithdrawalTillDate = depositsWithdrawals
@@ -61,7 +62,7 @@ export const getTimeWeightedReturn = ({ equitySummaryInBase, depositsWithdrawals
       })
       .reduce((accumulator, current) => accumulator + current.amount * current.fxRateToBase, 0);
 
-    const totalDiff = equitySummaryInBaseEntry.total - (netDepositWithdrawalTillDate + equitySummaryInBase[0].total);
+    const totalDiff = equitySummaryInBaseEntry.total - (netDepositWithdrawalTillDate + startingBalance);
 
     const timeWeightedReturnValue = totalDiff / totalCostBasis;
     const timeWeightedReturn = {

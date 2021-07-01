@@ -13,25 +13,40 @@ import {
   filterOptionTrades,
   getDepositWithdrawalInRange,
   getEquitySummaryInBaseInRange,
-  getEquitySummaryInBaseForDay,
   getTimeWeightedReturn,
 } from './utils';
 
 const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySummaryInBase }: Props) => {
-  // Perform statisitc calculations
+  if (!equitySummaryInBase) {
+    throw new Error(`equitySummaryInBase is empty`);
+  }
   const currentFinancialYearStartDate = getCurrentFinancialYearStartDate();
-  const currentFinancialYearTrades = getTradesInRange({
-    trades,
+  const equitySummaryInBaseFyToDate = getEquitySummaryInBaseInRange({
+    equitySummaryInBase,
     from: currentFinancialYearStartDate,
     to: new Date(),
   });
+  let [startDateEquitySummaryInBase] = equitySummaryInBaseFyToDate; // first entry since FY started
+
+  if (!startDateEquitySummaryInBase) {
+    // If we don't have any baseline for the current FY yet because it just started, lets fallback to the last available day
+    startDateEquitySummaryInBase = equitySummaryInBase[equitySummaryInBase.length - 1];
+  }
+  const startDate = startDateEquitySummaryInBase.reportDate;
+
+  const currentFinancialYearTrades = getTradesInRange({
+    trades,
+    from: startDate,
+    to: new Date(),
+  });
+
   const stockTradingFrequency =
     filterStockTrades({ trades: currentFinancialYearTrades }).length / currentFinancialYearTrades.length;
   const optionTradingFrequency =
     filterOptionTrades({ trades: currentFinancialYearTrades }).length / currentFinancialYearTrades.length;
   const currentFinancialYearDepositWithdrawal = getDepositWithdrawalInRange({
     depositsWithdrawals,
-    from: currentFinancialYearStartDate,
+    from: startDate,
     to: new Date(),
   });
 
@@ -40,14 +55,9 @@ const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySummaryInBas
     0
   );
 
-  const currentFinancialYearStartDateEquitySummaryInBase = getEquitySummaryInBaseForDay({
-    equitySummaryInBase,
-    date: currentFinancialYearStartDate,
-  });
-
   const currentFinancialYearEquitySummaryInBase = getEquitySummaryInBaseInRange({
     equitySummaryInBase,
-    from: currentFinancialYearStartDate,
+    from: startDate,
     to: new Date(),
   });
 
@@ -56,12 +66,7 @@ const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySummaryInBas
     depositsWithdrawals: currentFinancialYearDepositWithdrawal,
   });
 
-  if (!currentFinancialYearStartDateEquitySummaryInBase) {
-    throw new Error(`Failed to get getEquitySummaryInBaseForDay for date ${currentFinancialYearStartDate}`);
-  }
-
-  const totalCostBasis =
-    currentFinancialYearNetDepositWithdrawal + currentFinancialYearStartDateEquitySummaryInBase.total;
+  const totalCostBasis = currentFinancialYearNetDepositWithdrawal + startDateEquitySummaryInBase.total;
   const currentNetLiquidity = equitySummaryInBase.slice(-1)[0].total;
   const fytdReturn = (currentNetLiquidity - totalCostBasis) / totalCostBasis;
 
@@ -131,7 +136,8 @@ const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySummaryInBas
             <td>Computed as difference between net liquidity and cost basis.</td>
             <td>
               <StatisticValue className={`badge ${fytdReturn > 0 ? 'badge-success' : 'badge-danger'}`}>
-                <animated.span>{fytdReturnAnimation.number.interpolate((val) => val.toFixed(2))}</animated.span>%
+                <animated.span>{fytdReturnAnimation.number.interpolate((val) => Number(val).toFixed(2))}</animated.span>
+                %
               </StatisticValue>
             </td>
           </tr>
@@ -141,7 +147,7 @@ const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySummaryInBas
             <td>
               <StatisticValue className="badge badge-light">
                 <animated.span>
-                  {averageTradesAnimation.number.interpolate((val) => Number(val.toFixed(2)))}
+                  {averageTradesAnimation.number.interpolate((val) => Number(val).toFixed(2))}
                 </animated.span>
               </StatisticValue>
             </td>
@@ -152,7 +158,7 @@ const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySummaryInBas
             <td>
               <StatisticValue className="badge badge-light">
                 <animated.span>
-                  {currentFinancialYearTradesAnimation.number.interpolate((val) => Math.floor(val))}
+                  {currentFinancialYearTradesAnimation.number.interpolate((val) => Math.floor(Number(val)))}
                 </animated.span>
               </StatisticValue>
             </td>
@@ -163,7 +169,7 @@ const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySummaryInBas
             <td>
               <StatisticValue className="badge badge-light">
                 <animated.span>
-                  {stockTradingFrequencyAnimation.number.interpolate((val) => val.toFixed(2))}
+                  {stockTradingFrequencyAnimation.number.interpolate((val) => Number(val).toFixed(2))}
                 </animated.span>
                 %
               </StatisticValue>
@@ -175,7 +181,7 @@ const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySummaryInBas
             <td>
               <StatisticValue className="badge badge-light">
                 <animated.span>
-                  {optionTradingFrequencyAnimation.number.interpolate((val) => val.toFixed(2))}
+                  {optionTradingFrequencyAnimation.number.interpolate((val) => Number(val).toFixed(2))}
                 </animated.span>
                 %
               </StatisticValue>
