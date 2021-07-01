@@ -18,7 +18,7 @@ export const StyledFooter = styled.footer`
   }
 `;
 
-export const FlexOuterItem = styled.p`
+export const FlexOuterItem = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
