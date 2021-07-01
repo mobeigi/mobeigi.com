@@ -17,7 +17,7 @@ const footerItemList = [
 const Footer: React.FunctionComponent = () => {
   const footerItems = footerItemList
     .map<React.ReactNode>((footerItem) => (
-      <LinkWrapper>
+      <LinkWrapper key={footerItem.text}>
         <TargetAwareLink key={footerItem.text} to={footerItem.link} forceReload={footerItem.forceReload}>
           {footerItem.text}
         </TargetAwareLink>
@@ -29,7 +29,7 @@ const Footer: React.FunctionComponent = () => {
     <StyledFooter>
       <FlexOuterItem />
 
-      <p>
+      <div>
         <p>{footerItems}</p>
         <p>
           Copyright &copy;
@@ -37,10 +37,10 @@ const Footer: React.FunctionComponent = () => {
           {`${COMMON.OWNER.fullName()} · `}
           All rights reserved
         </p>
-      </p>
+      </div>
 
       <FlexOuterItem>
-        <p>
+        <div>
           <strong>Build: </strong>
           <TargetAwareLink
             to={`https://github.com/mobeigi/mobeigi.com/commit/${__COMMIT_HASH__}`}
@@ -49,13 +49,13 @@ const Footer: React.FunctionComponent = () => {
           >
             {__COMMIT_HASH__}
           </TargetAwareLink>
-        </p>
-        <p>
+        </div>
+        <div>
           <strong>Source: </strong>
           <TargetAwareLink to="https://github.com/mobeigi/mobeigi.com" rel="external nofollow" forceReload>
             mobeigi/mobeigi.com
           </TargetAwareLink>
-        </p>
+        </div>
       </FlexOuterItem>
     </StyledFooter>
   );
