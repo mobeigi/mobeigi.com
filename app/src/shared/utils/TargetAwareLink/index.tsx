@@ -4,15 +4,16 @@
  */
 
 /* eslint-disable react/jsx-props-no-spreading */
-import * as React from 'react';
+import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import type { LinkProps } from 'react-router-dom';
 
-interface TargetAwareLink extends LinkProps {
-  forceReload?: boolean;
-}
+type TargetAwareLink = React.AnchorHTMLAttributes<HTMLAnchorElement> &
+  LinkProps & {
+    forceReload?: boolean;
+  };
 
-const Link: React.FunctionComponent<TargetAwareLink> = ({ to, forceReload, children, ...props }: TargetAwareLink) =>
+const Link = ({ to, forceReload = false, children, ...props }: TargetAwareLink) =>
   forceReload || /^https?:\/\//.test(to.toString()) ? (
     <a href={to.toString()} {...props}>
       {children}
@@ -22,9 +23,5 @@ const Link: React.FunctionComponent<TargetAwareLink> = ({ to, forceReload, child
       {children}
     </RouterLink>
   );
-
-Link.defaultProps = {
-  forceReload: false,
-};
 
 export default Link;
