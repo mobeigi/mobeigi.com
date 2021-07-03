@@ -7,8 +7,8 @@ module.exports = {
     'plugin:react/recommended',
     'airbnb',
     'prettier',
-    'prettier/@typescript-eslint',
     'prettier/react',
+    'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
   ],
   globals: {
@@ -35,6 +35,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
+    // react
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'react/static-property-placement': [
       'warn',
@@ -45,6 +46,8 @@ module.exports = {
       },
     ],
     'react/prop-types': 'off',
+    'react/require-default-props': 'off',
+    // eslint-plugin-import
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -55,8 +58,11 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    // plugin:react/recommended
     'no-unused-vars': 'off',
+    // typescript-eslint
     '@typescript-eslint/no-unused-vars': ['error'],
+    // prettier
     'prettier/prettier': ['error'],
   },
   settings: {
