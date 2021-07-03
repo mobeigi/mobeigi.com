@@ -136,8 +136,7 @@ const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySummaryInBas
             <td>Computed as difference between net liquidity and cost basis.</td>
             <td>
               <StatisticValue className={`badge ${fytdReturn > 0 ? 'badge-success' : 'badge-danger'}`}>
-                <animated.span>{fytdReturnAnimation.number.interpolate((val) => Number(val).toFixed(2))}</animated.span>
-                %
+                <animated.span>{fytdReturnAnimation.number.to((val) => Number(val).toFixed(2))}</animated.span>%
               </StatisticValue>
             </td>
           </tr>
@@ -146,9 +145,7 @@ const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySummaryInBas
             <td>Excludes Forex transactions.</td>
             <td>
               <StatisticValue className="badge badge-light">
-                <animated.span>
-                  {averageTradesAnimation.number.interpolate((val) => Number(val).toFixed(2))}
-                </animated.span>
+                <animated.span>{averageTradesAnimation.number.to((val) => Number(val).toFixed(2))}</animated.span>
               </StatisticValue>
             </td>
           </tr>
@@ -158,7 +155,7 @@ const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySummaryInBas
             <td>
               <StatisticValue className="badge badge-light">
                 <animated.span>
-                  {currentFinancialYearTradesAnimation.number.interpolate((val) => Math.floor(Number(val)))}
+                  {currentFinancialYearTradesAnimation.number.to((val) => Math.floor(Number(val)))}
                 </animated.span>
               </StatisticValue>
             </td>
@@ -169,7 +166,7 @@ const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySummaryInBas
             <td>
               <StatisticValue className="badge badge-light">
                 <animated.span>
-                  {stockTradingFrequencyAnimation.number.interpolate((val) => Number(val).toFixed(2))}
+                  {stockTradingFrequencyAnimation.number.to((val) => Number(val).toFixed(2))}
                 </animated.span>
                 %
               </StatisticValue>
@@ -181,7 +178,7 @@ const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySummaryInBas
             <td>
               <StatisticValue className="badge badge-light">
                 <animated.span>
-                  {optionTradingFrequencyAnimation.number.interpolate((val) => Number(val).toFixed(2))}
+                  {optionTradingFrequencyAnimation.number.to((val) => Number(val).toFixed(2))}
                 </animated.span>
                 %
               </StatisticValue>
