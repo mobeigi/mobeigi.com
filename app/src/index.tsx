@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -12,13 +12,13 @@ import * as serviceWorker from './serviceWorker';
 const rootElement = document.getElementById('root');
 
 ReactDOM.render(
-  <React.StrictMode>
+  <StrictMode>
     <Router>
       <HelmetProvider>
         <App />
       </HelmetProvider>
     </Router>
-  </React.StrictMode>,
+  </StrictMode>,
   rootElement
 );
 // Set app element

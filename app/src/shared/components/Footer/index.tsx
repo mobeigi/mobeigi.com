@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { TargetAwareLink } from '../../utils/TargetAwareLink';
 
 import { StyledFooter, LinkWrapper, FlexOuterItem } from './styled';
@@ -14,9 +14,9 @@ const footerItemList = [
   { link: '/blog/feed/rss', forceReload: true, text: 'RSS' },
 ];
 
-export const Footer: React.FunctionComponent = () => {
+export const Footer = () => {
   const footerItems = footerItemList
-    .map<React.ReactNode>((footerItem) => (
+    .map<ReactNode>((footerItem) => (
       <LinkWrapper key={footerItem.text}>
         <TargetAwareLink key={footerItem.text} to={footerItem.link} forceReload={footerItem.forceReload}>
           {footerItem.text}

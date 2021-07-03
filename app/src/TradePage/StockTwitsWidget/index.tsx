@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { MoonLoader } from 'react-spinners';
 import type { State } from './types';
@@ -41,7 +41,7 @@ const widgetOptions = {
 };
 
 export const StockTwitsWidget = () => {
-  const [state, setState] = React.useState<State>({
+  const [state, setState] = useState<State>({
     loading: true,
   });
 

@@ -34,7 +34,7 @@ require('bootstrap');
 // Init Google Analytics
 ReactGA.initialize(COMMON.ANALYTICS.gaTrackingId);
 
-export const App: React.FunctionComponent = () => {
+export const App = () => {
   const location = useLocation();
 
   const printConsoleMessage = () => {
