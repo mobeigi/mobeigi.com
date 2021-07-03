@@ -13,30 +13,12 @@ type SocialButtonWithLinkType = {
   socialButton: SocialButtonProps;
 };
 
-type Props = {
+type SocialButtonGroupProps = {
   data: SocialButtonWithLinkType[];
 };
 
-type State = {
-  socialButtonWithLinkList: SocialButtonWithLinkType[];
-};
-
-export class SocialButtonGroup extends React.Component<Props, State> {
-  static defaultProps = {
-    external: false,
-    nofollow: false,
-    forceReload: false,
-  };
-
-  static propTypes = {};
-
-  constructor(props: Props) {
-    super(props);
-    const { data } = this.props;
-    this.state = { socialButtonWithLinkList: data };
-  }
-
-  getRelAttribute = (external?: boolean, nofollow?: boolean): string => {
+export const SocialButtonGroup = ({ data }: SocialButtonGroupProps) => {
+  const getRelAttribute = (external?: boolean, nofollow?: boolean): string => {
     const arr = [];
     if (external) {
       arr.push('external');
@@ -47,27 +29,25 @@ export class SocialButtonGroup extends React.Component<Props, State> {
     return arr.join(' ');
   };
 
-  render(): JSX.Element {
-    const { socialButtonWithLinkList } = this.state;
-    const socialButtons = socialButtonWithLinkList.map((socialButtonWithLink) => {
-      const relAttribute = this.getRelAttribute(socialButtonWithLink.external, socialButtonWithLink.nofollow);
-      return (
-        <TargetAwareLink
-          key={socialButtonWithLink.title}
-          to={socialButtonWithLink.link}
-          title={socialButtonWithLink.title}
-          aria-label={socialButtonWithLink.title}
-          rel={relAttribute || undefined}
-          forceReload={socialButtonWithLink.forceReload}
-        >
-          <SocialButton
-            brandStyle={socialButtonWithLink.socialButton.brandStyle}
-            iconName={socialButtonWithLink.socialButton.iconName}
-            iconSize={socialButtonWithLink.socialButton.iconSize}
-          />
-        </TargetAwareLink>
-      );
-    });
-    return <StyledSocialButtonGroup>{socialButtons}</StyledSocialButtonGroup>;
-  }
-}
+  const socialButtons = data.map((socialButtonWithLink) => {
+    const relAttribute = getRelAttribute(socialButtonWithLink.external, socialButtonWithLink.nofollow);
+    return (
+      <TargetAwareLink
+        key={socialButtonWithLink.title}
+        to={socialButtonWithLink.link}
+        title={socialButtonWithLink.title}
+        aria-label={socialButtonWithLink.title}
+        rel={relAttribute || undefined}
+        forceReload={socialButtonWithLink.forceReload}
+      >
+        <SocialButton
+          brandStyle={socialButtonWithLink.socialButton.brandStyle}
+          iconName={socialButtonWithLink.socialButton.iconName}
+          iconSize={socialButtonWithLink.socialButton.iconSize}
+        />
+      </TargetAwareLink>
+    );
+  });
+
+  return <StyledSocialButtonGroup>{socialButtons}</StyledSocialButtonGroup>;
+};

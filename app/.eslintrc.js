@@ -30,14 +30,6 @@ module.exports = {
   rules: {
     // react
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
-    'react/static-property-placement': [
-      'warn',
-      'property assignment',
-      {
-        defaultProps: 'static public field',
-        propTypes: 'static public field',
-      },
-    ],
     'react/prop-types': 'off',
     'react/require-default-props': 'off',
     // eslint-plugin-import
