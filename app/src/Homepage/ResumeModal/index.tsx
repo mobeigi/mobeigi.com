@@ -30,11 +30,6 @@ type Props = {
   onRequestClose: () => void;
 };
 
-type State = {
-  authKey: string;
-  isAuthCorrect: boolean;
-};
-
 const baseState = {
   authKey: '',
   isAuthCorrect: false,
