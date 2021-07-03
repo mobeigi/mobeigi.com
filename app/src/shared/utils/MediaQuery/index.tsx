@@ -20,15 +20,3 @@ export const Mobile: React.FunctionComponent<any> = ({ children }) => {
   const isMobile = useMediaQuery(mobileDimensions);
   return isMobile ? children : null;
 };
-
-export default {
-  desktopDimensions,
-  tabletDimensions,
-  mobileDimensions,
-  Desktop,
-  Tablet,
-  Mobile,
-  desktopSizeModifier,
-  tabletSizeModifier,
-  mobileSizeModifier,
-};

@@ -2,12 +2,12 @@ import React from 'react';
 import moment from 'moment';
 import 'moment-timezone';
 
-import TargetAwareLink from '../../shared/utils/TargetAwareLink';
+import { TargetAwareLink } from '../../shared/utils/TargetAwareLink';
 import { StyledTable } from '../common/styled';
 import { calcSecurityTotalPrice, getPutOrCallFullText } from '../common/utils';
 import type { Props } from './types';
 
-const TradeHistory = ({ trades, lastUpdated, timezone }: Props) => (
+export const TradeHistory = ({ trades, lastUpdated, timezone }: Props) => (
   <div>
     <h2>Trades</h2>
     <br />
@@ -96,5 +96,3 @@ const TradeHistory = ({ trades, lastUpdated, timezone }: Props) => (
     </StyledTable>
   </div>
 );
-
-export default TradeHistory;

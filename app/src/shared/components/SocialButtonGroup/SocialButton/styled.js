@@ -1,12 +1,10 @@
 import styled from 'styled-components';
-import COLOURS from '../../../constants/Colors';
+import { COLORS } from '../../../constants/Colors';
 
 export const StyledSocialButton = styled.div`
   display: inline-block;
-  color: ${COLOURS.grey};
+  color: ${COLORS.grey};
   &:hover {
-    color: ${COLOURS.white};
+    color: ${COLORS.white};
   }
 `;
-
-export default { StyledSocialButton };

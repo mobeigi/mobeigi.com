@@ -27,5 +27,3 @@ LogoDiv.defaultProps = {
   width: 150,
   height: 150,
 };
-
-export default { TopComponent, LogoDiv };

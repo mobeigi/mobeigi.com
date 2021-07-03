@@ -20,11 +20,9 @@ const SERVER = {
   baseURL: reactIsInDevelomentMode() ? 'http://localhost:3000' : 'https://mobeigi.com/api',
 };
 
-const COMMON = {
+export const COMMON = {
   ANALYTICS,
   OWNER,
   SERVER,
   WEBSITE,
 };
-
-export default COMMON;

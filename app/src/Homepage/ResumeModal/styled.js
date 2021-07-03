@@ -9,5 +9,3 @@ export const ValidStatus = styled.p`
   color: #4f8a10;
   font-weight: bold;
 `;
-
-export default { InvalidStatus, ValidStatus };

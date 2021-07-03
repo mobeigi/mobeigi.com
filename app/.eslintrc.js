@@ -51,6 +51,8 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'import/prefer-default-export': 'off',
+    'import/no-default-export': ['error'],
     // plugin:react/recommended
     'no-unused-vars': 'off',
     // typescript-eslint

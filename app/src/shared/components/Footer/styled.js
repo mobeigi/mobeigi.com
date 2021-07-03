@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import COLOURS from '../../constants/Colors';
+import { COLORS } from '../../constants/Colors';
 
 export const StyledFooter = styled.footer`
   display: flex;
@@ -11,10 +11,10 @@ export const StyledFooter = styled.footer`
   bottom: 0;
   width: 100%;
   height: 85px; /* Height of the footer */
-  color: ${COLOURS.grey};
+  color: ${COLORS.grey};
 
   a {
-    color: ${COLOURS.grey};
+    color: ${COLORS.grey};
   }
 `;
 
@@ -28,5 +28,3 @@ export const FlexOuterItem = styled.div`
 export const LinkWrapper = styled.span`
   margin: 0 10px;
 `;
-
-export default { StyledFooter };

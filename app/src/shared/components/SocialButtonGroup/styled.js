@@ -9,5 +9,3 @@ export const StyledSocialButtonGroup = styled.div`
     margin: 6px 10px 6px 10px;
   }
 `;
-
-export default { StyledSocialButtonGroup };

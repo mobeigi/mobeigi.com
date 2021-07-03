@@ -3,11 +3,11 @@ import moment from 'moment';
 import { init } from 'echarts';
 import type { EChartsOption } from 'echarts';
 
-import COLORS from '../../../shared/constants/Colors';
+import { COLORS } from '../../../shared/constants/Colors';
 
 import type { Props } from './types';
 
-const TimeWeightedReturnChart = ({ data }: Props) => {
+export const TimeWeightedReturnChart = ({ data }: Props) => {
   const options = {
     title: {
       show: false,
@@ -158,5 +158,3 @@ const TimeWeightedReturnChart = ({ data }: Props) => {
 
   return <div ref={chartDivContainerRef} style={{ width: '100%', height: '100%' }} />;
 };
-
-export default TimeWeightedReturnChart;

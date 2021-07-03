@@ -8,5 +8,3 @@ export const Nav = styled.nav`
   width: 60%;
   margin: 0 auto;
 `;
-
-export default { Nav, TabContainer };
