@@ -1,10 +1,10 @@
 import React, { useRef, useEffect } from 'react';
 import { init } from 'echarts';
 import type { EChartsOption } from 'echarts';
-import COLORS from '../../../shared/constants/Colors';
+import { COLORS } from '../../../shared/constants/Colors';
 import type { Props } from './types';
 
-const HoldingsPieChart = ({ data }: Props) => {
+export const HoldingsPieChart = ({ data }: Props) => {
   const options = {
     tooltip: {
       trigger: 'item',
@@ -71,5 +71,3 @@ const HoldingsPieChart = ({ data }: Props) => {
 
   return <div ref={chartDivContainerRef} style={{ width: '100%', height: '100%' }} />;
 };
-
-export default HoldingsPieChart;

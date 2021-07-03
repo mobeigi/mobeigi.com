@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, MouseEvent } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Axios from 'axios';
@@ -6,23 +6,23 @@ import moment from 'moment';
 import 'moment-timezone';
 import { MoonLoader } from 'react-spinners';
 
-import COLORS from '../shared/constants/Colors';
+import { COLORS } from '../shared/constants/Colors';
 import { LoaderCss } from '../shared/styles/common';
-import TargetAwareLink from '../shared/utils/TargetAwareLink';
+import { TargetAwareLink } from '../shared/utils/TargetAwareLink';
 import type { State } from './types';
 import { NavTab } from './types';
 import type { OpenPosition, Trade, DepositsWithdrawal, EquitySummaryInBase } from './common/types';
-import COMMON from '../shared/constants/Common';
-import FadeIn from '../shared/components/FadeIn';
+import { COMMON } from '../shared/constants/Common';
+import { FadeIn } from '../shared/components/FadeIn';
 import { Nav, TabContainer } from './styled';
 
-import Overview from './Overview';
-import OpenPositions from './OpenPositions';
-import TradeHistory from './TradeHistory';
-import StockTwitsWidget from './StockTwitsWidget';
+import { Overview } from './Overview';
+import { OpenPositions } from './OpenPositions';
+import { TradeHistory } from './TradeHistory';
+import { StockTwitsWidget } from './StockTwitsWidget';
 
-const TradePage = () => {
-  const [state, setState] = React.useState<State>({
+export const TradePage = () => {
+  const [state, setState] = useState<State>({
     trades: [],
     openPositions: [],
     whenGenerated: null,
@@ -107,7 +107,7 @@ const TradePage = () => {
       });
   }, []);
 
-  const updateCurrentNavTab = ({ e, newNavTab }: { e: React.MouseEvent<HTMLElement>; newNavTab: NavTab }) => {
+  const updateCurrentNavTab = ({ e, newNavTab }: { e: MouseEvent<HTMLElement>; newNavTab: NavTab }) => {
     // Prevent changing location to same nav tab
     if (state.currentNavTab === newNavTab) {
       e.preventDefault();
@@ -284,5 +284,3 @@ const TradePage = () => {
     </>
   );
 };
-
-export default TradePage;

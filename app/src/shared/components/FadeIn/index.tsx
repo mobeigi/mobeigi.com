@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { useSpring, animated } from 'react-spring';
 
-const FadeIn: React.FunctionComponent = ({ children }) => {
+export const FadeIn = ({ children }: PropsWithChildren<{}>) => {
   const style = useSpring({
     opacity: 1,
     from: { opacity: 0 },
@@ -11,5 +11,3 @@ const FadeIn: React.FunctionComponent = ({ children }) => {
 
   return <animated.div style={style}>{children}</animated.div>;
 };
-
-export default FadeIn;

@@ -14,18 +14,10 @@ type LogoDivProps = {
 };
 
 export const LogoDiv = styled.div<LogoDivProps>`
-  background-image: url(${(props) => props.image});
-  width: ${(props) => props.width}px;
-  height: ${(props) => props.height}px;
+  background-image: url(${({ image = '' }) => image});
+  width: ${({ width = 150 }) => width}px;
+  height: ${({ height = 150 }) => height}px;
   display: inline-block;
   background-size: ${(props) => props.width}px ${(props) => props.height}px;
   background-repeat: no-repeat;
 `;
-
-LogoDiv.defaultProps = {
-  image: '',
-  width: 150,
-  height: 150,
-};
-
-export default { TopComponent, LogoDiv };

@@ -75,12 +75,3 @@ export const getTimeWeightedReturn = ({ equitySummaryInBase, depositsWithdrawals
 
   return timeWeightedReturnArray;
 };
-
-export default {
-  getCurrentFinancialYearStartDate,
-  getTradesInRange,
-  filterStockTrades,
-  filterOptionTrades,
-  getEquitySummaryInBaseForDay,
-  getDepositWithdrawalInRange,
-};

@@ -1,4 +1,4 @@
-const COLORS = {
+export const COLORS = {
   white: '#ededed',
   grey: '#c1c1c1',
   black60: 'rgba(0, 0, 0, 0.6)',
@@ -6,5 +6,3 @@ const COLORS = {
   slateGreen: '#62c462',
   slateRed: '#ee5f5b',
 };
-
-export default COLORS;

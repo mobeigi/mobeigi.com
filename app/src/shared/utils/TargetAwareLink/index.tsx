@@ -3,28 +3,29 @@
  * Will either return Link or Anchor link depending on if link is an internal/external link.
  */
 
-/* eslint-disable react/jsx-props-no-spreading */
-import * as React from 'react';
+import React, { AnchorHTMLAttributes, PropsWithChildren } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import type { LinkProps } from 'react-router-dom';
 
-interface TargetAwareLink extends LinkProps {
-  forceReload?: boolean;
-}
+type TargetAwareLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> &
+  LinkProps & {
+    forceReload?: boolean;
+  };
 
-const Link: React.FunctionComponent<TargetAwareLink> = ({ to, forceReload, children, ...props }: TargetAwareLink) =>
+export const TargetAwareLink = ({
+  to,
+  forceReload = false,
+  children,
+  ...props
+}: PropsWithChildren<TargetAwareLinkProps>) =>
   forceReload || /^https?:\/\//.test(to.toString()) ? (
+    // eslint-disable-next-line react/jsx-props-no-spreading
     <a href={to.toString()} {...props}>
       {children}
     </a>
   ) : (
+    // eslint-disable-next-line react/jsx-props-no-spreading
     <RouterLink to={to} {...props}>
       {children}
     </RouterLink>
   );
-
-Link.defaultProps = {
-  forceReload: false,
-};
-
-export default Link;

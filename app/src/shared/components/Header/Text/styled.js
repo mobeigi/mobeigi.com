@@ -23,9 +23,7 @@ const reemKufiFontFace = () => css`
   }
 `;
 
-const StyledText = styled.span`
+export const StyledText = styled.span`
   ${reemKufiFontFace}
   font-family: 'Reem Kufi', sans-serif;
 `;
-
-export default StyledText;
