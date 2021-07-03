@@ -1,21 +1,21 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
-import MediaQuery from '../../utils/MediaQuery';
+import { tabletDimensions, mobileDimensions, tabletSizeModifier, mobileSizeModifier } from '../../utils/MediaQuery';
 
 import Text from './Text';
 import { TopComponent, LogoDiv } from './styled';
 import COLOURS from '../../constants/Colors';
 
 const Header: React.FunctionComponent = () => {
-  const isTablet = useMediaQuery(MediaQuery.tabletDimensions);
-  const isMobile = useMediaQuery(MediaQuery.mobileDimensions);
+  const isTablet = useMediaQuery(tabletDimensions);
+  const isMobile = useMediaQuery(mobileDimensions);
 
   // Desktop
   let logoSize = 150;
   if (isTablet) {
-    logoSize *= MediaQuery.tabletSizeModifier;
+    logoSize *= tabletSizeModifier;
   } else if (isMobile) {
-    logoSize *= MediaQuery.mobileSizeModifier;
+    logoSize *= mobileSizeModifier;
   }
 
   return (
