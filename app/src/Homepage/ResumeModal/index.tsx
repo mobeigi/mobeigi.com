@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState, createRef, FormEvent } from 'react';
 import Modal from 'react-modal';
 import Axios from 'axios';
 import { Helmet } from 'react-helmet-async';
 
 import { InvalidStatus, ValidStatus } from './styled';
-import COMMON from '../../shared/constants/Common';
-import COLOURS from '../../shared/constants/Colors';
+import { COMMON } from '../../shared/constants/Common';
+import { COLORS } from '../../shared/constants/Colors';
 import './react-modal-global-style.css';
 
 const customStyles = {
@@ -21,7 +21,7 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     width: 'fit-content',
-    color: COLOURS.white,
+    color: COLORS.white,
   },
 };
 
@@ -30,21 +30,16 @@ type Props = {
   onRequestClose: () => void;
 };
 
-type State = {
-  authKey: string;
-  isAuthCorrect: boolean;
-};
-
 const baseState = {
   authKey: '',
   isAuthCorrect: false,
 };
 
-const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
-  const [state, setState] = React.useState(baseState);
-  const authKeyInput = React.createRef<HTMLInputElement>();
+export const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
+  const [state, setState] = useState(baseState);
+  const authKeyInput = createRef<HTMLInputElement>();
 
-  const onAuthKeyInput = (e: React.FormEvent<HTMLInputElement>) => {
+  const onAuthKeyInput = (e: FormEvent<HTMLInputElement>) => {
     const authKey = e.currentTarget.value;
     setState((prevState) => ({
       ...prevState,
@@ -150,5 +145,3 @@ const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
     </>
   );
 };
-
-export default ResumeModal;

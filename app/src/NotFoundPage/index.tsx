@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
-import COMMON from '../shared/constants/Common';
+import { COMMON } from '../shared/constants/Common';
 import { MonospacedParagraph } from '../shared/styles/common';
 
-const NotFoundPage = () => (
+export const NotFoundPage = () => (
   <>
     <Helmet>
       <title>
@@ -25,5 +25,3 @@ const NotFoundPage = () => (
     </MonospacedParagraph>
   </>
 );
-
-export default NotFoundPage;

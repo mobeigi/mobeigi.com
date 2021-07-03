@@ -1,14 +1,12 @@
-import React from 'react';
+import React, { CSSProperties, PropsWithChildren } from 'react';
 
-import StyledText from './styled';
+import { StyledText } from './styled';
 
 type Props = {
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 };
 
-const Text: React.FunctionComponent<Props> = ({ children, ...props }: React.PropsWithChildren<Props>) => (
+export const Text = ({ children, ...props }: PropsWithChildren<Props>) => (
   // eslint-disable-next-line react/jsx-props-no-spreading
   <StyledText {...props}>{children}</StyledText>
 );
-
-export default Text;

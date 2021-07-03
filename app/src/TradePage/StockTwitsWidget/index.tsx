@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { MoonLoader } from 'react-spinners';
 import type { State } from './types';
 import { StockTwitsIFrame } from './styles';
 import { LoaderCss } from '../../shared/styles/common';
-import COLORS from '../../shared/constants/Colors';
+import { COLORS } from '../../shared/constants/Colors';
 
 const stockTwitsStreamUrl = 'https://api.stocktwits.com/widgets/stream';
 const widgetOptions = {
@@ -40,8 +40,8 @@ const widgetOptions = {
   time_font_size: '12',
 };
 
-const StockTwitsWidget = () => {
-  const [state, setState] = React.useState<State>({
+export const StockTwitsWidget = () => {
+  const [state, setState] = useState<State>({
     loading: true,
   });
 
@@ -59,5 +59,3 @@ const StockTwitsWidget = () => {
     </div>
   );
 };
-
-export default StockTwitsWidget;

@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { useSpring, animated } from 'react-spring';
 
-import TimeWeightedReturnChart from './TimeWeightedReturnChart';
+import { TimeWeightedReturnChart } from './TimeWeightedReturnChart';
 import type { Props } from './types';
 import { StyledTable } from '../common/styled';
 import { StatisticValue, TimeWeightedReturnChartContainer } from './styled';
@@ -16,7 +16,7 @@ import {
   getTimeWeightedReturn,
 } from './utils';
 
-const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySummaryInBase }: Props) => {
+export const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySummaryInBase }: Props) => {
   if (!equitySummaryInBase) {
     throw new Error(`equitySummaryInBase is empty`);
   }
@@ -189,5 +189,3 @@ const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySummaryInBas
     </div>
   );
 };
-
-export default Overview;

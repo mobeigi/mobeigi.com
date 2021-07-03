@@ -51,9 +51,3 @@ export const LoaderCss = coreCss`
     display: block;
     margin: 0 auto;
 `;
-
-export default {
-  MonospacedParagraph,
-  StyledButton,
-  LoaderCss,
-};
