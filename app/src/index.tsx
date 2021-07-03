@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import Axios from 'axios';
 import COMMON from './shared/constants/Common';
 import App from './App';
@@ -13,7 +14,9 @@ const rootElement = document.getElementById('root');
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <HelmetProvider>
+        <App />
+      </HelmetProvider>
     </Router>
   </React.StrictMode>,
   rootElement
