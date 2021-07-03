@@ -6,22 +6,22 @@ import moment from 'moment';
 import 'moment-timezone';
 import { MoonLoader } from 'react-spinners';
 
-import COLORS from '../shared/constants/Colors';
+import { COLORS } from '../shared/constants/Colors';
 import { LoaderCss } from '../shared/styles/common';
-import TargetAwareLink from '../shared/utils/TargetAwareLink';
+import { TargetAwareLink } from '../shared/utils/TargetAwareLink';
 import type { State } from './types';
 import { NavTab } from './types';
 import type { OpenPosition, Trade, DepositsWithdrawal, EquitySummaryInBase } from './common/types';
-import COMMON from '../shared/constants/Common';
-import FadeIn from '../shared/components/FadeIn';
+import { COMMON } from '../shared/constants/Common';
+import { FadeIn } from '../shared/components/FadeIn';
 import { Nav, TabContainer } from './styled';
 
-import Overview from './Overview';
-import OpenPositions from './OpenPositions';
-import TradeHistory from './TradeHistory';
-import StockTwitsWidget from './StockTwitsWidget';
+import { Overview } from './Overview';
+import { OpenPositions } from './OpenPositions';
+import { TradeHistory } from './TradeHistory';
+import { StockTwitsWidget } from './StockTwitsWidget';
 
-const TradePage = () => {
+export const TradePage = () => {
   const [state, setState] = React.useState<State>({
     trades: [],
     openPositions: [],
@@ -284,5 +284,3 @@ const TradePage = () => {
     </>
   );
 };
-
-export default TradePage;

@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
-import COMMON from '../shared/constants/Common';
-import ResumeModal from './ResumeModal';
-import SocialButtonGroup from '../shared/components/SocialButtonGroup';
+import { COMMON } from '../shared/constants/Common';
+import { ResumeModal } from './ResumeModal';
+import { SocialButtonGroup } from '../shared/components/SocialButtonGroup';
 import { MonospacedParagraph, StyledButton } from '../shared/styles/common';
 
 const myStuffSBG = [
@@ -193,7 +193,7 @@ const networks = [
   },
 ];
 
-const Homepage = () => {
+export const Homepage = () => {
   const [state, setState] = React.useState({ isResumeModalOpen: false });
   const history = useHistory();
   const location = useLocation();
@@ -256,5 +256,3 @@ const Homepage = () => {
     </>
   );
 };
-
-export default Homepage;

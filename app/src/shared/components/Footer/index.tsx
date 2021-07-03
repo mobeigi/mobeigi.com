@@ -1,8 +1,8 @@
 import React from 'react';
-import TargetAwareLink from '../../utils/TargetAwareLink';
+import { TargetAwareLink } from '../../utils/TargetAwareLink';
 
 import { StyledFooter, LinkWrapper, FlexOuterItem } from './styled';
-import COMMON from '../../constants/Common';
+import { COMMON } from '../../constants/Common';
 
 const footerItemList = [
   { link: '/', text: 'Home' },
@@ -14,7 +14,7 @@ const footerItemList = [
   { link: '/blog/feed/rss', forceReload: true, text: 'RSS' },
 ];
 
-const Footer: React.FunctionComponent = () => {
+export const Footer: React.FunctionComponent = () => {
   const footerItems = footerItemList
     .map<React.ReactNode>((footerItem) => (
       <LinkWrapper key={footerItem.text}>
@@ -60,5 +60,3 @@ const Footer: React.FunctionComponent = () => {
     </StyledFooter>
   );
 };
-
-export default Footer;

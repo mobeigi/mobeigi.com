@@ -4,8 +4,8 @@ import Axios from 'axios';
 import { Helmet } from 'react-helmet-async';
 
 import { InvalidStatus, ValidStatus } from './styled';
-import COMMON from '../../shared/constants/Common';
-import COLOURS from '../../shared/constants/Colors';
+import { COMMON } from '../../shared/constants/Common';
+import { COLORS } from '../../shared/constants/Colors';
 import './react-modal-global-style.css';
 
 const customStyles = {
@@ -21,7 +21,7 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     width: 'fit-content',
-    color: COLOURS.white,
+    color: COLORS.white,
   },
 };
 
@@ -35,7 +35,7 @@ const baseState = {
   isAuthCorrect: false,
 };
 
-const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
+export const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
   const [state, setState] = React.useState(baseState);
   const authKeyInput = React.createRef<HTMLInputElement>();
 
@@ -145,5 +145,3 @@ const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
     </>
   );
 };
-
-export default ResumeModal;

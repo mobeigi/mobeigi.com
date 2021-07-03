@@ -5,5 +5,3 @@ export const StockTwitsIFrame = styled.iframe`
   height: 800px;
   overflow: hidden;
 `;
-
-export default { StockTwitsIFrame };

@@ -7,12 +7,12 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import type { LinkProps } from 'react-router-dom';
 
-type TargetAwareLink = React.AnchorHTMLAttributes<HTMLAnchorElement> &
+type TargetAwareLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> &
   LinkProps & {
     forceReload?: boolean;
   };
 
-const Link = ({ to, forceReload = false, children, ...props }: TargetAwareLink) =>
+export const TargetAwareLink = ({ to, forceReload = false, children, ...props }: TargetAwareLinkProps) =>
   forceReload || /^https?:\/\//.test(to.toString()) ? (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <a href={to.toString()} {...props}>
@@ -24,5 +24,3 @@ const Link = ({ to, forceReload = false, children, ...props }: TargetAwareLink) 
       {children}
     </RouterLink>
   );
-
-export default Link;

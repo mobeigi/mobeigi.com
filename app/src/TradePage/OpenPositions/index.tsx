@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledTable } from '../common/styled';
-import TargetAwareLink from '../../shared/utils/TargetAwareLink';
+import { TargetAwareLink } from '../../shared/utils/TargetAwareLink';
 import {
   calcSecurityTotalPrice,
   getPutOrCallFullText,
@@ -8,10 +8,10 @@ import {
   isOptionContract,
 } from '../common/utils';
 import type { Props } from './types';
-import HoldingsPieChart from './HoldingsPieChart';
+import { HoldingsPieChart } from './HoldingsPieChart';
 import { OpenPositionsContainer, HoldingsPieChartContainer } from './styles';
 
-const OpenPositions = ({ openPositions, lastUpdated }: Props) => {
+export const OpenPositions = ({ openPositions, lastUpdated }: Props) => {
   const openPositionTotalPrice = getOpenPositionTotalPrice({ openPositions });
 
   return (
@@ -100,5 +100,3 @@ const OpenPositions = ({ openPositions, lastUpdated }: Props) => {
     </div>
   );
 };
-
-export default OpenPositions;

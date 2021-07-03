@@ -2,11 +2,11 @@ import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { tabletDimensions, mobileDimensions, tabletSizeModifier, mobileSizeModifier } from '../../utils/MediaQuery';
 
-import Text from './Text';
+import { Text } from './Text';
 import { TopComponent, LogoDiv } from './styled';
-import COLOURS from '../../constants/Colors';
+import { COLORS } from '../../constants/Colors';
 
-const Header: React.FunctionComponent = () => {
+export const Header: React.FunctionComponent = () => {
   const isTablet = useMediaQuery(tabletDimensions);
   const isMobile = useMediaQuery(mobileDimensions);
 
@@ -27,7 +27,7 @@ const Header: React.FunctionComponent = () => {
             fontSize: '4.5rem',
             fontWeight: 600,
             lineHeight: 0.9,
-            color: COLOURS.white,
+            color: COLORS.white,
           }}
         >
           Mo Beigi
@@ -39,7 +39,7 @@ const Header: React.FunctionComponent = () => {
           fontSize: '1.5rem',
           fontWeight: 100,
           margin: '14px 0 14px 0',
-          color: COLOURS.grey,
+          color: COLORS.grey,
         }}
       >
         Software Engineer&nbsp;&nbsp;&#183;&nbsp;&nbsp;Sydney, Australia
@@ -47,5 +47,3 @@ const Header: React.FunctionComponent = () => {
     </>
   );
 };
-
-export default Header;

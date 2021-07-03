@@ -3,12 +3,12 @@ import { Switch, Route, useLocation } from 'react-router-dom';
 import ReactGA from 'react-ga';
 
 import * as jquery from 'jquery';
-import Header from '../shared/components/Header';
-import Homepage from '../Homepage';
-import NotFoundPage from '../NotFoundPage';
-import TradePage from '../TradePage';
-import Footer from '../shared/components/Footer';
-import COMMON from '../shared/constants/Common';
+import { Header } from '../shared/components/Header';
+import { Homepage } from '../Homepage';
+import { NotFoundPage } from '../NotFoundPage';
+import { TradePage } from '../TradePage';
+import { Footer } from '../shared/components/Footer';
+import { COMMON } from '../shared/constants/Common';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../shared/assets/bootstrap-themes/slate.css';
@@ -34,7 +34,7 @@ require('bootstrap');
 // Init Google Analytics
 ReactGA.initialize(COMMON.ANALYTICS.gaTrackingId);
 
-const App: React.FunctionComponent = () => {
+export const App: React.FunctionComponent = () => {
   const location = useLocation();
 
   const printConsoleMessage = () => {
@@ -80,5 +80,3 @@ const App: React.FunctionComponent = () => {
     </div>
   );
 };
-
-export default App;

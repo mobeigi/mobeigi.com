@@ -1,6 +1,6 @@
 import React from 'react';
-import TargetAwareLink from '../../utils/TargetAwareLink';
-import SocialButton from './SocialButton';
+import { TargetAwareLink } from '../../utils/TargetAwareLink';
+import { SocialButton } from './SocialButton';
 import type { SocialButtonProps } from './SocialButton';
 import { StyledSocialButtonGroup } from './styled';
 
@@ -21,7 +21,7 @@ type State = {
   socialButtonWithLinkList: SocialButtonWithLinkType[];
 };
 
-class SocialButtonGroup extends React.Component<Props, State> {
+export class SocialButtonGroup extends React.Component<Props, State> {
   static defaultProps = {
     external: false,
     nofollow: false,
@@ -71,5 +71,3 @@ class SocialButtonGroup extends React.Component<Props, State> {
     return <StyledSocialButtonGroup>{socialButtons}</StyledSocialButtonGroup>;
   }
 }
-
-export default SocialButtonGroup;
