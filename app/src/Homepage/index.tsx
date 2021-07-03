@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
@@ -194,7 +194,7 @@ const networks = [
 ];
 
 export const Homepage = () => {
-  const [state, setState] = React.useState({ isResumeModalOpen: false });
+  const [state, setState] = useState({ isResumeModalOpen: false });
   const history = useHistory();
   const location = useLocation();
 

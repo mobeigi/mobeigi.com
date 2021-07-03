@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, createRef, FormEvent } from 'react';
 import Modal from 'react-modal';
 import Axios from 'axios';
 import { Helmet } from 'react-helmet-async';
@@ -36,10 +36,10 @@ const baseState = {
 };
 
 export const ResumeModal = ({ isOpen, onRequestClose }: Props) => {
-  const [state, setState] = React.useState(baseState);
-  const authKeyInput = React.createRef<HTMLInputElement>();
+  const [state, setState] = useState(baseState);
+  const authKeyInput = createRef<HTMLInputElement>();
 
-  const onAuthKeyInput = (e: React.FormEvent<HTMLInputElement>) => {
+  const onAuthKeyInput = (e: FormEvent<HTMLInputElement>) => {
     const authKey = e.currentTarget.value;
     setState((prevState) => ({
       ...prevState,

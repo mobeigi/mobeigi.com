@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, MouseEvent } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Axios from 'axios';
@@ -22,7 +22,7 @@ import { TradeHistory } from './TradeHistory';
 import { StockTwitsWidget } from './StockTwitsWidget';
 
 export const TradePage = () => {
-  const [state, setState] = React.useState<State>({
+  const [state, setState] = useState<State>({
     trades: [],
     openPositions: [],
     whenGenerated: null,
@@ -107,7 +107,7 @@ export const TradePage = () => {
       });
   }, []);
 
-  const updateCurrentNavTab = ({ e, newNavTab }: { e: React.MouseEvent<HTMLElement>; newNavTab: NavTab }) => {
+  const updateCurrentNavTab = ({ e, newNavTab }: { e: MouseEvent<HTMLElement>; newNavTab: NavTab }) => {
     // Prevent changing location to same nav tab
     if (state.currentNavTab === newNavTab) {
       e.preventDefault();

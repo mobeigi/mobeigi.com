@@ -6,7 +6,7 @@ import { Text } from './Text';
 import { TopComponent, LogoDiv } from './styled';
 import { COLORS } from '../../constants/Colors';
 
-export const Header: React.FunctionComponent = () => {
+export const Header = () => {
   const isTablet = useMediaQuery(tabletDimensions);
   const isMobile = useMediaQuery(mobileDimensions);
 

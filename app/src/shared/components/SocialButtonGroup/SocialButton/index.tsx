@@ -9,11 +9,7 @@ export type SocialButtonProps = {
   iconSize?: string;
 };
 
-export const SocialButton: React.FunctionComponent<SocialButtonProps> = ({
-  brandStyle,
-  iconName,
-  iconSize = 'fa-1x',
-}: SocialButtonProps) => (
+export const SocialButton = ({ brandStyle, iconName, iconSize = 'fa-1x' }: SocialButtonProps) => (
   <StyledSocialButton>
     <i className={`${brandStyle} ${iconName} ${iconSize}`} />
   </StyledSocialButton>
