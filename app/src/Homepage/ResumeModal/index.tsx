@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import Axios from 'axios';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 import { InvalidStatus, ValidStatus } from './styled';
 import COMMON from '../../shared/constants/Common';
