@@ -6,6 +6,7 @@ import moment from 'moment';
 import 'moment-timezone';
 import { MoonLoader } from 'react-spinners';
 
+import { getOpenPositionTotalPrice, calcSecurityTotalPrice, isOptionContract } from './common/utils';
 import { COLORS } from '../shared/constants/Colors';
 import { LoaderCss } from '../shared/styles/common';
 import { TargetAwareLink } from '../shared/utils/TargetAwareLink';
@@ -60,6 +61,24 @@ export const TradePage = () => {
             position: Number(openPosition.position),
             markPrice: Number(openPosition.markPrice),
           }));
+
+          // Sort open positions by weight
+          const openPositionTotalPrice = getOpenPositionTotalPrice({ openPositions });
+          openPositions.sort((a: OpenPosition, b: OpenPosition) => {
+            const currentPositionTotalPriceA = calcSecurityTotalPrice({
+              pricePerShare: a.markPrice,
+              quantity: a.position,
+              isOptionContract: isOptionContract({ position: a }),
+            });
+            const currentPositionTotalPriceB = calcSecurityTotalPrice({
+              pricePerShare: b.markPrice,
+              quantity: b.position,
+              isOptionContract: isOptionContract({ position: b }),
+            });
+            const weightA = (currentPositionTotalPriceA / openPositionTotalPrice) * 100;
+            const weightB = (currentPositionTotalPriceB / openPositionTotalPrice) * 100;
+            return weightB - weightA;
+          });
 
           const depositsWithdrawals = response.data.depositsWithdrawals.map(
             (depositsWithdrawal: DepositsWithdrawal) => ({
