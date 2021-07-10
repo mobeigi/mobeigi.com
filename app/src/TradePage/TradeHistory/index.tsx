@@ -4,7 +4,7 @@ import 'moment-timezone';
 
 import { TargetAwareLink } from '../../shared/utils/TargetAwareLink';
 import { StyledTable } from '../common/styled';
-import { calcSecurityTotalPrice, getPutOrCallFullText } from '../common/utils';
+import { calcSecurityTotalPrice, getPutOrCallFullText, CreateGoogleFinanceQuoteUrl } from '../common/utils';
 import type { Props } from './types';
 
 export const TradeHistory = ({ trades, lastUpdated, timezone }: Props) => (
@@ -40,58 +40,65 @@ export const TradeHistory = ({ trades, lastUpdated, timezone }: Props) => (
         </tr>
       </thead>
       <tbody>
-        {trades.map((trade) => (
-          <tr key={trade.tradeID}>
-            <td>
-              {new Intl.DateTimeFormat('en-GB', {
-                year: 'numeric',
-                month: 'long',
-                day: '2-digit',
-                hour: 'numeric',
-                minute: 'numeric',
-                second: 'numeric',
-              }).format(trade.dateTime)}
-            </td>
-            <td>
-              {trade.quantity >= 0 ? (
-                <span className="badge badge-success">BUY</span>
-              ) : (
-                <span className="badge badge-danger">SELL</span>
-              )}
-            </td>
-            <td>{Math.abs(trade.quantity)}</td>
-            <td>
-              <TargetAwareLink
-                to={`https://finance.yahoo.com/quote/${trade.symbol.split(' ')[0]}`}
-                title={`${trade.symbol.split(' ')[0]} (${trade.description})`}
-                aria-label={`${trade.symbol.split(' ')[0]} (${trade.description})`}
-                rel="external nofollow"
-              >
-                {trade.symbol.split(' ')[0]}
-              </TargetAwareLink>
-            </td>
-            <td>{trade?.strike?.toFixed(0)}</td>
-            <td>{getPutOrCallFullText({ putCall: trade.putCall })}</td>
-            <td>
-              {trade.expiry &&
-                new Intl.DateTimeFormat('en-GB', {
+        {trades.map((trade) => {
+          const symbol = trade.symbol.split(' ')[0];
+          const googleFinanceQuoteUrl = CreateGoogleFinanceQuoteUrl({
+            symbol,
+            exchange: trade.underlyingListingExchange || trade.listingExchange,
+          });
+          return (
+            <tr key={trade.tradeID}>
+              <td>
+                {new Intl.DateTimeFormat('en-GB', {
                   year: 'numeric',
                   month: 'long',
                   day: '2-digit',
-                }).format(trade.expiry)}
-            </td>
-            <td>{trade.tradePrice.toFixed(2)}</td>
-            <td>
-              {calcSecurityTotalPrice({
-                pricePerShare: trade.tradePrice,
-                quantity: trade.quantity,
-                isOptionContract: !!trade.putCall,
-              }).toFixed(2)}
-            </td>
-            <td>{trade.ibCommission.toFixed(2)}</td>
-            <td>{trade.currency}</td>
-          </tr>
-        ))}
+                  hour: 'numeric',
+                  minute: 'numeric',
+                  second: 'numeric',
+                }).format(trade.dateTime)}
+              </td>
+              <td>
+                {trade.quantity >= 0 ? (
+                  <span className="badge badge-success">BUY</span>
+                ) : (
+                  <span className="badge badge-danger">SELL</span>
+                )}
+              </td>
+              <td>{Math.abs(trade.quantity)}</td>
+              <td>
+                <TargetAwareLink
+                  to={googleFinanceQuoteUrl}
+                  title={`${symbol} (${trade.description})`}
+                  aria-label={`${symbol} (${trade.description})`}
+                  rel="external nofollow"
+                >
+                  {symbol}
+                </TargetAwareLink>
+              </td>
+              <td>{trade?.strike?.toFixed(0)}</td>
+              <td>{getPutOrCallFullText({ putCall: trade.putCall })}</td>
+              <td>
+                {trade.expiry &&
+                  new Intl.DateTimeFormat('en-GB', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: '2-digit',
+                  }).format(trade.expiry)}
+              </td>
+              <td>{trade.tradePrice.toFixed(2)}</td>
+              <td>
+                {calcSecurityTotalPrice({
+                  pricePerShare: trade.tradePrice,
+                  quantity: trade.quantity,
+                  isOptionContract: !!trade.putCall,
+                }).toFixed(2)}
+              </td>
+              <td>{trade.ibCommission.toFixed(2)}</td>
+              <td>{trade.currency}</td>
+            </tr>
+          );
+        })}
       </tbody>
     </StyledTable>
   </div>

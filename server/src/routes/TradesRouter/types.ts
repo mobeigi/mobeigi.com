@@ -24,6 +24,9 @@ export type TradeType = {
   symbol: string;
   tradeID: string;
   tradePrice: string;
+  exchange: string;
+  listingExchange: string;
+  underlyingListingExchange: string;
 };
 
 export type TransformedTradeType = {
@@ -42,6 +45,8 @@ export type OpenPositionType = {
   currency: string;
   description: string;
   symbol: string;
+  listingExchange: string;
+  underlyingListingExchange: string;
 };
 
 export type TransformedOpenPositionType = {
