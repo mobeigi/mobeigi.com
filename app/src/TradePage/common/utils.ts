@@ -3,6 +3,7 @@ import type {
   GetPutOrCallFullTextType,
   GetOpenPositionTotalPriceType,
   IsOptionContractType,
+  CreateGoogleFinanceQuoteUrlType,
 } from './utils.types';
 
 export const calcSecurityTotalPrice = ({ pricePerShare, quantity, isOptionContract }: CalcSecurityTotalPriceType) =>
@@ -31,3 +32,13 @@ export const getOpenPositionTotalPrice = ({ openPositions }: GetOpenPositionTota
       }),
     0
   );
+
+export const CreateGoogleFinanceQuoteUrl = ({ symbol, exchange }: CreateGoogleFinanceQuoteUrlType) => {
+  const exchangeMaps: { [key: string]: string } = {
+    ARCA: 'NYSEARCA',
+    PINK: 'OTCMKTS',
+    AMEX: 'NYSEAMERICAN',
+  };
+  const convertedExchange = exchange in exchangeMaps ? exchangeMaps[exchange] : exchange;
+  return `https://www.google.com/finance/quote/${symbol}:${convertedExchange}`;
+};
