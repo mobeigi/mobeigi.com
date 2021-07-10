@@ -1,21 +1,19 @@
-import React, { useEffect, useState, MouseEvent } from 'react';
+import React, { useEffect, useState, MouseEvent, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import Axios from 'axios';
 import moment from 'moment';
 import 'moment-timezone';
 import { MoonLoader } from 'react-spinners';
 
-import { getOpenPositionTotalPrice, calcSecurityTotalPrice, isOptionContract } from './common/utils';
 import { COLORS } from '../shared/constants/Colors';
 import { LoaderCss } from '../shared/styles/common';
 import { TargetAwareLink } from '../shared/utils/TargetAwareLink';
 import type { State } from './types';
 import { NavTab } from './types';
-import type { OpenPosition, Trade, DepositsWithdrawal, EquitySummaryInBase } from './common/types';
 import { COMMON } from '../shared/constants/Common';
 import { FadeIn } from '../shared/components/FadeIn';
 import { Nav, TabContainer } from './styled';
+import { getLast365CalendarDays, transformData } from './services';
 
 import { Overview } from './Overview';
 import { OpenPositions } from './OpenPositions';
@@ -24,12 +22,7 @@ import { StockTwitsWidget } from './StockTwitsWidget';
 
 export const TradePage = () => {
   const [state, setState] = useState<State>({
-    trades: [],
-    openPositions: [],
-    whenGenerated: null,
-    timezone: 'Australia/Sydney',
-    depositsWithdrawals: [],
-    equitySummaryInBase: [],
+    last365CalendarDays: null,
     currentNavTab: NavTab.Overview,
     loading: true,
     error: false,
@@ -37,81 +30,20 @@ export const TradePage = () => {
   const location = useLocation();
 
   useEffect(() => {
-    Axios.get('/trades/Last365CalendarDays')
+    getLast365CalendarDays()
       .then((response) => {
-        if (response.status === 200) {
-          const trades = response.data.trades
-            .reverse()
-            .filter((trade: Trade) => trade.symbol !== 'AUD.USD') // filter currency conversion trades
-            .map((trade: Trade) => ({
-              ...trade,
-              tradeID: Number(trade.tradeID),
-              strike: Number(trade.strike) || null,
-              expiry: trade.expiry ? new Date(trade.expiry) : null,
-              dateTime: new Date(trade.dateTime),
-              quantity: Number(trade.quantity),
-              tradePrice: Number(trade.tradePrice),
-              ibCommission: Number(trade.ibCommission),
-            }));
-
-          const openPositions = response.data.openPositions.map((openPosition: OpenPosition) => ({
-            ...openPosition,
-            strike: Number(openPosition.strike) || null,
-            expiry: openPosition.expiry ? new Date(openPosition.expiry) : null,
-            position: Number(openPosition.position),
-            markPrice: Number(openPosition.markPrice),
-          }));
-
-          // Sort open positions by weight
-          const openPositionTotalPrice = getOpenPositionTotalPrice({ openPositions });
-          openPositions.sort((a: OpenPosition, b: OpenPosition) => {
-            const currentPositionTotalPriceA = calcSecurityTotalPrice({
-              pricePerShare: a.markPrice,
-              quantity: a.position,
-              isOptionContract: isOptionContract({ position: a }),
-            });
-            const currentPositionTotalPriceB = calcSecurityTotalPrice({
-              pricePerShare: b.markPrice,
-              quantity: b.position,
-              isOptionContract: isOptionContract({ position: b }),
-            });
-            const weightA = (currentPositionTotalPriceA / openPositionTotalPrice) * 100;
-            const weightB = (currentPositionTotalPriceB / openPositionTotalPrice) * 100;
-            return weightB - weightA;
-          });
-
-          const depositsWithdrawals = response.data.depositsWithdrawals.map(
-            (depositsWithdrawal: DepositsWithdrawal) => ({
-              ...depositsWithdrawal,
-              dateTime: new Date(depositsWithdrawal.dateTime),
-              amount: Number(depositsWithdrawal.amount),
-              fxRateToBase: Number(depositsWithdrawal.fxRateToBase),
-            })
-          );
-
-          const equitySummaryInBase = response.data.equitySummaryInBase.map(
-            (equitySummaryInBaseEntry: EquitySummaryInBase) => ({
-              ...equitySummaryInBaseEntry,
-              reportDate: new Date(equitySummaryInBaseEntry.reportDate),
-              total: Number(equitySummaryInBaseEntry.total),
-              totalLong: Number(equitySummaryInBaseEntry.totalLong),
-              totalShort: Number(equitySummaryInBaseEntry.totalShort),
-            })
-          );
-
+        if (response !== null) {
+          const transformedLast365CalendarDays = transformData({ last365CalendarDays: response });
           setState((prevState: State) => ({
             ...prevState,
-            whenGenerated: new Date(response.data.whenGenerated),
-            timezone: response.data.timezone,
-            trades,
-            openPositions,
-            depositsWithdrawals,
-            equitySummaryInBase,
+            last365CalendarDays: transformedLast365CalendarDays,
+            error: false,
             loading: false,
           }));
         } else {
           setState((prevState: State) => ({
             ...prevState,
+            last365CalendarDays: null,
             error: true,
             loading: false,
           }));
@@ -120,6 +52,7 @@ export const TradePage = () => {
       .catch(() => {
         setState((prevState: State) => ({
           ...prevState,
+          last365CalendarDays: null,
           error: true,
           loading: false,
         }));
@@ -155,21 +88,23 @@ export const TradePage = () => {
     }
   }, []);
 
-  const lastUpdated = (
-    <p>
-      <strong>Last Updated: </strong>
-      {state.whenGenerated &&
-        new Intl.DateTimeFormat('en-GB', {
+  const lastUpdated = useMemo(() => {
+    if (state.last365CalendarDays) {
+      <p>
+        <strong>Last Updated: </strong>
+        {new Intl.DateTimeFormat('en-GB', {
           year: 'numeric',
           month: 'long',
           day: '2-digit',
           hour: 'numeric',
           minute: 'numeric',
           second: 'numeric',
-        }).format(state.whenGenerated)}
-      {` ${moment.tz(state.timezone).zoneName()}`}
-    </p>
-  );
+        }).format(state.last365CalendarDays.whenGenerated)}
+        {` ${moment.tz(state.last365CalendarDays.timezone).zoneName()}`}
+      </p>;
+    }
+    return null;
+  }, [state.last365CalendarDays?.whenGenerated]);
 
   return (
     <>
@@ -190,7 +125,7 @@ export const TradePage = () => {
         </FadeIn>
       )}
 
-      {!state.loading && !state.error && (
+      {!state.loading && !state.error && state.last365CalendarDays && (
         <>
           {/* Nav */}
           <Nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -260,21 +195,25 @@ export const TradePage = () => {
             {(state.currentNavTab === NavTab.Overview && (
               <FadeIn>
                 <Overview
-                  trades={state.trades}
+                  trades={state.last365CalendarDays.trades}
                   lastUpdated={lastUpdated}
-                  depositsWithdrawals={state.depositsWithdrawals}
-                  equitySummaryInBase={state.equitySummaryInBase}
+                  depositsWithdrawals={state.last365CalendarDays.depositsWithdrawals}
+                  equitySummaryInBase={state.last365CalendarDays.equitySummaryInBase}
                 />
               </FadeIn>
             )) ||
               (state.currentNavTab === NavTab.OpenPositions && (
                 <FadeIn>
-                  <OpenPositions openPositions={state.openPositions} lastUpdated={lastUpdated} />
+                  <OpenPositions openPositions={state.last365CalendarDays.openPositions} lastUpdated={lastUpdated} />
                 </FadeIn>
               )) ||
               (state.currentNavTab === NavTab.TradeHistory && (
                 <FadeIn>
-                  <TradeHistory trades={state.trades} lastUpdated={lastUpdated} timezone={state.timezone} />
+                  <TradeHistory
+                    trades={state.last365CalendarDays.trades}
+                    lastUpdated={lastUpdated}
+                    timezone={state.last365CalendarDays.timezone}
+                  />
                 </FadeIn>
               )) ||
               (state.currentNavTab === NavTab.StockTwits && (
