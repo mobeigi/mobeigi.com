@@ -17,3 +17,8 @@ export type IsOptionContractType = {
 export type GetOpenPositionTotalPriceType = {
   openPositions: OpenPosition[];
 };
+
+export type CreateGoogleFinanceQuoteUrlType = {
+  symbol: string;
+  exchange: string;
+};

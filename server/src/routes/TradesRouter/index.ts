@@ -150,6 +150,7 @@ const transformLast365CalendarDaysData = ({ json }: TransformLast365CalendarDays
       dateTime: moment(trade.dateTime, 'YYYYMMDD;HHmmss').toDate(),
       expiry: trade.expiry ? moment(trade.expiry, 'YYYYMMDD').toDate() : null,
       putCall: trade.putCall || null,
+      underlyingListingExchange: trade.underlyingListingExchange || null,
     }));
 
     transformedTrades.sort(
@@ -170,6 +171,7 @@ const transformLast365CalendarDaysData = ({ json }: TransformLast365CalendarDays
       putCall: position['putCall'] || null,
       position: position['position'] || null, // TODO: change to number in transformed
       markPrice: position['markPrice'] || null, // TODO: change to number in transformed
+      underlyingListingExchange: position['underlyingListingExchange'] || null,
     }));
     transformedOpenPositions.sort(
       (a, b) => Number(b.position) * Number(b.markPrice) - Number(a.position) * Number(a.markPrice)

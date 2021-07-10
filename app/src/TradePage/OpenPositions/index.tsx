@@ -6,6 +6,7 @@ import {
   getPutOrCallFullText,
   getOpenPositionTotalPrice,
   isOptionContract,
+  CreateGoogleFinanceQuoteUrl,
 } from '../common/utils';
 import type { Props } from './types';
 import { HoldingsPieChart } from './HoldingsPieChart';
@@ -63,18 +64,22 @@ export const OpenPositions = ({ openPositions, lastUpdated }: Props) => {
                 isOptionContract: isOptionContract({ position: openPosition }),
               });
               const weight = (currentPositionTotalPrice / openPositionTotalPrice) * 100;
-
+              const symbol = openPosition.symbol.split(' ')[0];
+              const googleFinanceQuoteUrl = CreateGoogleFinanceQuoteUrl({
+                symbol,
+                exchange: openPosition.underlyingListingExchange || openPosition.listingExchange,
+              });
               return (
                 <tr key={openPosition.symbol}>
                   <td>{openPosition.position}</td>
                   <td>
                     <TargetAwareLink
-                      to={`https://finance.yahoo.com/quote/${openPosition.symbol.split(' ')[0]}`}
-                      title={`${openPosition.symbol.split(' ')[0]} (${openPosition.description})`}
-                      aria-label={`${openPosition.symbol.split(' ')[0]} (${openPosition.description})`}
+                      to={googleFinanceQuoteUrl}
+                      title={`${symbol} (${openPosition.description})`}
+                      aria-label={`${symbol} (${openPosition.description})`}
                       rel="external nofollow"
                     >
-                      {openPosition.symbol.split(' ')[0]}
+                      {symbol}
                     </TargetAwareLink>
                   </td>
                   <td>{openPosition?.strike?.toFixed(0)}</td>

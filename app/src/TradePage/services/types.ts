@@ -22,6 +22,8 @@ export type OpenPosition = {
   putCall: string | null;
   position: number;
   markPrice: number;
+  listingExchange: string;
+  underlyingListingExchange: string | null;
 };
 
 export type Trade = {
@@ -37,6 +39,9 @@ export type Trade = {
   ibCommission: number;
   orderType: string;
   currency: string;
+  exchange: string;
+  listingExchange: string;
+  underlyingListingExchange: string | null;
 };
 
 export type Last365CalendarDays = {
