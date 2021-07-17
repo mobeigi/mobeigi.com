@@ -12,7 +12,7 @@ import type { State } from './types';
 import { NavTab } from './types';
 import { COMMON } from '../shared/constants/Common';
 import { FadeIn } from '../shared/components/FadeIn';
-import { Nav, TabContainer } from './styled';
+import { StyledTradePage, Nav, TabContainer } from './styled';
 import { getLast365CalendarDays, transformData } from './services';
 
 import { Overview } from './Overview';
@@ -147,7 +147,7 @@ export const TradePage = () => {
   );
 
   return (
-    <>
+    <StyledTradePage>
       {header}
 
       {/* Nav */}
@@ -260,6 +260,6 @@ export const TradePage = () => {
             </FadeIn>
           ))}
       </TabContainer>
-    </>
+    </StyledTradePage>
   );
 };
