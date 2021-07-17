@@ -8,7 +8,7 @@ import { StyledHeader, LogoAndSiteName, SiteNameWrapper } from './styled';
 export const Header = () => (
   <StyledHeader>
     <LogoAndSiteName>
-      <Logo logoUrl="/images/avatar/avatar.svg" logoSize={52} />
+      <Logo logoUrl="/images/avatar/avatar.svg" logoSize={53} />
       <SiteNameWrapper>
         <ReemKufiText>{COMMON.WEBSITE.siteName}</ReemKufiText>
       </SiteNameWrapper>
