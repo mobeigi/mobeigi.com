@@ -1,18 +1,20 @@
-.App {
-	font-family: Arial, "Trebuchet MS", Sans-Serif;
-	background: #000
-	url("/images/bg/bg.jpg");
-	background-repeat: repeat;
-	color: #ededed;
-	position: relative; /* Footer position fix */
+/* Default App Styling */
+
+html,
+body,
+#root {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	min-height: 100%;
+	min-width: 100%;
 }
 
-.App main {
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
-	justify-content: center;
-	text-align: center;
-	padding:10px;
-	padding-bottom: 85px;   /* Height of the footer */
+body {
+	background: #000 url(/images/bg/bg.jpg) repeat;
+	font-family: Arial, "Trebuchet MS", Sans-Serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: #ededed; /* COLORS.white */
 }

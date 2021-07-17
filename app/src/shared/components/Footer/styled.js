@@ -1,15 +1,11 @@
 import styled from 'styled-components';
 import { COLORS } from '../../constants/Colors';
 
-export const StyledFooter = styled.footer`
+export const StyledFooter = styled.div`
   display: flex;
-  padding: 30px 10px 30px;
+  padding: 30px 15px 30px;
   text-align: center;
   font-size: 0.75rem;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
   height: 85px; /* Height of the footer */
   color: ${COLORS.grey};
 

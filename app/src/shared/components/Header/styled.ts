@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 
+export const StyledHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+`;
+
 export const TopComponent = styled.div`
   margin: 0 auto;
   display: flex;
