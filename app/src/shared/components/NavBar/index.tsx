@@ -1,18 +1,27 @@
 import React from 'react';
 
 import type { Props } from './types';
-import { Header } from '../Header';
-import { Nav, NavItems, HeaderWrapper, PageName } from './styled';
+import { Header } from './Header';
+import { Nav, NavItems, HeaderWrapper, PageName, PageIconWrapper as PageSocialButtonWrapper } from './styled';
+
+import { SocialButton } from '../SocialButtonGroup/SocialButton';
 import { TargetAwareLink } from '../../utils/TargetAwareLink';
 
-export const NavBar = ({ pageName }: Props) => (
+export const NavBar = ({ pageName, pageSocialButton: socialButton }: Props) => (
   <Nav className="navbar navbar-expand-lg navbar-dark">
     <HeaderWrapper>
       <TargetAwareLink to="/">
-        <Header logoUrl="/images/avatar/avatar.svg" logoSize={70} title="Mo Beigi" tagLine="" />
+        <Header />
       </TargetAwareLink>
     </HeaderWrapper>
     <NavItems>
+      <PageSocialButtonWrapper>
+        <SocialButton
+          brandStyle={socialButton.brandStyle}
+          iconName={socialButton.iconName}
+          iconSize={socialButton.iconSize}
+        />
+      </PageSocialButtonWrapper>
       <PageName>{pageName}</PageName>
     </NavItems>
   </Nav>
