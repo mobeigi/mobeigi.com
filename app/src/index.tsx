@@ -6,7 +6,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import Axios from 'axios';
 import { COMMON } from './shared/constants/Common';
 import { App } from './App';
-import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 const rootElement = document.getElementById('root');

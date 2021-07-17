@@ -3,7 +3,8 @@ import { Switch, Route, useLocation } from 'react-router-dom';
 import ReactGA from 'react-ga';
 
 import * as jquery from 'jquery';
-import { Header } from '../shared/components/Header';
+import { AppWrapper, HeaderWrapper, MainWrapper, FooterWrapper } from './styled';
+import { NavBar } from '../shared/components/NavBar';
 import { Homepage } from '../Homepage';
 import { NotFoundPage } from '../NotFoundPage';
 import { TradePage } from '../TradePage';
@@ -63,10 +64,17 @@ export const App = () => {
   }, [location]);
 
   return (
-    <div className="App">
-      <main>
-        <Header />
-        <br />
+    <AppWrapper>
+      <HeaderWrapper>
+        <Switch>
+          {/* Pages */}
+          <Route exact path="/" render={() => null} /> {/* Homepage no nav bar */}
+          <Route exact path="/trades" component={() => <NavBar pageName="Trades" />} />
+          {/* Catch All */}
+          <Route component={() => <NavBar pageName="404 Not Found" />} />
+        </Switch>
+      </HeaderWrapper>
+      <MainWrapper>
         <Switch>
           {/* Pages */}
           <Route exact path="/" component={Homepage} />
@@ -75,8 +83,10 @@ export const App = () => {
           {/* Catch All */}
           <Route component={NotFoundPage} />
         </Switch>
-      </main>
-      <Footer />
-    </div>
+      </MainWrapper>
+      <FooterWrapper>
+        <Footer />
+      </FooterWrapper>
+    </AppWrapper>
   );
 };
