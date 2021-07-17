@@ -69,9 +69,22 @@ export const App = () => {
         <Switch>
           {/* Pages */}
           <Route exact path="/" render={() => null} /> {/* Homepage no nav bar */}
-          <Route exact path="/trades" component={() => <NavBar pageName="Trades" />} />
+          <Route
+            exact
+            path="/trades"
+            component={() => (
+              <NavBar pageName="Trades" pageSocialButton={{ brandStyle: 'fas', iconName: 'fa-sack-dollar' }} />
+            )}
+          />
           {/* Catch All */}
-          <Route component={() => <NavBar pageName="404 Not Found" />} />
+          <Route
+            component={() => (
+              <NavBar
+                pageName="404 Not Found"
+                pageSocialButton={{ brandStyle: 'fas', iconName: 'fa-exclamation-circle' }}
+              />
+            )}
+          />
         </Switch>
       </HeaderWrapper>
       <MainWrapper>

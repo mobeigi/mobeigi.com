@@ -12,6 +12,7 @@ const ANALYTICS = {
 
 const WEBSITE = {
   baseURL: reactIsInDevelomentMode() ? 'http://localhost:3001' : 'https://mobeigi.com',
+  siteName: 'Mo Beigi',
   titlePrefix: 'Mo Beigi: ',
   foundingYear: 2012,
 };

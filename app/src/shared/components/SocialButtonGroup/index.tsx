@@ -1,7 +1,7 @@
 import React from 'react';
 import { TargetAwareLink } from '../../utils/TargetAwareLink';
 import { SocialButton } from './SocialButton';
-import type { SocialButtonProps } from './SocialButton';
+import type { SocialButtonProps } from './SocialButton/types';
 import { StyledSocialButtonGroup } from './styled';
 
 type SocialButtonWithLinkType = {
