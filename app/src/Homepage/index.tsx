@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
+import { StyledHomepage } from './styled';
+import { Header } from '../shared/components/Header';
 import { COMMON } from '../shared/constants/Common';
 import { ResumeModal } from './ResumeModal';
 import { SocialButtonGroup } from '../shared/components/SocialButtonGroup';
@@ -221,7 +223,7 @@ export const Homepage = () => {
   }, [location.hash]);
 
   return (
-    <>
+    <StyledHomepage>
       <Helmet>
         <title>
           {COMMON.WEBSITE.titlePrefix}
@@ -238,6 +240,12 @@ export const Homepage = () => {
         />
       </Helmet>
       <ResumeModal isOpen={state.isResumeModalOpen} onRequestClose={closeResumeModal} />
+      <Header
+        logoUrl="/images/avatar/avatar.svg"
+        title="Mo Beigi"
+        tagLine="Software Engineer&nbsp;&nbsp;&#183;&nbsp;&nbsp;Sydney, Australia"
+      />
+      <br />
       <MonospacedParagraph style={{ fontSize: '1.2rem' }}>My Stuff</MonospacedParagraph>
       <div style={{ maxWidth: '450px', margin: '0 auto' }}>
         <SocialButtonGroup data={myStuffSBG} />
@@ -253,6 +261,6 @@ export const Homepage = () => {
           CONTINUE TO BLOG
         </StyledButton>
       </a>
-    </>
+    </StyledHomepage>
   );
 };
