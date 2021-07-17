@@ -2,12 +2,7 @@ import React from 'react';
 
 import '../../../assets/fontawesomepro/5.13.1/css/all.min.css';
 import { StyledSocialButton } from './styled';
-
-export type SocialButtonProps = {
-  brandStyle: string;
-  iconName: string;
-  iconSize?: string;
-};
+import { SocialButtonProps } from './types';
 
 export const SocialButton = ({ brandStyle, iconName, iconSize = 'fa-1x' }: SocialButtonProps) => (
   <StyledSocialButton>

@@ -4,13 +4,13 @@ import { COLORS } from '../../constants/Colors';
 export const Nav = styled.nav`
   display: flex;
   justify-content: flex-start;
-  height: 4rem;
+  height: 3rem;
   background: rgba(90, 90, 90, 0.6) url(/images/bg/bg-nav.jpg) repeat;
   border-bottom: 3px solid ${COLORS.darkGrey};
 `;
 
 export const HeaderWrapper = styled.div`
-  font-size: 0.45rem;
+  font-size: 0.3rem;
   a:hover {
     text-decoration: none;
   }
@@ -18,14 +18,19 @@ export const HeaderWrapper = styled.div`
 
 export const NavItems = styled.div`
   display: flex;
-  font-size: 1.75em;
+  font-size: 1em;
   padding-left: 25px;
-  align-self: flex-end;
+  align-items: center;
+  margin-top: 0.6em;
   * {
-    padding-left: 10px;
+    margin-left: 10px;
   }
 `;
 
 export const PageName = styled.div`
   font-weight: bold;
+`;
+
+export const PageIconWrapper = styled.div`
+  font-size: 1.25em;
 `;
