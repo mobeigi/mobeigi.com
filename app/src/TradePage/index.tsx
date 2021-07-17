@@ -1,4 +1,4 @@
-import React, { useEffect, useState, MouseEvent, useMemo } from 'react';
+import React, { useEffect, useState, MouseEvent } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import moment from 'moment';
@@ -59,6 +59,19 @@ export const TradePage = () => {
       });
   }, []);
 
+  useEffect(() => {
+    // Set initial nav tab on page load
+    if (location.hash) {
+      const newNavTab: NavTab = location.hash.substr(1) as NavTab;
+      if (Object.values(NavTab).includes(newNavTab)) {
+        setState((prevState: State) => ({
+          ...prevState,
+          currentNavTab: newNavTab,
+        }));
+      }
+    }
+  }, []);
+
   const updateCurrentNavTab = ({ e, newNavTab }: { e: MouseEvent<HTMLElement>; newNavTab: NavTab }) => {
     // Prevent changing location to same nav tab
     if (state.currentNavTab === newNavTab) {
@@ -75,170 +88,178 @@ export const TradePage = () => {
     return true;
   };
 
-  useEffect(() => {
-    // Set initial nav tab on page load
-    if (location.hash) {
-      const newNavTab: NavTab = location.hash.substr(1) as NavTab;
-      if (Object.values(NavTab).includes(newNavTab)) {
-        setState((prevState: State) => ({
-          ...prevState,
-          currentNavTab: newNavTab,
-        }));
-      }
-    }
-  }, []);
+  const header = (
+    <Helmet>
+      <title>
+        {COMMON.WEBSITE.titlePrefix}
+        Trades
+      </title>
+      <link rel="canonical" href={`${COMMON.WEBSITE.baseURL}/trades`} />
+    </Helmet>
+  );
 
-  const lastUpdated = useMemo(() => {
-    if (state.last365CalendarDays) {
-      <p>
-        <strong>Last Updated: </strong>
-        {new Intl.DateTimeFormat('en-GB', {
-          year: 'numeric',
-          month: 'long',
-          day: '2-digit',
-          hour: 'numeric',
-          minute: 'numeric',
-          second: 'numeric',
-        }).format(state.last365CalendarDays.whenGenerated)}
-        {` ${moment.tz(state.last365CalendarDays.timezone).zoneName()}`}
-      </p>;
-    }
-    return null;
-  }, [state.last365CalendarDays?.whenGenerated]);
-
-  return (
-    <>
-      <Helmet>
-        <title>
-          {COMMON.WEBSITE.titlePrefix}
-          Trades
-        </title>
-        <link rel="canonical" href={`${COMMON.WEBSITE.baseURL}/trades`} />
-      </Helmet>
-
-      <MoonLoader css={LoaderCss} size={50} color={COLORS.white} loading={state.loading} />
-
-      {state.error && (
+  if (state.error) {
+    return (
+      <>
+        {header}
         <FadeIn>
           <p>There was an error fetching the requested trade data.</p>
           <p>Please try again later or report this problem to the administrator.</p>
         </FadeIn>
-      )}
+      </>
+    );
+  }
 
-      {!state.loading && !state.error && state.last365CalendarDays && (
-        <>
-          {/* Nav */}
-          <Nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a
-              className="navbar-brand"
-              href="#overview"
-              onClick={(e) => updateCurrentNavTab({ e, newNavTab: NavTab.Overview })}
-            >
-              Trades
-            </a>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#trades-nav"
-              aria-controls="trades-nav"
-              aria-expanded="false"
-              aria-label="Toggle trades navigation"
-            >
-              <span className="navbar-toggler-icon" />
-            </button>
+  if (state.loading) {
+    return (
+      <>
+        {header}
+        <MoonLoader css={LoaderCss} size={50} color={COLORS.white} loading={state.loading} />
+      </>
+    );
+  }
 
-            <div className="collapse navbar-collapse" id="trades-nav">
-              <ul className="navbar-nav mr-auto">
-                <li className={`nav-item ${state.currentNavTab === NavTab.Overview && 'active'}`}>
-                  <a
-                    className="nav-link"
-                    href="#overview"
-                    onClick={(e) => updateCurrentNavTab({ e, newNavTab: NavTab.Overview })}
-                  >
-                    Overview
-                  </a>
-                </li>
-                <li className={`nav-item ${state.currentNavTab === NavTab.OpenPositions && 'active'}`}>
-                  <a
-                    className="nav-link"
-                    href="#openpositions"
-                    onClick={(e) => updateCurrentNavTab({ e, newNavTab: NavTab.OpenPositions })}
-                  >
-                    Open Positions
-                  </a>
-                </li>
-                <li className={`nav-item ${state.currentNavTab === NavTab.TradeHistory && 'active'}`}>
-                  <a
-                    className="nav-link"
-                    href="#tradehistory"
-                    onClick={(e) => updateCurrentNavTab({ e, newNavTab: NavTab.TradeHistory })}
-                  >
-                    Trade History
-                  </a>
-                </li>
-                <li className={`nav-item ${state.currentNavTab === NavTab.StockTwits && 'active'}`}>
-                  <a
-                    className="nav-link"
-                    href="#stocktwits"
-                    onClick={(e) => updateCurrentNavTab({ e, newNavTab: NavTab.StockTwits })}
-                  >
-                    StockTwits
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </Nav>
+  if (!state.last365CalendarDays) {
+    return (
+      <>
+        {header}
+        <FadeIn>
+          <p>There was an unexpected error.</p>
+          <p>Please try again later or report this problem to the administrator.</p>
+        </FadeIn>
+      </>
+    );
+  }
 
-          {/* Tab Containers */}
-          <TabContainer>
-            {(state.currentNavTab === NavTab.Overview && (
-              <FadeIn>
-                <Overview
-                  trades={state.last365CalendarDays.trades}
-                  lastUpdated={lastUpdated}
-                  depositsWithdrawals={state.last365CalendarDays.depositsWithdrawals}
-                  equitySummaryInBase={state.last365CalendarDays.equitySummaryInBase}
-                />
-              </FadeIn>
-            )) ||
-              (state.currentNavTab === NavTab.OpenPositions && (
-                <FadeIn>
-                  <OpenPositions openPositions={state.last365CalendarDays.openPositions} lastUpdated={lastUpdated} />
-                </FadeIn>
-              )) ||
-              (state.currentNavTab === NavTab.TradeHistory && (
-                <FadeIn>
-                  <TradeHistory
-                    trades={state.last365CalendarDays.trades}
-                    lastUpdated={lastUpdated}
-                    timezone={state.last365CalendarDays.timezone}
-                  />
-                </FadeIn>
-              )) ||
-              (state.currentNavTab === NavTab.StockTwits && (
-                <FadeIn>
-                  <div>
-                    <h2>
-                      StockTwits (
-                      <TargetAwareLink
-                        to="https://stocktwits.com/mobeigi"
-                        title="StockTwits (@mobeigi)"
-                        aria-label="StockTwits (@mobeigi)"
-                        rel="external nofollow"
-                      >
-                        @mobeigi
-                      </TargetAwareLink>
-                      )
-                    </h2>
-                    <br />
-                    <StockTwitsWidget />
-                  </div>
-                </FadeIn>
-              ))}
-          </TabContainer>
-        </>
-      )}
+  const lastUpdated = (
+    <p>
+      <strong>Last Updated: </strong>
+      {new Intl.DateTimeFormat('en-GB', {
+        year: 'numeric',
+        month: 'long',
+        day: '2-digit',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+      }).format(state.last365CalendarDays.whenGenerated)}
+      {` ${moment.tz(state.last365CalendarDays.timezone).zoneName()}`}
+    </p>
+  );
+
+  return (
+    <>
+      {header}
+
+      {/* Nav */}
+      <Nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a
+          className="navbar-brand"
+          href="#overview"
+          onClick={(e) => updateCurrentNavTab({ e, newNavTab: NavTab.Overview })}
+        >
+          Trades
+        </a>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#trades-nav"
+          aria-controls="trades-nav"
+          aria-expanded="false"
+          aria-label="Toggle trades navigation"
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
+
+        <div className="collapse navbar-collapse" id="trades-nav">
+          <ul className="navbar-nav mr-auto">
+            <li className={`nav-item ${state.currentNavTab === NavTab.Overview && 'active'}`}>
+              <a
+                className="nav-link"
+                href="#overview"
+                onClick={(e) => updateCurrentNavTab({ e, newNavTab: NavTab.Overview })}
+              >
+                Overview
+              </a>
+            </li>
+            <li className={`nav-item ${state.currentNavTab === NavTab.OpenPositions && 'active'}`}>
+              <a
+                className="nav-link"
+                href="#openpositions"
+                onClick={(e) => updateCurrentNavTab({ e, newNavTab: NavTab.OpenPositions })}
+              >
+                Open Positions
+              </a>
+            </li>
+            <li className={`nav-item ${state.currentNavTab === NavTab.TradeHistory && 'active'}`}>
+              <a
+                className="nav-link"
+                href="#tradehistory"
+                onClick={(e) => updateCurrentNavTab({ e, newNavTab: NavTab.TradeHistory })}
+              >
+                Trade History
+              </a>
+            </li>
+            <li className={`nav-item ${state.currentNavTab === NavTab.StockTwits && 'active'}`}>
+              <a
+                className="nav-link"
+                href="#stocktwits"
+                onClick={(e) => updateCurrentNavTab({ e, newNavTab: NavTab.StockTwits })}
+              >
+                StockTwits
+              </a>
+            </li>
+          </ul>
+        </div>
+      </Nav>
+
+      {/* Tab Containers */}
+      <TabContainer>
+        {(state.currentNavTab === NavTab.Overview && (
+          <FadeIn>
+            <Overview
+              trades={state.last365CalendarDays.trades}
+              lastUpdated={lastUpdated}
+              depositsWithdrawals={state.last365CalendarDays.depositsWithdrawals}
+              equitySummaryInBase={state.last365CalendarDays.equitySummaryInBase}
+            />
+          </FadeIn>
+        )) ||
+          (state.currentNavTab === NavTab.OpenPositions && (
+            <FadeIn>
+              <OpenPositions openPositions={state.last365CalendarDays.openPositions} lastUpdated={lastUpdated} />
+            </FadeIn>
+          )) ||
+          (state.currentNavTab === NavTab.TradeHistory && (
+            <FadeIn>
+              <TradeHistory
+                trades={state.last365CalendarDays.trades}
+                lastUpdated={lastUpdated}
+                timezone={state.last365CalendarDays.timezone}
+              />
+            </FadeIn>
+          )) ||
+          (state.currentNavTab === NavTab.StockTwits && (
+            <FadeIn>
+              <div>
+                <h2>
+                  StockTwits (
+                  <TargetAwareLink
+                    to="https://stocktwits.com/mobeigi"
+                    title="StockTwits (@mobeigi)"
+                    aria-label="StockTwits (@mobeigi)"
+                    rel="external nofollow"
+                  >
+                    @mobeigi
+                  </TargetAwareLink>
+                  )
+                </h2>
+                <br />
+                <StockTwitsWidget />
+              </div>
+            </FadeIn>
+          ))}
+      </TabContainer>
     </>
   );
 };
