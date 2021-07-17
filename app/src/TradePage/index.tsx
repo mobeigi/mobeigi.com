@@ -100,34 +100,34 @@ export const TradePage = () => {
 
   if (state.error) {
     return (
-      <>
+      <StyledTradePage>
         {header}
         <FadeIn>
           <p>There was an error fetching the requested trade data.</p>
           <p>Please try again later or report this problem to the administrator.</p>
         </FadeIn>
-      </>
+      </StyledTradePage>
     );
   }
 
   if (state.loading) {
     return (
-      <>
+      <StyledTradePage>
         {header}
         <MoonLoader css={LoaderCss} size={50} color={COLORS.white} loading={state.loading} />
-      </>
+      </StyledTradePage>
     );
   }
 
   if (!state.last365CalendarDays) {
     return (
-      <>
+      <StyledTradePage>
         {header}
         <FadeIn>
           <p>There was an unexpected error.</p>
           <p>Please try again later or report this problem to the administrator.</p>
         </FadeIn>
-      </>
+      </StyledTradePage>
     );
   }
 
