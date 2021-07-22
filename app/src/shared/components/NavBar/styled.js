@@ -30,6 +30,7 @@ export const NavItems = styled.div`
 export const PageName = styled.div`
   font-weight: bold;
   user-select: none;
+  color: ${COLORS.grey};
 `;
 
 export const PageIconWrapper = styled.div`

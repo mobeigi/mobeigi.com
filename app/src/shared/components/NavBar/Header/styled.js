@@ -16,9 +16,13 @@ export const LogoAndSiteName = styled.div`
 export const SiteNameWrapper = styled.div`
   font-size: 5em;
   font-weight: 600;
-  color: ${COLORS.white};
+  color: ${COLORS.alto};
   align-self: center;
   margin-top: 0.3em;
   line-height: 0.9;
   user-select: none;
+
+  &:hover {
+    color: ${COLORS.white};
+  }
 `;
