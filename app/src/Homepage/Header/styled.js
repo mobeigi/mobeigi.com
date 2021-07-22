@@ -16,9 +16,10 @@ export const LogoAndSiteName = styled.div`
 export const SiteNameWrapper = styled.div`
   font-size: 5em;
   font-weight: 600;
-  color: ${COLORS.white};
+  color: ${COLORS.alto};
   align-self: flex-end;
   line-height: 0.9;
+  user-select: none;
 `;
 
 export const TagLineWrapper = styled.div`
@@ -26,4 +27,5 @@ export const TagLineWrapper = styled.div`
   font-weight: 100;
   margin: 14px 0 14px 0;
   color: ${COLORS.grey};
+  user-select: none;
 `;
