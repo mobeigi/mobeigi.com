@@ -1,6 +1,6 @@
 import React from 'react';
 import { TargetAwareLink } from '../../utils/TargetAwareLink';
-import { SocialButton } from './SocialButton';
+import { SocialButtonWithHover } from './SocialButton';
 import type { SocialButtonProps } from './SocialButton/types';
 import { StyledSocialButtonGroup } from './styled';
 
@@ -40,7 +40,7 @@ export const SocialButtonGroup = ({ data }: SocialButtonGroupProps) => {
         rel={relAttribute || undefined}
         forceReload={socialButtonWithLink.forceReload}
       >
-        <SocialButton
+        <SocialButtonWithHover
           brandStyle={socialButtonWithLink.socialButton.brandStyle}
           iconName={socialButtonWithLink.socialButton.iconName}
           iconSize={socialButtonWithLink.socialButton.iconSize}
