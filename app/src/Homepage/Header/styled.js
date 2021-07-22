@@ -19,6 +19,7 @@ export const SiteNameWrapper = styled.div`
   color: ${COLORS.alto};
   align-self: flex-end;
   line-height: 0.9;
+  user-select: none;
 `;
 
 export const TagLineWrapper = styled.div`
@@ -26,4 +27,5 @@ export const TagLineWrapper = styled.div`
   font-weight: 100;
   margin: 14px 0 14px 0;
   color: ${COLORS.grey};
+  user-select: none;
 `;
