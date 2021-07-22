@@ -20,4 +20,5 @@ export const SiteNameWrapper = styled.div`
   align-self: center;
   margin-top: 0.3em;
   line-height: 0.9;
+  user-select: none;
 `;

@@ -29,6 +29,7 @@ export const NavItems = styled.div`
 
 export const PageName = styled.div`
   font-weight: bold;
+  user-select: none;
 `;
 
 export const PageIconWrapper = styled.div`
