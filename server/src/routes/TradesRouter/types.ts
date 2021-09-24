@@ -136,6 +136,15 @@ export type TransformLast365CalendarDaysDataProps = {
   json: FlexQueryResponseType;
 };
 
+export type NullableDataToFlatArrayProps = {
+  data: any;
+};
+
+export type ConvertDateFromNewYorkTzToLocalProps = {
+  date: string;
+  format: string;
+};
+
 export type ConfigType = {
   token: string;
   Last365CalendarDaysFlexQueryId: string;

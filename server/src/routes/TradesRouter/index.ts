@@ -25,6 +25,7 @@ import type {
   TransformedEquitySummaryInBaseType,
   GetStatementRequestResponse,
 } from './types';
+import { nullableDataToFlatArray, convertDateFromNewYorkTzToLocal } from './utils';
 
 const router = Router();
 const { OK, NOT_FOUND } = StatusCodes;
@@ -133,10 +134,6 @@ const getStatementRequest = async ({ endpointUrl, queryId, apiVersion }: Request
   return getStatementResponse;
 };
 
-const nullableDataToFlatArray = ({ data }: { data: any }) => {
-  return data ? [data].flat() : [];
-};
-
 const transformLast365CalendarDaysData = ({ json }: TransformLast365CalendarDaysDataProps) => {
   const trades = nullableDataToFlatArray({
     data: json.FlexQueryResponse.FlexStatements.FlexStatement.Trades.Trade,
@@ -147,8 +144,15 @@ const transformLast365CalendarDaysData = ({ json }: TransformLast365CalendarDays
       // Transform data
       ...trade,
       strike: trade.strike || null, // TODO: change to number in transformed
-      dateTime: moment(trade.dateTime, 'YYYYMMDD;HHmmss').toDate(),
-      expiry: trade.expiry ? moment(trade.expiry, 'YYYYMMDD').toDate() : null,
+      dateTime: moment(trade.dateTime, 'YYYYMMDD;HHmmss').toDate(), // This dateTime is reported in local time already and does not need timezone convertion
+      expiry: trade.expiry
+        ? convertDateFromNewYorkTzToLocal({
+            date: trade.expiry,
+            format: 'YYYYMMDD',
+          })
+            .endOf('day') // Options expire at end of the day on expiry day
+            .toDate()
+        : null,
       putCall: trade.putCall || null,
       underlyingListingExchange: trade.underlyingListingExchange || null,
     }));
@@ -167,7 +171,14 @@ const transformLast365CalendarDaysData = ({ json }: TransformLast365CalendarDays
       // Transform data
       ...position,
       strike: position['strike'] || null, // TODO: change to number in transformed
-      expiry: position['expiry'] ? moment(position['expiry'], 'YYYYMMDD').toDate() : null,
+      expiry: position['expiry']
+        ? convertDateFromNewYorkTzToLocal({
+            date: position['expiry'],
+            format: 'YYYYMMDD',
+          })
+            .endOf('day') // Options expire at end of the day on expiry day
+            .toDate()
+        : null,
       putCall: position['putCall'] || null,
       position: position['position'] || null, // TODO: change to number in transformed
       markPrice: position['markPrice'] || null, // TODO: change to number in transformed
@@ -189,7 +200,10 @@ const transformLast365CalendarDaysData = ({ json }: TransformLast365CalendarDays
         // Transform data
         amount: cashTransaction.amount, // TODO: change to number in transformed
         currency: cashTransaction.currency,
-        dateTime: moment(cashTransaction.dateTime, 'YYYYMMDD;HHmmss').toDate(),
+        dateTime: convertDateFromNewYorkTzToLocal({
+          date: cashTransaction.dateTime,
+          format: 'YYYYMMDD;HHmmss',
+        }).toDate(),
         fxRateToBase: cashTransaction.fxRateToBase, // TODO: change to number in transformed
         type: cashTransaction.type,
       }));
@@ -203,7 +217,12 @@ const transformLast365CalendarDaysData = ({ json }: TransformLast365CalendarDays
     transformedEquitySummaryInBase = equitySummaryInBase.map((equitySummaryByReportDateInBase) => ({
       // Transform data
       reportDate: equitySummaryByReportDateInBase.reportDate
-        ? moment(equitySummaryByReportDateInBase.reportDate, 'YYYYMMDD').toDate()
+        ? convertDateFromNewYorkTzToLocal({
+            date: equitySummaryByReportDateInBase.reportDate,
+            format: 'YYYYMMDD',
+          })
+            .endOf('day') // Equity summary reportDate is for the end of the day
+            .toDate()
         : null,
       total: equitySummaryByReportDateInBase.total,
       totalLong: equitySummaryByReportDateInBase.totalLong,
@@ -211,11 +230,10 @@ const transformLast365CalendarDaysData = ({ json }: TransformLast365CalendarDays
     }));
   }
 
-  const whenGenerated = moment.tz(
-    json.FlexQueryResponse.FlexStatements.FlexStatement.whenGenerated,
-    'YYYYMMDD;HHmmss',
-    'America/New_York'
-  );
+  const whenGenerated = convertDateFromNewYorkTzToLocal({
+    date: json.FlexQueryResponse.FlexStatements.FlexStatement.whenGenerated,
+    format: 'YYYYMMDD;HHmmss',
+  });
 
   return {
     whenGenerated,
