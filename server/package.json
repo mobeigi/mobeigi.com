@@ -40,7 +40,7 @@
   "dependencies": {
     "@types/node-cron": "^2.0.3",
     "@types/xml2json": "^0.11.3",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "body-parser": "^1.19.0",
     "command-line-args": "^5.1.1",
     "cookie-parser": "^1.4.5",
