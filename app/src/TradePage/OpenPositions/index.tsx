@@ -90,6 +90,7 @@ export const OpenPositions = ({ openPositions, lastUpdated }: Props) => {
                         year: 'numeric',
                         month: 'long',
                         day: '2-digit',
+                        timeZone: 'America/New_York',
                       }).format(openPosition.expiry)}
                   </td>
                   <td>{openPosition.markPrice.toFixed(2)}</td>

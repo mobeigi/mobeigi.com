@@ -84,6 +84,7 @@ export const TradeHistory = ({ trades, lastUpdated, timezone }: Props) => (
                     year: 'numeric',
                     month: 'long',
                     day: '2-digit',
+                    timeZone: 'America/New_York',
                   }).format(trade.expiry)}
               </td>
               <td>{trade.tradePrice.toFixed(2)}</td>
