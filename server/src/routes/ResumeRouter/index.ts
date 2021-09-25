@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { Request, Response, Router } from 'express';
-import StatusCodes from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 import { getPrivatePath } from '@shared/utils/GetPrivatePath';
 import type { AuthRequestType } from './types';
 

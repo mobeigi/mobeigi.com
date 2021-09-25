@@ -1,5 +1,5 @@
 import supertest, { SuperTest, Test } from 'supertest';
-import StatusCodes from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 import app from '@server';
 import type { Response } from 'supertest';
 
