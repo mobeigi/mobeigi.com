@@ -10,7 +10,19 @@ export type PolygonDailyOpenClose = {
   volume: number;
   status: string;
   message?: string;
-  request_id: string;
+  request_id?: string;
+};
+
+export type MarketDailyOpenCloseEntry = {
+  from: Date;
+  symbol: string;
+  afterHours?: number;
+  close?: number;
+  high?: number;
+  low?: number;
+  open?: number;
+  preMarket?: number;
+  volume?: number;
 };
 
 export type DBPolygonDailyOpenCloseModel = {
@@ -41,6 +53,10 @@ export type CreateNoDataDailyOpenCloseProps = {
 export type CreateDBModelFromPolygonDailyOpenCloseProps = {
   polygonDailyOpenClose: PolygonDailyOpenClose;
   date: string;
+};
+
+export type CreateMarketDailyOpenCloseEntryFromDBModelProps = {
+  dbPolygonDailyOpenCloseModel: DBPolygonDailyOpenCloseModel;
 };
 
 export type ParseDateStringWithNewYorkTzProps = {

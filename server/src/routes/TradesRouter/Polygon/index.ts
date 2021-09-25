@@ -4,7 +4,8 @@ import { StatusCodes } from 'http-status-codes';
 import { knex } from 'knex';
 import { getPrivatePath } from '@shared/utils/GetPrivatePath';
 import { getKnexConfig } from '@shared/utils/GetKnexConfig';
-import { Router } from 'express';
+import { Request, Response } from 'express';
+import Router from 'express-promise-router';
 import Axios, { AxiosError } from 'axios';
 import moment from 'moment';
 import logger from '@shared/components/Logger';
@@ -24,7 +25,11 @@ import {
   UTC_TIMEZONE,
   NEW_YORK_TIMEZONE,
 } from './constants';
-import { createNoDataDailyOpenClose, createDBModelFromPolygonDailyOpenClose } from './utils';
+import {
+  createNoDataDailyOpenClose,
+  createDBModelFromPolygonDailyOpenClose,
+  createMarketDailyOpenCloseEntryFromDBModel,
+} from './utils';
 
 const router = Router();
 const config = JSON.parse(fs.readFileSync(`${getPrivatePath()}/trades/config.json`).toString()) as TradesConfig;
@@ -157,6 +162,23 @@ const storeInDatabase = async ({ polygonDailyOpenCloseModel }: StoreInDatabasePr
       logger.err(reason);
     });
 };
+
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+router.get('/marketdailyopenclose', async (req: Request, res: Response): Promise<Response> => {
+  // Query database for data
+  const knexInstance = knex(knexConfig);
+  const tradesPolygonDailyopenclose = await knexInstance<DBPolygonDailyOpenCloseModel>('trades_polygon_dailyopenclose')
+    .select('from_date', 'symbol', 'after_hours', 'close', 'high', 'low', 'open', 'pre_market', 'volume')
+    .where('has_data', '=', true);
+
+  const marketDailyOpenClose = tradesPolygonDailyopenclose.map((dbEntry) =>
+    createMarketDailyOpenCloseEntryFromDBModel({
+      dbPolygonDailyOpenCloseModel: dbEntry as DBPolygonDailyOpenCloseModel,
+    })
+  );
+  const responseObject = { marketDailyOpenClose };
+  return res.status(OK).contentType('json').send(JSON.stringify(responseObject));
+});
 
 // Intitial sync on startup
 void syncSpyDailyOpenClose();

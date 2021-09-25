@@ -4,6 +4,8 @@ import type {
   CreateNoDataDailyOpenCloseProps,
   CreateDBModelFromPolygonDailyOpenCloseProps,
   ParseDateStringWithNewYorkTzProps,
+  MarketDailyOpenCloseEntry,
+  CreateMarketDailyOpenCloseEntryFromDBModelProps,
 } from './types';
 import { SPY_SYMBOL, POLYGON_API_DATE_FORMAT, NEW_YORK_TIMEZONE } from './constants';
 
@@ -32,6 +34,22 @@ export const createDBModelFromPolygonDailyOpenClose = ({
     open: polygonDailyOpenClose.open,
     pre_market: polygonDailyOpenClose.preMarket,
     volume: polygonDailyOpenClose.volume,
+  };
+};
+
+export const createMarketDailyOpenCloseEntryFromDBModel = ({
+  dbPolygonDailyOpenCloseModel,
+}: CreateMarketDailyOpenCloseEntryFromDBModelProps): MarketDailyOpenCloseEntry => {
+  return {
+    from: dbPolygonDailyOpenCloseModel.from_date,
+    symbol: dbPolygonDailyOpenCloseModel.symbol,
+    afterHours: dbPolygonDailyOpenCloseModel.after_hours,
+    close: dbPolygonDailyOpenCloseModel.close,
+    high: dbPolygonDailyOpenCloseModel.high,
+    low: dbPolygonDailyOpenCloseModel.low,
+    open: dbPolygonDailyOpenCloseModel.open,
+    preMarket: dbPolygonDailyOpenCloseModel.pre_market,
+    volume: dbPolygonDailyOpenCloseModel.volume,
   };
 };
 

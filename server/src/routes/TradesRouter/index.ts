@@ -1,5 +1,6 @@
 import fs from 'fs';
-import { Request, Response, Router } from 'express';
+import { Request, Response } from 'express';
+import Router from 'express-promise-router';
 import { StatusCodes } from 'http-status-codes';
 import parser from 'xml2json';
 import moment from 'moment';
