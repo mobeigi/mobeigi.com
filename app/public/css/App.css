@@ -12,7 +12,7 @@ body,
 }
 
 body {
-	background: #000 url(/images/bg/bg.jpg) repeat;
+	background: #000 url("/images/bg/bg.jpg") repeat;
 	font-family: Arial, "Trebuchet MS", Sans-Serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { Request, Response, Router } from 'express';
-import StatusCodes from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 import parser from 'xml2json';
 import moment from 'moment';
 import 'moment-timezone';

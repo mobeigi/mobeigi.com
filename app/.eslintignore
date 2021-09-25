@@ -24,4 +24,4 @@ src/shared/assets
 # misc
 react-app-env.d.ts
 setupTests.ts
-serviceWorker.ts
+reportWebVitals.ts
