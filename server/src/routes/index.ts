@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import Router from 'express-promise-router';
 import ResumeRouter from './ResumeRouter';
 import TradesRouter from './TradesRouter';
 
