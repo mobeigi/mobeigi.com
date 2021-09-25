@@ -177,7 +177,7 @@ router.get('/marketdailyopenclose', async (req: Request, res: Response): Promise
     })
   );
   const responseObject = { marketDailyOpenClose };
-  return res.status(OK).contentType('json').send(JSON.stringify(responseObject));
+  res.status(OK).contentType('json').send(JSON.stringify(responseObject));
 });
 
 // Intitial sync on startup
