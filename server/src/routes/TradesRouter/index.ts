@@ -55,7 +55,7 @@ cron
   })
   .start();
 
-const updateLast365CalendarDaysXmlFile = async () => {
+export const updateLast365CalendarDaysXmlFile = async (): Promise<boolean> => {
   const sendRequestResponse = await sendRequestEndpoint({
     endpointUrl: FLEX_STATEMENT_SENDREQUEST_ENDPOINT,
     queryId: LAST_365_CALENDAR_DAYS_FLEX_QUERY_ID,
@@ -267,8 +267,5 @@ router.get('/Last365CalendarDays', (req: Request, res: Response) => {
 
   return res.status(OK).contentType('json').send(JSON.stringify(transformedData));
 });
-
-// Perform initial update on start
-void updateLast365CalendarDaysXmlFile();
 
 export default router;
