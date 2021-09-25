@@ -164,7 +164,7 @@ const storeInDatabase = async ({ polygonDailyOpenCloseModel }: StoreInDatabasePr
 };
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
-router.get('/marketdailyopenclose', async (req: Request, res: Response): Promise<Response> => {
+router.get('/marketdailyopenclose', async (req: Request, res: Response) => {
   // Query database for data
   const knexInstance = knex(knexConfig);
   const tradesPolygonDailyopenclose = await knexInstance<DBPolygonDailyOpenCloseModel>('trades_polygon_dailyopenclose')
