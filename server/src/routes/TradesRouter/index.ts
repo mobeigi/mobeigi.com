@@ -14,7 +14,6 @@ import type {
   FlexStatementResponseType,
   SendRequestEndpointResponse,
   FlexQueryResponseType,
-  ConfigType,
   TradeType,
   TransformedTradeType,
   OpenPositionType,
@@ -25,13 +24,17 @@ import type {
   TransformedEquitySummaryInBaseType,
   GetStatementRequestResponse,
 } from './types';
+import type { TradesConfig } from './shared/types';
 import { nullableDataToFlatArray, convertDateFromNewYorkTzToLocal } from './utils';
+import Polygon from './Polygon';
 
 const router = Router();
+router.use('/polygon', Polygon);
+
 const { OK, NOT_FOUND } = StatusCodes;
 
 const FILE_NAME = 'Last365CalendarDays.xml';
-const CONFIG = JSON.parse(fs.readFileSync(`${getPrivatePath()}/trades/config.json`).toString()) as ConfigType;
+const CONFIG = JSON.parse(fs.readFileSync(`${getPrivatePath()}/trades/config.json`).toString()) as TradesConfig;
 const TOKEN = CONFIG.token;
 const LAST_365_CALENDAR_DAYS_FLEX_QUERY_ID = CONFIG.Last365CalendarDaysFlexQueryId;
 const FLEX_STATEMENT_SENDREQUEST_ENDPOINT =
@@ -42,7 +45,7 @@ const RETRY_TIMEOUT = 60000;
 // New report is only generated past midnight NY time
 // Prior to this a cached report is returned which does not contain new (daily) trades
 cron
-  //TODO
+  //TODO: Remove lint error
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   .schedule('15 */1 * * *', async () => {
     logger.info('Starting updateLast365CalendarDaysXmlFile Cron Job');

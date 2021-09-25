@@ -144,8 +144,3 @@ export type ConvertDateFromNewYorkTzToLocalProps = {
   date: string;
   format: string;
 };
-
-export type ConfigType = {
-  token: string;
-  Last365CalendarDaysFlexQueryId: string;
-};
