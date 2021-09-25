@@ -46,7 +46,7 @@ cron
   })
   .start();
 
-const syncSpyDailyOpenClose = async () => {
+export const syncSpyDailyOpenClose = async (): Promise<void> => {
   // Check to see which days need to be backfilled from database
   const knexInstance = knex(knexConfig);
   const tradesPolygonDailyopenclose = await knexInstance<DBPolygonDailyOpenCloseModel>(
@@ -179,8 +179,5 @@ router.get('/marketdailyopenclose', async (req: Request, res: Response) => {
   const responseObject = { marketDailyOpenClose };
   res.status(OK).contentType('json').send(JSON.stringify(responseObject));
 });
-
-// Intitial sync on startup
-void syncSpyDailyOpenClose();
 
 export default router;
