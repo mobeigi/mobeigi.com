@@ -26,7 +26,7 @@ module.exports = {
     project: 'tsconfig.json',
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'prettier'],
+  plugins: ['react', '@typescript-eslint', 'prettier', 'import'],
   rules: {
     // react
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
@@ -57,6 +57,9 @@ module.exports = {
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
+    },
+    react: {
+      version: 'detect',
     },
   },
 };

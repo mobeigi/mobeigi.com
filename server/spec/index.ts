@@ -22,7 +22,8 @@ if (envResult.error) {
 }
 
 // Init Jasmine
-const jasmine = new Jasmine(null);
+const jasmineOptions = {};
+const jasmine = new Jasmine(jasmineOptions);
 
 // Set location of test files
 jasmine.loadConfig({
@@ -48,11 +49,11 @@ if (options.testFile) {
   find.file(testFile + '.spec.ts', './spec', (files) => {
     if (files.length === 1) {
       jasmine.specFiles = [files[0]];
-      jasmine.execute();
+      void jasmine.execute();
     } else {
       logger.err('Test file not found!');
     }
   });
 } else {
-  jasmine.execute();
+  void jasmine.execute();
 }

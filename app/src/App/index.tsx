@@ -11,13 +11,6 @@ import { TradePage } from '../TradePage';
 import { Footer } from '../shared/components/Footer';
 import { COMMON } from '../shared/constants/Common';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../shared/assets/bootstrap-themes/slate.css';
-import './SlateOverrides.css';
-import './reset.css';
-import './typography.css';
-import './App.css';
-
 // Add jQuery to window object
 declare global {
   interface Window {
