@@ -13,7 +13,12 @@ import { NavTab } from './types';
 import { COMMON } from '../shared/constants/Common';
 import { FadeIn } from '../shared/components/FadeIn';
 import { StyledTradePage, Nav, TabContainer } from './styled';
-import { getLast365CalendarDays, transformData } from './services';
+import {
+  getLast365CalendarDays,
+  getMarketDailyOpenClose,
+  transformLast365CalendarDays,
+  transformMarketDailyOpenClose,
+} from './services';
 
 import { Overview } from './Overview';
 import { OpenPositions } from './OpenPositions';
@@ -23,6 +28,7 @@ import { StockTwitsWidget } from './StockTwitsWidget';
 export const TradePage = () => {
   const [state, setState] = useState<State>({
     last365CalendarDays: null,
+    marketDailyOpenClose: null,
     currentNavTab: NavTab.Overview,
     loading: true,
     error: false,
@@ -30,29 +36,43 @@ export const TradePage = () => {
   const location = useLocation();
 
   useEffect(() => {
-    getLast365CalendarDays()
-      .then((response) => {
-        if (response !== null) {
-          const transformedLast365CalendarDays = transformData({ last365CalendarDays: response });
-          setState((prevState: State) => ({
-            ...prevState,
-            last365CalendarDays: transformedLast365CalendarDays,
-            error: false,
-            loading: false,
-          }));
-        } else {
+    const last365CalendarDaysPromise = getLast365CalendarDays();
+    const marketDailyOpenClosePromise = getMarketDailyOpenClose();
+
+    Promise.all([last365CalendarDaysPromise, marketDailyOpenClosePromise])
+      .then((values) => {
+        const last365CalendarDays = values[0];
+        const marketDailyOpenClose = values[1];
+
+        if (last365CalendarDays === null || marketDailyOpenClose === null) {
           setState((prevState: State) => ({
             ...prevState,
             last365CalendarDays: null,
+            marketDailyOpenClose: null,
             error: true,
             loading: false,
           }));
+          return;
         }
+
+        const transformedLast365CalendarDays = transformLast365CalendarDays({ last365CalendarDays });
+        const transformedMarketDailyOpenClose = transformMarketDailyOpenClose({
+          marketDailyOpenClose,
+        });
+
+        setState((prevState: State) => ({
+          ...prevState,
+          last365CalendarDays: transformedLast365CalendarDays,
+          marketDailyOpenClose: transformedMarketDailyOpenClose,
+          error: false,
+          loading: false,
+        }));
       })
       .catch(() => {
         setState((prevState: State) => ({
           ...prevState,
           last365CalendarDays: null,
+          marketDailyOpenClose: null,
           error: true,
           loading: false,
         }));
@@ -119,7 +139,7 @@ export const TradePage = () => {
     );
   }
 
-  if (!state.last365CalendarDays) {
+  if (!state.last365CalendarDays || !state.marketDailyOpenClose) {
     return (
       <StyledTradePage>
         {header}
@@ -222,6 +242,7 @@ export const TradePage = () => {
               lastUpdated={lastUpdated}
               depositsWithdrawals={state.last365CalendarDays.depositsWithdrawals}
               equitySummaryInBase={state.last365CalendarDays.equitySummaryInBase}
+              marketDailyOpenClose={state.marketDailyOpenClose}
             />
           </FadeIn>
         )) ||

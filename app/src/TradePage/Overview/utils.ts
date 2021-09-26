@@ -7,7 +7,8 @@ import {
   GetEquitySummaryInBaseInRangeProps,
   GetEquitySummaryInBaseForDayProps,
   TimeWeightedReturn,
-  GetTimeWeightedReturnProps,
+  GetPortfolioTimeWeightedReturnProps,
+  GetMarketTimeWeightedReturnProps,
 } from './utils.types';
 
 export const getCurrentFinancialYearStartDate = () => {
@@ -43,7 +44,10 @@ export const getDepositWithdrawalInRange = ({ depositsWithdrawals, from, to }: G
     (depositsWithdrawal) => depositsWithdrawal.dateTime >= from && depositsWithdrawal.dateTime <= to
   );
 
-export const getTimeWeightedReturn = ({ equitySummaryInBase, depositsWithdrawals }: GetTimeWeightedReturnProps) => {
+export const getPortfolioTimeWeightedReturn = ({
+  equitySummaryInBase,
+  depositsWithdrawals,
+}: GetPortfolioTimeWeightedReturnProps) => {
   const timeWeightedReturnArray = [] as TimeWeightedReturn[];
   const netDepositWithdrawal = depositsWithdrawals.reduce(
     (accumulator, current) => accumulator + current.amount * current.fxRateToBase,
@@ -67,6 +71,24 @@ export const getTimeWeightedReturn = ({ equitySummaryInBase, depositsWithdrawals
     const timeWeightedReturnValue = totalDiff / totalCostBasis;
     const timeWeightedReturn = {
       date: equitySummaryInBaseEntry.reportDate,
+      return: timeWeightedReturnValue,
+      totalDiff,
+    } as TimeWeightedReturn;
+    timeWeightedReturnArray.push(timeWeightedReturn);
+  });
+
+  return timeWeightedReturnArray;
+};
+
+export const getMarketTimeWeightedReturn = ({ marketDailyOpenClose }: GetMarketTimeWeightedReturnProps) => {
+  const timeWeightedReturnArray = [] as TimeWeightedReturn[];
+  const costBasis = marketDailyOpenClose.marketDailyOpenClose[0].close;
+
+  marketDailyOpenClose.marketDailyOpenClose.forEach((marketDailyOpenCloseEntry) => {
+    const totalDiff = marketDailyOpenCloseEntry.close - costBasis;
+    const timeWeightedReturnValue = totalDiff / costBasis;
+    const timeWeightedReturn = {
+      date: marketDailyOpenCloseEntry.from,
       return: timeWeightedReturnValue,
       totalDiff,
     } as TimeWeightedReturn;

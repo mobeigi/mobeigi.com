@@ -1,4 +1,4 @@
-import { Trade, DepositsWithdrawal, EquitySummaryInBase } from '../common/types';
+import { Trade, DepositsWithdrawal, EquitySummaryInBase, MarketDailyOpenClose } from '../common/types';
 
 export type GetTradesInRangeProps = {
   trades: Trade[];
@@ -37,7 +37,11 @@ export type TimeWeightedReturn = {
   totalDiff: number;
 };
 
-export type GetTimeWeightedReturnProps = {
+export type GetPortfolioTimeWeightedReturnProps = {
   equitySummaryInBase: EquitySummaryInBase[];
   depositsWithdrawals: DepositsWithdrawal[];
+};
+
+export type GetMarketTimeWeightedReturnProps = {
+  marketDailyOpenClose: MarketDailyOpenClose;
 };
