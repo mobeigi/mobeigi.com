@@ -1,12 +1,11 @@
 import moment from 'moment';
+import type { DBPolygonDailyOpenCloseModel, MarketDailyOpenCloseEntry } from './types';
 import type {
-  DBPolygonDailyOpenCloseModel,
   CreateNoDataDailyOpenCloseProps,
   CreateDBModelFromPolygonDailyOpenCloseProps,
-  ParseDateStringWithNewYorkTzProps,
-  MarketDailyOpenCloseEntry,
   CreateMarketDailyOpenCloseEntryFromDBModelProps,
-} from './types';
+  ParseDateStringWithNewYorkTzProps,
+} from './utils.types';
 import { SPY_SYMBOL, POLYGON_API_DATE_FORMAT, NEW_YORK_TIMEZONE } from './constants';
 
 export const createNoDataDailyOpenClose = ({ date }: CreateNoDataDailyOpenCloseProps): DBPolygonDailyOpenCloseModel => {
