@@ -1,3 +1,5 @@
+import type { MarketDailyOpenClose, MarketDailyOpenCloseEntry } from './marketdailyopenclose/types';
+
 export type DepositsWithdrawal = {
   dateTime: Date;
   amount: number;
@@ -52,3 +54,5 @@ export type Last365CalendarDays = {
   depositsWithdrawals: DepositsWithdrawal[];
   equitySummaryInBase: EquitySummaryInBase[];
 };
+
+export type { MarketDailyOpenClose, MarketDailyOpenCloseEntry };

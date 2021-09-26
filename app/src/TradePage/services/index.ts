@@ -1,2 +1,3 @@
 export { getLast365CalendarDays } from './Last365CalendarDays';
-export { transformData } from './transformer';
+export { getMarketDailyOpenClose } from './marketdailyopenclose';
+export { transformLast365CalendarDays, transformMarketDailyOpenClose } from './transformer';

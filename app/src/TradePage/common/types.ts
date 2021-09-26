@@ -5,4 +5,5 @@ export type {
   OpenPosition,
   Trade,
   Last365CalendarDays,
+  MarketDailyOpenClose,
 } from '../services/types';
