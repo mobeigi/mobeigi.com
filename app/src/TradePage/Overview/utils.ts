@@ -47,7 +47,11 @@ export const getDepositWithdrawalInRange = ({ depositsWithdrawals, from, to }: G
 export const getPortfolioTimeWeightedReturn = ({
   equitySummaryInBase,
   depositsWithdrawals,
-}: GetPortfolioTimeWeightedReturnProps) => {
+}: GetPortfolioTimeWeightedReturnProps): TimeWeightedReturn[] => {
+  if (equitySummaryInBase.length === 0) {
+    return [];
+  }
+
   const timeWeightedReturnArray = [] as TimeWeightedReturn[];
   const netDepositWithdrawal = depositsWithdrawals.reduce(
     (accumulator, current) => accumulator + current.amount * current.fxRateToBase,
@@ -73,14 +77,20 @@ export const getPortfolioTimeWeightedReturn = ({
       date: equitySummaryInBaseEntry.reportDate,
       return: timeWeightedReturnValue,
       totalDiff,
-    } as TimeWeightedReturn;
+    };
     timeWeightedReturnArray.push(timeWeightedReturn);
   });
 
   return timeWeightedReturnArray;
 };
 
-export const getMarketTimeWeightedReturn = ({ marketDailyOpenClose }: GetMarketTimeWeightedReturnProps) => {
+export const getMarketTimeWeightedReturn = ({
+  marketDailyOpenClose,
+}: GetMarketTimeWeightedReturnProps): TimeWeightedReturn[] => {
+  if (marketDailyOpenClose.marketDailyOpenClose.length === 0) {
+    return [];
+  }
+
   const timeWeightedReturnArray = [] as TimeWeightedReturn[];
   const costBasis = marketDailyOpenClose.marketDailyOpenClose[0].close;
 
@@ -91,7 +101,7 @@ export const getMarketTimeWeightedReturn = ({ marketDailyOpenClose }: GetMarketT
       date: marketDailyOpenCloseEntry.from,
       return: timeWeightedReturnValue,
       totalDiff,
-    } as TimeWeightedReturn;
+    };
     timeWeightedReturnArray.push(timeWeightedReturn);
   });
 
