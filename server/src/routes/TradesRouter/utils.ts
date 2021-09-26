@@ -1,7 +1,7 @@
 import moment from 'moment';
 import 'moment-timezone';
 
-import type { NullableDataToFlatArrayProps, ConvertDateFromNewYorkTzToLocalProps } from './types';
+import type { NullableDataToFlatArrayProps, ConvertDateFromNewYorkTzToLocalProps } from './utils.types';
 
 export const nullableDataToFlatArray = ({ data }: NullableDataToFlatArrayProps): any => {
   return data ? [data].flat() : [];

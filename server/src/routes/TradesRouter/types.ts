@@ -135,12 +135,3 @@ export type GetStatementRequestResponse =
 export type TransformLast365CalendarDaysDataProps = {
   json: FlexQueryResponseType;
 };
-
-export type NullableDataToFlatArrayProps = {
-  data: any;
-};
-
-export type ConvertDateFromNewYorkTzToLocalProps = {
-  date: string;
-  format: string;
-};

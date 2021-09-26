@@ -9,6 +9,6 @@ export const getLast365CalendarDays = (): Promise<GetLast365CalendarDaysResponse
       const data = response.data as Last365CalendarDays;
       return data;
     }
-    throw new Error(`Received non-200 resposne code: ${response.status}`);
+    throw new Error(`Received non-200 response code: ${response.status}`);
   });
 };

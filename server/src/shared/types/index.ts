@@ -3,4 +3,5 @@ export type MysqlConnectionConfig = {
   port: number;
   username: string;
   password: string;
+  database: string;
 };
