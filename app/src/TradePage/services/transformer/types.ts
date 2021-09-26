@@ -1,5 +1,9 @@
-import { Last365CalendarDays } from '../types';
+import { Last365CalendarDays, MarketDailyOpenClose } from '../types';
 
-export type TransformDataProps = {
+export type TransformLast365CalendarDaysProps = {
   last365CalendarDays: Last365CalendarDays;
+};
+
+export type TransformMarketDailyOpenCloseProps = {
+  marketDailyOpenClose: MarketDailyOpenClose;
 };

@@ -76,7 +76,7 @@ export const syncSpyDailyOpenClose = async (): Promise<void> => {
 const getRequiredDataDateRange = () => {
   const dateArray = [];
   let currentDate = moment(BACKFILL_START_DATE);
-  const endDate = moment();
+  const endDate = moment.tz(NEW_YORK_TIMEZONE).subtract(1, 'day').endOf('day'); // We want to backfill upto the last completed day
   while (currentDate <= endDate) {
     dateArray.push(moment(currentDate).tz(NEW_YORK_TIMEZONE).format(POLYGON_API_DATE_FORMAT)); // UTC to NY format
     currentDate = moment(currentDate).add(1, 'days');

@@ -1,5 +1,6 @@
 import type { TimeWeightedReturn } from '../utils.types';
 
-export type Props = {
-  data: TimeWeightedReturn[];
+export type TimeWeightedReturnChartProps = {
+  portfolioData: TimeWeightedReturn[];
+  marketData: TimeWeightedReturn[];
 };

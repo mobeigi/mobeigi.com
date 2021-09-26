@@ -45,20 +45,3 @@ export type BackfillDateProps = {
 export type StoreInDatabaseProps = {
   polygonDailyOpenCloseModel: DBPolygonDailyOpenCloseModel;
 };
-
-export type CreateNoDataDailyOpenCloseProps = {
-  date: string;
-};
-
-export type CreateDBModelFromPolygonDailyOpenCloseProps = {
-  polygonDailyOpenClose: PolygonDailyOpenClose;
-  date: string;
-};
-
-export type CreateMarketDailyOpenCloseEntryFromDBModelProps = {
-  dbPolygonDailyOpenCloseModel: DBPolygonDailyOpenCloseModel;
-};
-
-export type ParseDateStringWithNewYorkTzProps = {
-  date: string;
-};

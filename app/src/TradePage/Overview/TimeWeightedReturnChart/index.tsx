@@ -2,12 +2,19 @@ import React, { useRef, useEffect } from 'react';
 import moment from 'moment';
 import { init } from 'echarts';
 import type { EChartsOption } from 'echarts';
+import ReactDOMServer from 'react-dom/server';
 
 import { COLORS } from '../../../shared/constants/Colors';
+import type { TimeWeightedReturnChartProps } from './types';
+import { Tooltip } from './tooltip';
 
-import type { Props } from './types';
+export const TimeWeightedReturnChart = ({ portfolioData: data, marketData }: TimeWeightedReturnChartProps) => {
+  const seriesData = data.map((entry) => [moment(entry.date).format('yyyy-MM-DD'), (entry.return * 100).toFixed(2)]);
+  const seriesMarketData = marketData.map((entry) => [
+    moment(entry.date).format('yyyy-MM-DD'),
+    (entry.return * 100).toFixed(2),
+  ]);
 
-export const TimeWeightedReturnChart = ({ data }: Props) => {
   const options = {
     title: {
       show: false,
@@ -30,11 +37,22 @@ export const TimeWeightedReturnChart = ({ data }: Props) => {
         },
       },
       formatter: (params: any) => {
-        const icon = `<span style="background-color:${params[0].color};border: 1px solid ${params[0].color};border-radius:50%;display:inline-block;height:10px;margin-left:7px;margin-top:3px;width:10px;"></span>`;
-        const niceDate = moment(params[0].data[0]).format('DD MMMM YYYY');
-        const returnColour = params[0].data[1] >= 0 ? COLORS.slateGreen : COLORS.slateRed;
-
-        return `<span>${icon}&nbsp;&nbsp;&nbsp;<tt>${niceDate} </tt><br />${params[0].seriesName}:&nbsp;&nbsp;&nbsp;<span style="color: ${returnColour};"><strong>${params[0].data[1]}%</strong></span></span>`;
+        const tooltipPortfolioData = params[0] && {
+          date: params[0].data[0],
+          color: params[0].color,
+          seriesName: params[0].seriesName,
+          returnPercentage: params[0].data[1],
+        };
+        const tooltipMarketData = params[1] && {
+          date: params[1].data[0],
+          color: params[1].color,
+          seriesName: params[1].seriesName,
+          returnPercentage: params[1].data[1],
+        };
+        const tooltipHtml = ReactDOMServer.renderToString(
+          <Tooltip portfolioData={tooltipPortfolioData} marketData={tooltipMarketData} />
+        );
+        return tooltipHtml;
       },
       backgroundColor: 'rgba(245, 245, 245, 0.9)',
       borderWidth: 1,
@@ -111,17 +129,37 @@ export const TimeWeightedReturnChart = ({ data }: Props) => {
     },
     series: [
       {
-        name: 'Return',
+        name: 'Portfolio',
         type: 'line',
-        data: data.map((entry) => [moment(entry.date).format('yyyy-MM-DD'), (entry.return * 100).toFixed(2)]),
+        data: seriesData,
         smooth: true,
+        showSymbol: false,
+        symbolSize: 7,
         itemStyle: {
           color: '#3392ff',
+          opacity: 1,
         },
         lineStyle: {
           color: '#3392ff',
-          opacity: 0.5,
-          width: 3,
+          opacity: 0.7,
+          width: 2.5,
+        },
+      },
+      {
+        name: 'Market',
+        type: 'line',
+        data: seriesMarketData,
+        smooth: true,
+        showSymbol: false,
+        symbolSize: 7,
+        itemStyle: {
+          color: '#7B68EE',
+          opacity: 1,
+        },
+        lineStyle: {
+          color: '#7B68EE',
+          opacity: 0.7,
+          width: 2.5,
         },
       },
     ],

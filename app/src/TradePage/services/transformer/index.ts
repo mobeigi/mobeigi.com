@@ -1,6 +1,6 @@
-import type { Last365CalendarDays as TransformedDataOutputType } from '../../common/types';
-import type { OpenPosition, Trade, DepositsWithdrawal, EquitySummaryInBase } from '../types';
-import type { TransformDataProps } from './types';
+import type { Last365CalendarDays } from '../../common/types';
+import type { OpenPosition, Trade, DepositsWithdrawal, EquitySummaryInBase, MarketDailyOpenClose } from '../types';
+import type { TransformLast365CalendarDaysProps, TransformMarketDailyOpenCloseProps } from './types';
 import { getOpenPositionTotalPrice, isOptionContract, calcSecurityTotalPrice } from '../../common/utils';
 
 const transformTrades = ({ trades }: { trades: Trade[] }) => {
@@ -67,7 +67,9 @@ const transformEquitySummaryInBase = ({ equitySummaryInBase }: { equitySummaryIn
   }));
 };
 
-export const transformData = ({ last365CalendarDays }: TransformDataProps): TransformedDataOutputType => {
+export const transformLast365CalendarDays = ({
+  last365CalendarDays,
+}: TransformLast365CalendarDaysProps): Last365CalendarDays => {
   const whenGenerated = new Date(last365CalendarDays.whenGenerated);
   const { timezone } = last365CalendarDays;
   const trades = transformTrades({ trades: last365CalendarDays.trades });
@@ -87,4 +89,11 @@ export const transformData = ({ last365CalendarDays }: TransformDataProps): Tran
     depositsWithdrawals,
     equitySummaryInBase,
   };
+};
+
+export const transformMarketDailyOpenClose = ({
+  marketDailyOpenClose,
+}: TransformMarketDailyOpenCloseProps): MarketDailyOpenClose => {
+  // No transformation needed at this stage
+  return marketDailyOpenClose;
 };

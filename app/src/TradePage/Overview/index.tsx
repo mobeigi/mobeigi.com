@@ -3,7 +3,7 @@ import moment from 'moment';
 import { useSpring, animated } from 'react-spring';
 
 import { TimeWeightedReturnChart } from './TimeWeightedReturnChart';
-import type { Props } from './types';
+import type { OverviewProps } from './types';
 import { StyledTable } from '../common/styled';
 import { StatisticValue, TimeWeightedReturnChartContainer } from './styled';
 import {
@@ -13,10 +13,17 @@ import {
   filterOptionTrades,
   getDepositWithdrawalInRange,
   getEquitySummaryInBaseInRange,
-  getTimeWeightedReturn,
+  getPortfolioTimeWeightedReturn,
+  getMarketTimeWeightedReturn,
 } from './utils';
 
-export const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySummaryInBase }: Props) => {
+export const Overview = ({
+  trades,
+  lastUpdated,
+  depositsWithdrawals,
+  equitySummaryInBase,
+  marketDailyOpenClose,
+}: OverviewProps) => {
   if (!equitySummaryInBase) {
     throw new Error(`equitySummaryInBase is empty`);
   }
@@ -61,9 +68,20 @@ export const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySumma
     to: new Date(),
   });
 
-  const timeWeightedReturnData = getTimeWeightedReturn({
+  const portfolioTimeWeightedReturnData = getPortfolioTimeWeightedReturn({
     equitySummaryInBase: currentFinancialYearEquitySummaryInBase,
     depositsWithdrawals: currentFinancialYearDepositWithdrawal,
+  });
+
+  // Get market daily open close in desired range
+  const filteredMarketDailyOpenClose = {
+    marketDailyOpenClose: marketDailyOpenClose.marketDailyOpenClose.filter(
+      (entry) => moment(entry.from).isSameOrAfter(startDate, 'second') // second granularity
+    ),
+  };
+
+  const marketTimeWeightedReturnData = getMarketTimeWeightedReturn({
+    marketDailyOpenClose: filteredMarketDailyOpenClose,
   });
 
   const totalCostBasis = currentFinancialYearNetDepositWithdrawal + startDateEquitySummaryInBase.total;
@@ -119,7 +137,10 @@ export const Overview = ({ trades, lastUpdated, depositsWithdrawals, equitySumma
       </p>
       {lastUpdated}
       <TimeWeightedReturnChartContainer>
-        <TimeWeightedReturnChart data={timeWeightedReturnData} />
+        <TimeWeightedReturnChart
+          portfolioData={portfolioTimeWeightedReturnData}
+          marketData={marketTimeWeightedReturnData}
+        />
       </TimeWeightedReturnChartContainer>
       <br />
       <StyledTable className="table table-hover table-active">
