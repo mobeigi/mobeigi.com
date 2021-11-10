@@ -144,6 +144,7 @@ export const TimeWeightedReturnChart = ({ portfolioData: data, marketData }: Tim
           opacity: 0.7,
           width: 2.5,
         },
+        animationDuration: 1500,
       },
       {
         name: 'Market',
@@ -161,6 +162,7 @@ export const TimeWeightedReturnChart = ({ portfolioData: data, marketData }: Tim
           opacity: 0.7,
           width: 2.5,
         },
+        animationDuration: 1500,
       },
     ],
     dataZoom: [

@@ -144,17 +144,9 @@ export const Overview = ({
       </TimeWeightedReturnChartContainer>
       <br />
       <StyledTable className="table table-hover table-active">
-        <thead>
-          <tr>
-            <th>Statistic</th>
-            <th>Description</th>
-            <th>Value</th>
-          </tr>
-        </thead>
         <tbody>
           <tr>
             <td>Return (%)</td>
-            <td>Computed as difference between net liquidity and cost basis.</td>
             <td>
               <StatisticValue className={`badge ${fytdReturn > 0 ? 'badge-success' : 'badge-danger'}`}>
                 <animated.span>{fytdReturnAnimation.number.to((val) => Number(val).toFixed(2))}</animated.span>%
@@ -162,8 +154,7 @@ export const Overview = ({
             </td>
           </tr>
           <tr>
-            <td>Average Trades per month</td>
-            <td>Excludes Forex transactions.</td>
+            <td>Average Trades Per Month</td>
             <td>
               <StatisticValue className="badge badge-light">
                 <animated.span>{averageTradesAnimation.number.to((val) => Number(val).toFixed(2))}</animated.span>
@@ -172,7 +163,6 @@ export const Overview = ({
           </tr>
           <tr>
             <td>Total Trades</td>
-            <td>Excludes Forex transactions.</td>
             <td>
               <StatisticValue className="badge badge-light">
                 <animated.span>
@@ -183,7 +173,6 @@ export const Overview = ({
           </tr>
           <tr>
             <td>Stock Trading Frequency (%)</td>
-            <td>Percentage of trades with shares as the financial instrument.</td>
             <td>
               <StatisticValue className="badge badge-light">
                 <animated.span>
@@ -195,7 +184,6 @@ export const Overview = ({
           </tr>
           <tr>
             <td>Option Trading Frequency (%)</td>
-            <td>Percentage of trades with options as the financial instrument.</td>
             <td>
               <StatisticValue className="badge badge-light">
                 <animated.span>
