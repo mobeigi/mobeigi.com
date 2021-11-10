@@ -51,7 +51,7 @@ export const OpenPositions = ({ openPositions, lastUpdated }: Props) => {
               <th>Put / Call</th>
               <th>Expiry</th>
               <th>Last Price Per Unit</th>
-              <th>Total Price</th>
+              <th>Market Value</th>
               <th>Currency</th>
               <th>Weight</th>
             </tr>
