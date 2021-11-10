@@ -7,7 +7,7 @@ import type {
 } from './utils.types';
 
 export const calcSecurityTotalPrice = ({ pricePerShare, quantity, isOptionContract }: CalcSecurityTotalPriceType) =>
-  Math.abs(pricePerShare * quantity * (isOptionContract ? 100 : 1));
+  quantity * pricePerShare * (isOptionContract ? 100 : 1);
 
 export const getPutOrCallFullText = ({ putCall }: GetPutOrCallFullTextType) => {
   if (!putCall) {

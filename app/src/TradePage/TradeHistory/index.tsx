@@ -34,7 +34,7 @@ export const TradeHistory = ({ trades, lastUpdated, timezone }: Props) => (
           <th>Put / Call</th>
           <th>Expiry</th>
           <th>Price Per Unit</th>
-          <th>Total Price</th>
+          <th>Market Value</th>
           <th>Commission</th>
           <th>Currency</th>
         </tr>
