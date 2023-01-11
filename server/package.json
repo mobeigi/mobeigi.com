@@ -52,7 +52,7 @@
     "http-status-codes": "^2.1.4",
     "jet-logger": "^1.0.6",
     "jsonfile": "^6.1.0",
-    "knex": "^0.95.11",
+    "knex": "^2.4.0",
     "module-alias": "^2.2.2",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.35",
