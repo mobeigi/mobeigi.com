@@ -48,7 +48,7 @@ const myStuffSBG = [
     socialButton: { brandStyle: 'fas', iconName: 'fa-sack-dollar', iconSize: 'fa-3x' },
   },
   {
-    link: 'https://photos.mobeigi.com/',
+    link: 'https://photos.mobeigi.com',
     title: 'Photos',
     socialButton: { brandStyle: 'fas', iconName: 'fa-camera', iconSize: 'fa-3x' },
   },
