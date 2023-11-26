@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 
 import * as jquery from 'jquery';
 import { AppWrapper, HeaderWrapper, MainWrapper, FooterWrapper } from './styled';
@@ -53,7 +53,7 @@ export const App = () => {
 
   // Fired on every route change
   useEffect(() => {
-    ReactGA.pageview(location.pathname + location.search);
+    ReactGA.send({ hitType: 'pageview', page: location.pathname + location.search, title: document.title });
   }, [location]);
 
   return (
