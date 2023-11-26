@@ -26,7 +26,11 @@ window.jQuery = jquery || {};
 require('bootstrap');
 
 // Init Google Analytics
-ReactGA.initialize(COMMON.ANALYTICS.gaTrackingId);
+ReactGA.initialize(COMMON.ANALYTICS.gaTrackingId, {
+  gtagOptions: {
+    send_page_view: false,
+  },
+});
 
 export const App = () => {
   const location = useLocation();
