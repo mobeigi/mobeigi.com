@@ -146,7 +146,7 @@
     "react-app-polyfill": "^2.0.0",
     "react-dev-utils": "^11.0.4",
     "react-dom": "^17.0.2",
-    "react-ga": "^3.0.0",
+    "react-ga4": "^2.1.0",
     "react-helmet-async": "^1.0.9",
     "react-is": "^17.0.2",
     "react-modal": "^3.11.2",

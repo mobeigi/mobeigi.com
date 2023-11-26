@@ -7,7 +7,7 @@ const OWNER = {
 };
 
 const ANALYTICS = {
-  gaTrackingId: 'UA-35338966-1',
+  gaTrackingId: 'G-41ZEE01DTM',
 };
 
 const WEBSITE = {
