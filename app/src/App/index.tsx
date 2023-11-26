@@ -53,7 +53,7 @@ export const App = () => {
 
   // Fired on every route change
   useEffect(() => {
-    ReactGA.send({ hitType: 'pageview', page: location.pathname + location.search, title: document.title });
+    ReactGA.send({ hitType: 'pageview', page: location.pathname + location.search });
   }, [location]);
 
   return (
