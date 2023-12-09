@@ -8,13 +8,13 @@
             "type": "image/png"
         },
         {
-            "src": "/android-chrome-384x384.png",
-            "sizes": "384x384",
+            "src": "/android-chrome-512x512.png",
+            "sizes": "512x512",
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
+    "theme_color": "#cc7156",
+    "background_color": "#cc7156",
     "start_url": "https://mobeigi.com/",
     "display": "standalone"
 }
