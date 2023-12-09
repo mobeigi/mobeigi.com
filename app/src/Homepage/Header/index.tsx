@@ -4,11 +4,12 @@ import { Logo } from '../../shared/components/Logo';
 import { ReemKufiText } from '../../shared/components/ReemKufiText';
 import { COMMON } from '../../shared/constants/Common';
 import { StyledHeader, LogoAndSiteName, SiteNameWrapper, TagLineWrapper } from './styled';
+import { getLogoUrl } from '../../shared/utils/GetLogo';
 
 export const Header = () => (
   <StyledHeader>
     <LogoAndSiteName>
-      <Logo logoUrl="/images/avatar/avatar.svg" />
+      <Logo logoUrl={getLogoUrl()} />
       <SiteNameWrapper>
         <ReemKufiText>{COMMON.WEBSITE.siteName}</ReemKufiText>
       </SiteNameWrapper>
