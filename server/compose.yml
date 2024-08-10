@@ -1,0 +1,9 @@
+services:
+  mobeigi-com-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./private:/server/private:ro
+    ports:
+      - "3000"
