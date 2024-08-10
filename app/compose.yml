@@ -1,0 +1,12 @@
+services:
+  nginx:
+    build:
+      context: .
+      # We require access to the git folder (i.e. for git commit hash)
+      additional_contexts:
+        - gitroot=..
+      dockerfile: Dockerfile
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "80"
