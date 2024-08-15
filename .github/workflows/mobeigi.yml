@@ -64,8 +64,22 @@ jobs:
     needs: [ build_test_app, build_test_server ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
-    - name: Deploy via webhook
-      uses: distributhor/workflow-webhook@v1
-      env:
+    - name: Deploy App (via webhook)
+      uses: distributhor/workflow-webhook@v2
+      with:
         webhook_url: ${{ secrets.WEBHOOK_URL }}
         webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
+        data: '{ 
+          "DOCKER_COMPOSE_PROJECT_NAME": "${{ vars.APP_DOCKER_COMPOSE_PROJECT_NAME }}",
+          "GIT_REPOSITORY_NAME": "${{ vars.GIT_REPOSITORY_NAME  }}"
+        }'
+
+    - name: Deploy Server (via webhook)
+      uses: distributhor/workflow-webhook@v2
+      with:
+        webhook_url: ${{ secrets.WEBHOOK_URL }}
+        webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
+        data: '{ 
+          "DOCKER_COMPOSE_PROJECT_NAME": "${{ vars.SERVER_DOCKER_COMPOSE_PROJECT_NAME }}",
+          "GIT_REPOSITORY_NAME": "${{ vars.GIT_REPOSITORY_NAME  }}"
+        }'
