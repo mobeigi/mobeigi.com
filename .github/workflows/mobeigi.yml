@@ -2,9 +2,9 @@ name: Build, Test and Deploy
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build_test_app:
@@ -62,7 +62,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: [build_test_app, build_test_server]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Deploy App (via webhook)
         uses: distributhor/workflow-webhook@v3
