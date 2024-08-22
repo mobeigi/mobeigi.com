@@ -5,6 +5,6 @@ const About = () => {
       <p>This is a placeholder...</p>
     </main>
   );
-}
-  
+};
+
 export default About;

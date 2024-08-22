@@ -1,6 +1,6 @@
-import type { ThemeMode } from "@/types/theme";
+import type { ThemeMode } from '@/types/theme';
 
 export interface ThemeProviderWrapperProps {
-    children: React.ReactNode,
-    themeMode: ThemeMode,
-};
+  children: React.ReactNode;
+  themeMode: ThemeMode;
+}

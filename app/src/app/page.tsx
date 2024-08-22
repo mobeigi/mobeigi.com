@@ -12,6 +12,6 @@ const Home = () => {
       <p>Paragraph</p>
     </main>
   );
-}
+};
 
 export default Home;
