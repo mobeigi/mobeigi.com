@@ -49,20 +49,3 @@ export const SiteTitle = styled.span`
   white-space: nowrap;
   user-select: none;
 `;
-
-export const Nav = styled.nav`
-  display: flex;
-  gap: 1em;
-  font-weight: 700;
-  align-items: center;
-
-  & a {
-    color: ${({ theme }) => theme.colors.header.text.base};
-    text-decoration: none;
-  }
-
-  & a:hover,
-  & a:focus {
-    color: ${({ theme }) => theme.colors.header.text.baseHighlight};
-  }
-`;
