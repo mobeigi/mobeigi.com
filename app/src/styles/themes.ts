@@ -51,6 +51,10 @@ const theme = {
       header: {
         background: '#e8e8e8',
         accent: '#a1a1a1',
+        text: {
+          base: '#6e6e6e',
+          baseHighlight: '#525252',
+        },
       },
       container: {
         background: '#e8e8e8',
@@ -59,8 +63,8 @@ const theme = {
       text: {
         base: '#404040',
         baseHighlight: '#525252',
-        link: '#4e95c7',
-        linkHighlight: '#5aa7cc',
+        link: '#af363c',
+        linkHighlight: '#fb4d56',
       },
       status: {
         primary: {
