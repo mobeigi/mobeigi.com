@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import zIndex from '@/styles/zindex';
 
 export const Body = styled.body`
   display: flex;
@@ -13,8 +14,7 @@ export const Header = styled.header`
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
-  background-color: #333;
+  z-index: ${zIndex.header};
 `
 
 export const Main = styled.main`
