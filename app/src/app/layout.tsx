@@ -3,13 +3,14 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Roboto } from "next/font/google";
 import { BASE_URL, SITE_TITLE } from "@/constants/app";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Nav from "@/components/Nav";
+import FooterContent from "@/components/FooterContent";
 import GlobalStyle from "@/styles/GlobalStyle";
 import StyledComponentsRegistry from "@/lib/registry";
 import ThemeProviderWrapper from "@/lib/ThemeProviderWrapper";
 import { ThemeMode } from "@/types/theme";
 import { THEME_COOKIE_NAME } from '@/constants/cookies';
+import { Body, Footer, Header, Main } from './styled';
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"],});
 
@@ -40,16 +41,22 @@ const RootLayout = ({
 
   return (
     <html lang="en">
-      <body className={roboto.className}>
+      <Body className={roboto.className}>
       <StyledComponentsRegistry>
         <ThemeProviderWrapper themeMode={currentThemeMode}>
           <GlobalStyle />
-          <Header />
-          {children}
-          <Footer />
+          <Header>
+            <Nav />
+          </Header>
+          <Main>
+            {children}
+          </Main>
+          <Footer>
+            <FooterContent />
+          </Footer>
         </ThemeProviderWrapper>
       </StyledComponentsRegistry>
-      </body>
+      </Body>
     </html>
   );
 }
