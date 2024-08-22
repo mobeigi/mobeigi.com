@@ -18,6 +18,12 @@ export const HeaderContents = styled.div`
   margin-right: 1em;
   max-width: ${({ theme }) => theme.breakpoints.desktop.maxWidth}px;
   justify-content: space-between;
+
+  /* Make each child take up same width, shared evenly */
+  & > * {
+    flex-basis: 0;
+    flex-grow: 1;
+  }
 `;
 
 export const LogoContainer = styled.div`
@@ -48,4 +54,9 @@ export const SiteTitle = styled.span`
   font-weight: 700;
   white-space: nowrap;
   user-select: none;
+`;
+
+export const NavWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;

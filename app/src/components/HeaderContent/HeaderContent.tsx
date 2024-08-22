@@ -1,4 +1,4 @@
-import { HeaderContainer, HeaderContents, LogoContainer, LogoWrapper, SiteTitle } from './styled';
+import { HeaderContainer, HeaderContents, LogoContainer, LogoWrapper, NavWrapper, SiteTitle } from './styled';
 import Image from 'next/image';
 import { SITE_TITLE } from '@/constants/app';
 import Nav from './Nav';
@@ -21,7 +21,9 @@ export const HeaderContent = () => {
           </LogoWrapper>
           <SiteTitle>{SITE_TITLE}</SiteTitle>
         </LogoContainer>
-        <Nav />
+        <NavWrapper>
+          <Nav />
+        </NavWrapper>
         <p>TODO</p>
       </HeaderContents>
     </HeaderContainer>
