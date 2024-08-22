@@ -17,6 +17,13 @@ export const Header = styled.header`
   z-index: ${zIndex.header};
 `;
 
+export const ScrollableContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+`;
+
 export const Main = styled.main`
   flex: 1;
   padding-top: 3.35em; /* Offset height of header */
