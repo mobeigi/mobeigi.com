@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Roboto } from 'next/font/google';
 import { BASE_URL, SITE_TITLE } from '@/constants/app';
-import Nav from '@/components/Nav';
+import HeaderContent from '@/components/HeaderContent';
 import FooterContent from '@/components/FooterContent';
 import GlobalStyle from '@/styles/GlobalStyle';
 import StyledComponentsRegistry from '@/lib/registry';
@@ -49,7 +49,7 @@ const RootLayout = ({
           <ThemeProviderWrapper themeMode={currentThemeMode}>
             <GlobalStyle />
             <Header>
-              <Nav />
+              <HeaderContent />
             </Header>
             <Main>{children}</Main>
             <Footer>

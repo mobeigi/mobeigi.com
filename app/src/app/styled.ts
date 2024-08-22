@@ -10,7 +10,7 @@ export const Body = styled.body`
 
 export const Header = styled.header`
   position: fixed;
-  height: 3.5em;
+  height: 3.35em;
   top: 0;
   left: 0;
   width: 100%;
@@ -19,7 +19,7 @@ export const Header = styled.header`
 
 export const Main = styled.main`
   flex: 1;
-  padding-top: 3.5em; /* Offset height of header */
+  padding-top: 3.35em; /* Offset height of header */
 `;
 
 export const Footer = styled.footer``;
