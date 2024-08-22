@@ -1,5 +1,1 @@
-export const FooterContent = () => (
-    <div>
-        Footer!
-    </div>
-)
+export const FooterContent = () => <div>Footer!</div>;
