@@ -10,7 +10,7 @@ import StyledComponentsRegistry from '@/lib/registry';
 import ThemeProviderWrapper from '@/lib/ThemeProviderWrapper';
 import { ThemeMode } from '@/types/theme';
 import { THEME_COOKIE_NAME } from '@/constants/cookies';
-import { Body, Footer, Header, Main } from './styled';
+import { Body, ScrollableContent, Footer, Header, Main } from './styled';
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '700'] });
 
@@ -51,10 +51,13 @@ const RootLayout = ({
             <Header>
               <HeaderContent />
             </Header>
-            <Main>{children}</Main>
-            <Footer>
-              <FooterContent />
-            </Footer>
+
+            <ScrollableContent>
+              <Main>{children}</Main>
+              <Footer>
+                <FooterContent />
+              </Footer>
+            </ScrollableContent>
           </ThemeProviderWrapper>
         </StyledComponentsRegistry>
       </Body>
