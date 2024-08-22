@@ -18,6 +18,7 @@ export const HeaderContents = styled.div`
   margin-right: 1em;
   max-width: ${({ theme }) => theme.breakpoints.desktop.maxWidth}px;
   justify-content: space-between;
+  gap: 1em;
 
   /* Make each child take up same width, shared evenly */
   & > * {
