@@ -7,7 +7,6 @@ import { pages } from '@/constants/pages';
 export const Nav = () => {
   const pathname = usePathname();
 
-  console.log(pathname);
   return (
     <NavContainer>
       {pages.map((page) => {

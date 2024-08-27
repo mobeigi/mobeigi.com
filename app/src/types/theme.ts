@@ -1,16 +1,16 @@
 /**
- * Represents the client side preference for theming.
+ * Represents the preference for theming.
  */
-export enum ClientThemeMode {
-  System = 'system',
-  Dark = 'dark',
-  Light = 'light',
+export enum ThemeMode {
+  System = 'System',
+  Light = 'Light',
+  Dark = 'Dark',
 }
 
 /**
- * Represents a supported theme mode.
+ * Represents the prefers color scheme CSS options.
  */
-export enum ThemeMode {
-  Dark = 'dark',
+export enum PrefersColorScheme {
   Light = 'light',
+  Dark = 'dark',
 }

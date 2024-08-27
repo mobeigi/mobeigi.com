@@ -1,7 +1,16 @@
-import { HeaderContainer, HeaderContents, LogoContainer, LogoWrapper, NavWrapper, SiteTitle } from './styled';
+import {
+  RightSideNavContainer,
+  HeaderContainer,
+  HeaderContents,
+  LogoContainer,
+  LogoWrapper,
+  NavWrapper,
+  SiteTitle,
+} from './styled';
 import Image from 'next/image';
 import { SITE_TITLE } from '@/constants/app';
 import Nav from './Nav';
+import DarkModeSwitchContainer from './DarkModeSwitchContainer';
 
 export const HeaderContent = () => {
   return (
@@ -24,7 +33,9 @@ export const HeaderContent = () => {
         <NavWrapper>
           <Nav />
         </NavWrapper>
-        <p>TODO</p>
+        <RightSideNavContainer>
+          <DarkModeSwitchContainer />
+        </RightSideNavContainer>
       </HeaderContents>
     </HeaderContainer>
   );
