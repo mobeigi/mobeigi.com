@@ -22,12 +22,15 @@
     "clean": "rm -rf node_modules .next"
   },
   "dependencies": {
+    "js-cookie": "^3.0.5",
     "next": "14.2.6",
     "react": "^18",
     "react-dom": "^18",
+    "react-toggle-dark-mode": "./packages/react-toggle-dark-mode-v2.0.0.tgz",
     "styled-components": "^6.1.12"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

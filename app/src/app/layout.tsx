@@ -8,9 +8,12 @@ import FooterContent from '@/components/FooterContent';
 import GlobalStyle from '@/styles/GlobalStyle';
 import StyledComponentsRegistry from '@/lib/registry';
 import ThemeProviderWrapper from '@/lib/ThemeProviderWrapper';
-import { ThemeMode } from '@/types/theme';
+import { PrefersColorScheme } from '@/types/theme';
 import { THEME_COOKIE_NAME } from '@/constants/cookies';
 import { Body, ScrollableContent, Footer, Header, Main } from './styled';
+import { UserPreferencesProvider } from '@/context/userPreferencesContext';
+import { parseThemeCookieValue } from '@/utils/theme';
+import { DEFAULT_THEME_MODE, FALLBACK_PREFERS_COLOR_SCHEME } from '@/constants/theme';
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '700'] });
 
@@ -35,30 +38,42 @@ const RootLayout = ({
   const cookieStore = cookies();
   const themeCookie = cookieStore.get(THEME_COOKIE_NAME);
 
-  const currentThemeMode: ThemeMode =
-    themeCookie?.value === ThemeMode.Dark
-      ? ThemeMode.Dark
-      : themeCookie?.value === ThemeMode.Light
-        ? ThemeMode.Light
-        : ThemeMode.Dark; // Fallback
+  let initialThemeMode = DEFAULT_THEME_MODE;
+  let initialPrefersColorScheme: PrefersColorScheme | undefined = FALLBACK_PREFERS_COLOR_SCHEME;
+
+  if (themeCookie?.value) {
+    let parsedThemeCookieValue;
+    try {
+      parsedThemeCookieValue = parseThemeCookieValue(themeCookie.value);
+      initialThemeMode = parsedThemeCookieValue.themeMode;
+      initialPrefersColorScheme = parsedThemeCookieValue.prefersColorScheme;
+    } catch (error) {
+      console.warn(`Parsing theme cookie value failed. themeCookie: ${themeCookie.value}`);
+    }
+  }
 
   return (
     <html lang="en">
       <Body className={roboto.className}>
         <StyledComponentsRegistry>
-          <ThemeProviderWrapper themeMode={currentThemeMode}>
-            <GlobalStyle />
-            <Header>
-              <HeaderContent />
-            </Header>
+          <UserPreferencesProvider
+            initialThemeMode={initialThemeMode}
+            initialPrefersColorScheme={initialPrefersColorScheme}
+          >
+            <ThemeProviderWrapper>
+              <GlobalStyle />
+              <Header>
+                <HeaderContent />
+              </Header>
 
-            <ScrollableContent>
-              <Main>{children}</Main>
-              <Footer>
-                <FooterContent />
-              </Footer>
-            </ScrollableContent>
-          </ThemeProviderWrapper>
+              <ScrollableContent>
+                <Main>{children}</Main>
+                <Footer>
+                  <FooterContent />
+                </Footer>
+              </ScrollableContent>
+            </ThemeProviderWrapper>
+          </UserPreferencesProvider>
         </StyledComponentsRegistry>
       </Body>
     </html>
