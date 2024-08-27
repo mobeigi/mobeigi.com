@@ -26,7 +26,9 @@ export const UserPreferencesProvider = ({
     const storedTheme = getStoredThemeMode();
     setThemeMode(storedTheme);
     storeThemeCookie(storedTheme, clientPrefersColorScheme);
+  }, []);
 
+  useEffect(() => {
     // Use listener to bind prefersColorScheme
     const colorSchemeMediaQuery = window.matchMedia('(prefers-color-scheme: light)'); // Generic matchMedia to detect any change in prefers-color-scheme
     const updatePrefersColorScheme = () => {
@@ -39,8 +41,7 @@ export const UserPreferencesProvider = ({
     return () => {
       colorSchemeMediaQuery.removeEventListener('change', updatePrefersColorScheme);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [themeMode]);
 
   const setThemeModeFn = (themeMode: ThemeMode) => {
     setThemeMode(themeMode);
