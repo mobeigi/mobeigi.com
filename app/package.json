@@ -26,7 +26,7 @@
     "next": "14.2.6",
     "react": "^18",
     "react-dom": "^18",
-    "react-toggle-dark-mode": "./packages/react-toggle-dark-mode-v2.0.0.tgz",
+    "react-toggle-dark-mode": "file:./packages/react-toggle-dark-mode-v2.0.0.tgz",
     "styled-components": "^6.1.12"
   },
   "devDependencies": {
