@@ -20,7 +20,7 @@ export const HeaderContent = () => {
           <LogoWrapper>
             <Image
               src="/images/avatar/ai-mo.png"
-              alt="Description of the image"
+              alt="TODO"
               width={256} /* Force 256x256 resize */
               height={256}
               quality={100}

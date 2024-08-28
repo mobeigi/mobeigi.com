@@ -12,7 +12,7 @@ export const ThemeProviderWrapper = ({ children }: ThemeProviderWrapperProps) =>
 
   const resolvedTheme = resolveThemeMode(themeMode, prefersColorScheme);
   const colors = resolvedTheme === ThemeMode.Dark ? theme.colors.dark : theme.colors.light;
-  const extraThemeArguments = { colors: colors };
+  const extraThemeArguments = { colors: colors, currentTheme: resolvedTheme };
 
   return <ThemeProvider theme={{ ...theme, ...extraThemeArguments }}>{children}</ThemeProvider>;
 };
