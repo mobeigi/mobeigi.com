@@ -30,7 +30,7 @@ export const networks = [
 ];
 
 export const legal = [
-  { href: './.well-known/security.txt', name: 'Security Policy' },
+  { href: '/.well-known/security.txt', name: 'Security Policy' },
   { href: '/', name: 'Privacy Policy' }, // TODO: populate link
   { href: '/', name: 'Terms of Service' }, // TODO: populate link
 ];
