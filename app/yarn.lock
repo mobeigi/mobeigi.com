@@ -3604,9 +3604,9 @@ react-spring@^9.7.4:
     "@react-spring/web" "~9.7.4"
     "@react-spring/zdog" "~9.7.4"
 
-react-toggle-dark-mode@./packages/react-toggle-dark-mode-v2.0.0.tgz:
+"react-toggle-dark-mode@file:./packages/react-toggle-dark-mode-v2.0.0.tgz":
   version "2.0.0"
-  resolved "./packages/react-toggle-dark-mode-v2.0.0.tgz#46f3bb276623411c32ae538c105409d60691a328"
+  resolved "file:./packages/react-toggle-dark-mode-v2.0.0.tgz#8c273fe5e8b91fd89e40d5d6cb6247a4bc595f37"
   dependencies:
     react-spring "^9.7.4"
 
