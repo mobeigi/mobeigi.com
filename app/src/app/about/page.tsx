@@ -1,9 +1,9 @@
 const About = () => {
   return (
-    <main>
+    <div>
       <h1>About</h1>
       <p>This is a placeholder...</p>
-    </main>
+    </div>
   );
 };
 

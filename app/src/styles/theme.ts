@@ -47,9 +47,9 @@ const theme = {
       },
     },
     light: {
-      background: '#e7e7e7',
+      background: '#ffffff',
       header: {
-        background: '#e8e8e8',
+        background: '#ffffff',
         accent: '#a1a1a1',
         text: {
           base: '#6e6e6e',
@@ -57,7 +57,7 @@ const theme = {
         },
       },
       container: {
-        background: '#e8e8e8',
+        background: '#f8f9fa',
         accent: '#a1a1a1',
       },
       text: {
