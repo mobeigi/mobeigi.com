@@ -10,7 +10,7 @@ import StyledComponentsRegistry from '@/lib/registry';
 import ThemeProviderWrapper from '@/lib/ThemeProviderWrapper';
 import { PrefersColorScheme } from '@/types/theme';
 import { THEME_COOKIE_NAME } from '@/constants/cookies';
-import { Body, ScrollableContent, Footer, Header, Main } from './styled';
+import { Body, ScrollableContent, Footer, Header, Main, MainContents } from './styled';
 import { UserPreferencesProvider } from '@/context/userPreferencesContext';
 import { parseThemeCookieValue } from '@/utils/theme';
 import { DEFAULT_THEME_MODE, FALLBACK_PREFERS_COLOR_SCHEME } from '@/constants/theme';
@@ -67,7 +67,9 @@ const RootLayout = ({
               </Header>
 
               <ScrollableContent>
-                <Main>{children}</Main>
+                <Main>
+                  <MainContents>{children}</MainContents>
+                </Main>
                 <Footer>
                   <FooterContent />
                 </Footer>
