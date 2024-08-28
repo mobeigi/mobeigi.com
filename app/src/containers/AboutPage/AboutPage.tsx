@@ -43,7 +43,7 @@ export const AboutPage = () => {
       <p>
         I consider myself to be a strong programmer who can design elegant solutions and write clean, efficient code. I
         love to learn and am always learning. You can find the projects I have been involved with on my{' '}
-        <Link href="/projects" title="Projects">
+        <Link href="/projects/" title="Projects">
           projects
         </Link>{' '}
         page and you can review my code on{' '}
@@ -59,7 +59,7 @@ export const AboutPage = () => {
       <p>The main purpose of this website is to showcase my work as well as document my learnings.</p>
       <p>
         If you want to chat about anything, please{' '}
-        <Link href="/contact" title="Contact">
+        <Link href="/contact/" title="Contact">
           contact
         </Link>{' '}
         me.
