@@ -29,8 +29,6 @@ export const Main = styled.main`
   padding-top: 3.35em; /* Offset height of header */
 
   display: flex;
-  width: 100%;
-  height: 100%;
   justify-content: center;
 `;
 
