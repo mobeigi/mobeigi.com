@@ -48,6 +48,7 @@ export const LogoWrapper = styled.div`
 export const SiteTitle = styled.span`
   display: flex;
   align-self: center;
+  margin-top: 0.2em;
   font-size: 1.5em;
   font-weight: 700;
   white-space: nowrap;
@@ -57,9 +58,11 @@ export const SiteTitle = styled.span`
 export const NavWrapper = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 0.2em;
 `;
 
 export const RightSideNavContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin-top: 0.2em;
 `;
