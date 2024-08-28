@@ -1,6 +1,5 @@
 'use client';
 
-import { ThemeMode } from 'react-toggle-dark-mode';
 import styled from 'styled-components';
 
 export const FooterContainer = styled.div`
@@ -34,14 +33,12 @@ export const LogoWrapper = styled.div`
   height: 35px;
   margin-top: 1em;
 
-  // TODO: Replace with SVG fills / stroke
-  filter: invert(${({ theme }) => (theme.currentTheme === ThemeMode.Dark ? 1 : 0)});
+  svg {
+    fill: ${({ theme }) => theme.colors.frame.text.base} !important;
 
-  img {
-    width: 128px;
-    height: 35px;
-    min-width: 128px;
-    min-height: 35px;
+    path {
+      stroke: ${({ theme }) => theme.colors.frame.text.base} !important;
+    }
   }
 `;
 

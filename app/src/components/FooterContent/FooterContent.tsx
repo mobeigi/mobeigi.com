@@ -1,21 +1,14 @@
-import Image from 'next/image';
 import { Copyright, FooterContainer, FooterContents, InfoArea, FooterNav, LogoWrapper } from './styled';
 import { COPYRIGHT_START_YEAR, SITE_TITLE } from '@/constants/app';
 import { essentials, legal, networks, pages } from '@/constants/links';
 import Link from 'next/link';
+import SignatureSvg from '@/../public/images/signature/mo-signature.svg';
 
 export const FooterContent = () => (
   <FooterContainer>
     <FooterContents>
       <LogoWrapper>
-        <Image
-          src="/images/signature/mo-signature.svg"
-          alt="TODO"
-          width={256}
-          height={70}
-          quality={100}
-          draggable={false}
-        />
+        <SignatureSvg />
       </LogoWrapper>
       <FooterNav>
         <div>
