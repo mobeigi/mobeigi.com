@@ -30,6 +30,7 @@
     "styled-components": "^6.1.12"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",

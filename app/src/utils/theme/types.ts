@@ -1,5 +1,4 @@
-import { PrefersColorScheme } from '@/types/theme';
-import { ThemeMode } from 'react-toggle-dark-mode';
+import { PrefersColorScheme, ThemeMode } from '@/types/theme';
 
 export interface ThemePreferenceCookieData {
   themeMode: ThemeMode;
