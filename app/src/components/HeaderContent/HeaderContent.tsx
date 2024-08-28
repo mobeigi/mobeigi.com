@@ -24,7 +24,6 @@ export const HeaderContent = () => {
               width={256} /* Force 256x256 resize */
               height={256}
               quality={100}
-              layout="fixed"
               draggable={false}
             />
           </LogoWrapper>
