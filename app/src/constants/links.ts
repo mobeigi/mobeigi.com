@@ -25,8 +25,8 @@ export const networks = [
   { href: 'https://www.youtube.com/c/mobeigi', name: 'Youtube' },
   { href: 'https://www.facebook.com/mobeigi', name: 'Facebook' },
   { href: 'https://www.instagram.com/mobeigi17/', name: 'Instagram' },
-  { href: 'https://twitter.com/mobeigi17', name: 'Twitter' },
-  { href: 'https://www.reddit.com/user/persianmg', name: 'Reddit' },
+  { href: 'https://x.com/mobeigi17', name: 'Twitter' },
+  { href: 'https://www.reddit.com/user/persianmg/', name: 'Reddit' },
 ];
 
 export const legal = [
