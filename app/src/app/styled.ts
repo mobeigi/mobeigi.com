@@ -37,9 +37,12 @@ export const Main = styled.main`
 export const MainContents = styled.div`
   display: flex;
   width: 100%;
-  margin-left: 1em;
-  margin-right: 1em;
   max-width: ${({ theme }) => theme.breakpoints.desktop.maxWidth}px;
+
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
 `;
 
 export const Footer = styled.footer``;

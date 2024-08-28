@@ -13,14 +13,14 @@ export const FooterContainer = styled.div`
 export const FooterContents = styled.div`
   display: flex;
   width: 100%;
-  margin-left: 1em;
-  margin-right: 1em;
   max-width: ${({ theme }) => theme.breakpoints.desktop.maxWidth}px;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
   justify-content: center;
   gap: 1em;
 
-  padding-top: 1em;
-  padding-bottom: 1em;
   font-size: 0.9em;
 
   color: ${({ theme }) => theme.colors.frame.text.base};
