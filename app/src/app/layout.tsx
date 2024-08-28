@@ -25,6 +25,20 @@ export const metadata: Metadata = {
   },
   description:
     "Hi, I'm Mo! Welcome to my online portfolio. Dive into my programming blog and reach out if you're up for a chat.",
+  keywords: [
+    'mo beigi',
+    'mobeigi',
+    'mobeigi17',
+    'persianmg',
+    'security',
+    'hacker',
+    'programming',
+    'coding',
+    'website development',
+    'software engineer',
+    'sydney',
+    'australia',
+  ],
   alternates: {
     canonical: './',
   },
