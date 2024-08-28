@@ -15,11 +15,11 @@ interface StyledLinkProps {
 }
 
 export const StyledLink = styled(Link)<StyledLinkProps>`
-  color: ${({ theme, $active }) => ($active ? theme.colors.text.link : theme.colors.header.text.base)};
+  color: ${({ theme, $active }) => ($active ? theme.colors.text.link : theme.colors.frame.text.base)};
   text-decoration: none;
 
   &:hover,
   &:focus {
-    color: ${({ theme, $active }) => ($active ? theme.colors.text.link : theme.colors.header.text.baseHighlight)};
+    color: ${({ theme, $active }) => ($active ? theme.colors.text.link : theme.colors.frame.text.baseHighlight)};
   }
 `;

@@ -8,7 +8,7 @@ export const FooterContainer = styled.div`
   width: 100%;
   height: 100%;
   justify-content: center;
-  background-color: ${({ theme }) => theme.colors.header.background};
+  background-color: ${({ theme }) => theme.colors.frame.background};
 `;
 
 export const FooterContents = styled.div`
@@ -24,7 +24,7 @@ export const FooterContents = styled.div`
   padding-bottom: 1em;
   font-size: 0.9em;
 
-  color: ${({ theme }) => theme.colors.header.text.base};
+  color: ${({ theme }) => theme.colors.frame.text.base};
 `;
 
 export const LogoWrapper = styled.div`
@@ -75,11 +75,11 @@ export const FooterNav = styled.nav`
   }
 
   li a {
-    color: ${({ theme }) => theme.colors.header.text.base};
+    color: ${({ theme }) => theme.colors.frame.text.base};
   }
 
   li a:hover {
-    color: ${({ theme }) => theme.colors.header.text.baseHighlight};
+    color: ${({ theme }) => theme.colors.frame.text.baseHighlight};
   }
 `;
 

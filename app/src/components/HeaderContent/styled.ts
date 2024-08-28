@@ -7,8 +7,8 @@ export const HeaderContainer = styled.div`
   width: 100%;
   height: 100%;
   justify-content: center;
-  background-color: ${({ theme }) => theme.colors.header.background};
-  border-bottom: 0.2em solid ${({ theme }) => theme.colors.header.accent};
+  background-color: ${({ theme }) => theme.colors.frame.background};
+  border-bottom: 0.2em solid ${({ theme }) => theme.colors.frame.accent};
 `;
 
 export const HeaderContents = styled.div`

@@ -7,7 +7,7 @@ const theme = {
   colors: {
     dark: {
       background: '#1e1e1e',
-      header: {
+      frame: {
         background: '#181717',
         accent: '#3a3a3a',
         text: {
@@ -48,7 +48,7 @@ const theme = {
     },
     light: {
       background: '#ffffff',
-      header: {
+      frame: {
         background: '#f6f6f6',
         accent: '#a1a1a1',
         text: {
