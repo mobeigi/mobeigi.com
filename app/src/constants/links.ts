@@ -13,7 +13,7 @@ export const essentials = [
   { href: 'https://mobeigi.atlassian.net/wiki', name: 'Confluence' },
   { href: 'https://obs.mobeigi.com/', name: 'Observability' },
   { href: 'https://photos.mobeigi.com/', name: 'Photography' },
-  { href: '/', name: 'Resume' }, // TODO: populate link
+  { href: '/resume', name: 'Resume' }, // TODO: populate link
 ];
 
 export const networks = [
