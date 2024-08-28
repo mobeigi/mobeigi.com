@@ -76,15 +76,15 @@ const RootLayout = ({
           >
             <ThemeProviderWrapper>
               <GlobalStyle />
-              <Header>
+              <Header id="header">
                 <HeaderContent />
               </Header>
 
               <ScrollableContent>
-                <Main>
+                <Main id="main">
                   <MainContents>{children}</MainContents>
                 </Main>
-                <Footer>
+                <Footer id="footer">
                   <FooterContent />
                 </Footer>
               </ScrollableContent>

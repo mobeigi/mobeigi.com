@@ -29,7 +29,7 @@ const GlobalStyle = createGlobalStyle`
 
   /* Headings */
   h1 {
-    font-size: 2.5em;
+    font-size: 2.25em;
     margin: 0.67em 0;
   }
 
