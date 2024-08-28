@@ -24,6 +24,10 @@ export const FooterContents = styled.div`
   font-size: 0.9em;
 
   color: ${({ theme }) => theme.colors.frame.text.base};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet.maxWidth}px) {
+    flex-direction: column;
+  }
 `;
 
 export const LogoWrapper = styled.div`
@@ -39,6 +43,10 @@ export const LogoWrapper = styled.div`
     path {
       stroke: ${({ theme }) => theme.colors.frame.text.base} !important;
     }
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet.maxWidth}px) {
+    align-self: center;
   }
 `;
 
@@ -78,6 +86,15 @@ export const FooterNav = styled.nav`
   li a:hover {
     color: ${({ theme }) => theme.colors.frame.text.baseHighlight};
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet.maxWidth}px) {
+    flex-direction: column;
+    gap: 0.5em;
+    ul {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
 `;
 
 export const InfoArea = styled.div`
@@ -85,6 +102,10 @@ export const InfoArea = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet.maxWidth}px) {
+    align-items: center;
+  }
 `;
 
 export const Copyright = styled.p`
@@ -93,4 +114,8 @@ export const Copyright = styled.p`
   align-items: flex-end;
 
   font-size: 0.85em;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet.maxWidth}px) {
+    align-items: center;
+  }
 `;
