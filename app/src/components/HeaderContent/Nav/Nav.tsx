@@ -2,7 +2,7 @@
 
 import { NavContainer, StyledLink } from './styled';
 import { usePathname } from 'next/navigation';
-import { pages } from '@/constants/pages';
+import { pages } from '@/constants/links';
 
 export const Nav = () => {
   const pathname = usePathname();

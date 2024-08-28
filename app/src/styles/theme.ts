@@ -49,7 +49,7 @@ const theme = {
     light: {
       background: '#ffffff',
       header: {
-        background: '#ffffff',
+        background: '#f6f6f6',
         accent: '#a1a1a1',
         text: {
           base: '#6e6e6e',
