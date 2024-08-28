@@ -35,22 +35,19 @@ export const LogoContainer = styled.div`
 export const LogoWrapper = styled.div`
   display: flex;
   user-select: none;
-  width: 48px;
-  height: 48px;
+  width: auto;
+  height: 100%;
   align-self: flex-end;
 
   img {
-    width: 48px;
-    height: 48px;
-    min-width: 48px;
-    min-height: 48px;
+    width: auto;
+    height: 100%;
   }
 `;
 
 export const SiteTitle = styled.span`
   display: flex;
   align-self: center;
-  margin-top: 0.4em;
   font-size: 1.5em;
   font-weight: 700;
   white-space: nowrap;
