@@ -33,15 +33,16 @@ export const LogoContainer = styled.div`
 `;
 
 export const LogoWrapper = styled.div`
-  display: flex;
-  user-select: none;
-  width: auto;
+  display: block;
+  position: relative;
+  width: 3.5em;
   height: 100%;
-  align-self: flex-end;
+  user-select: none;
 
   img {
     width: auto;
     height: 100%;
+    object-fit: contain;
   }
 `;
 
