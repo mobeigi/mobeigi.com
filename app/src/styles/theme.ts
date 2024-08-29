@@ -16,8 +16,8 @@ const theme = {
         },
       },
       container: {
-        background: '#302e2b',
-        accent: '#ffffff',
+        background: '#232323',
+        accent: '#3a3a3a',
       },
       text: {
         base: '#e3e3e3',
@@ -39,7 +39,7 @@ const theme = {
           complement: '#ffffff',
         },
         disabled: {
-          base: '#cccccc',
+          base: '#9e9e9e',
           baseHighlight: '#666666',
           accent: '#999999',
           complement: '#333333',
@@ -57,7 +57,7 @@ const theme = {
         },
       },
       container: {
-        background: '#f8f9fa',
+        background: '##fdfdfd',
         accent: '#a1a1a1',
       },
       text: {
@@ -80,7 +80,7 @@ const theme = {
           complement: '#ffffff',
         },
         disabled: {
-          base: '#cccccc',
+          base: '#656565',
           baseHighlight: '#666666',
           accent: '#999999',
           complement: '#333333',
