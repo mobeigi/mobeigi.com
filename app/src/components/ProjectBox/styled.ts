@@ -4,7 +4,17 @@ import styled from 'styled-components';
 
 export const ProjectBoxContainer = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 25em;
+  height: 20em;
+`;
+
+export const ProjectBoxContents = styled.div`
+  display: flex;
   flex-direction: column;
+  position: absolute;
   width: 25em;
   height: 20em;
   overflow: hidden;
@@ -15,14 +25,12 @@ export const ProjectBoxContainer = styled.div`
   border: 0.1em solid ${({ theme }) => theme.colors.container.accent};
 
   /* Animations */
-  transition:
-    transform 0.07s linear,
-    filter 0.1s ease-out,
-    opacity 0.15s linear;
+  font-size: 1em;
+  transition: font-size 0.07s linear;
 
   &:hover {
-    transform: scale(1.01);
-    filter: drop-shadow(0.2em 0.2em 0.4em rgba(0, 0, 0, 0.17));
+    font-size: 1.02em;
+    box-shadow: rgba(0, 0, 0, 0.17) 0.2em 0.2em 0.4em;
   }
 `;
 

@@ -9,6 +9,7 @@ import {
   InactiveUrl,
   UrlContainer,
   ProjectBoxContainer,
+  ProjectBoxContents,
   Title,
   UrlWrapper,
 } from './styled';
@@ -31,39 +32,41 @@ export const ProjectBox = ({
   githubUrl,
 }: ProjectBoxProps) => (
   <ProjectBoxContainer>
-    <ImageWrapper>
-      <Image src={imgSrc} alt={imgAlt} fill quality={100} />
-    </ImageWrapper>
-    <Details>
-      <Header>
-        <Title>{title}</Title>
-        <Icons>
-          {blogUrl && (
-            <Link href={blogUrl}>
-              <IconWrapperBubble>
-                <BookSvg />
-              </IconWrapperBubble>
-            </Link>
+    <ProjectBoxContents>
+      <ImageWrapper>
+        <Image src={imgSrc} alt={imgAlt} fill quality={100} />
+      </ImageWrapper>
+      <Details>
+        <Header>
+          <Title>{title}</Title>
+          <Icons>
+            {blogUrl && (
+              <Link href={blogUrl}>
+                <IconWrapperBubble>
+                  <BookSvg />
+                </IconWrapperBubble>
+              </Link>
+            )}
+            {githubUrl && (
+              <Link href={githubUrl} rel="nofollow">
+                <IconWrapperBubble>
+                  <GithubSvg />
+                </IconWrapperBubble>
+              </Link>
+            )}
+          </Icons>
+        </Header>
+        <UrlWrapper>
+          {url && (
+            <UrlContainer>
+              {urlActive ? <Link href={url}>{url}</Link> : <InactiveUrl>{url}</InactiveUrl>}
+              <IconWrapper>{urlActive ? <ExternalSvg /> : <UnlinkSvg />}</IconWrapper>
+            </UrlContainer>
           )}
-          {githubUrl && (
-            <Link href={githubUrl} rel="nofollow">
-              <IconWrapperBubble>
-                <GithubSvg />
-              </IconWrapperBubble>
-            </Link>
-          )}
-        </Icons>
-      </Header>
-      <UrlWrapper>
-        {url && (
-          <UrlContainer>
-            {urlActive ? <Link href={url}>{url}</Link> : <InactiveUrl>{url}</InactiveUrl>}
-            <IconWrapper>{urlActive ? <ExternalSvg /> : <UnlinkSvg />}</IconWrapper>
-          </UrlContainer>
-        )}
-      </UrlWrapper>
-      <Divider />
-      <Description>{description}</Description>
-    </Details>
+        </UrlWrapper>
+        <Divider />
+        <Description>{description}</Description>
+      </Details>
+    </ProjectBoxContents>
   </ProjectBoxContainer>
 );
