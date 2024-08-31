@@ -24,38 +24,23 @@ export const IconWrapperLink = styled(IconWrapper)`
       fill: ${({ theme }) => theme.colors.text.baseHighlight};
     }
   }
-
-  &:active {
-    transform: scale(0.95);
-  }
 `;
 
 export const IconWrapperBubble = styled(IconWrapperLink)`
-  /* Add grey circle backdrop on hover to icon */
-  width: 1.2em;
-  height: 1.2em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 0.1em;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  user-select: none;
 
-  svg {
-    width: 1em;
-    height: 1em;
+  &:hover {
+    background-color: ${({ theme }) => hexToRgba(theme.colors.text.baseHighlight, 0.15)};
   }
 
-  position: relative;
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 1.2em;
-    height: 1.2em;
-    background-color: ${({ theme }) => hexToRgba(theme.colors.text.baseHighlight, 0.1)};
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  &:hover::before {
-    opacity: 1;
+  &:hover:active {
+    background-color: ${({ theme }) => hexToRgba(theme.colors.text.baseHighlight, 0.3)};
   }
 `;

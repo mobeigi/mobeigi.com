@@ -1,8 +1,10 @@
 'use client';
 
-import { DarkModeSwitch, ThemeMode as DarkModeSwitchThemeMode } from 'react-toggle-dark-mode';
+import React, { useRef } from 'react';
+import { DarkModeSwitch, DarkModeSwitchHandle, ThemeMode as DarkModeSwitchThemeMode } from 'react-toggle-dark-mode';
 import useUserPreferences from '@/hooks/useUserPreferences';
 import { ThemeMode } from '@/types/theme';
+import { IconWrapperBubble } from '@/styles/icon';
 import { DarkModeSwitchWrapper } from './styled';
 
 export const customColors = {
@@ -47,19 +49,29 @@ const toThemeMode = (darkModeToggleThemeMode: DarkModeSwitchThemeMode) => {
 
 export const DarkModeSwitchContainer = () => {
   const { themeMode, setThemeMode } = useUserPreferences();
+  const darkModeSwitchRef = useRef<DarkModeSwitchHandle>(null);
 
   const cycleThemeMode = (darkModeSwitchThemeMode: DarkModeSwitchThemeMode) => {
     setThemeMode(toThemeMode(darkModeSwitchThemeMode));
   };
 
+  const triggerClick = () => {
+    if (darkModeSwitchRef.current) {
+      darkModeSwitchRef.current.click();
+    }
+  };
+
   return (
-    <DarkModeSwitchWrapper>
-      <DarkModeSwitch
-        onChange={cycleThemeMode}
-        isSystemThemeModeEnabled={true}
-        themeMode={toDarkModeToggleThemeMode(themeMode)}
-        colors={customColors}
-      />
-    </DarkModeSwitchWrapper>
+    <IconWrapperBubble onClick={triggerClick}>
+      <DarkModeSwitchWrapper>
+        <DarkModeSwitch
+          ref={darkModeSwitchRef}
+          onChange={cycleThemeMode}
+          isSystemThemeModeEnabled={true}
+          themeMode={toDarkModeToggleThemeMode(themeMode)}
+          colors={customColors}
+        />
+      </DarkModeSwitchWrapper>
+    </IconWrapperBubble>
   );
 };
