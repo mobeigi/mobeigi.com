@@ -65,5 +65,7 @@ export const NavWrapper = styled.div`
 export const RightSideNavContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   margin-top: 0.2em;
+  font-size: 1.5em;
 `;
