@@ -8,6 +8,7 @@ export const ProjectsPage = () => (
     <p>Discover my most interesting projects below.</p>
     <ProjectsContainer>
       {projects
+        .slice()
         .sort((a, b) => a.title.localeCompare(b.title))
         .map((project) => (
           <ProjectBox

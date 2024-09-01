@@ -2,7 +2,7 @@ import { Copyright, FooterContainer, FooterContents, InfoArea, FooterNav, LogoWr
 import { COPYRIGHT_START_YEAR, SITE_TITLE } from '@/constants/app';
 import { essentials, legal, networks, pages } from '@/constants/links';
 import Link from 'next/link';
-import SignatureSvg from '@/../public/images/signature/mo-signature.svg';
+import SignatureSvg from '@public/images/signature/mo-signature.svg';
 
 export const FooterContent = () => (
   <FooterContainer>

@@ -1,3 +1,4 @@
+import { withPayload } from '@payloadcms/next/withPayload';
 import svgrConfig from './svgr.config.js';
 
 /** @type {import('next').NextConfig} */
@@ -38,4 +39,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPayload(nextConfig);

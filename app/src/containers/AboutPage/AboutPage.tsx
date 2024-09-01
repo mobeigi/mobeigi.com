@@ -24,7 +24,7 @@ export const AboutPage = () => {
       <Headshot />
       <CenteredH1>Howdy!</CenteredH1>
       <p>
-        My name is <strong>Mo</strong>. I am {ageInYears} years old and live in <AuFlagSvg width="1em" height="auto" />{' '}
+        My name is <strong>Mo</strong>. I am {ageInYears} years old and live in <AuFlagSvg width="1em" />{' '}
         <strong>Sydney, Australia</strong>.
       </p>
       <p>
