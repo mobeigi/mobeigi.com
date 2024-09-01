@@ -15,32 +15,48 @@
   "license": "UNLICENSED",
   "author": "Mo Beigi",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
+    "dev": "cross-env next dev",
+    "build": "cross-env next build",
+    "start": "cross-env next start",
+    "lint": "cross-env next lint",
     "clean": "rm -rf node_modules .next"
   },
   "dependencies": {
+    "@payloadcms/db-postgres": "beta",
+    "@payloadcms/next": "beta",
+    "@payloadcms/plugin-cloud": "beta",
+    "@payloadcms/plugin-nested-docs": "beta",
+    "@payloadcms/plugin-seo": "beta",
+    "@payloadcms/richtext-lexical": "beta",
+    "cross-env": "^7.0.3",
+    "graphql": "^16.8.1",
+    "highlight.js": "^11.10.0",
     "js-cookie": "^3.0.5",
-    "next": "14.2.6",
-    "react": "^18",
-    "react-dom": "^18",
+    "next": "15.0.0-canary.104",
+    "payload": "beta",
+    "prism-react-renderer": "^2.4.0",
+    "react": "19.0.0-rc-06d0b89e-20240801",
+    "react-dom": "19.0.0-rc-06d0b89e-20240801",
     "react-toggle-dark-mode": "file:./packages/react-toggle-dark-mode-v2.0.0.tgz",
+    "sharp": "0.32.6",
     "styled-components": "^6.1.12"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "npm:types-react@19.0.0-rc.0",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.0",
     "@types/styled-components": "^5.1.34",
     "eslint": "^8",
-    "eslint-config-next": "14.2.6",
+    "eslint-config-next": "15.0.0-canary.104",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "prettier": "^3.3.3",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@19.0.0-rc.0",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.0"
   }
 }
