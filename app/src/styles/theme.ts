@@ -57,7 +57,7 @@ const theme = {
         },
       },
       container: {
-        background: '##fdfdfd',
+        background: '#fdfdfd',
         accent: '#a1a1a1',
       },
       text: {
