@@ -32,7 +32,7 @@ base06  #404040  Light Foreground (Not often used)
 base07  #FFFFFF  Light Background (Not often used)
 base08  #FF5370  Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted
 base09  #F76D47  Integers, Boolean, Constants, XML Attributes, Markup Link Url
-base0A  #FFB62C  Classes, Markup Bold, Search Text Background
+base0A  #FF914D  Classes, Markup Bold, Search Text Background
 base0B  #91B859  Strings, Inherited Class, Markup Code, Diff Inserted
 base0C  #39ADB5  Support, Regular Expressions, Escape Characters, Markup Quotes
 base0D  #6182B8  Functions, Methods, Attribute IDs, Headings
@@ -101,11 +101,11 @@ code.hljs {
 .hljs-title,
 .hljs-class .hljs-title,
 .hljs-title.class_ {
-  color: #FFB62C
+  color: #FF914D
 }
 .hljs-strong {
   font-weight: bold;
-  color: #FFB62C
+  color: #FF914D
 }
 /* base0B - Strings, Inherited Class, Markup Code, Diff Inserted */
 .hljs-code,
