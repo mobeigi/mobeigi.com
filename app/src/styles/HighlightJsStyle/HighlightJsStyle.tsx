@@ -3,7 +3,12 @@
 import { ThemeMode } from '@/types/theme';
 import { HighlightJsStyleProps } from './types';
 import useHighlightJsTheme from '@/hooks/useHighlightJsTheme';
-import { HIGHLIGHTJS_THEME_LINK_ID_DARK, HIGHLIGHTJS_THEME_LINK_ID_LIGHT } from '@/constants/highlightjs';
+import {
+  HIGHLIGHTJS_THEME_DARK_CSS_PATH,
+  HIGHLIGHTJS_THEME_LIGHT_CSS_PATH,
+  HIGHLIGHTJS_THEME_LINK_ID_DARK,
+  HIGHLIGHTJS_THEME_LINK_ID_LIGHT,
+} from '@/constants/highlightjs';
 
 /**
  * We mimic the technique used by Highlight.js demo.
@@ -21,7 +26,7 @@ export const HighlightJsStyle = ({ currentTheme }: HighlightJsStyleProps) => {
         rel="stylesheet"
         /* @ts-ignore */
         disabled={currentTheme !== ThemeMode.Light}
-        href="/css/highlight.js/base16/material-lighter.min.css"
+        href={HIGHLIGHTJS_THEME_LIGHT_CSS_PATH}
       />
 
       {/* eslint-disable-next-line @next/next/no-css-tags */}
@@ -30,7 +35,7 @@ export const HighlightJsStyle = ({ currentTheme }: HighlightJsStyleProps) => {
         rel="stylesheet"
         /* @ts-ignore */
         disabled={currentTheme !== ThemeMode.Dark}
-        href="/css/highlight.js/base16/material-darker.min.css"
+        href={HIGHLIGHTJS_THEME_DARK_CSS_PATH}
       />
     </>
   );

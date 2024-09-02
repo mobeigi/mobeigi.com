@@ -18,6 +18,10 @@ const theme = {
       container: {
         background: '#232323',
         accent: '#3a3a3a',
+        text: {
+          base: '#e3e3e3',
+          baseHighlight: '#f5f5f5',
+        },
       },
       text: {
         base: '#e3e3e3',
@@ -57,8 +61,12 @@ const theme = {
         },
       },
       container: {
-        background: '#fdfdfd',
+        background: '#fbfbfb',
         accent: '#a1a1a1',
+        text: {
+          base: '#404040',
+          baseHighlight: '#525252',
+        },
       },
       text: {
         base: '#404040',
