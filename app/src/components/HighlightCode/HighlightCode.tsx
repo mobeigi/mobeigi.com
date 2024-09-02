@@ -1,20 +1,58 @@
 'use client';
 
-import { ReactNode, useEffect, useRef } from 'react';
-import hljs from 'highlight.js/lib/core';
-import javascript from 'highlight.js/lib/languages/javascript';
-import typescript from 'highlight.js/lib/languages/typescript';
+import { useEffect, useRef } from 'react';
+import { HighlightCodeProps } from './types';
 import { StyledHighlightCode } from './styled';
 import { useTheme } from 'styled-components';
 import { ThemeMode } from '@/types/theme';
 
-// Register languages
-hljs.registerLanguage('javascript', javascript);
-hljs.registerLanguage('typescript', typescript);
+// highlight.js
+import hljs from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
+import typescript from 'highlight.js/lib/languages/typescript';
+import css from 'highlight.js/lib/languages/css';
+import python from 'highlight.js/lib/languages/python';
+import java from 'highlight.js/lib/languages/java';
+import kotlin from 'highlight.js/lib/languages/kotlin';
+import bash from 'highlight.js/lib/languages/bash';
+import shell from 'highlight.js/lib/languages/shell';
+import plaintext from 'highlight.js/lib/languages/plaintext';
+import xml from 'highlight.js/lib/languages/xml'; // HTML + XML
+import json from 'highlight.js/lib/languages/json';
+import sql from 'highlight.js/lib/languages/sql';
+import php from 'highlight.js/lib/languages/php';
+import c from 'highlight.js/lib/languages/c';
+import cpp from 'highlight.js/lib/languages/cpp';
+import yaml from 'highlight.js/lib/languages/yaml';
+import markdown from 'highlight.js/lib/languages/markdown';
+import ini from 'highlight.js/lib/languages/ini';
 
-interface HighlightCodeProps {
-  children: ReactNode;
-}
+// Register languages
+const languages = {
+  javascript,
+  typescript,
+  css,
+  python,
+  java,
+  kotlin,
+  bash,
+  plaintext,
+  xml,
+  json,
+  sql,
+  php,
+  c,
+  cpp,
+  yaml,
+  markdown,
+  ini,
+  shell,
+};
+
+// Register languages
+Object.entries(languages).forEach(([name, lang]) => {
+  hljs.registerLanguage(name, lang);
+});
 
 const LINK_ID = 'highlight-js-theme';
 

@@ -9,9 +9,9 @@ const CodeBlockHTMLConverter: HTMLConverter<CodeBlockNode> = {
   converter: ({ node }) => {
     const fields = node.fields;
     const code = fields.code;
-    const languageClass = `language-${fields.language}` || 'no-highlight';
+    const language = fields.language;
 
-    return `<pre><code class="${languageClass}">${code}</code></pre>`;
+    return `<pre><code class="language-${language}">${code}</code></pre>`;
   },
   nodeTypes: ['block'],
 };

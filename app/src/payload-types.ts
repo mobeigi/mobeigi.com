@@ -192,7 +192,25 @@ export interface PayloadMigration {
  * via the `definition` "CodeBlock".
  */
 export interface CodeBlock {
-  language?: ('typescript' | 'javascript' | 'css') | null;
+  language:
+    | 'typescript'
+    | 'javascript'
+    | 'css'
+    | 'python'
+    | 'java'
+    | 'kotlin'
+    | 'bash'
+    | 'plaintext'
+    | 'xml'
+    | 'json'
+    | 'sql'
+    | 'php'
+    | 'c'
+    | 'cpp'
+    | 'yaml'
+    | 'markdown'
+    | 'ini'
+    | 'shell';
   code: string;
   id?: string | null;
   blockName?: string | null;
