@@ -15,7 +15,9 @@ const CodeBlockHTMLConverter: HTMLConverter<CodeBlockNode> = {
 
     // TODO: Commonise this so it can be used elsewhere outside of Payload too
     // Apply server-side syntax highlighting with Highlight.js
-    const highlightedCode = hljs.highlight(language, code).value;
+    const highlightedCode = hljs.highlight(code, {
+      language: language,
+    }).value;
 
     // Return the highlighted code block
     return `<pre><code class="language-${language} hljs">${highlightedCode}</code></pre>`;
