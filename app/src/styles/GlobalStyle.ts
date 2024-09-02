@@ -129,6 +129,11 @@ const GlobalStyle = createGlobalStyle`
       border-color: ${({ theme }) => theme.colors.container.accent};
     }
   }
+
+  // Code
+  pre code {
+    border-radius: 0.4em;
+  }
 `;
 
 export default GlobalStyle;
