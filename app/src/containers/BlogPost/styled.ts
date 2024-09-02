@@ -90,15 +90,6 @@ export const BlogPostContainer = styled.article`
     list-style-type: none;
   }
 
-  blockquote {
-    margin-block: 1em;
-    margin-inline: 0.3em;
-    border-inline-start-width: 0.3em;
-    border-inline-start-style: solid;
-    padding-inline-start: 0.9em;
-    padding-block: 0.3em;
-  }
-
   // Media
   img {
     display: block;
