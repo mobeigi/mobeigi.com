@@ -1,4 +1,4 @@
-import HighlightCode from './HighlightCode';
+import HighlightCode from '../../components/HighlightCode';
 import { BlogPostContainer } from './styled';
 import { BlogPostProps } from './types';
 

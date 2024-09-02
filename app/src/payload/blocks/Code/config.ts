@@ -7,7 +7,8 @@ export const Code: Block = {
     {
       name: 'language',
       type: 'select',
-      defaultValue: 'typescript',
+      defaultValue: 'plaintext',
+      required: true,
       options: [
         {
           label: 'Typescript',
@@ -20,6 +21,66 @@ export const Code: Block = {
         {
           label: 'CSS',
           value: 'css',
+        },
+        {
+          label: 'Python',
+          value: 'python',
+        },
+        {
+          label: 'Java',
+          value: 'java',
+        },
+        {
+          label: 'Kotlin',
+          value: 'kotlin',
+        },
+        {
+          label: 'Bash',
+          value: 'bash',
+        },
+        {
+          label: 'Plain Text',
+          value: 'plaintext',
+        },
+        {
+          label: 'XML / HTML',
+          value: 'xml',
+        },
+        {
+          label: 'JSON',
+          value: 'json',
+        },
+        {
+          label: 'SQL',
+          value: 'sql',
+        },
+        {
+          label: 'PHP',
+          value: 'php',
+        },
+        {
+          label: 'C',
+          value: 'c',
+        },
+        {
+          label: 'C++',
+          value: 'cpp',
+        },
+        {
+          label: 'YAML',
+          value: 'yaml',
+        },
+        {
+          label: 'Markdown',
+          value: 'markdown',
+        },
+        {
+          label: 'INI',
+          value: 'ini',
+        },
+        {
+          label: 'Shell',
+          value: 'shell',
         },
       ],
     },
