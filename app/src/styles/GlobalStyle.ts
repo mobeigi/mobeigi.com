@@ -134,6 +134,17 @@ const GlobalStyle = createGlobalStyle`
   pre code {
     border-radius: 0.4em;
   }
+
+  // Blockquote
+  blockquote {
+    margin-block: 1em;
+    margin-inline: 0.3em;
+    border-color: ${({ theme }) => theme.colors.text.base};
+    border-inline-start-width: 0.3em;
+    border-inline-start-style: solid;
+    padding-inline-start: 0.9em;
+    padding-block: 0.3em;
+  }
 `;
 
 export default GlobalStyle;
