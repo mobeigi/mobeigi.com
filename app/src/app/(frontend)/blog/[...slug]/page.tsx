@@ -10,6 +10,7 @@ import {
 } from '@payloadcms/richtext-lexical';
 import type { SerializedEditorState } from 'lexical';
 import BlogPost from '@/containers/BlogPost';
+import type { BlogPostBreadcrumbs } from '@/containers/BlogPost';
 import { notFound } from 'next/navigation';
 
 const depth = 2;
@@ -130,12 +131,42 @@ const BlogPostPage = async ({ params }: { params: { slug: string[] } }) => {
 
   const post = postsMatchingCategorySlugUrl[0];
 
+  if (!post.publishedAt || !post.categories || post.categories.length === 0) {
+    console.warn('Required blog post field is not provided or invalid.');
+    notFound();
+    return null;
+  }
+  const baseCategory = post.categories[0] as Category;
+  const publishedAtDate = new Date(post.publishedAt);
+
+  if (!baseCategory.breadcrumbs) {
+    console.warn('Breadcrumbs cannot be empty.');
+    notFound();
+    return null;
+  }
+
+  const blogPostCategory = baseCategory.breadcrumbs.map(
+    (breadcrumb) =>
+      ({
+        title: breadcrumb.label,
+        slug: breadcrumb.url!.split('/').slice(-1)[0].replace('/', ''),
+        url: breadcrumb.url!,
+      }) as BlogPostBreadcrumbs,
+  );
+
   // Convert Lexical JSON to HTML
   const editor = payload?.config?.editor as LexicalRichTextAdapter;
   const htmlContent = await lexicalToHTML(post.content, editor.editorConfig);
 
   // Render our React components
-  return <BlogPost title={post.title} htmlContent={htmlContent} />;
+  return (
+    <BlogPost
+      title={post.title}
+      htmlContent={htmlContent}
+      publishedAt={publishedAtDate}
+      breadcrumbs={blogPostCategory}
+    />
+  );
 };
 
 const lexicalToHTML = async (editorData: SerializedEditorState, editorConfig: SanitizedServerEditorConfig) => {
