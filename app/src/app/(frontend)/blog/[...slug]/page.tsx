@@ -12,6 +12,8 @@ import type { SerializedEditorState } from 'lexical';
 import BlogPost from '@/containers/BlogPost';
 import type { BlogPostBreadcrumbs } from '@/containers/BlogPost';
 import { notFound } from 'next/navigation';
+import { BlogPostProps } from '@/containers/BlogPost';
+import type { Payload } from 'payload';
 
 const depth = 2;
 
@@ -39,6 +41,58 @@ export const generateMetadata = async ({ params }: { params: { slug: string[] } 
     title: seoData?.title || fallbackTitle,
     description: seoData?.description || fallbackDescription,
   };
+};
+
+const BlogPostPage = async ({ params }: { params: { slug: string[] } }) => {
+  const payload = await getPayloadHMR({
+    config,
+  });
+
+  const postSlug = params.slug[params.slug.length - 1];
+  const categorySlugs = params.slug.slice(0, -1);
+
+  if (categorySlugs.length === 0) {
+    notFound();
+    return null;
+  }
+
+  const paramsCategorySlugUrl = buildCategorySlugUrl(categorySlugs);
+
+  const posts = await payload.find({
+    collection: 'posts',
+    where: {
+      slug: { equals: postSlug },
+    },
+    depth,
+  });
+
+  if (!posts.docs.length) {
+    notFound();
+    return null;
+  }
+
+  // Ensure category slug urls match
+  // We want to only show the blog post if the slug is correct
+  const postsMatchingCategorySlugUrl = posts.docs.filter((post) => {
+    if (!post.categories || post.categories.length === 0) return false;
+    const baseCategory = post.categories[0] as Category;
+    const categorySlugUrl = getCategorySlugUrl(baseCategory);
+    return categorySlugUrl === paramsCategorySlugUrl;
+  });
+
+  if (postsMatchingCategorySlugUrl.length !== 1) {
+    notFound();
+    return null;
+  }
+
+  const post = postsMatchingCategorySlugUrl[0];
+  const blogPostValues = await transformPostToBlogPostProps(payload, post);
+  if (!blogPostValues) {
+    notFound();
+    return null;
+  }
+
+  return <BlogPost {...blogPostValues} />;
 };
 
 const buildCategorySlugUrl = (categorySlugs: string[]): string => {
@@ -87,65 +141,23 @@ export const generateStaticParams = async () => {
   return paths;
 };
 
-const BlogPostPage = async ({ params }: { params: { slug: string[] } }) => {
-  const payload = await getPayloadHMR({
-    config,
-  });
-
-  const postSlug = params.slug[params.slug.length - 1];
-  const categorySlugs = params.slug.slice(0, -1);
-
-  if (categorySlugs.length === 0) {
-    notFound();
-    return null;
-  }
-
-  const paramsCategorySlugUrl = buildCategorySlugUrl(categorySlugs);
-
-  const posts = await payload.find({
-    collection: 'posts',
-    where: {
-      slug: { equals: postSlug },
-    },
-    depth,
-  });
-
-  if (!posts.docs.length) {
-    notFound();
-    return null;
-  }
-
-  // Ensure category slug urls match
-  // We want to only show the blog post if the slug is correct
-  const postsMatchingCategorySlugUrl = posts.docs.filter((post) => {
-    if (!post.categories || post.categories.length === 0) return false;
-    const baseCategory = post.categories[0] as Category;
-    const categorySlugUrl = getCategorySlugUrl(baseCategory);
-    return categorySlugUrl === paramsCategorySlugUrl;
-  });
-
-  if (postsMatchingCategorySlugUrl.length !== 1) {
-    notFound();
-    return null;
-  }
-
-  const post = postsMatchingCategorySlugUrl[0];
-
+/**
+ * Transforms a Post to a BlogPostProps object
+ */
+const transformPostToBlogPostProps = async (payload: Payload, post: Post): Promise<BlogPostProps | null> => {
   if (!post.publishedAt || !post.categories || post.categories.length === 0) {
-    console.warn('Required blog post field is not provided or invalid.');
-    notFound();
+    console.warn('Required blog post fields are not provided or are invalid.', post);
     return null;
   }
   const baseCategory = post.categories[0] as Category;
   const publishedAtDate = new Date(post.publishedAt);
 
   if (!baseCategory.breadcrumbs) {
-    console.warn('Breadcrumbs cannot be empty.');
-    notFound();
+    console.warn('Breadcrumbs cannot be absent.');
     return null;
   }
 
-  const blogPostCategory = baseCategory.breadcrumbs.map(
+  const blogPostBreadcrumbs = baseCategory.breadcrumbs.map(
     (breadcrumb) =>
       ({
         title: breadcrumb.label,
@@ -158,15 +170,12 @@ const BlogPostPage = async ({ params }: { params: { slug: string[] } }) => {
   const editor = payload?.config?.editor as LexicalRichTextAdapter;
   const htmlContent = await lexicalToHTML(post.content, editor.editorConfig);
 
-  // Render our React components
-  return (
-    <BlogPost
-      title={post.title}
-      htmlContent={htmlContent}
-      publishedAt={publishedAtDate}
-      breadcrumbs={blogPostCategory}
-    />
-  );
+  return {
+    title: post.title,
+    htmlContent: htmlContent,
+    publishedAt: publishedAtDate,
+    breadcrumbs: blogPostBreadcrumbs,
+  } as BlogPostProps;
 };
 
 const lexicalToHTML = async (editorData: SerializedEditorState, editorConfig: SanitizedServerEditorConfig) => {
