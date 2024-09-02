@@ -12,8 +12,9 @@ import { PrefersColorScheme } from '@/types/theme';
 import { THEME_COOKIE_NAME } from '@/constants/cookies';
 import { Body, ScrollableContent, Footer, Header, Main, MainContents } from './styled';
 import { UserPreferencesProvider } from '@/context/userPreferencesContext';
-import { parseThemeCookieValue } from '@/utils/theme';
+import { parseThemeCookieValue, resolveThemeMode } from '@/utils/theme';
 import { DEFAULT_THEME_MODE, FALLBACK_PREFERS_COLOR_SCHEME } from '@/constants/theme';
+import HighlightJsStyle from '@/styles/HighlightJsStyle';
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '700'] });
 
@@ -52,6 +53,8 @@ const RootLayout = ({
     }
   }
 
+  const currentTheme = resolveThemeMode(initialThemeMode, initialPrefersColorScheme);
+
   return (
     <html lang="en">
       <Body className={roboto.className}>
@@ -62,6 +65,7 @@ const RootLayout = ({
           >
             <ThemeProviderWrapper>
               <GlobalStyle />
+              <HighlightJsStyle currentTheme={currentTheme} />
               <Header id="header">
                 <HeaderContent />
               </Header>
