@@ -117,6 +117,18 @@ const GlobalStyle = createGlobalStyle`
   button:disabled:hover {
     background-color: ${({ theme }) => theme.colors.status.disabled.base};
   }
+
+  // Tables
+  table {
+    th {
+      background-color: ${({ theme }) => theme.colors.container.background};
+      border-color: ${({ theme }) => theme.colors.container.accent};
+    }
+
+    td {
+      border-color: ${({ theme }) => theme.colors.container.accent};
+    }
+  }
 `;
 
 export default GlobalStyle;

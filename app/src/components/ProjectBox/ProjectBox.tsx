@@ -1,3 +1,8 @@
+'use client';
+// Uncomment during local development (with hot reloading) to fix @svgr/webpack bug.
+// TODO: Remove above workaround when @svgr/webpack bug is resolved. This component does not need to be a client side component.
+// TOOD: Add Github issue link for this.
+
 import Link from 'next/link';
 import {
   Description,
