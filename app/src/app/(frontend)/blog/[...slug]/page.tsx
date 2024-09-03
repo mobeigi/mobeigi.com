@@ -13,7 +13,7 @@ import BlogPost from '@/containers/BlogPost';
 import { notFound } from 'next/navigation';
 import { BlogPostProps } from '@/containers/BlogPost';
 import type { Payload } from 'payload';
-import { Breadcrumb } from '@/types/blog';
+import { BlogPostContent, BlogPostMeta, Breadcrumb } from '@/types/blog';
 
 const depth = 2;
 
@@ -142,10 +142,12 @@ export const generateStaticParams = async () => {
  * Transforms a Post to a BlogPostProps object
  */
 const transformPostToBlogPostProps = async (payload: Payload, post: Post): Promise<BlogPostProps | null> => {
-  if (!post.publishedAt || !post.category) {
+  if (!post.publishedAt || !post.category || !post.slug) {
     console.warn('Required blog post fields are not provided or are invalid.', post);
     return null;
   }
+
+  const excerpt = post.meta?.description || '';
   const baseCategory = post.category as Category;
   const publishedAtDate = new Date(post.publishedAt);
 
@@ -164,12 +166,24 @@ const transformPostToBlogPostProps = async (payload: Payload, post: Post): Promi
   const editor = payload?.config?.editor as LexicalRichTextAdapter;
   const htmlContent = await lexicalToHTML(post.content, editor.editorConfig);
 
-  return {
+  const meta: BlogPostMeta = {
     title: post.title,
-    htmlContent: htmlContent,
     publishedAt: publishedAtDate,
+    excerpt: excerpt,
+    slug: post.slug,
     breadcrumbs: blogPostBreadcrumbs,
-  } as BlogPostProps;
+  };
+
+  const content: BlogPostContent = {
+    htmlContent: htmlContent,
+  };
+
+  const blogPostProps: BlogPostProps = {
+    meta,
+    content,
+  };
+
+  return blogPostProps;
 };
 
 const lexicalToHTML = async (editorData: SerializedEditorState, editorConfig: SanitizedServerEditorConfig) => {

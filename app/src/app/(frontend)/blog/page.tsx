@@ -3,8 +3,7 @@ import { Metadata } from 'next';
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import config from '@payload-config';
 import { Category, Post } from '@/payload-types';
-import { BlogPostSummary } from '@/containers/BlogPage/types';
-import { Breadcrumb } from '@/types/blog';
+import { BlogPostMeta, Breadcrumb } from '@/types/blog';
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -41,7 +40,7 @@ const Blog = async () => {
         url: breadcrumb.url!,
       }));
 
-      const blogPostSummary: BlogPostSummary = {
+      const blogPostMeta: BlogPostMeta = {
         title: post.title,
         publishedAt: publishedAtDate,
         excerpt: excerpt,
@@ -49,12 +48,12 @@ const Blog = async () => {
         breadcrumbs: blogPostBreadcrumbs,
       };
 
-      return blogPostSummary;
+      return blogPostMeta;
     })
     .filter((blogPostSummary) => blogPostSummary !== null)
     .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime());
 
-  return <BlogPage blogPostSummaries={blogPostSummaries} />;
+  return <BlogPage blogPostMetas={blogPostSummaries} />;
 };
 
 export default Blog;

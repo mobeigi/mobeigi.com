@@ -1,8 +1,3 @@
-import { Breadcrumb } from '@/types/blog';
+import { BlogPostData } from '@/types/blog';
 
-export interface BlogPostProps {
-  title: string;
-  htmlContent: any; // TODO: Type properly
-  publishedAt: Date;
-  breadcrumbs: Breadcrumb[];
-}
+export type BlogPostProps = BlogPostData;
