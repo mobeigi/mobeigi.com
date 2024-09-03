@@ -71,13 +71,13 @@ export const Posts: CollectionConfig = {
         {
           fields: [
             {
-              name: 'categories',
+              name: 'category',
               type: 'relationship',
               admin: {
                 position: 'sidebar',
               },
-              hasMany: true,
-              relationTo: 'categories',
+              hasMany: false,
+              relationTo: 'category',
             },
           ],
           label: 'Meta',

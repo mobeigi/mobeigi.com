@@ -74,8 +74,8 @@ const BlogPostPage = async ({ params }: { params: { slug: string[] } }) => {
   // Ensure category slug urls match
   // We want to only show the blog post if the slug is correct
   const postsMatchingCategorySlugUrl = posts.docs.filter((post) => {
-    if (!post.categories || post.categories.length === 0) return false;
-    const baseCategory = post.categories[0] as Category;
+    if (!post.category) return false;
+    const baseCategory = post.category as Category;
     const categorySlugUrl = getCategorySlugUrl(baseCategory);
     return categorySlugUrl === paramsCategorySlugUrl;
   });
@@ -119,13 +119,10 @@ export const generateStaticParams = async () => {
   const posts = await payload.find({ collection: 'posts', depth });
   const paths = posts.docs
     .map((post: Post) => {
-      if (post.categories === null || post.categories === undefined) {
+      if (!post.category) {
         return null;
       }
-      if (post.categories.length === 0) {
-        return null;
-      }
-      const baseCategory = post.categories[0] as Category;
+      const baseCategory = post.category as Category;
       const categorySlugUrl = getCategorySlugUrl(baseCategory);
       if (!categorySlugUrl) {
         return null;
@@ -145,11 +142,11 @@ export const generateStaticParams = async () => {
  * Transforms a Post to a BlogPostProps object
  */
 const transformPostToBlogPostProps = async (payload: Payload, post: Post): Promise<BlogPostProps | null> => {
-  if (!post.publishedAt || !post.categories || post.categories.length === 0) {
+  if (!post.publishedAt || !post.category) {
     console.warn('Required blog post fields are not provided or are invalid.', post);
     return null;
   }
-  const baseCategory = post.categories[0] as Category;
+  const baseCategory = post.category as Category;
   const publishedAtDate = new Date(post.publishedAt);
 
   if (!baseCategory.breadcrumbs) {
