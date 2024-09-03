@@ -71,16 +71,17 @@ export const Posts: CollectionConfig = {
         {
           fields: [
             {
-              name: 'category',
-              type: 'relationship',
+              name: 'excerpt',
+              type: 'textarea',
+              label: 'Excerpt',
+              required: true,
               admin: {
-                position: 'sidebar',
+                placeholder: 'Enter a brief excerpt for the post...',
+                description: 'A short summary or snippet of the post content',
               },
-              hasMany: false,
-              relationTo: 'category',
             },
           ],
-          label: 'Meta',
+          label: 'Excerpt',
         },
         {
           name: 'meta',
@@ -92,15 +93,15 @@ export const Posts: CollectionConfig = {
               imagePath: 'meta.image',
             }),
             MetaTitleField({
-              hasGenerateFn: true,
+              hasGenerateFn: false,
             }),
             MetaImageField({
+              hasGenerateFn: false,
               relationTo: 'media',
             }),
 
-            MetaDescriptionField({}),
+            MetaDescriptionField({ hasGenerateFn: false }),
             PreviewField({
-              // if the `generateUrl` function is configured
               hasGenerateFn: true,
 
               // field paths to match the target field for data
@@ -130,6 +131,15 @@ export const Posts: CollectionConfig = {
           },
         ],
       },
+    },
+    {
+      name: 'category',
+      type: 'relationship',
+      admin: {
+        position: 'sidebar',
+      },
+      hasMany: false,
+      relationTo: 'category',
     },
     {
       name: 'authors',

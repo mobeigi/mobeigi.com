@@ -118,13 +118,14 @@ export interface Post {
     };
     [k: string]: unknown;
   };
-  category?: (number | null) | Category;
+  excerpt: string;
   meta?: {
     title?: string | null;
     image?: (number | null) | Media;
     description?: string | null;
   };
   publishedAt?: string | null;
+  category?: (number | null) | Category;
   authors?: (number | User)[] | null;
   slug?: string | null;
   slugLock?: boolean | null;

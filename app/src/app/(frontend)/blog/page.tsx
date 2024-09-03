@@ -18,23 +18,22 @@ const Blog = async () => {
   });
   const posts = await payload.find({ collection: 'posts', depth });
 
-  const blogPostSummaries = posts.docs
+  const blogPostMetas = posts.docs
     .map((post: Post) => {
       if (!post.publishedAt || !post.category || !post.slug) {
         console.warn('Required blog post fields are not provided or are invalid.', post);
         return null;
       }
 
-      const excerpt = post.meta?.description || '';
-      const baseCategory = post.category as Category;
+      const category = post.category as Category;
       const publishedAtDate = new Date(post.publishedAt);
 
-      if (!baseCategory.breadcrumbs) {
+      if (!category.breadcrumbs) {
         console.warn('Breadcrumbs cannot be absent.');
         return null;
       }
 
-      const blogPostBreadcrumbs: Breadcrumb[] = baseCategory.breadcrumbs.map((breadcrumb) => ({
+      const blogPostBreadcrumbs: Breadcrumb[] = category.breadcrumbs.map((breadcrumb) => ({
         title: breadcrumb.label!,
         slug: breadcrumb.url!.split('/').slice(-1)[0].replace('/', ''),
         url: breadcrumb.url!,
@@ -43,17 +42,17 @@ const Blog = async () => {
       const blogPostMeta: BlogPostMeta = {
         title: post.title,
         publishedAt: publishedAtDate,
-        excerpt: excerpt,
+        excerpt: post.excerpt,
         slug: post.slug,
         breadcrumbs: blogPostBreadcrumbs,
       };
 
       return blogPostMeta;
     })
-    .filter((blogPostSummary) => blogPostSummary !== null)
+    .filter((blogPostMeta) => blogPostMeta !== null)
     .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime());
 
-  return <BlogPage blogPostMetas={blogPostSummaries} />;
+  return <BlogPage blogPostMetas={blogPostMetas} />;
 };
 
 export default Blog;

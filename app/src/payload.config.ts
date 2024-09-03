@@ -49,9 +49,7 @@ export default buildConfig({
   sharp,
   plugins: [
     // storage-adapter-placeholder
-    seoPlugin({
-      generateTitle: (doc) => doc.title as string,
-    }),
+    seoPlugin({}),
     nestedDocsPlugin({
       collections: [Category.slug],
       generateLabel: (_, doc) => doc.title as string,
