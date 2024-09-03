@@ -5,6 +5,7 @@ import styled from 'styled-components';
 export const BlogSummaryContainer = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 0.4em;
 
   h1,
   h2,
