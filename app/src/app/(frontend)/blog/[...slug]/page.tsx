@@ -10,10 +10,10 @@ import {
 } from '@payloadcms/richtext-lexical';
 import type { SerializedEditorState } from 'lexical';
 import BlogPost from '@/containers/BlogPost';
-import type { BlogPostBreadcrumbs } from '@/containers/BlogPost';
 import { notFound } from 'next/navigation';
 import { BlogPostProps } from '@/containers/BlogPost';
 import type { Payload } from 'payload';
+import { Breadcrumbs } from '@/types/blog';
 
 const depth = 2;
 
@@ -116,7 +116,7 @@ export const generateStaticParams = async () => {
   const payload = await getPayloadHMR({
     config,
   });
-  const posts = await payload.find({ collection: 'posts', depth: 2 });
+  const posts = await payload.find({ collection: 'posts', depth });
   const paths = posts.docs
     .map((post: Post) => {
       if (post.categories === null || post.categories === undefined) {
@@ -157,14 +157,11 @@ const transformPostToBlogPostProps = async (payload: Payload, post: Post): Promi
     return null;
   }
 
-  const blogPostBreadcrumbs = baseCategory.breadcrumbs.map(
-    (breadcrumb) =>
-      ({
-        title: breadcrumb.label,
-        slug: breadcrumb.url!.split('/').slice(-1)[0].replace('/', ''),
-        url: breadcrumb.url!,
-      }) as BlogPostBreadcrumbs,
-  );
+  const blogPostBreadcrumbs: Breadcrumbs[] = baseCategory.breadcrumbs.map((breadcrumb) => ({
+    title: breadcrumb.label!,
+    slug: breadcrumb.url!.split('/').slice(-1)[0].replace('/', ''),
+    url: breadcrumb.url!,
+  }));
 
   // Convert Lexical JSON to HTML
   const editor = payload?.config?.editor as LexicalRichTextAdapter;
