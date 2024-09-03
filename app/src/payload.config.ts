@@ -1,11 +1,6 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres';
-import {
-  lexicalEditor,
-  HTMLConverterFeature,
-  EXPERIMENTAL_TableFeature,
-  UploadFeature,
-} from '@payloadcms/richtext-lexical';
+import { lexicalEditor, HTMLConverterFeature, EXPERIMENTAL_TableFeature } from '@payloadcms/richtext-lexical';
 import path from 'path';
 import { buildConfig } from 'payload';
 import { fileURLToPath } from 'url';
@@ -18,7 +13,7 @@ import CodeBlockHTMLConverter from '@payload/converter/CodeHTMLCoverter';
 import { Users } from '@payload/collections/Users';
 import { Media } from '@payload/collections/Media';
 import { Posts } from '@payload/collections/Posts';
-import Categories from '@payload/collections/Categories';
+import Category from '@payload/collections/Category';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -30,7 +25,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, Categories],
+  collections: [Users, Media, Posts, Category],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => {
       return [
@@ -58,7 +53,7 @@ export default buildConfig({
       generateTitle: (doc) => doc.title as string,
     }),
     nestedDocsPlugin({
-      collections: ['categories'],
+      collections: [Category.slug],
       generateLabel: (_, doc) => doc.title as string,
       generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
     }),

@@ -21,13 +21,13 @@ const Blog = async () => {
 
   const blogPostSummaries = posts.docs
     .map((post: Post) => {
-      if (!post.publishedAt || !post.categories || post.categories.length === 0 || !post.slug) {
+      if (!post.publishedAt || !post.category || !post.slug) {
         console.warn('Required blog post fields are not provided or are invalid.', post);
         return null;
       }
 
       const excerpt = post.meta?.description || '';
-      const baseCategory = post.categories[0] as Category;
+      const baseCategory = post.category as Category;
       const publishedAtDate = new Date(post.publishedAt);
 
       if (!baseCategory.breadcrumbs) {

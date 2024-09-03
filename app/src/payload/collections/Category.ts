@@ -4,8 +4,8 @@ import { anyone } from '@payload/access/anyone';
 import { authenticated } from '@payload/access/authenticated';
 import { slugField } from '@payload/fields/slug';
 
-const Categories: CollectionConfig = {
-  slug: 'categories',
+const Category: CollectionConfig = {
+  slug: 'category',
   access: {
     create: authenticated,
     delete: authenticated,
@@ -26,4 +26,4 @@ const Categories: CollectionConfig = {
   ],
 };
 
-export default Categories;
+export default Category;

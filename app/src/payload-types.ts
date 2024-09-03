@@ -14,7 +14,7 @@ export interface Config {
     users: User;
     media: Media;
     posts: Post;
-    categories: Category;
+    category: Category;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -118,7 +118,7 @@ export interface Post {
     };
     [k: string]: unknown;
   };
-  categories?: (number | Category)[] | null;
+  category?: (number | null) | Category;
   meta?: {
     title?: string | null;
     image?: (number | null) | Media;
@@ -134,7 +134,7 @@ export interface Post {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
+ * via the `definition` "category".
  */
 export interface Category {
   id: number;
