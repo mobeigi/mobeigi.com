@@ -16,7 +16,11 @@ const Blog = async () => {
   const payload = await getPayloadHMR({
     config,
   });
-  const posts = await payload.find({ collection: 'posts', depth });
+  const posts = await payload.find({
+    collection: 'posts',
+    depth,
+    limit: 0, // no limit so we can retreive all posts
+  });
 
   const blogPostMetas = posts.docs
     .map((post: Post) => {
