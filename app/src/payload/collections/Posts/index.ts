@@ -53,7 +53,6 @@ export const Posts: CollectionConfig = {
                   return [
                     ...rootFeatures,
                     HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }),
-                    // BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
                     BlocksFeature({ blocks: [Code] }),
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
