@@ -4,7 +4,7 @@ import { getPayloadHMR } from '@payloadcms/next/utilities';
 import config from '@payload-config';
 import { Category, Post } from '@/payload-types';
 import { BlogPostSummary } from '@/containers/BlogPage/types';
-import { Breadcrumbs } from '@/types/blog';
+import { Breadcrumb } from '@/types/blog';
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -35,7 +35,7 @@ const Blog = async () => {
         return null;
       }
 
-      const blogPostBreadcrumbs: Breadcrumbs[] = baseCategory.breadcrumbs.map((breadcrumb) => ({
+      const blogPostBreadcrumbs: Breadcrumb[] = baseCategory.breadcrumbs.map((breadcrumb) => ({
         title: breadcrumb.label!,
         slug: breadcrumb.url!.split('/').slice(-1)[0].replace('/', ''),
         url: breadcrumb.url!,
@@ -51,7 +51,8 @@ const Blog = async () => {
 
       return blogPostSummary;
     })
-    .filter((blogPostSummary) => blogPostSummary !== null);
+    .filter((blogPostSummary) => blogPostSummary !== null)
+    .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime());
 
   return <BlogPage blogPostSummaries={blogPostSummaries} />;
 };
