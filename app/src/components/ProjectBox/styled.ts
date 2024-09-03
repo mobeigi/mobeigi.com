@@ -93,7 +93,6 @@ export const InactiveUrl = styled.span`
 
 export const Divider = styled.hr`
   width: 100%;
-  border-color: ${({ theme }) => theme.colors.container.accent};
 `;
 
 export const Description = styled.span`
