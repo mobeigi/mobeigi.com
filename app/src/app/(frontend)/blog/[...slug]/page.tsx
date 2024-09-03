@@ -13,7 +13,7 @@ import BlogPost from '@/containers/BlogPost';
 import { notFound } from 'next/navigation';
 import { BlogPostProps } from '@/containers/BlogPost';
 import type { Payload } from 'payload';
-import { Breadcrumbs } from '@/types/blog';
+import { Breadcrumb } from '@/types/blog';
 
 const depth = 2;
 
@@ -154,7 +154,7 @@ const transformPostToBlogPostProps = async (payload: Payload, post: Post): Promi
     return null;
   }
 
-  const blogPostBreadcrumbs: Breadcrumbs[] = baseCategory.breadcrumbs.map((breadcrumb) => ({
+  const blogPostBreadcrumbs: Breadcrumb[] = baseCategory.breadcrumbs.map((breadcrumb) => ({
     title: breadcrumb.label!,
     slug: breadcrumb.url!.split('/').slice(-1)[0].replace('/', ''),
     url: breadcrumb.url!,

@@ -1,4 +1,4 @@
-import { Breadcrumbs } from '@/types/blog';
+import { Breadcrumb } from '@/types/blog';
 
 export interface BlogPageProps {
   blogPostSummaries: BlogPostSummary[];
@@ -9,5 +9,5 @@ export type BlogPostSummary = {
   publishedAt: Date;
   excerpt: string;
   slug: string;
-  breadcrumbs: Breadcrumbs[];
+  breadcrumbs: Breadcrumb[];
 };
