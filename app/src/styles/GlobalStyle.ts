@@ -132,6 +132,7 @@ const GlobalStyle = createGlobalStyle`
 
   // Code
   pre code {
+    white-space: pre-wrap;
     border-radius: 0.4em;
   }
 
