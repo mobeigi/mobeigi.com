@@ -1,5 +1,6 @@
 'use client';
 
+import { hexToRgba } from '@/utils/theme';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
@@ -130,10 +131,19 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  // Inline code
+  code:not(pre > code) {
+    background-color: ${({ theme }) => theme.colors.container.background};
+    padding: 0 0.2em;
+    border-radius: 0.2em;
+    border: 0.1em solid ${({ theme }) => hexToRgba(theme.colors.container.accent, 0.15)};
+  }
+
   // Code
   pre code {
     white-space: pre-wrap;
     border-radius: 0.4em;
+    border: 0.1em solid ${({ theme }) => hexToRgba(theme.colors.container.accent, 0.15)};
   }
 
   // Blockquote
