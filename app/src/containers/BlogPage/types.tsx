@@ -1,13 +1,5 @@
-import { Breadcrumb } from '@/types/blog';
+import { BlogPostMeta } from '@/types/blog';
 
 export interface BlogPageProps {
-  blogPostSummaries: BlogPostSummary[];
+  blogPostMetas: BlogPostMeta[];
 }
-
-export type BlogPostSummary = {
-  title: string;
-  publishedAt: Date;
-  excerpt: string;
-  slug: string;
-  breadcrumbs: Breadcrumb[];
-};
