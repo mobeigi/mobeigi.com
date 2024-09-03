@@ -12,38 +12,11 @@ import type { SerializedEditorState } from 'lexical';
 import BlogPost from '@/containers/BlogPost';
 import { notFound } from 'next/navigation';
 import { BlogPostProps } from '@/containers/BlogPost';
-import type { Payload } from 'payload';
 import { BlogPostContent, BlogPostMeta, Breadcrumb } from '@/types/blog';
 
 const depth = 2;
 
-export const generateMetadata = async ({ params }: { params: { slug: string[] } }): Promise<Metadata> => {
-  const payload = await getPayloadHMR({
-    config,
-  });
-  const postSlug = params.slug[params.slug.length - 1];
-  const post = await payload.find({
-    collection: 'posts',
-    where: { slug: { equals: postSlug } },
-    depth,
-  });
-
-  if (!post.docs.length) {
-    console.warn('Failed to find post during generateMetadata.');
-    return {};
-  }
-
-  const seoData = post.docs[0].meta;
-  const fallbackTitle = post.docs[0].title;
-  const fallbackDescription = null;
-
-  return {
-    title: seoData?.title || fallbackTitle,
-    description: seoData?.description || fallbackDescription,
-  };
-};
-
-const BlogPostPage = async ({ params }: { params: { slug: string[] } }) => {
+export const getPostFromParams = async ({ params }: { params: { slug: string[] } }): Promise<Post | null> => {
   const payload = await getPayloadHMR({
     config,
   });
@@ -52,7 +25,6 @@ const BlogPostPage = async ({ params }: { params: { slug: string[] } }) => {
   const categorySlugs = params.slug.slice(0, -1);
 
   if (categorySlugs.length === 0) {
-    notFound();
     return null;
   }
 
@@ -67,7 +39,6 @@ const BlogPostPage = async ({ params }: { params: { slug: string[] } }) => {
   });
 
   if (!posts.docs.length) {
-    notFound();
     return null;
   }
 
@@ -75,24 +46,16 @@ const BlogPostPage = async ({ params }: { params: { slug: string[] } }) => {
   // We want to only show the blog post if the slug is correct
   const postsMatchingCategorySlugUrl = posts.docs.filter((post) => {
     if (!post.category) return false;
-    const baseCategory = post.category as Category;
-    const categorySlugUrl = getCategorySlugUrl(baseCategory);
+    const category = post.category as Category;
+    const categorySlugUrl = getCategorySlugUrl(category);
     return categorySlugUrl === paramsCategorySlugUrl;
   });
 
   if (postsMatchingCategorySlugUrl.length !== 1) {
-    notFound();
     return null;
   }
 
-  const post = postsMatchingCategorySlugUrl[0];
-  const blogPostValues = await transformPostToBlogPostProps(payload, post);
-  if (!blogPostValues) {
-    notFound();
-    return null;
-  }
-
-  return <BlogPost {...blogPostValues} />;
+  return postsMatchingCategorySlugUrl[0];
 };
 
 const buildCategorySlugUrl = (categorySlugs: string[]): string => {
@@ -112,6 +75,38 @@ const getCategorySlugUrl = (category: Category): string | null => {
   return lastBreadcrumb.url;
 };
 
+export const generateMetadata = async ({ params }: { params: { slug: string[] } }): Promise<Metadata> => {
+  const post = await getPostFromParams({ params });
+  if (!post) {
+    console.warn('Failed to find post during generateMetadata.');
+    return {};
+  }
+
+  const seoData = post.meta;
+  const fallbackTitle = post.title;
+  const fallbackDescription = post.excerpt;
+
+  return {
+    title: seoData?.title || fallbackTitle,
+    description: seoData?.description || fallbackDescription,
+  };
+};
+
+const BlogPostPage = async ({ params }: { params: { slug: string[] } }) => {
+  const post = await getPostFromParams({ params });
+  if (!post) {
+    notFound();
+    return null;
+  }
+  const blogPostProps = await transformPostToBlogPostProps(post);
+  if (!blogPostProps) {
+    notFound();
+    return null;
+  }
+
+  return <BlogPost {...blogPostProps} />;
+};
+
 export const generateStaticParams = async () => {
   const payload = await getPayloadHMR({
     config,
@@ -122,8 +117,8 @@ export const generateStaticParams = async () => {
       if (!post.category) {
         return null;
       }
-      const baseCategory = post.category as Category;
-      const categorySlugUrl = getCategorySlugUrl(baseCategory);
+      const category = post.category as Category;
+      const categorySlugUrl = getCategorySlugUrl(category);
       if (!categorySlugUrl) {
         return null;
       }
@@ -141,22 +136,25 @@ export const generateStaticParams = async () => {
 /**
  * Transforms a Post to a BlogPostProps object
  */
-const transformPostToBlogPostProps = async (payload: Payload, post: Post): Promise<BlogPostProps | null> => {
+const transformPostToBlogPostProps = async (post: Post): Promise<BlogPostProps | null> => {
+  const payload = await getPayloadHMR({
+    config,
+  });
+
   if (!post.publishedAt || !post.category || !post.slug) {
     console.warn('Required blog post fields are not provided or are invalid.', post);
     return null;
   }
 
-  const excerpt = post.meta?.description || '';
-  const baseCategory = post.category as Category;
+  const category = post.category as Category;
   const publishedAtDate = new Date(post.publishedAt);
 
-  if (!baseCategory.breadcrumbs) {
+  if (!category.breadcrumbs) {
     console.warn('Breadcrumbs cannot be absent.');
     return null;
   }
 
-  const blogPostBreadcrumbs: Breadcrumb[] = baseCategory.breadcrumbs.map((breadcrumb) => ({
+  const blogPostBreadcrumbs: Breadcrumb[] = category.breadcrumbs.map((breadcrumb) => ({
     title: breadcrumb.label!,
     slug: breadcrumb.url!.split('/').slice(-1)[0].replace('/', ''),
     url: breadcrumb.url!,
@@ -169,7 +167,7 @@ const transformPostToBlogPostProps = async (payload: Payload, post: Post): Promi
   const meta: BlogPostMeta = {
     title: post.title,
     publishedAt: publishedAtDate,
-    excerpt: excerpt,
+    excerpt: post.excerpt,
     slug: post.slug,
     breadcrumbs: blogPostBreadcrumbs,
   };

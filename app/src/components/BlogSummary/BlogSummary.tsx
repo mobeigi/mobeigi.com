@@ -14,15 +14,14 @@ import CategorySvg from '@/assets/icons/boxicons/bx-category.svg';
 
 const BASE_BLOG_URL = pages.find((entry) => entry.name === 'Blog')!.href;
 
-const getBlogPostRelativeUrl = (blogPostSummary: BlogPostMeta) => {
+const getBlogPostRelativeUrl = (blogPostMeta: BlogPostMeta) => {
   return (
-    BASE_BLOG_URL +
-    [...blogPostSummary.breadcrumbs.map((breadcrumb) => breadcrumb.slug), blogPostSummary.slug].join('/')
+    BASE_BLOG_URL + [...blogPostMeta.breadcrumbs.map((breadcrumb) => breadcrumb.slug), blogPostMeta.slug].join('/')
   );
 };
 
-const getCategoryBreadcrumb = (blogPostSummary: BlogPostMeta): Breadcrumb => {
-  return blogPostSummary.breadcrumbs[blogPostSummary.breadcrumbs.length - 1];
+const getCategoryBreadcrumb = (blogPostmeta: BlogPostMeta): Breadcrumb => {
+  return blogPostmeta.breadcrumbs[blogPostmeta.breadcrumbs.length - 1];
 };
 
 export const BlogSummary = ({
