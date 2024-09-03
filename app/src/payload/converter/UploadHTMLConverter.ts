@@ -22,9 +22,9 @@ const UploadHTMLConverter: HTMLConverter<SerializedUploadNode> = {
     const mimeType = uploadDocument?.mimeType as string;
 
     if (mimeType.startsWith('image')) {
-      return `<img src="${url}" alt="${uploadDocument?.filename}" width="${uploadDocument?.width}" height="${uploadDocument?.height}" />`;
+      return `<img src="${url}" alt="${uploadDocument.alt}" width="${uploadDocument?.width}" height="${uploadDocument?.height}" />`;
     } else if (mimeType.startsWith('video')) {
-      return `<video src="${url}" alt="${uploadDocument?.filename}" controls="true"></video>`;
+      return `<video src="${url}" alt="${uploadDocument.alt}" controls="true"></video>`;
     }
 
     return '';
