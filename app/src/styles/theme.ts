@@ -61,7 +61,7 @@ const theme = {
         },
       },
       container: {
-        background: '#fbfbfb',
+        background: '#f9f9f9',
         accent: '#a1a1a1',
         text: {
           base: '#404040',

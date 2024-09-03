@@ -22,7 +22,7 @@ code.hljs {
   - https://github.com/highlightjs/base16-highlightjs
 */
 /*
-base00  #FBFBFB  Default Background
+base00  #F9F9F9  Default Background
 base01  #E7EAEC  Lighter Background (Used for status bars, line number and folding marks)
 base02  #CCEAE7  Selection Background
 base03  #9F9F9F  Comments, Invisibles, Line Highlighting
@@ -49,7 +49,7 @@ code.hljs {
 }
 .hljs {
   color: #404040;
-  background: #FBFBFB
+  background: #F9F9F9
 }
 .hljs::selection,
 .hljs ::selection {
