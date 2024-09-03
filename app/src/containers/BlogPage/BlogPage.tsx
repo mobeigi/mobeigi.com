@@ -10,7 +10,9 @@ export const BlogPage = ({ blogPostMetas }: BlogPageProps) => {
       <BlogSummaryWrapper>
         {blogPostMetas.map((blogPostMeta) => (
           //TODO: slug might not be unique if used as key
-          <BlogSummary key={blogPostMeta.slug} blogPostMeta={blogPostMeta} />
+          <article key={blogPostMeta.slug}>
+            <BlogSummary key={blogPostMeta.slug} blogPostMeta={blogPostMeta} />
+          </article>
         ))}
       </BlogSummaryWrapper>
     </div>

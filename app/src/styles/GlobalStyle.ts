@@ -146,6 +146,11 @@ const GlobalStyle = createGlobalStyle`
     padding-inline-start: 0.9em;
     padding-block: 0.3em;
   }
+
+  // HR
+  hr {
+    border-color: ${({ theme }) => theme.colors.container.accent};
+  }
 `;
 
 export default GlobalStyle;
