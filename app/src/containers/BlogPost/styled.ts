@@ -4,6 +4,8 @@ import styled from 'styled-components';
 
 export const BlogPostContainer = styled.article`
   width: 100%;
+  max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px;
+  margin: 0 auto;
 
   // TODO: MOVE SOME OF THESE TO GLOBAL STYLES IF RELEVANT
   .nestedListItem {
