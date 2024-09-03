@@ -1,10 +1,10 @@
 import { BlogPageProps } from './types';
-import { BlogSummaryWrapper } from './styled';
+import { BlogPageContainer, BlogSummaryWrapper } from './styled';
 import BlogSummary from '@/components/BlogSummary';
 
 export const BlogPage = ({ blogPostMetas }: BlogPageProps) => {
   return (
-    <div>
+    <BlogPageContainer>
       <h1>Blog</h1>
       <p>Explore my thoughts and insights through the blog posts below.</p>
       <BlogSummaryWrapper>
@@ -15,6 +15,6 @@ export const BlogPage = ({ blogPostMetas }: BlogPageProps) => {
           </article>
         ))}
       </BlogSummaryWrapper>
-    </div>
+    </BlogPageContainer>
   );
 };
