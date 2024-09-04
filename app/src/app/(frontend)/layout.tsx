@@ -16,7 +16,7 @@ import { parseThemeCookieValue, resolveThemeMode } from '@/utils/theme';
 import { DEFAULT_THEME_MODE, FALLBACK_PREFERS_COLOR_SCHEME } from '@/constants/theme';
 import HighlightJsStyle from '@/styles/HighlightJsStyle';
 
-const roboto = Roboto({ subsets: ['latin'], weight: ['400', '700'] });
+const roboto = Roboto({ subsets: ['latin'], style: ['normal', 'italic'], weight: ['400', '700'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
