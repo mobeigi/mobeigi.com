@@ -3,6 +3,7 @@ import { UploadServerNode, type HTMLConverter, type SerializedUploadNode } from 
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import config from '@payload-config';
 
+// TODO: Currently unused, repurpose this to simply offer a link to any file
 const UploadHTMLConverter: HTMLConverter<SerializedUploadNode> = {
   converter: async ({ node }) => {
     if (node.relationTo !== 'media') {

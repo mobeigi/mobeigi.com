@@ -21,6 +21,7 @@ import {
 import { revalidatePost } from './hooks/revalidatePost';
 import { slugField } from '../../fields/slug';
 import { Code } from '@payload/blocks/Code/config';
+import { MediaBlock } from '@payload/blocks/MediaBlock/config';
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -53,7 +54,7 @@ export const Posts: CollectionConfig = {
                   return [
                     ...rootFeatures,
                     HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }),
-                    BlocksFeature({ blocks: [Code], inlineBlocks: [Code] }),
+                    BlocksFeature({ blocks: [Code, MediaBlock], inlineBlocks: [Code, MediaBlock] }),
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                     HorizontalRuleFeature(),
