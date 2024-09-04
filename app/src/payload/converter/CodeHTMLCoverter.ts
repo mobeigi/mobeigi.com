@@ -27,7 +27,7 @@ const CodeBlockHTMLConverter: HTMLConverter<CodeBlockNode> = {
     // Return the highlighted code block
     return `<pre><code class="${hljsClasses.join(' ')}">${highlightResult.value}</code></pre>`;
   },
-  nodeTypes: ['block'],
+  nodeTypes: ['block', 'inlineBlock'],
 };
 
 export default CodeBlockHTMLConverter;
