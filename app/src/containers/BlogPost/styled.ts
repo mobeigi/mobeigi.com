@@ -96,10 +96,10 @@ export const BlogPostContainer = styled.article`
   img {
     display: block;
     margin: 0 auto;
-
     max-width: 100%;
     width: auto;
     height: auto;
+    border-radius: 0.2em;
   }
 
   video {
@@ -107,6 +107,7 @@ export const BlogPostContainer = styled.article`
     margin: 0 auto;
     width: 100%;
     height: auto;
+    border-radius: 0.2em;
   }
 
   // Tables
@@ -131,5 +132,6 @@ export const BlogPostContainer = styled.article`
     width: 100%;
     height: auto;
     aspect-ratio: 16 / 9;
+    border-radius: 0.2em;
   }
 `;
