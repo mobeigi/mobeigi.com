@@ -122,4 +122,14 @@ export const BlogPostContainer = styled.article`
       border-color: ${({ theme }) => theme.colors.container.accent} !important;
     }
   }
+
+  // Embeds
+  iframe {
+    display: block;
+    margin: 0 auto;
+
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
 `;
