@@ -113,6 +113,7 @@ export const BlogPostContainer = styled.article`
   // Tables
   table {
     margin: 0 auto;
+    width: 100%;
 
     // TODO: Remove below !important after tables dont use inline styles
     th {
