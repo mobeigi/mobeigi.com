@@ -9,5 +9,9 @@
       "changeProcessCWD": true
     }
   ],
+  "search.exclude": {
+    "app/**/node_modules": true,
+    "app/**/.next": true
+  },
   "files.eol": "\n"
 }
