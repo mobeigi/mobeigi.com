@@ -20,8 +20,8 @@ export const renderMediaBlockNodeAsHtml = async ({ mediaBlockNode }: MediaBlockC
     collection: 'media',
   });
 
-  const url = (payload?.config?.serverURL || '') + uploadDocument?.url;
-  const mimeType = uploadDocument?.mimeType as string;
+  const url = (payload.config.serverURL || '') + uploadDocument.url;
+  const mimeType = uploadDocument.mimeType as string;
 
   if (mimeType.startsWith('image')) {
     return `<img src="${url}" alt="${uploadDocument.alt}" width="${uploadDocument?.width}" height="${uploadDocument?.height}" />`;

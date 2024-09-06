@@ -9,9 +9,11 @@ import { seoPlugin } from '@payloadcms/plugin-seo';
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs';
 import BlockHTMLConverter from '@payload/converter/BlockHTMLConverter';
 import InlineBlockHTMLConverter from '@payload/converter/InlineBlockHTMLConverter';
+import UploadHTMLConverter from '@payload/converter/UploadHTMLConverter';
 
 import { Users } from '@payload/collections/Users';
 import { Media } from '@payload/collections/Media';
+import { Files } from '@payload/collections/Files';
 import { Posts } from '@payload/collections/Posts';
 import Category from '@payload/collections/Category';
 
@@ -25,14 +27,19 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, Category],
+  collections: [Users, Media, Files, Posts, Category],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => {
       return [
         ...defaultFeatures,
         EXPERIMENTAL_TableFeature(),
         HTMLConverterFeature({
-          converters: ({ defaultConverters }) => [...defaultConverters, BlockHTMLConverter, InlineBlockHTMLConverter],
+          converters: ({ defaultConverters }) => [
+            ...defaultConverters,
+            BlockHTMLConverter,
+            InlineBlockHTMLConverter,
+            UploadHTMLConverter,
+          ],
         }),
       ];
     },
