@@ -31,9 +31,10 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: {
+    mimeTypes: ['image/*', 'video/*'],
     // Use webp for all media for maximum compression
     formatOptions: { format: 'webp' },
     // Upload to a public directory in Next.js making them publicly accessible even outside of Payload
-    staticDir: path.resolve('public/uploads'),
+    staticDir: path.resolve('public/uploads/media'),
   },
 };
