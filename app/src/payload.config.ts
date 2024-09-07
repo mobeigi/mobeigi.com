@@ -7,9 +7,6 @@ import { fileURLToPath } from 'url';
 import sharp from 'sharp';
 import { seoPlugin } from '@payloadcms/plugin-seo';
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs';
-import BlockHTMLConverter from '@payload/converter/BlockHTMLConverter';
-import InlineBlockHTMLConverter from '@payload/converter/InlineBlockHTMLConverter';
-import UploadHTMLConverter from '@payload/converter/UploadHTMLConverter';
 
 import { Users } from '@payload/collections/Users';
 import { Media } from '@payload/collections/Media';
@@ -34,12 +31,7 @@ export default buildConfig({
         ...defaultFeatures,
         EXPERIMENTAL_TableFeature(),
         HTMLConverterFeature({
-          converters: ({ defaultConverters }) => [
-            ...defaultConverters,
-            BlockHTMLConverter,
-            InlineBlockHTMLConverter,
-            UploadHTMLConverter,
-          ],
+          converters: ({ defaultConverters }) => [...defaultConverters],
         }),
       ];
     },

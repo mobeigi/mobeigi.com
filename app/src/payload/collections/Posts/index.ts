@@ -22,7 +22,7 @@ import { revalidatePost } from './hooks/revalidatePost';
 import { slugField } from '../../fields/slug';
 import { Code } from '@payload/blocks/Code/config';
 import { MediaBlock } from '@payload/blocks/MediaBlock/config';
-import { FileBlock } from '@payload/blocks/FileBlock/config';
+import { File } from '@/payload/blocks/File/config';
 import { Embed } from '@payload/blocks/Embed/config';
 
 export const Posts: CollectionConfig = {
@@ -57,8 +57,8 @@ export const Posts: CollectionConfig = {
                     ...rootFeatures,
                     HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }),
                     BlocksFeature({
-                      blocks: [Code, MediaBlock, FileBlock, Embed],
-                      inlineBlocks: [Code, MediaBlock, FileBlock, Embed],
+                      blocks: [Code, MediaBlock, File, Embed],
+                      inlineBlocks: [Code, MediaBlock, File, Embed],
                     }),
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),

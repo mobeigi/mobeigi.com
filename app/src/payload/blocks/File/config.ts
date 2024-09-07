@@ -1,7 +1,7 @@
 import type { Block } from 'payload';
 
-export const FileBlock: Block = {
-  slug: 'fileBlock',
+export const File: Block = {
+  slug: 'file',
   interfaceName: 'FileBlock',
   fields: [
     {

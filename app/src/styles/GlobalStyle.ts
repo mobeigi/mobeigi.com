@@ -61,12 +61,14 @@ const GlobalStyle = createGlobalStyle`
 
   /* Lists */
   ul, ol {
-    padding-left: 0em;
+    padding-left: 0;
     margin-left: 1.5em;
   }
   
   li {
-    padding-left: 0em;
+    padding-left: 0;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
   }
   
   /* Links */
@@ -121,13 +123,15 @@ const GlobalStyle = createGlobalStyle`
 
   // Tables
   table {
+    border-collapse: collapse;
+
     th {
       background-color: ${({ theme }) => theme.colors.container.background};
-      border-color: ${({ theme }) => theme.colors.container.accent};
     }
 
-    td {
-      border-color: ${({ theme }) => theme.colors.container.accent};
+    th, td {
+      border: 0.1em solid ${({ theme }) => theme.colors.container.accent};
+      padding: 0.5em;
     }
   }
 

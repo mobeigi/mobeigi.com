@@ -114,15 +114,6 @@ export const BlogPostContainer = styled.article`
   table {
     margin: 0 auto;
     width: 100%;
-
-    // TODO: Remove below !important after tables dont use inline styles
-    th {
-      border-color: ${({ theme }) => theme.colors.container.accent} !important;
-    }
-
-    td {
-      border-color: ${({ theme }) => theme.colors.container.accent} !important;
-    }
   }
 
   // Embeds
