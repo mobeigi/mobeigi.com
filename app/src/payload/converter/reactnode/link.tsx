@@ -2,7 +2,7 @@ import { ReactNodeConverter } from '@/payload/lexical/types';
 import type { SerializedLinkNode } from '@payloadcms/richtext-lexical';
 import { convertLexicalNodesToReactNode } from '@/payload/lexical/serializeLexical';
 import Link from 'next/link';
-import { customUrlResolvers } from '../customInternalUrlResolvers';
+import { customUrlResolvers } from '../customUrlResolvers';
 import { CollectionSlug, DataFromCollectionSlug } from 'payload';
 
 export const LinkReactNodeConverter: ReactNodeConverter<SerializedLinkNode> = {
