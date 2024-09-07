@@ -10,5 +10,17 @@ export const MediaBlock: Block = {
       relationTo: 'media',
       required: true,
     },
+    {
+      name: 'widthOveride',
+      type: 'number',
+      label: 'Width override (optional)',
+      required: false,
+    },
+    {
+      name: 'heightOveride',
+      type: 'number',
+      label: 'Height override (optional)',
+      required: false,
+    },
   ],
 };
