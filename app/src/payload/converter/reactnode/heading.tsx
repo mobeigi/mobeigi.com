@@ -12,7 +12,12 @@ export const HeadingReactNodeConverter: ReactNodeConverter<SerializedHeadingNode
         parent,
       },
     });
-    return <node.tag>{children}</node.tag>;
+    const textAlign = node.format || undefined;
+    const style = {
+      ...(textAlign && { textAlign: textAlign }),
+    };
+
+    return <node.tag style={style}>{children}</node.tag>;
   },
   nodeTypes: ['heading'],
 };

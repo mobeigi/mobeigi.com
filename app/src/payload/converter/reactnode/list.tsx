@@ -39,7 +39,13 @@ export const ListItemReactNodeConverter: ReactNodeConverter<SerializedListItemNo
     // TODO: Reimplement $getListDepth (https://github.com/facebook/lexical/blob/main/packages/lexical-list/src/utils.ts#L27) for nicer-looking lists
     const isSublist = node.children && node.children[0].type === 'list';
 
-    return <li style={{ listStyleType: isSublist ? 'none' : 'inherit' }}>{children}</li>;
+    const textAlign = node.format || undefined;
+    const style = {
+      listStyleType: isSublist ? 'none' : 'inherit',
+      ...(textAlign && { textAlign: textAlign }),
+    };
+
+    return <li style={style}>{children}</li>;
   },
   nodeTypes: ['listitem'],
 };

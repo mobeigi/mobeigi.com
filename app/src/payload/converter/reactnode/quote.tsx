@@ -14,7 +14,12 @@ export const QuoteReactNodeConverter: ReactNodeConverter<SerializedQuoteNode> = 
       },
     });
 
-    return <blockquote>{children}</blockquote>;
+    const textAlign = node.format || undefined;
+    const style = {
+      ...(textAlign && { textAlign: textAlign }),
+    };
+
+    return <blockquote style={style}>{children}</blockquote>;
   },
   nodeTypes: ['quote'],
 };

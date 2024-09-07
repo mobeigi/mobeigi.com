@@ -13,7 +13,12 @@ export const ParagraphReactNodeConverter: ReactNodeConverter<SerializedParagraph
       },
     });
 
-    return <p>{children}</p>;
+    const textAlign = node.format || undefined;
+    const style = {
+      ...(textAlign && { textAlign: textAlign }),
+    };
+
+    return <p style={style}>{children}</p>;
   },
   nodeTypes: ['paragraph'],
 };
