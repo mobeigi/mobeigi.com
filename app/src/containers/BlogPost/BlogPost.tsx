@@ -7,7 +7,7 @@ export const BlogPost = ({ meta, content }: BlogPostProps) => {
     <BlogPostContainer>
       <BlogSummary blogPostMeta={meta} headingLevel="h1" linkHeading={false} showExcerpt={false} />
       <hr />
-      <div dangerouslySetInnerHTML={{ __html: content.htmlContent }} />
+      {content.body}
     </BlogPostContainer>
   );
 };

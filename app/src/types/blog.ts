@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export type Breadcrumb = {
   title: string;
   slug: string;
@@ -13,7 +15,7 @@ export type BlogPostMeta = {
 };
 
 export type BlogPostContent = {
-  htmlContent: any; // TODO: Type properly
+  body: ReactNode;
 };
 
 export type BlogPostData = {

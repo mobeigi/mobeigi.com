@@ -430,7 +430,7 @@ export interface FileBlock {
   file: number | File;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'fileBlock';
+  blockType: 'file';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

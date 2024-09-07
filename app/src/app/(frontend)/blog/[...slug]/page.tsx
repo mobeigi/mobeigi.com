@@ -2,17 +2,11 @@ import { Post, Category } from '@/payload-types';
 import { Metadata } from 'next';
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import config from '@payload-config';
-import {
-  type SanitizedServerEditorConfig,
-  convertLexicalToHTML,
-  consolidateHTMLConverters,
-  LexicalRichTextAdapter,
-} from '@payloadcms/richtext-lexical';
-import type { SerializedEditorState } from 'lexical';
 import BlogPost from '@/containers/BlogPost';
 import { notFound } from 'next/navigation';
 import { BlogPostProps } from '@/containers/BlogPost';
 import { BlogPostContent, BlogPostMeta, Breadcrumb } from '@/types/blog';
+import { serializeLexical } from '@/payload/lexical/serializeLexical';
 
 const depth = 2;
 
@@ -160,10 +154,6 @@ const transformPostToBlogPostProps = async (post: Post): Promise<BlogPostProps |
     url: breadcrumb.url!,
   }));
 
-  // Convert Lexical JSON to HTML
-  const editor = payload?.config?.editor as LexicalRichTextAdapter;
-  const htmlContent = await lexicalToHTML(post.content, editor.editorConfig);
-
   const meta: BlogPostMeta = {
     title: post.title,
     publishedAt: publishedAtDate,
@@ -172,8 +162,10 @@ const transformPostToBlogPostProps = async (post: Post): Promise<BlogPostProps |
     breadcrumbs: blogPostBreadcrumbs,
   };
 
+  const contentBody = await serializeLexical(post.content);
+
   const content: BlogPostContent = {
-    htmlContent: htmlContent,
+    body: contentBody,
   };
 
   const blogPostProps: BlogPostProps = {
@@ -182,13 +174,6 @@ const transformPostToBlogPostProps = async (post: Post): Promise<BlogPostProps |
   };
 
   return blogPostProps;
-};
-
-const lexicalToHTML = async (editorData: SerializedEditorState, editorConfig: SanitizedServerEditorConfig) => {
-  return await convertLexicalToHTML({
-    converters: consolidateHTMLConverters({ editorConfig }),
-    data: editorData,
-  });
 };
 
 export default BlogPostPage;
