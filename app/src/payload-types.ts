@@ -418,6 +418,8 @@ export interface CodeBlock {
  */
 export interface MediaBlock {
   media: number | Media;
+  widthOveride?: number | null;
+  heightOveride?: number | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
