@@ -2,6 +2,8 @@ import { ReactNodeConverter } from '@/payload/lexical/types';
 import type { SerializedLinkNode } from '@payloadcms/richtext-lexical';
 import { convertLexicalNodesToReactNode } from '@/payload/lexical/serializeLexical';
 import Link from 'next/link';
+import { customUrlResolvers } from '../customInternalUrlResolvers';
+import { CollectionSlug, DataFromCollectionSlug } from 'payload';
 
 export const LinkReactNodeConverter: ReactNodeConverter<SerializedLinkNode> = {
   async converter({ converters, node, parent }) {
@@ -29,9 +31,19 @@ export const LinkReactNodeConverter: ReactNodeConverter<SerializedLinkNode> = {
     if (link.linkType === 'custom') {
       href = link.url;
     } else if (link.linkType === 'internal') {
-      // TODO: This is not sufficient, there should be a way to determine the relative or absolute 'url' for each collection
-      // @ts-ignore
-      href = link.doc?.value?.id.toString() ?? '';
+      const relationTo = link.doc?.relationTo as CollectionSlug;
+      const doc = link.doc?.value as DataFromCollectionSlug<any>;
+
+      if (doc && relationTo && relationTo in customUrlResolvers) {
+        const resolveUrl = customUrlResolvers[relationTo];
+        const url = resolveUrl(doc);
+        if (!url) {
+          return <span>Failed to resolve url for collection: {relationTo}</span>;
+        }
+        href = url;
+      } else {
+        return <span>Unknown collection or missing document: {relationTo}</span>;
+      }
     } else {
       return <span>Unknown link type: {link.linkType}</span>;
     }

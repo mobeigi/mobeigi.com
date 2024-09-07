@@ -12,7 +12,7 @@ import { Users } from '@payload/collections/Users';
 import { Media } from '@payload/collections/Media';
 import { Files } from '@payload/collections/Files';
 import { Posts } from '@payload/collections/Posts';
-import Category from '@payload/collections/Category';
+import { Category } from '@/payload/collections/Category';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);

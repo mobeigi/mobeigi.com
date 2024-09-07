@@ -4,7 +4,7 @@ import { anyone } from '@payload/access/anyone';
 import { authenticated } from '@payload/access/authenticated';
 import { slugField } from '@payload/fields/slug';
 
-const Category: CollectionConfig = {
+export const Category: CollectionConfig = {
   slug: 'category',
   access: {
     create: authenticated,
@@ -25,5 +25,3 @@ const Category: CollectionConfig = {
     ...slugField(),
   ],
 };
-
-export default Category;
