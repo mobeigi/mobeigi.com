@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { PrefersColorScheme, ThemeMode } from '../../types/theme';
 import { UserPreferencesContext } from './UserPreferencesContext';
-import { getStoredThemeMode, storeThemeCookie } from './utils';
+import { getStoredThemeMode, onThemeModeChanged } from './utils';
 import { UserPreferencesProviderProps } from './types';
 import { getPrefersColorScheme } from '@/utils/theme';
 
@@ -25,7 +25,7 @@ export const UserPreferencesProvider = ({
     // Update stored themeMode
     const storedTheme = getStoredThemeMode();
     setThemeMode(storedTheme);
-    storeThemeCookie(storedTheme, clientPrefersColorScheme);
+    onThemeModeChanged(storedTheme, clientPrefersColorScheme);
   }, []);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export const UserPreferencesProvider = ({
     const updatePrefersColorScheme = () => {
       const clientPrefersColorScheme = getPrefersColorScheme();
       setPrefersColorScheme(clientPrefersColorScheme);
-      storeThemeCookie(themeMode, clientPrefersColorScheme);
+      onThemeModeChanged(themeMode, clientPrefersColorScheme);
     };
     colorSchemeMediaQuery.addEventListener('change', updatePrefersColorScheme);
 
@@ -45,7 +45,7 @@ export const UserPreferencesProvider = ({
 
   const setThemeModeFn = (themeMode: ThemeMode) => {
     setThemeMode(themeMode);
-    storeThemeCookie(themeMode, prefersColorScheme);
+    onThemeModeChanged(themeMode, prefersColorScheme);
   };
 
   return (

@@ -3,6 +3,10 @@ import { PrefersColorScheme, ThemeMode } from '@/types/theme';
 
 /**
  * Generates a URL-encoded cookie value based on theme preferences.
+ *
+ * TODO: Can avoid passing prefersColorScheme in cookie when 'sec-ch-prefers-color-scheme' header becomes baseline.
+ * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-Prefers-Color-Scheme
+ *
  * @param {ThemeMode} themeMode - The user's theme preference.
  * @param {string} prefersColorScheme - The user's system color scheme (light, dark).
  * @returns {string} - URL-encoded value for a cookie.

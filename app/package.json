@@ -19,7 +19,8 @@
     "build": "cross-env next build",
     "start": "cross-env next start",
     "lint": "cross-env next lint",
-    "clean": "rm -rf node_modules .next"
+    "clean": "rm -rf node_modules .next",
+    "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "beta",

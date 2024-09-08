@@ -8,7 +8,7 @@ import FooterContent from '@/components/FooterContent';
 import GlobalStyle from '@/styles/GlobalStyle';
 import StyledComponentsRegistry from '@/lib/registry';
 import ThemeProviderWrapper from '@/lib/ThemeProviderWrapper';
-import { PrefersColorScheme } from '@/types/theme';
+import { PrefersColorScheme, ThemeMode } from '@/types/theme';
 import { THEME_COOKIE_NAME } from '@/constants/cookies';
 import { Body, ScrollableContent, Footer, Header, Main, MainContents, ScrollableContentWrapper } from './styled';
 import { UserPreferencesProvider } from '@/context/userPreferencesContext';

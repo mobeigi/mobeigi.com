@@ -417,7 +417,8 @@ export interface CodeBlock {
  * via the `definition` "MediaBlock".
  */
 export interface MediaBlock {
-  media: number | Media;
+  mediaDark: number | Media;
+  mediaLight?: (number | null) | Media;
   widthOveride?: number | null;
   heightOveride?: number | null;
   id?: string | null;

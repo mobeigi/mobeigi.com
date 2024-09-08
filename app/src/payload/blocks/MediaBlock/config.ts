@@ -5,10 +5,18 @@ export const MediaBlock: Block = {
   interfaceName: 'MediaBlock',
   fields: [
     {
-      name: 'media',
+      name: 'mediaDark',
       type: 'upload',
       relationTo: 'media',
+      label: 'Media - Dark theme mode variant (default)',
       required: true,
+    },
+    {
+      name: 'mediaLight',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Media - Light theme mode variant',
+      required: false,
     },
     {
       name: 'widthOveride',

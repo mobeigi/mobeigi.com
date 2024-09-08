@@ -2,9 +2,9 @@
  * Represents the preference for theming.
  */
 export enum ThemeMode {
-  System = 'System',
-  Light = 'Light',
-  Dark = 'Dark',
+  System = 'system',
+  Light = 'light',
+  Dark = 'dark',
 }
 
 /**
