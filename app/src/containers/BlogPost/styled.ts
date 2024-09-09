@@ -96,9 +96,11 @@ export const BlogPostContainer = styled.article`
   img {
     display: block;
     margin: 0 auto;
+
+    /* Contrain wide images to width of blog post container */
     max-width: 100%;
-    width: auto;
     height: auto;
+
     border-radius: 0.2em;
   }
 
