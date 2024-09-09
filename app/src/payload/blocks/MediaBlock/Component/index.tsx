@@ -8,7 +8,7 @@ export const MediaBlock = (props: MediaBlockType) => {
 
   if (lightMimeType && darkMimeType !== lightMimeType) {
     <span>
-      Unsupported mime type mismatch: {darkMimeType} and {lightMimeType}
+      Unsupported media block mime type mismatch: {darkMimeType} and {lightMimeType}
     </span>;
   }
 
