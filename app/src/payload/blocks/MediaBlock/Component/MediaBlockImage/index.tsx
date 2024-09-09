@@ -4,14 +4,14 @@ import ThemedPicture from '@/components/ThemedPicture';
 import { Picture } from '@/components/ThemedPicture/types';
 import { getDimensionProps } from '../utils';
 
-export const MediaBlockImage = ({ mediaDark, mediaLight, widthOveride, heightOveride }: MediaBlockType) => {
+export const MediaBlockImage = ({ mediaDark, mediaLight, widthOverride, heightOverride }: MediaBlockType) => {
   const mediaDarkData = mediaDark as Media;
 
-  const darkDimensions = getDimensionProps(mediaDarkData, widthOveride, heightOveride);
+  const darkDimensions = getDimensionProps(mediaDarkData, widthOverride, heightOverride);
 
   if (mediaLight) {
     const mediaLightData = mediaLight as Media;
-    const lightDimensions = getDimensionProps(mediaLightData, widthOveride, heightOveride);
+    const lightDimensions = getDimensionProps(mediaLightData, widthOverride, heightOverride);
 
     const darkPicture: Picture = {
       src: mediaDarkData.url!,

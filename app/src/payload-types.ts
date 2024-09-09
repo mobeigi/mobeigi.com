@@ -419,8 +419,8 @@ export interface CodeBlock {
 export interface MediaBlock {
   mediaDark: number | Media;
   mediaLight?: (number | null) | Media;
-  widthOveride?: number | null;
-  heightOveride?: number | null;
+  widthOverride?: number | null;
+  heightOverride?: number | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';

@@ -3,14 +3,14 @@ import { Video } from '@/components/ThemedVideo/types';
 import ThemedVideo from '@/components/ThemedVideo';
 import { getDimensionProps } from '../utils';
 
-export const MediaBlockVideo = ({ mediaDark, mediaLight, widthOveride, heightOveride }: MediaBlockType) => {
+export const MediaBlockVideo = ({ mediaDark, mediaLight, widthOverride, heightOverride }: MediaBlockType) => {
   const mediaDarkData = mediaDark as Media;
 
-  const darkDimensions = getDimensionProps(mediaDarkData, widthOveride, heightOveride);
+  const darkDimensions = getDimensionProps(mediaDarkData, widthOverride, heightOverride);
 
   if (mediaLight) {
     const mediaLightData = mediaLight as Media;
-    const lightDimensions = getDimensionProps(mediaLightData, widthOveride, heightOveride);
+    const lightDimensions = getDimensionProps(mediaLightData, widthOverride, heightOverride);
 
     const darkVideo: Video = {
       src: mediaDarkData.url!,
