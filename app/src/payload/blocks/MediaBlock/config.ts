@@ -19,13 +19,13 @@ export const MediaBlock: Block = {
       required: false,
     },
     {
-      name: 'widthOveride',
+      name: 'widthOverride',
       type: 'number',
       label: 'Width override (optional)',
       required: false,
     },
     {
-      name: 'heightOveride',
+      name: 'heightOverride',
       type: 'number',
       label: 'Height override (optional)',
       required: false,
