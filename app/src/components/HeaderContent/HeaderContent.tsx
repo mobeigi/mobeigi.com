@@ -35,7 +35,7 @@ export const HeaderContent = () => {
       <HeaderContents>
         <LogoContainer>
           <LogoWrapper>
-            <Image src={logoSrc} alt={logoAlt} width={256} height={256} quality={100} draggable={false} />
+            <Image src={logoSrc} alt={logoAlt} width={256} height={256} quality={100} draggable={false} priority />
           </LogoWrapper>
           <SiteTitle>{SITE_TITLE}</SiteTitle>
         </LogoContainer>
