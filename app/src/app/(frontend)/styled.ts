@@ -5,7 +5,7 @@ import zIndex from '@/styles/zindex';
 
 export const Header = styled.header`
   position: fixed;
-  height: 3.35em; /* height of header */
+  height: var(--header-height);
   top: 0;
   left: 0;
   width: 100%;
@@ -18,13 +18,13 @@ export const Main = styled.main`
   justify-content: center;
   flex: 1;
 
-  padding-top: 3.35em; /* Offset height of header */
+  padding-top: var(--header-height); /* Offset height of header */
 `;
 
 export const MainContents = styled.div`
   display: flex;
   width: 100%;
-  max-width: ${({ theme }) => theme.breakpoints.desktop.maxWidth}px;
+  max-width: var(--max-layout-width);
 
   padding-left: 1em;
   padding-right: 1em;

@@ -1,13 +1,30 @@
 import BlogSummary from '@/components/BlogSummary';
-import { BlogPostContainer } from './styled';
+import {
+  BlogPostContainer,
+  BlogPostContents,
+  BlogPostSidebarWrapper,
+  BlogPostSummaryContainer,
+  BlogPostSummaryWrapper,
+  BlogPostBodyContainer,
+} from './styled';
 import { BlogPostProps } from './types';
+import Sidebar from './Sidebar';
 
 export const BlogPost = ({ meta, content }: BlogPostProps) => {
   return (
     <BlogPostContainer>
-      <BlogSummary blogPostMeta={meta} headingLevel="h1" linkHeading={false} showExcerpt={false} />
-      <hr />
-      {content.body}
+      <BlogPostSummaryWrapper>
+        <BlogPostSummaryContainer>
+          <BlogSummary blogPostMeta={meta} headingLevel="h1" linkHeading={false} showExcerpt={false} />
+          <hr />
+        </BlogPostSummaryContainer>
+      </BlogPostSummaryWrapper>
+      <BlogPostBodyContainer>
+        <BlogPostContents>{content.body}</BlogPostContents>
+        <BlogPostSidebarWrapper>
+          <Sidebar customFields={content.customFields} />
+        </BlogPostSidebarWrapper>
+      </BlogPostBodyContainer>
     </BlogPostContainer>
   );
 };

@@ -14,7 +14,7 @@ export const HeaderContainer = styled.div`
 export const HeaderContents = styled.div`
   display: flex;
   width: 100%;
-  max-width: ${({ theme }) => theme.breakpoints.desktop.maxWidth}px;
+  max-width: var(--max-layout-width);
 
   justify-content: space-between;
   gap: 1em;

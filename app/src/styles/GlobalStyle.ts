@@ -4,6 +4,12 @@ import { hexToRgba } from '@/utils/theme';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+  /* Variables */
+  :root {
+    --max-layout-width: 1100px;
+    --header-height: 3.35em;
+  }
+
   /* Base font size */
   html {
     font-size: 16px;

@@ -3,9 +3,10 @@
 import styled from 'styled-components';
 
 export const BlogPostContainer = styled.article`
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px;
-  margin: 0 auto;
+  gap: 1em;
 
   // TODO: MOVE SOME OF THESE TO GLOBAL STYLES IF RELEVANT
   .nestedListItem {
@@ -127,5 +128,55 @@ export const BlogPostContainer = styled.article`
     height: auto;
     aspect-ratio: 16 / 9;
     border-radius: 0.2em;
+  }
+`;
+
+export const BlogPostSummaryWrapper = styled.div`
+  display: block;
+`;
+
+export const BlogPostSummaryContainer = styled.section`
+  display: block;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet.maxWidth}px) {
+    max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px;
+    margin: 0 auto;
+  }
+`;
+
+export const BlogPostBodyContainer = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  gap: 1em;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet.maxWidth}px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+export const BlogPostContents = styled.section`
+  display: block;
+  width: 100%;
+  max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px;
+  flex-grow: 1;
+
+  /* Remove top margin from first childfor consistent layout (start position) */
+  :first-child {
+    margin-top: 0;
+  }
+`;
+
+export const BlogPostSidebarWrapper = styled.aside`
+  display: block;
+  position: sticky;
+  flex-grow: 1;
+  align-self: flex-start; /* Sidebar aligns at the start and allows natural height */
+  top: calc(var(--header-height) + 1em); /* Show underneath header with slight offset when element becomes sticky */
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet.maxWidth}px) {
+    /* Hide the sidebar */
+    display: none;
   }
 `;
