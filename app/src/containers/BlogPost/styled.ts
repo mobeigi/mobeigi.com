@@ -117,6 +117,12 @@ export const BlogPostContainer = styled.article`
   table {
     margin: 0 auto;
     width: 100%;
+
+    /* Break text when vw is limited */
+    * {
+      word-break: break-word;
+      white-space: normal;
+    }
   }
 
   // Embeds
