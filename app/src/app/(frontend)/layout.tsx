@@ -10,7 +10,7 @@ import StyledComponentsRegistry from '@/lib/registry';
 import ThemeProviderWrapper from '@/lib/ThemeProviderWrapper';
 import { PrefersColorScheme, ThemeMode } from '@/types/theme';
 import { THEME_COOKIE_NAME } from '@/constants/cookies';
-import { Body, ScrollableContent, Footer, Header, Main, MainContents, ScrollableContentWrapper } from './styled';
+import { Header, Main, MainContents, Footer } from './styled';
 import { UserPreferencesProvider } from '@/context/userPreferencesContext';
 import { parseThemeCookieValue, resolveThemeMode } from '@/utils/theme';
 import { DEFAULT_THEME_MODE, FALLBACK_PREFERS_COLOR_SCHEME } from '@/constants/theme';
@@ -57,7 +57,7 @@ const RootLayout = ({
 
   return (
     <html lang="en">
-      <Body className={roboto.className}>
+      <body className={roboto.className}>
         <StyledComponentsRegistry>
           <UserPreferencesProvider
             initialThemeMode={initialThemeMode}
@@ -69,21 +69,16 @@ const RootLayout = ({
               <Header id="header">
                 <HeaderContent />
               </Header>
-
-              <ScrollableContentWrapper>
-                <ScrollableContent>
-                  <Main id="main">
-                    <MainContents>{children}</MainContents>
-                  </Main>
-                  <Footer id="footer">
-                    <FooterContent />
-                  </Footer>
-                </ScrollableContent>
-              </ScrollableContentWrapper>
+              <Main id="main">
+                <MainContents>{children}</MainContents>
+              </Main>
+              <Footer id="footer">
+                <FooterContent />
+              </Footer>
             </ThemeProviderWrapper>
           </UserPreferencesProvider>
         </StyledComponentsRegistry>
-      </Body>
+      </body>
     </html>
   );
 };

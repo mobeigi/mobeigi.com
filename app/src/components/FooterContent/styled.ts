@@ -14,15 +14,17 @@ export const FooterContents = styled.div`
   display: flex;
   width: 100%;
   max-width: ${({ theme }) => theme.breakpoints.desktop.maxWidth}px;
+
+  justify-content: center;
+  gap: 1em;
+
   padding-left: 1em;
   padding-right: 1em;
   padding-top: 1em;
   padding-bottom: 1em;
-  justify-content: center;
-  gap: 1em;
+  box-sizing: border-box;
 
   font-size: 0.9em;
-
   color: ${({ theme }) => theme.colors.frame.text.base};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet.maxWidth}px) {

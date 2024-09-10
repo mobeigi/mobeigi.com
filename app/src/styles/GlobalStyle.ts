@@ -24,6 +24,11 @@ const GlobalStyle = createGlobalStyle`
 
   /* Root styling */
   body {
+    min-height: 100vh; /* Allowing scrolling if not enough height in viewport*/
+    display: flex;
+    flex-direction: column;
+
+    // Default Colors
     background-color: ${({ theme }) => theme.colors.background};
     color: ${({ theme }) => theme.colors.text.base};
   }

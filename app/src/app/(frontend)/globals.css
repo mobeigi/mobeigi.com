@@ -15,13 +15,4 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow-y: hidden; /* Avoid scrollbar showing initially, we'll enable this explicitly for scrollable content */
-}
-
-#root {
-  min-height: 100vh; /* Allows vertical alignment while also allowing scrolling if not enough height in viewport*/
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
