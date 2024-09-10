@@ -16,6 +16,7 @@ export type BlogPostMeta = {
 
 export type BlogPostContent = {
   body: ReactNode;
+  customFields?: Array<{ key: string; value: ReactNode }>;
 };
 
 export type BlogPostData = {

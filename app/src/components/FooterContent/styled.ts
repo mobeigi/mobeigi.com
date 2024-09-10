@@ -13,7 +13,7 @@ export const FooterContainer = styled.div`
 export const FooterContents = styled.div`
   display: flex;
   width: 100%;
-  max-width: ${({ theme }) => theme.breakpoints.desktop.maxWidth}px;
+  max-width: var(--max-layout-width);
 
   justify-content: center;
   gap: 1em;

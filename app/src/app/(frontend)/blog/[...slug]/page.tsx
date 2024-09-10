@@ -163,9 +163,18 @@ const transformPostToBlogPostProps = async (post: Post): Promise<BlogPostProps |
   };
 
   const contentBody = await serializeLexical(post.content);
+  const customFields = post.customFields
+    ? await Promise.all(
+        post.customFields.map(async (customField) => ({
+          key: customField.key,
+          value: await serializeLexical(customField.value),
+        })),
+      )
+    : undefined;
 
   const content: BlogPostContent = {
     body: contentBody,
+    customFields: customFields,
   };
 
   const blogPostProps: BlogPostProps = {
