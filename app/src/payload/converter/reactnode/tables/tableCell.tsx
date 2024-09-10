@@ -13,7 +13,6 @@ export const TableCellReactNodeConverter: ReactNodeConverter<SerializedTableCell
       {
         colSpan: node.colSpan,
         rowSpan: node.rowSpan,
-        width: node.width,
       },
       await convertLexicalNodesToReactNode({
         converters,
