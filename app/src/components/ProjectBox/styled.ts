@@ -4,10 +4,10 @@ import styled from 'styled-components';
 
 export const ProjectBoxContainer = styled.div`
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
-  position: relative;
-  width: 25em;
+  width: 21.5em;
   height: 20em;
 `;
 
@@ -15,7 +15,7 @@ export const ProjectBoxContents = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  width: 25em;
+  width: 21.5em;
   height: 20em;
   overflow: hidden;
 
@@ -37,12 +37,10 @@ export const ProjectBoxContents = styled.div`
 export const ImageWrapper = styled.div`
   display: block;
   position: relative;
-  width: auto;
-  min-height: 60%;
-  height: 60%;
+  aspect-ratio: 16 / 9;
 
   img {
-    width: auto;
+    width: 100%;
     height: 100%;
     object-fit: cover;
   }
@@ -50,11 +48,9 @@ export const ImageWrapper = styled.div`
 
 export const Details = styled.div`
   display: flex;
-  min-height: 40%;
-  height: 40%;
   padding: 0.5em;
   flex-direction: column;
-  gap: 0.2em;
+  gap: 0.1em;
 `;
 
 export const Header = styled.div`
