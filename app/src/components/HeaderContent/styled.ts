@@ -14,11 +14,14 @@ export const HeaderContainer = styled.div`
 export const HeaderContents = styled.div`
   display: flex;
   width: 100%;
-  margin-left: 1em;
-  margin-right: 1em;
   max-width: ${({ theme }) => theme.breakpoints.desktop.maxWidth}px;
+
   justify-content: space-between;
   gap: 1em;
+
+  padding-left: 1em;
+  padding-right: 1em;
+  box-sizing: border-box;
 
   /* Make each child take up same width, shared evenly */
   & > * {

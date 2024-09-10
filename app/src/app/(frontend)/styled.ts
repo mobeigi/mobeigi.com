@@ -3,37 +3,22 @@
 import styled from 'styled-components';
 import zIndex from '@/styles/zindex';
 
-export const Body = styled.body`
-  display: flex;
-  flex-direction: column;
-`;
-
 export const Header = styled.header`
   position: fixed;
-  height: 3.35em;
+  height: 3.35em; /* height of header */
   top: 0;
   left: 0;
   width: 100%;
   z-index: ${zIndex.header};
 `;
 
-export const ScrollableContentWrapper = styled.div`
-  padding-top: 3.35em; /* Offset height of header */
-  height: 100%;
-  box-sizing: border-box;
-`;
-
-export const ScrollableContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow-y: auto;
-`;
-
 export const Main = styled.main`
   display: flex;
+  width: 100%;
   justify-content: center;
   flex: 1;
+
+  padding-top: 3.35em; /* Offset height of header */
 `;
 
 export const MainContents = styled.div`
@@ -45,8 +30,9 @@ export const MainContents = styled.div`
   padding-right: 1em;
   padding-top: 1.5em;
   padding-bottom: 1.5em;
-
-  overflow-x: hidden;
+  box-sizing: border-box;
 `;
 
-export const Footer = styled.footer``;
+export const Footer = styled.footer`
+  width: 100%;
+`;
