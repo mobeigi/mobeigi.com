@@ -24,7 +24,7 @@ export const TableOfContentsWrapper = styled.nav``;
 export const TableOfContentsHeadings = styled.span`
   ol,
   ol * ol {
-    list-style: none;
+    list-style-type: none;
   }
 
   li {
@@ -38,6 +38,14 @@ export const TableOfContentsHeadings = styled.span`
     > li:first-of-type {
       padding: 0;
     }
+  }
+
+  li a {
+    color: ${({ theme }) => theme.colors.frame.text.base};
+  }
+
+  li a:hover {
+    color: ${({ theme }) => theme.colors.frame.text.baseHighlight};
   }
 `;
 

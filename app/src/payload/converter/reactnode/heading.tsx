@@ -1,6 +1,7 @@
 import { ReactNodeConverter } from '@/payload/lexical/types';
 import { SerializedHeadingNode } from '@payloadcms/richtext-lexical';
 import { convertLexicalNodesToReactNode } from '@/payload/lexical/serializeLexical';
+import { getNodeText } from '@/utils/react';
 
 export const HeadingReactNodeConverter: ReactNodeConverter<SerializedHeadingNode> = {
   async converter({ converters, node, parent }) {
@@ -17,7 +18,14 @@ export const HeadingReactNodeConverter: ReactNodeConverter<SerializedHeadingNode
       ...(textAlign && { textAlign: textAlign }),
     };
 
-    return <node.tag style={style}>{children}</node.tag>;
+    // Add an id to headings for anchor linking
+    const id = getNodeText(children);
+
+    return (
+      <node.tag id={id || undefined} style={style}>
+        {children}
+      </node.tag>
+    );
   },
   nodeTypes: ['heading'],
 };
