@@ -21,7 +21,7 @@ export const Main = styled.main`
   padding-top: var(--header-height); /* Offset height of header */
 
   /* Adjust scroll margin to compensate for header */
-  scroll-margin-top: calc(var(--header-height) + 0.4em);
+  scroll-margin-top: var(--scroll-margin-top-offset);
 `;
 
 export const MainContents = styled.div`
@@ -40,5 +40,5 @@ export const Footer = styled.footer`
   width: 100%;
 
   /* Adjust scroll margin to compensate for header */
-  scroll-margin-top: calc(var(--header-height) + 0.4em);
+  scroll-margin-top: var(--scroll-margin-top-offset);
 `;

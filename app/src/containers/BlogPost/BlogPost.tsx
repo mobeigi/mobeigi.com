@@ -20,7 +20,7 @@ export const BlogPost = ({ meta, content }: BlogPostProps) => {
         </BlogPostSummaryContainer>
       </BlogPostSummaryWrapper>
       <BlogPostBodyContainer>
-        <BlogPostContents>{content.body}</BlogPostContents>
+        <BlogPostContents id="blogpost-contents">{content.body}</BlogPostContents>
         <BlogPostSidebarWrapper>
           <Sidebar content={content} />
         </BlogPostSidebarWrapper>

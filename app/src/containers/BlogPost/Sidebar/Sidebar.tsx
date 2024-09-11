@@ -1,8 +1,11 @@
+'use client';
+
+import { useEffect, useMemo, useState } from 'react';
 import extractHeadings, { HeadingElement } from '@/utils/extractHeadings';
 import {
   SidebarContainer,
   CustomFieldsContainer,
-  TableOfContentsWrapper,
+  TableOfContentsNav,
   TableOfContentsHeadings,
   SectionHeading,
   CustomFieldsWrapper,
@@ -48,6 +51,8 @@ const renderHeadings = (headings: HeadingElement[]) => {
 };
 
 export const Sidebar = ({ content }: SidebarProps) => {
+  const [headingsInBlogpostContents, setHeadingsInBlogpostContents] = useState<Element[]>([]);
+
   const headings = extractHeadings(content.body);
 
   // Show only 1-2 levels deep based on total number of headings
@@ -58,13 +63,103 @@ export const Sidebar = ({ content }: SidebarProps) => {
     filteredHeadings = filterHeadingsByDepth(headings, 1);
   }
 
+  useEffect(() => {
+    const handleDOMLoaded = () => {
+      // This element is rendered elsewhere so we only try accessing it post DOM load
+      const blogpostContents = document.getElementById('blogpost-contents');
+      if (blogpostContents) {
+        const headings = Array.from(
+          blogpostContents.querySelectorAll('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]'),
+        );
+        setHeadingsInBlogpostContents(headings);
+      }
+    };
+
+    // Check if DOM is fully loaded
+    if (document.readyState === 'complete') {
+      handleDOMLoaded();
+    } else {
+      window.addEventListener('load', handleDOMLoaded);
+    }
+
+    return () => {
+      window.removeEventListener('load', handleDOMLoaded);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!headingsInBlogpostContents.length) {
+        return;
+      }
+
+      const tocNav = document.getElementById('blogpost-table-of-contents-nav');
+      if (!tocNav) {
+        console.warn('Required element missing: tocNav.');
+        return;
+      }
+
+      const rootStyles = getComputedStyle(document.documentElement);
+      const headerHeightPropertyValue = rootStyles.getPropertyValue('--header-height');
+      const scrollMarginExtraPropertyValue = rootStyles.getPropertyValue('--scroll-margin-extra');
+
+      if (!headerHeightPropertyValue || !scrollMarginExtraPropertyValue) {
+        console.warn('Failed to resolve CSS variables: --header-height or --scroll-margin-extra.');
+        return;
+      }
+      const headerHeight = parseFloat(headerHeightPropertyValue);
+      const scrollMarginExtra = parseFloat(scrollMarginExtraPropertyValue);
+      const fontSize = parseFloat(rootStyles.fontSize);
+
+      if (isNaN(headerHeight) || isNaN(scrollMarginExtra) || isNaN(fontSize)) {
+        console.warn('CSS values for header height, scroll margin, or font size are invalid (NaN).');
+        return;
+      }
+
+      const headerHeightInPx = headerHeight * fontSize;
+      const scrollMarginExtraInPx = scrollMarginExtra * fontSize;
+      const bufferPx = 8;
+      const scrollPosition = window.scrollY + headerHeightInPx + scrollMarginExtraInPx + bufferPx;
+
+      let currentHeadingId = null;
+      for (const heading of headingsInBlogpostContents) {
+        const headingTop = heading.getBoundingClientRect().top + window.scrollY;
+
+        if (headingTop <= scrollPosition) {
+          const headingId = heading.getAttribute('id');
+          const navLink = tocNav.querySelector(`li a[href="#${headingId}"]`);
+
+          if (navLink) {
+            currentHeadingId = headingId;
+          }
+        } else {
+          break;
+        }
+      }
+
+      tocNav.querySelectorAll('li').forEach((li) => li.classList.remove('active'));
+
+      if (currentHeadingId) {
+        const navLink = tocNav.querySelector(`li a[href="#${currentHeadingId}"]`)?.parentElement;
+        navLink?.classList.add('active');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [headingsInBlogpostContents]);
+
   return (
     <SidebarContainer>
       {filteredHeadings.length > 0 && (
-        <TableOfContentsWrapper>
+        <TableOfContentsNav id="blogpost-table-of-contents-nav">
           <SectionHeading>Contents</SectionHeading>
           <TableOfContentsHeadings>{renderHeadings(filteredHeadings)}</TableOfContentsHeadings>
-        </TableOfContentsWrapper>
+        </TableOfContentsNav>
       )}
       {content.customFields && content.customFields.length > 0 && (
         <CustomFieldsWrapper>

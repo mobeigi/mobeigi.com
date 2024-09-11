@@ -8,6 +8,9 @@ const GlobalStyle = createGlobalStyle`
   :root {
     --max-layout-width: 1100px;
     --header-height: 3.35rem;
+    
+    --scroll-margin-extra: 0.4rem;
+    --scroll-margin-top-offset: calc(var(--header-height) + var(--scroll-margin-extra));
   }
 
   /* Base font size */
@@ -76,7 +79,7 @@ const GlobalStyle = createGlobalStyle`
 
   h1, h2, h3, h4, h5, h6 {
     /* Adjust scroll margin to compensate for fixed header */
-    scroll-margin-top: calc(var(--header-height) + 0.4em);
+    scroll-margin-top: var(--scroll-margin-top-offset);
   }
 
   /* Lists */
