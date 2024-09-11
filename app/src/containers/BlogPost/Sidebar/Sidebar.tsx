@@ -5,7 +5,7 @@ export const Sidebar = ({ customFields }: SidebarProps) => (
   <SidebarContainer>
     {customFields && customFields.length > 0 && (
       <>
-        <h5>Other details:</h5>
+        <h5>Other details</h5>
         <CustomFieldsContainer>
           {customFields?.map((customField, index) => (
             <span key={index}>
