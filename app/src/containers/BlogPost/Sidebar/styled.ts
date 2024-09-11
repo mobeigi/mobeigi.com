@@ -19,12 +19,12 @@ export const SectionHeading = styled.h5`
   margin-bottom: 1em;
 `;
 
-export const TableOfContentsWrapper = styled.nav``;
+export const TableOfContentsNav = styled.nav``;
 
 export const TableOfContentsHeadings = styled.span`
   ol,
   ol * ol {
-    list-style-type: none;
+    list-style-type: none !important;
   }
 
   li {
@@ -42,10 +42,15 @@ export const TableOfContentsHeadings = styled.span`
 
   li a {
     color: ${({ theme }) => theme.colors.frame.text.base};
+    transition: all 50ms ease-in-out;
   }
 
   li a:hover {
     color: ${({ theme }) => theme.colors.frame.text.baseHighlight};
+  }
+
+  li.active > a {
+    color: ${({ theme }) => theme.colors.text.link};
   }
 `;
 
