@@ -1,5 +1,6 @@
 import { Children, isValidElement, ReactElement, ReactNode } from 'react';
 import { HeadingElement } from './types';
+import { getNodeText } from '../react';
 
 export const extractHeadings = (node: ReactNode): HeadingElement[] => {
   const headings: HeadingElement[] = [];
@@ -30,30 +31,6 @@ export const extractHeadings = (node: ReactNode): HeadingElement[] => {
 
   Children.forEach(node, traverse); // Handle the case where node is an array or single element
   return buildHierarchy(headings);
-};
-
-const getNodeText = (node: ReactNode): string | null => {
-  if (node == null) return '';
-
-  switch (typeof node) {
-    case 'string':
-    case 'number':
-    case 'boolean':
-      return node.toString();
-    case 'object': {
-      if (node instanceof Array) {
-        return node.map(getNodeText).join('');
-      }
-
-      if ('props' in node) {
-        const props = (node as ReactElement<any>).props;
-        return getNodeText(props.children);
-      }
-    }
-    default:
-      console.warn('Unresolved `node` of type:', typeof node, node);
-      return null;
-  }
 };
 
 const buildHierarchy = (headings: HeadingElement[]): HeadingElement[] => {

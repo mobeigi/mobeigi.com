@@ -36,7 +36,7 @@ const renderHeadings = (headings: HeadingElement[]) => {
       <ol>
         {items.map((item, index) => (
           <li key={index}>
-            {item.text}
+            <a href={`#${item.text}`}>{item.text}</a>
             {item.children.length > 0 && renderList(item.children)}
           </li>
         ))}

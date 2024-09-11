@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
   /* Variables */
   :root {
     --max-layout-width: 1100px;
-    --header-height: 3.35em;
+    --header-height: 3.35rem;
   }
 
   /* Base font size */
@@ -29,6 +29,10 @@ const GlobalStyle = createGlobalStyle`
   }
 
   /* Root styling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     min-height: 100vh; /* Allowing scrolling if not enough height in viewport*/
     display: flex;
@@ -68,6 +72,11 @@ const GlobalStyle = createGlobalStyle`
   h6 {
     font-size: 1em;
     margin: 2.33em 0;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    /* Adjust scroll margin to compensate for fixed header */
+    scroll-margin-top: calc(var(--header-height) + 0.4em);
   }
 
   /* Lists */
