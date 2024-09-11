@@ -22,7 +22,7 @@ export const BlogPost = ({ meta, content }: BlogPostProps) => {
       <BlogPostBodyContainer>
         <BlogPostContents>{content.body}</BlogPostContents>
         <BlogPostSidebarWrapper>
-          <Sidebar customFields={content.customFields} />
+          <Sidebar content={content} />
         </BlogPostSidebarWrapper>
       </BlogPostBodyContainer>
     </BlogPostContainer>
