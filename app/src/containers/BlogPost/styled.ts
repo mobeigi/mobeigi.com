@@ -180,7 +180,7 @@ export const BlogPostSidebarWrapper = styled.aside`
   flex-grow: 1;
   align-self: flex-start; /* Sidebar aligns at the start and allows natural height */
   top: calc(var(--header-height) + 1em); /* Show underneath header with slight offset when element becomes sticky */
-  min-width: 200px;
+  min-width: 225px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet.maxWidth}px) {
     /* Hide the sidebar */
