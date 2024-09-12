@@ -14,6 +14,7 @@ import CategorySvg from '@/assets/icons/boxicons/bx-category.svg';
 
 const BASE_BLOG_URL = pages.find((entry) => entry.name === 'Blog')!.href;
 
+// TODO: Use payload URL resolver instead or accept url through additional field in BlogPostMeta
 const getBlogPostRelativeUrl = (blogPostMeta: BlogPostMeta) => {
   return (
     BASE_BLOG_URL + [...blogPostMeta.breadcrumbs.map((breadcrumb) => breadcrumb.slug), blogPostMeta.slug].join('/')

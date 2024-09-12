@@ -11,13 +11,7 @@ import {
 } from '@payloadcms/richtext-lexical';
 import { authenticated } from '../../access/authenticated';
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished';
-import {
-  MetaDescriptionField,
-  MetaImageField,
-  MetaTitleField,
-  OverviewField,
-  PreviewField,
-} from '@payloadcms/plugin-seo/fields';
+import { MetaDescriptionField, MetaTitleField, OverviewField } from '@payloadcms/plugin-seo/fields';
 import { revalidatePost } from './hooks/revalidatePost';
 import { slugField } from '../../fields/slug';
 import { Code } from '@payload/blocks/Code/config';
@@ -123,24 +117,11 @@ export const Posts: CollectionConfig = {
             OverviewField({
               titlePath: 'meta.title',
               descriptionPath: 'meta.description',
-              imagePath: 'meta.image',
             }),
             MetaTitleField({
               hasGenerateFn: false,
             }),
-            MetaImageField({
-              hasGenerateFn: false,
-              relationTo: 'media',
-            }),
-
             MetaDescriptionField({ hasGenerateFn: false }),
-            PreviewField({
-              hasGenerateFn: true,
-
-              // field paths to match the target field for data
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-            }),
           ],
         },
       ],

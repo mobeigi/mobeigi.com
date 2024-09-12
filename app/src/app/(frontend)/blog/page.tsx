@@ -2,8 +2,7 @@ import BlogPage from '@/containers/BlogPage';
 import { Metadata } from 'next';
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import config from '@payload-config';
-import { Category, Post } from '@/payload-types';
-import { BlogPostMeta, Breadcrumb } from '@/types/blog';
+import { mapBlogPostsToMetas } from '@/utils/payload';
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
 
 const depth = 2;
 
-const Blog = async () => {
+const BlogPageHandler = async () => {
   const payload = await getPayloadHMR({
     config,
   });
@@ -22,41 +21,8 @@ const Blog = async () => {
     limit: 0, // no limit so we can retreive all posts
   });
 
-  const blogPostMetas = posts.docs
-    .map((post: Post) => {
-      if (!post.publishedAt || !post.category || !post.slug) {
-        console.warn('Required blog post fields are not provided or are invalid.', post);
-        return null;
-      }
-
-      const category = post.category as Category;
-      const publishedAtDate = new Date(post.publishedAt);
-
-      if (!category.breadcrumbs) {
-        console.warn('Breadcrumbs cannot be absent.');
-        return null;
-      }
-
-      const blogPostBreadcrumbs: Breadcrumb[] = category.breadcrumbs.map((breadcrumb) => ({
-        title: breadcrumb.label!,
-        slug: breadcrumb.url!.split('/').slice(-1)[0].replace('/', ''),
-        url: breadcrumb.url!,
-      }));
-
-      const blogPostMeta: BlogPostMeta = {
-        title: post.title,
-        publishedAt: publishedAtDate,
-        excerpt: post.excerpt,
-        slug: post.slug,
-        breadcrumbs: blogPostBreadcrumbs,
-      };
-
-      return blogPostMeta;
-    })
-    .filter((blogPostMeta) => blogPostMeta !== null)
-    .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime());
-
+  const blogPostMetas = mapBlogPostsToMetas(posts.docs);
   return <BlogPage blogPostMetas={blogPostMetas} />;
 };
 
-export default Blog;
+export default BlogPageHandler;
