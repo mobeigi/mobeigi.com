@@ -86,7 +86,7 @@ export const generateMetadata = async ({ params }: { params: { slug: string[] } 
   };
 };
 
-const BlogPostPage = async ({ params }: { params: { slug: string[] } }) => {
+const BlogPostHandler = async ({ params }: { params: { slug: string[] } }) => {
   const post = await getPostFromParams({ params });
   if (!post) {
     notFound();
@@ -99,32 +99,6 @@ const BlogPostPage = async ({ params }: { params: { slug: string[] } }) => {
   }
 
   return <BlogPost {...blogPostProps} />;
-};
-
-export const generateStaticParams = async () => {
-  const payload = await getPayloadHMR({
-    config,
-  });
-  const posts = await payload.find({ collection: 'posts', depth });
-  const paths = posts.docs
-    .map((post: Post) => {
-      if (!post.category) {
-        return null;
-      }
-      const category = post.category as Category;
-      const categorySlugUrl = getCategorySlugUrl(category);
-      if (!categorySlugUrl) {
-        return null;
-      }
-      const categorySlugUrlArray = categorySlugUrl.split('/');
-
-      return {
-        slug: [...categorySlugUrlArray, post.slug!],
-      };
-    })
-    .filter((path) => path !== null);
-
-  return paths;
 };
 
 /**
@@ -185,4 +159,31 @@ const transformPostToBlogPostProps = async (post: Post): Promise<BlogPostProps |
   return blogPostProps;
 };
 
-export default BlogPostPage;
+// TODO: Not needed for SSR? Can likely remove.
+// export const generateStaticParams = async () => {
+//   const payload = await getPayloadHMR({
+//     config,
+//   });
+//   const posts = await payload.find({ collection: 'posts', depth });
+//   const paths = posts.docs
+//     .map((post: Post) => {
+//       if (!post.category) {
+//         return null;
+//       }
+//       const category = post.category as Category;
+//       const categorySlugUrl = getCategorySlugUrl(category);
+//       if (!categorySlugUrl) {
+//         return null;
+//       }
+//       const categorySlugUrlArray = categorySlugUrl.split('/');
+
+//       return {
+//         slug: [...categorySlugUrlArray, post.slug!],
+//       };
+//     })
+//     .filter((path) => path !== null);
+
+//   return paths;
+// };
+
+export default BlogPostHandler;

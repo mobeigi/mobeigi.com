@@ -162,7 +162,6 @@ export interface Post {
     | null;
   meta?: {
     title?: string | null;
-    image?: (number | null) | Media;
     description?: string | null;
   };
   publishedAt?: string | null;
@@ -181,6 +180,11 @@ export interface Post {
 export interface Category {
   id: number;
   title: string;
+  description: string;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+  };
   slug?: string | null;
   slugLock?: boolean | null;
   parent?: (number | null) | Category;

@@ -26,10 +26,8 @@ import { TableFeatureClient as TableFeatureClient_24 } from '@payloadcms/richtex
 import { BlocksFeatureClient as BlocksFeatureClient_25 } from '@payloadcms/richtext-lexical/client'
 import { OverviewComponent as OverviewComponent_26 } from '@payloadcms/plugin-seo/client'
 import { MetaTitleComponent as MetaTitleComponent_27 } from '@payloadcms/plugin-seo/client'
-import { MetaImageComponent as MetaImageComponent_28 } from '@payloadcms/plugin-seo/client'
-import { MetaDescriptionComponent as MetaDescriptionComponent_29 } from '@payloadcms/plugin-seo/client'
-import { PreviewComponent as PreviewComponent_30 } from '@payloadcms/plugin-seo/client'
-import { SlugComponent as SlugComponent_31 } from '@payload/fields/slug/SlugComponent'
+import { MetaDescriptionComponent as MetaDescriptionComponent_28 } from '@payloadcms/plugin-seo/client'
+import { SlugComponent as SlugComponent_29 } from '@payload/fields/slug/SlugComponent'
 
 export const importMap = {
   "@payloadcms/richtext-lexical/client#RichTextCell": RichTextCell_0,
@@ -60,8 +58,6 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#BlocksFeatureClient": BlocksFeatureClient_25,
   "@payloadcms/plugin-seo/client#OverviewComponent": OverviewComponent_26,
   "@payloadcms/plugin-seo/client#MetaTitleComponent": MetaTitleComponent_27,
-  "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_28,
-  "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_29,
-  "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_30,
-  "@payload/fields/slug/SlugComponent#SlugComponent": SlugComponent_31
+  "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_28,
+  "@payload/fields/slug/SlugComponent#SlugComponent": SlugComponent_29
 }
