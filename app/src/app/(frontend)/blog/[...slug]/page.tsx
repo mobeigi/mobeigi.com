@@ -5,8 +5,9 @@ import config from '@payload-config';
 import BlogPost from '@/containers/BlogPost';
 import { notFound } from 'next/navigation';
 import { BlogPostProps } from '@/containers/BlogPost';
-import { BlogPostContent, BlogPostMeta, Breadcrumb } from '@/types/blog';
+import { BlogPostContent } from '@/types/blog';
 import { serializeLexical } from '@/payload/lexical/serializeLexical';
+import { mapBlogPostToMeta } from '@/utils/payload';
 
 const depth = 2;
 
@@ -105,36 +106,11 @@ const BlogPostHandler = async ({ params }: { params: { slug: string[] } }) => {
  * Transforms a Post to a BlogPostProps object
  */
 const transformPostToBlogPostProps = async (post: Post): Promise<BlogPostProps | null> => {
-  const payload = await getPayloadHMR({
-    config,
-  });
-
-  if (!post.publishedAt || !post.category || !post.slug) {
-    console.warn('Required blog post fields are not provided or are invalid.', post);
+  const meta = mapBlogPostToMeta(post);
+  if (!meta) {
+    console.warn('BlogPostMeta cannot be null.');
     return null;
   }
-
-  const category = post.category as Category;
-  const publishedAtDate = new Date(post.publishedAt);
-
-  if (!category.breadcrumbs) {
-    console.warn('Breadcrumbs cannot be absent.');
-    return null;
-  }
-
-  const blogPostBreadcrumbs: Breadcrumb[] = category.breadcrumbs.map((breadcrumb) => ({
-    title: breadcrumb.label!,
-    slug: breadcrumb.url!.split('/').slice(-1)[0].replace('/', ''),
-    url: breadcrumb.url!,
-  }));
-
-  const meta: BlogPostMeta = {
-    title: post.title,
-    publishedAt: publishedAtDate,
-    excerpt: post.excerpt,
-    slug: post.slug,
-    breadcrumbs: blogPostBreadcrumbs,
-  };
 
   const contentBody = await serializeLexical(post.content);
   const customFields = post.customFields

@@ -1,1 +1,1 @@
-export { mapBlogPostsToMetas } from './mapBlogPostsToMetas';
+export { mapBlogPostToMeta, mapBlogPostsToMetas } from './mapBlogPostsToMetas';
