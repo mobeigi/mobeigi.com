@@ -55,7 +55,7 @@ export const Posts: CollectionConfig = {
                 features: ({ rootFeatures }) => {
                   return [
                     ...rootFeatures,
-                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }),
+                    HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4', 'h5', 'h6'] }),
                     BlocksFeature({
                       blocks: [Code, MediaBlock, File, Embed],
                       inlineBlocks: [Code, MediaBlock, File, Embed],
