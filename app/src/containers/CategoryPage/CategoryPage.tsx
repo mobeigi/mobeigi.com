@@ -11,7 +11,7 @@ export const CategoryPage = ({ categoryTitle, categoryDescription, blogPostMetas
         {blogPostMetas.length ? (
           blogPostMetas.map((blogPostMeta, index) => (
             <article key={index}>
-              <BlogSummary key={blogPostMeta.slug} blogPostMeta={blogPostMeta} />
+              <BlogSummary key={blogPostMeta.slug} blogPostMeta={blogPostMeta} linkCategory={false} />
             </article>
           ))
         ) : (

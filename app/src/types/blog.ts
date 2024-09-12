@@ -6,11 +6,19 @@ export type Breadcrumb = {
   url: string;
 };
 
+export type Category = {
+  title: string;
+  description: string;
+  url: string;
+};
+
 export type BlogPostMeta = {
   title: string;
   publishedAt: Date;
   excerpt: string;
   slug: string;
+  url: string;
+  category: Category;
   breadcrumbs: Breadcrumb[];
 };
 

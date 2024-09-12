@@ -23,6 +23,6 @@ export const resolveCategoryUrl = (doc: DataFromCollectionSlug<CollectionSlug>) 
   if (!categorySlugComponents || categorySlugComponents.length === 0) {
     return null;
   }
-  const categoryUrl = ['/category', ...categorySlugComponents].join('/');
+  const categoryUrl = ['/blog', 'category', ...categorySlugComponents].join('/');
   return categoryUrl;
 };

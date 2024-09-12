@@ -30,5 +30,15 @@ export const Detail = styled.span`
   gap: 0.2em;
   justify-content: center;
   align-items: center;
-  color: ${({ theme }) => theme.colors.status.disabled.base};
+  color: ${({ theme }) => theme.colors.frame.text.base};
+`;
+
+export const CategoryWrapper = styled.span`
+  a {
+    color: ${({ theme }) => theme.colors.frame.text.base};
+  }
+
+  a:hover {
+    color: ${({ theme }) => theme.colors.frame.text.baseHighlight};
+  }
 `;
