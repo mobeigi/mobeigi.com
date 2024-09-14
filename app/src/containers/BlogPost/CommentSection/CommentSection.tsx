@@ -146,7 +146,7 @@ export const CommentSection = ({ comments, postId }: CommentSectionProps) => {
             <label htmlFor="email">Email:</label>
             <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </InputWrapper>
-          <button onClick={handleCommentSubmit}>Submit</button>
+          <button onClick={handleCommentSubmit}>Comment</button>
         </TopInputRow>
         <LexicalComposer initialConfig={initialConfig}>
           <RichTextPlugin
