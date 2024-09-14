@@ -90,7 +90,7 @@ const Comments = ({ comments }: CommentsProps) => {
   );
 };
 
-export const CommentSection = ({ comments }: CommentSectionProps) => {
+export const CommentSection = ({ comments, postId }: CommentSectionProps) => {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [content, setContent] = useState('');
@@ -119,7 +119,7 @@ export const CommentSection = ({ comments }: CommentSectionProps) => {
           displayName,
           email,
           content,
-          post: 1, // TODO: update
+          post: postId,
         }),
       });
 
