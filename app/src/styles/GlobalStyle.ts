@@ -105,8 +105,8 @@ const GlobalStyle = createGlobalStyle`
 
   /* Buttons */
   button {
-    border-radius: 4px;
-    border: 1px solid transparent;
+    border-radius: 0.2em;
+    border: 0.1em solid transparent;
     padding: 0.6em 1.2em;
     font-size: 1em;
     font-weight: 500;
@@ -186,7 +186,22 @@ const GlobalStyle = createGlobalStyle`
 
   // HR
   hr {
+    width: 100%;
     border-color: ${({ theme }) => theme.colors.container.accent};
+  }
+
+  // Input
+  input {
+    padding: 0.6em 1em;
+    background-color: ${({ theme }) => theme.colors.container.background};
+    border: 0.1em solid ${({ theme }) => theme.colors.container.accent};
+    border-radius: 0.2em;
+    transition: border-color 0.3s ease;
+  }
+
+  input:focus {
+    border-color: ${({ theme }) => theme.colors.container.text.baseHighlight};
+    outline: none;
   }
 `;
 

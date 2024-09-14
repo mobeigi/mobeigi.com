@@ -27,7 +27,18 @@ export type BlogPostContent = {
   customFields?: Array<{ key: string; value: ReactNode }>;
 };
 
+export type Comment = {
+  id: number;
+  displayName: string;
+  displayPictureUrl?: string;
+  emailHash: string;
+  createdAt: Date;
+  content: ReactNode;
+  children: Comment[];
+};
+
 export type BlogPostData = {
   meta: BlogPostMeta;
   content: BlogPostContent;
+  comments: Comment[];
 };

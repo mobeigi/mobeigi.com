@@ -13,6 +13,7 @@ import { Media } from '@payload/collections/Media';
 import { Files } from '@payload/collections/Files';
 import { Posts } from '@payload/collections/Posts';
 import { Category } from '@/payload/collections/Category';
+import { Comments } from '@/payload/collections/Comments';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -24,7 +25,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Files, Posts, Category],
+  collections: [Users, Media, Files, Posts, Category, Comments],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => {
       return [
@@ -54,6 +55,11 @@ export default buildConfig({
       collections: [Category.slug],
       generateLabel: (_, doc) => doc.title as string,
       generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
+    }),
+    nestedDocsPlugin({
+      collections: [Comments.slug],
+      generateLabel: (_, doc) => doc.displayName as string,
+      generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.id}`, ''),
     }),
   ],
 });

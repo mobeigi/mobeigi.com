@@ -31,6 +31,7 @@ export const Posts: CollectionConfig = {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     useAsTitle: 'title',
   },
+  timestamps: true,
   fields: [
     {
       name: 'title',
