@@ -80,9 +80,10 @@ const animalSvgUrlList = [
  */
 export const getRandomAnimalSvgUrl = (seed: string): string => {
   // Use md5 for speed as security is not a concern here
-  const hash = crypto.createHash('md5').update(seed).digest('hex');
+  const hash = crypto.createHash('md5').update(seed).digest();
 
-  // Convert the hash into an integer to use as an index
-  const index = parseInt(hash, 16) % animalSvgUrlList.length;
+  // Use the first 4 bytes of the hash as an integer (32 bits) and map it to the animal array length
+  const index = hash.readUInt32BE(0) % animalSvgUrlList.length;
+
   return animalSvgUrlList[index];
 };
