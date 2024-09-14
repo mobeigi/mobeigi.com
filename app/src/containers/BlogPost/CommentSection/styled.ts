@@ -106,8 +106,11 @@ export const CommentBox = styled.div`
   display: flex;
   gap: 1em;
 `;
+interface DisplayPictureProps {
+  $isCustomDisplayPicture: boolean;
+}
 
-export const DisplayPicture = styled.div`
+export const DisplayPicture = styled.div<DisplayPictureProps>`
   display: block;
   min-width: var(--display-picture-size);
   min-height: var(--display-picture-size);
@@ -115,7 +118,8 @@ export const DisplayPicture = styled.div`
   img {
     width: var(--display-picture-size);
     height: var(--display-picture-size);
-    border-radius: 50%;
+
+    ${({ $isCustomDisplayPicture }) => $isCustomDisplayPicture && 'border-radius: 50%;'}
   }
 `;
 

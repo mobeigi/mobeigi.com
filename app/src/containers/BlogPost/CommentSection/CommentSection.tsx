@@ -82,7 +82,7 @@ const SingleComment = ({ comment, postId }: SingleCommentProps) => {
       })
       .toLocaleUpperCase();
 
-  // Use display picture or fallback otherwise
+  const isCustomDisplayPicture = comment.displayPictureUrl !== undefined;
   const displayPictureUrl = comment.displayPictureUrl || getRandomAnimalSvgUrl(comment.emailHash);
 
   const handleReply = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -93,7 +93,7 @@ const SingleComment = ({ comment, postId }: SingleCommentProps) => {
   return (
     <div>
       <CommentBox>
-        <DisplayPicture>
+        <DisplayPicture $isCustomDisplayPicture={isCustomDisplayPicture}>
           <Image src={displayPictureUrl} alt={`Display picture for ${comment.displayName}`} width={55} height={55} />
         </DisplayPicture>
         <CommentMain>
