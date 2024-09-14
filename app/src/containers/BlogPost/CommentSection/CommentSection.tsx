@@ -15,10 +15,11 @@ import {
   DisplayName,
   CommentContents,
   CreatedAtDate,
-  CommentBoxesContainer,
+  CommentsContainer,
   CommentActions,
   ActionRow,
   LeaveCommentContainer,
+  SingleCommentContainer,
 } from './styled';
 
 import { LexicalComposer, type InitialConfigType } from '@lexical/react/LexicalComposer';
@@ -91,7 +92,7 @@ const SingleComment = ({ comment, postId }: SingleCommentProps) => {
   };
 
   return (
-    <div>
+    <SingleCommentContainer>
       <CommentBox>
         <DisplayPicture $isCustomDisplayPicture={isCustomDisplayPicture}>
           <Image src={displayPictureUrl} alt={`Display picture for ${comment.displayName}`} width={55} height={55} />
@@ -119,7 +120,7 @@ const SingleComment = ({ comment, postId }: SingleCommentProps) => {
           onCancel={() => setIsReplying(false)}
         />
       )}
-    </div>
+    </SingleCommentContainer>
   );
 };
 
@@ -228,9 +229,9 @@ export const CommentSection = ({ comments, postId }: CommentSectionProps) => {
               Showing <strong>{commentCount}</strong> {commentCount === 1 ? 'comment' : 'comments'} from{' '}
               <strong>{commentersCount}</strong> {commentersCount === 1 ? 'commenter' : 'commenters'}.
             </p>
-            <CommentBoxesContainer>
+            <CommentsContainer>
               <Comments comments={comments} postId={postId} />
-            </CommentBoxesContainer>
+            </CommentsContainer>
           </>
         ) : (
           <p>There are no comments yet. Be the first to add one!</p>
