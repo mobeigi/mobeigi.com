@@ -23,12 +23,14 @@ import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 
 import { CommentSectionProps } from './types';
 import Image from 'next/image';
 import { getRandomAnimalSvgUrl } from '@/utils/avatar';
 import { countTotalCommenters, countTotalComments } from '@/utils/blog';
 import { Comment } from '@/types/blog';
+import { useState } from 'react';
 
 interface CommentsProps {
   comments: Comment[];
@@ -89,6 +91,10 @@ const Comments = ({ comments }: CommentsProps) => {
 };
 
 export const CommentSection = ({ comments }: CommentSectionProps) => {
+  const [displayName, setDisplayName] = useState('');
+  const [email, setEmail] = useState('');
+  const [content, setContent] = useState('');
+
   const onError = (error: Error) => {
     console.error(error);
   };
@@ -102,6 +108,31 @@ export const CommentSection = ({ comments }: CommentSectionProps) => {
   const commentCount = countTotalComments(comments);
   const commentersCount = countTotalCommenters(comments);
 
+  const handleCommentSubmit = async () => {
+    try {
+      const response = await fetch('/api/comments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          displayName,
+          email,
+          content,
+          post: 1, // TODO: update
+        }),
+      });
+
+      if (!response.ok) {
+        console.error('Error submitting comment');
+      } else {
+        console.log('Comment submitted successfully');
+      }
+    } catch (err) {
+      console.error('Error:', err);
+    }
+  };
+
   return (
     <CommentSectionContainer>
       <LeaveCommentArea>
@@ -109,13 +140,13 @@ export const CommentSection = ({ comments }: CommentSectionProps) => {
         <TopInputRow>
           <InputWrapper>
             <label htmlFor="displayName">Display Name:</label>
-            <input type="text" id="displayName" />
+            <input type="text" id="displayName" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
           </InputWrapper>
           <InputWrapper>
             <label htmlFor="email">Email:</label>
-            <input type="text" id="email" />
+            <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </InputWrapper>
-          <button>Submit</button>
+          <button onClick={handleCommentSubmit}>Submit</button>
         </TopInputRow>
         <LexicalComposer initialConfig={initialConfig}>
           <RichTextPlugin
@@ -125,6 +156,14 @@ export const CommentSection = ({ comments }: CommentSectionProps) => {
               </ContentEditableWrapper>
             }
             ErrorBoundary={LexicalErrorBoundary}
+          />
+          <OnChangePlugin
+            onChange={(editorState) => {
+              editorState.read(() => {
+                const serializedContent = JSON.stringify(editorState.toJSON());
+                setContent(serializedContent);
+              });
+            }}
           />
           <HistoryPlugin />
         </LexicalComposer>
