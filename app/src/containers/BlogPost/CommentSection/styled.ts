@@ -10,6 +10,12 @@ export const LeaveCommentArea = styled.section`
   gap: 0.4em;
 `;
 
+export const LeaveCommentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+`;
+
 export const TopInputRow = styled.div`
   display: flex;
   justify-content: space-between;
@@ -49,6 +55,12 @@ export const ContentEditableWrapper = styled.div`
       outline: none;
     }
   }
+`;
+
+export const ActionRow = styled.span`
+  display: flex;
+  gap: 0.4em;
+  justify-content: flex-end;
 `;
 
 export const CommentsArea = styled.section`
@@ -128,3 +140,5 @@ export const CreatedAtDate = styled.span`
 `;
 
 export const CommentContents = styled.span``;
+
+export const CommentActions = styled.span``;
