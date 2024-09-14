@@ -41,7 +41,8 @@
     "react-responsive": "^10.0.0",
     "react-toggle-dark-mode": "file:./packages/react-toggle-dark-mode-v2.0.0.tgz",
     "sharp": "0.33.5",
-    "styled-components": "^6.1.12"
+    "styled-components": "^6.1.12",
+    "validator": "^13.12.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
@@ -50,6 +51,7 @@
     "@types/react": "npm:types-react@rc",
     "@types/react-dom": "npm:types-react-dom@rc",
     "@types/styled-components": "^5.1.34",
+    "@types/validator": "^13.12.1",
     "eslint": "^8",
     "eslint-config-next": "15.0.0-canary.138",
     "eslint-config-prettier": "^9.1.0",

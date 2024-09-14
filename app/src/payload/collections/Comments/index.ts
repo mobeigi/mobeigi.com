@@ -3,11 +3,12 @@ import { authenticated } from '@/payload/access/authenticated';
 import { fetchGravatarProfile } from '@/utils/gravatar';
 import { FixedToolbarFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
 import type { CollectionConfig } from 'payload';
+import validator from 'validator';
 
 export const Comments: CollectionConfig = {
   slug: 'comments',
   access: {
-    create: authenticated,
+    create: anyone, // Allow anyone to create a comment
     delete: authenticated,
     read: anyone,
     update: authenticated,
@@ -22,6 +23,7 @@ export const Comments: CollectionConfig = {
       name: 'displayName',
       type: 'text',
       required: true,
+      validate: (value) => value.length <= 20 || 'Display name must be 20 characters or less.',
     },
     {
       name: 'email',
@@ -29,6 +31,9 @@ export const Comments: CollectionConfig = {
       required: true,
       admin: {
         description: 'The email is for internal use only and will not be displayed publicly.',
+      },
+      validate: (value) => {
+        return validator.isEmail(value) || 'Invalid email format.';
       },
     },
     {
@@ -70,9 +75,15 @@ export const Comments: CollectionConfig = {
   ],
   hooks: {
     beforeChange: [
-      async ({ data, operation }) => {
-        // Save the gravatar url to our database for this comment
+      async ({ data, req, operation }) => {
         if (operation === 'create' || operation === 'update') {
+          const ipAddress = req.headers.get('x-forwarded-for');
+          if (!data.ipAddress) {
+            data.ipAddress = ipAddress;
+          }
+
+          // Save the gravatar url to our database for this comment
+          // TODO: need to handle case where user changes their gravatar later on
           if (data.email) {
             const gravatarProfile = await fetchGravatarProfile(data.email);
             if (gravatarProfile) {
