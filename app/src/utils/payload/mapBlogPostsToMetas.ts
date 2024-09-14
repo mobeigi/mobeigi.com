@@ -44,6 +44,7 @@ export const mapBlogPostToMeta = (payloadPost: PayloadPost): BlogPostMeta | null
   }
 
   const blogPostMeta: BlogPostMeta = {
+    id: payloadPost.id,
     title: payloadPost.title,
     publishedAt: publishedAtDate,
     excerpt: payloadPost.excerpt,

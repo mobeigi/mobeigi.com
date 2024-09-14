@@ -13,6 +13,7 @@ export type Category = {
 };
 
 export type BlogPostMeta = {
+  id: number;
   title: string;
   publishedAt: Date;
   excerpt: string;

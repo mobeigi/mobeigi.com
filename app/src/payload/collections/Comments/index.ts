@@ -23,7 +23,7 @@ export const Comments: CollectionConfig = {
       name: 'displayName',
       type: 'text',
       required: true,
-      validate: (value) => value.length <= 20 || 'Display name must be 20 characters or less.',
+      validate: (value) => (value && value.length <= 20) || 'Display name must be between 1 and 20 characters.',
     },
     {
       name: 'email',
