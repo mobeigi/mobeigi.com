@@ -22,6 +22,7 @@ export const TopInputRow = styled.div`
   gap: 1em;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px) {
+    gap: 0.4em;
     flex-direction: column;
   }
 `;
