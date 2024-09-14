@@ -1,0 +1,1 @@
+export { fetchGravatarProfile } from './gravatar';

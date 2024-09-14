@@ -16,6 +16,7 @@ export interface Config {
     files: File;
     posts: Post;
     category: Category;
+    comments: Comment;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -191,6 +192,44 @@ export interface Category {
   breadcrumbs?:
     | {
         doc?: (number | null) | Category;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "comments".
+ */
+export interface Comment {
+  id: number;
+  displayName: string;
+  email: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  post: number | Post;
+  ipAddress: string;
+  gravatarAvatarUrl?: string | null;
+  parent?: (number | null) | Comment;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | Comment;
         url?: string | null;
         label?: string | null;
         id?: string | null;

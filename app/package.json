@@ -38,6 +38,7 @@
     "prism-react-renderer": "^2.4.0",
     "react": "19.0.0-rc-e56f4ae3-20240830",
     "react-dom": "19.0.0-rc-e56f4ae3-20240830",
+    "react-responsive": "^10.0.0",
     "react-toggle-dark-mode": "file:./packages/react-toggle-dark-mode-v2.0.0.tgz",
     "sharp": "0.33.5",
     "styled-components": "^6.1.12"

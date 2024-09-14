@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 import { BlogPostProps } from '@/containers/BlogPost';
 import { BlogPostContent } from '@/types/blog';
 import { serializeLexical } from '@/payload/lexical/serializeLexical';
-import { mapBlogPostToMeta } from '@/utils/payload';
+import { mapBlogPostToMeta, mapComments } from '@/utils/payload';
 
 const depth = 2;
 
@@ -127,9 +127,25 @@ const transformPostToBlogPostProps = async (post: Post): Promise<BlogPostProps |
     customFields: customFields,
   };
 
+  const payload = await getPayloadHMR({
+    config,
+  });
+
+  const comments = await payload.find({
+    collection: 'comments',
+    where: {
+      post: { equals: post.id },
+    },
+    depth,
+    limit: 0,
+  });
+
+  const mappedComments = await mapComments(comments.docs);
+
   const blogPostProps: BlogPostProps = {
     meta,
     content,
+    comments: mappedComments,
   };
 
   return blogPostProps;

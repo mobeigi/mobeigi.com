@@ -9,8 +9,9 @@ import {
 } from './styled';
 import { BlogPostProps } from './types';
 import Sidebar from './Sidebar';
+import CommentSection from './CommentSection';
 
-export const BlogPost = ({ meta, content }: BlogPostProps) => {
+export const BlogPost = ({ meta, content, comments }: BlogPostProps) => {
   return (
     <BlogPostContainer>
       <BlogPostSummaryWrapper>
@@ -25,6 +26,8 @@ export const BlogPost = ({ meta, content }: BlogPostProps) => {
           <Sidebar content={content} />
         </BlogPostSidebarWrapper>
       </BlogPostBodyContainer>
+      <hr />
+      <CommentSection comments={comments} />
     </BlogPostContainer>
   );
 };

@@ -3,6 +3,9 @@ import { resolveCategoryUrl } from '@/payload/collections/Category/resolveUrl';
 import { resolvePostsUrl } from '@/payload/collections/Posts/resolveUrl';
 import { BlogPostMeta, Breadcrumb, Category } from '@/types/blog';
 
+/**
+ * Maps Payload blog posts to meta.
+ */
 export const mapBlogPostToMeta = (payloadPost: PayloadPost): BlogPostMeta | null => {
   if (!payloadPost.publishedAt || !payloadPost.category || !payloadPost.slug) {
     console.warn('Required blog post fields are not provided or are invalid.', payloadPost);
