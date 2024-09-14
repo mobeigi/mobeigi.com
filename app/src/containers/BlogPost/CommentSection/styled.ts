@@ -67,7 +67,7 @@ export const CommentsArea = styled.section`
   --display-picture-size: 55px;
 `;
 
-export const CommentBoxesContainer = styled.div`
+export const CommentsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1em;
@@ -100,6 +100,12 @@ export const CommentBoxesContainer = styled.div`
       margin: 0 0 0 1em;
     }
   }
+`;
+
+export const SingleCommentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 `;
 
 export const CommentBox = styled.div`
