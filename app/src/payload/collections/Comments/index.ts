@@ -29,6 +29,9 @@ export const Comments: CollectionConfig = {
       name: 'email',
       type: 'email',
       required: true,
+      access: {
+        read: authenticated,
+      },
       admin: {
         description: 'The email is for internal use only and will not be displayed publicly.',
       },
@@ -59,6 +62,9 @@ export const Comments: CollectionConfig = {
       name: 'ipAddress',
       type: 'text',
       required: true,
+      access: {
+        read: authenticated,
+      },
       admin: {
         position: 'sidebar',
         description: 'The IP address from which the comment was made.',
