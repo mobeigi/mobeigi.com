@@ -169,6 +169,7 @@ const GlobalStyle = createGlobalStyle`
   // Code
   pre code {
     white-space: pre-wrap;
+    word-break: break-word;
     border-radius: 0.4em;
     border: 0.1em solid ${({ theme }) => hexToRgba(theme.colors.container.accent, 0.15)};
   }
