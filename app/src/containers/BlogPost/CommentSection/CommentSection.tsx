@@ -16,6 +16,9 @@ import {
   CommentContents,
   CreatedAtDate,
   CommentBoxesContainer,
+  CommentActions,
+  ActionRow,
+  LeaveCommentContainer,
 } from './styled';
 
 import { LexicalComposer, type InitialConfigType } from '@lexical/react/LexicalComposer';
@@ -34,55 +37,21 @@ import { useState } from 'react';
 
 interface CommentsProps {
   comments: Comment[];
+  postId: number;
 }
 
-const Comments = ({ comments }: CommentsProps) => {
+const Comments = ({ comments, postId }: CommentsProps) => {
   if (!comments.length) {
     return null;
   }
   return (
     <ul>
       {comments.map((comment) => {
-        const createdAtDateString =
-          comment.createdAt.toLocaleDateString('en-AU', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          }) +
-          ' at ' +
-          comment.createdAt
-            .toLocaleTimeString('en-AU', {
-              hour: '2-digit',
-              minute: '2-digit',
-              hour12: true,
-            })
-            .toLocaleUpperCase();
-
-        // Use display picture or fallback otherwise
-        const displayPictureUrl = comment.displayPictureUrl || getRandomAnimalSvgUrl(comment.emailHash);
-
         return (
           <li key={comment.id}>
-            <CommentBox>
-              <DisplayPicture>
-                <Image
-                  src={displayPictureUrl}
-                  alt={`Display picture for ${comment.displayName}`}
-                  width={55}
-                  height={55}
-                />
-              </DisplayPicture>
-              <CommentMain>
-                <CommentMeta>
-                  <DisplayName>{comment.displayName}</DisplayName>
-                  <CreatedAtDate>{createdAtDateString}</CreatedAtDate>
-                </CommentMeta>
-                <CommentContents>{comment.content}</CommentContents>
-              </CommentMain>
-            </CommentBox>
-
+            <SingleComment comment={comment} postId={postId} />
             {/* Recursively render the children comments */}
-            {comment.children.length > 0 && <Comments comments={comment.children} />}
+            {comment.children.length > 0 && <Comments comments={comment.children} postId={postId} />}
           </li>
         );
       })}
@@ -90,7 +59,78 @@ const Comments = ({ comments }: CommentsProps) => {
   );
 };
 
-export const CommentSection = ({ comments, postId }: CommentSectionProps) => {
+interface SingleCommentProps {
+  comment: Comment;
+  postId: number;
+}
+
+const SingleComment = ({ comment, postId }: SingleCommentProps) => {
+  const [isReplying, setIsReplying] = useState<boolean>(false);
+
+  const createdAtDateString =
+    comment.createdAt.toLocaleDateString('en-AU', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }) +
+    ' at ' +
+    comment.createdAt
+      .toLocaleTimeString('en-AU', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+      })
+      .toLocaleUpperCase();
+
+  // Use display picture or fallback otherwise
+  const displayPictureUrl = comment.displayPictureUrl || getRandomAnimalSvgUrl(comment.emailHash);
+
+  const handleReply = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    setIsReplying(true);
+  };
+
+  return (
+    <div>
+      <CommentBox>
+        <DisplayPicture>
+          <Image src={displayPictureUrl} alt={`Display picture for ${comment.displayName}`} width={55} height={55} />
+        </DisplayPicture>
+        <CommentMain>
+          <CommentMeta>
+            <DisplayName>{comment.displayName}</DisplayName>
+            <CreatedAtDate>{createdAtDateString}</CreatedAtDate>
+          </CommentMeta>
+          <CommentContents>{comment.content}</CommentContents>
+          <CommentActions>
+            <span>
+              <a href="#" onClick={handleReply}>
+                Reply
+              </a>
+            </span>
+          </CommentActions>
+        </CommentMain>
+      </CommentBox>
+      {isReplying && (
+        <LeaveComment
+          postId={postId}
+          parentCommentId={comment.id}
+          canCancel={true}
+          onCancel={() => setIsReplying(false)}
+        />
+      )}
+    </div>
+  );
+};
+
+interface LeaveCommentProps {
+  postId: number;
+  parentCommentId: number | null; // null for top level comment
+  canCancel?: boolean;
+  onCancel?: () => void;
+}
+
+const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCancel }: LeaveCommentProps) => {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [content, setContent] = useState('');
@@ -105,9 +145,6 @@ export const CommentSection = ({ comments, postId }: CommentSectionProps) => {
     onError,
   };
 
-  const commentCount = countTotalComments(comments);
-  const commentersCount = countTotalCommenters(comments);
-
   const handleCommentSubmit = async () => {
     try {
       const response = await fetch('/api/comments', {
@@ -119,6 +156,7 @@ export const CommentSection = ({ comments, postId }: CommentSectionProps) => {
           displayName,
           email,
           content,
+          parent: parentCommentId || undefined,
           post: postId,
         }),
       });
@@ -134,39 +172,53 @@ export const CommentSection = ({ comments, postId }: CommentSectionProps) => {
   };
 
   return (
+    <LeaveCommentContainer>
+      <TopInputRow>
+        <InputWrapper>
+          <label htmlFor="displayName">Display Name:</label>
+          <input type="text" id="displayName" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
+        </InputWrapper>
+        <InputWrapper>
+          <label htmlFor="email">Email:</label>
+          <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        </InputWrapper>
+      </TopInputRow>
+      <LexicalComposer initialConfig={initialConfig}>
+        <RichTextPlugin
+          contentEditable={
+            <ContentEditableWrapper>
+              <ContentEditable />
+            </ContentEditableWrapper>
+          }
+          ErrorBoundary={LexicalErrorBoundary}
+        />
+        <OnChangePlugin
+          onChange={(editorState) => {
+            editorState.read(() => {
+              const serializedContent = JSON.stringify(editorState.toJSON());
+              setContent(serializedContent);
+            });
+          }}
+        />
+        <HistoryPlugin />
+      </LexicalComposer>
+      <ActionRow>
+        {canCancel && <button onClick={onCancel}>Cancel</button>}
+        <button onClick={handleCommentSubmit}>Comment</button>
+      </ActionRow>
+    </LeaveCommentContainer>
+  );
+};
+
+export const CommentSection = ({ comments, postId }: CommentSectionProps) => {
+  const commentCount = countTotalComments(comments);
+  const commentersCount = countTotalCommenters(comments);
+
+  return (
     <CommentSectionContainer>
       <LeaveCommentArea>
         <h2>Leave a comment</h2>
-        <TopInputRow>
-          <InputWrapper>
-            <label htmlFor="displayName">Display Name:</label>
-            <input type="text" id="displayName" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
-          </InputWrapper>
-          <InputWrapper>
-            <label htmlFor="email">Email:</label>
-            <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          </InputWrapper>
-          <button onClick={handleCommentSubmit}>Comment</button>
-        </TopInputRow>
-        <LexicalComposer initialConfig={initialConfig}>
-          <RichTextPlugin
-            contentEditable={
-              <ContentEditableWrapper>
-                <ContentEditable />
-              </ContentEditableWrapper>
-            }
-            ErrorBoundary={LexicalErrorBoundary}
-          />
-          <OnChangePlugin
-            onChange={(editorState) => {
-              editorState.read(() => {
-                const serializedContent = JSON.stringify(editorState.toJSON());
-                setContent(serializedContent);
-              });
-            }}
-          />
-          <HistoryPlugin />
-        </LexicalComposer>
+        <LeaveComment postId={postId} parentCommentId={null} />
       </LeaveCommentArea>
       <CommentsArea>
         <h2>Comments</h2>
@@ -177,7 +229,7 @@ export const CommentSection = ({ comments, postId }: CommentSectionProps) => {
               <strong>{commentersCount}</strong> {commentersCount === 1 ? 'commenter' : 'commenters'}.
             </p>
             <CommentBoxesContainer>
-              <Comments comments={comments} />
+              <Comments comments={comments} postId={postId} />
             </CommentBoxesContainer>
           </>
         ) : (
