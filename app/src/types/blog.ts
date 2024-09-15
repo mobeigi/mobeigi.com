@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { SerializedEditorState } from 'lexical';
 
 export type Breadcrumb = {
@@ -25,8 +24,8 @@ export type BlogPostMeta = {
 };
 
 export type BlogPostContent = {
-  body: ReactNode;
-  customFields?: Array<{ key: string; value: ReactNode }>;
+  body: SerializedEditorState;
+  customFields?: Array<{ key: string; value: SerializedEditorState }>;
 };
 
 export type Comment = {

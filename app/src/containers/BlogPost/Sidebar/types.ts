@@ -1,5 +1,7 @@
 import { BlogPostContent } from '@/types/blog';
+import { ReactNode } from 'react';
 
 export interface SidebarProps {
-  content: BlogPostContent;
+  body: ReactNode;
+  customFields?: BlogPostContent['customFields'];
 }
