@@ -3,8 +3,8 @@ import { SerializedListItemNode, SerializedListNode } from '@payloadcms/richtext
 import { convertLexicalNodesToReactNode } from '@/payload/lexical/serializeLexical';
 
 export const ListReactNodeConverter: ReactNodeConverter<SerializedListNode> = {
-  converter: async ({ converters, node, parent }) => {
-    const children = await convertLexicalNodesToReactNode({
+  converter: ({ converters, node, parent }) => {
+    const children = convertLexicalNodesToReactNode({
       converters,
       lexicalNodes: node.children,
       parent: {
@@ -26,8 +26,8 @@ export const ListReactNodeConverter: ReactNodeConverter<SerializedListNode> = {
 };
 
 export const ListItemReactNodeConverter: ReactNodeConverter<SerializedListItemNode> = {
-  converter: async ({ converters, node, parent }) => {
-    const children = await convertLexicalNodesToReactNode({
+  converter: ({ converters, node, parent }) => {
+    const children = convertLexicalNodesToReactNode({
       converters,
       lexicalNodes: node.children,
       parent: {

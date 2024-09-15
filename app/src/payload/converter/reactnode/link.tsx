@@ -6,8 +6,8 @@ import { customUrlResolvers } from '../customUrlResolvers';
 import { CollectionSlug, DataFromCollectionSlug } from 'payload';
 
 export const LinkReactNodeConverter: ReactNodeConverter<SerializedLinkNode> = {
-  async converter({ converters, node, parent }) {
-    const children = await convertLexicalNodesToReactNode({
+  converter({ converters, node, parent }) {
+    const children = convertLexicalNodesToReactNode({
       converters,
       lexicalNodes: node.children,
       parent: {

@@ -8,7 +8,7 @@ import {
 import { TableCellHeaderStates } from '@lexical/table';
 
 export const TableReactNodeConverter: ReactNodeConverter<SerializedTableNode> = {
-  async converter({ converters, node, parent }) {
+  converter({ converters, node, parent }) {
     const headerRows: SerializedTableRowNode[] = [];
     const bodyRows: SerializedTableRowNode[] = [];
     let foundHeaderEnd = false;
@@ -39,7 +39,7 @@ export const TableReactNodeConverter: ReactNodeConverter<SerializedTableNode> = 
       <table>
         {headerRows.length > 0 && (
           <thead>
-            {await convertLexicalNodesToReactNode({
+            {convertLexicalNodesToReactNode({
               converters,
               lexicalNodes: headerRows,
               parent: {
@@ -50,7 +50,7 @@ export const TableReactNodeConverter: ReactNodeConverter<SerializedTableNode> = 
           </thead>
         )}
         <tbody>
-          {await convertLexicalNodesToReactNode({
+          {convertLexicalNodesToReactNode({
             converters,
             lexicalNodes: bodyRows,
             parent: {
