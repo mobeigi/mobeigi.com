@@ -3,7 +3,7 @@ import { authenticated } from '@/payload/access/authenticated';
 import { fetchGravatarProfile } from '@/utils/gravatar';
 import { FixedToolbarFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
 import type { CollectionConfig } from 'payload';
-import { validateDisplayName, validateEmail } from './validators';
+import { validateDisplayName, validateEmail, validateContent } from './validators';
 
 export const Comments: CollectionConfig = {
   slug: 'comments',
@@ -46,6 +46,7 @@ export const Comments: CollectionConfig = {
         },
       }),
       required: true,
+      validate: (value) => validateContent(value),
     },
     {
       name: 'post',

@@ -24,11 +24,11 @@ export const InputFieldWrapper = styled.span`
   width: 100%;
 `;
 
-interface InputWithErrorProps {
+interface ErrorProps {
   $isError: boolean;
 }
 
-export const InputWithError = styled.span<InputWithErrorProps>`
+export const InputWithError = styled.span<ErrorProps>`
   display: flex;
   flex-direction: column;
   gap: 0.4em;
@@ -48,7 +48,7 @@ export const InputError = styled.p`
   color: ${({ theme }) => theme.colors.status.error.base};
 `;
 
-export const ContentEditableWrapper = styled.div`
+export const ContentEditableWrapper = styled.div<ErrorProps>`
   > :first-child {
     max-width: 100%;
     height: 12em;
@@ -64,7 +64,13 @@ export const ContentEditableWrapper = styled.div`
     &:focus {
       border-color: ${({ theme }) => theme.colors.container.text.baseHighlight};
       outline: none;
+
+      /* Apply outline on error */
+      ${({ $isError, theme }) => $isError && `border-color: ${theme.colors.status.error.base};`}
     }
+
+    /* Apply outline on error */
+    ${({ $isError, theme }) => $isError && `border-color: ${theme.colors.status.error.base};`}
   }
 `;
 
