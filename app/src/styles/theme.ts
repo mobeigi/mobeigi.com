@@ -31,9 +31,15 @@ const theme = {
       },
       status: {
         primary: {
-          base: '#2b76a3',
-          baseHighlight: '#5aa7cc',
-          accent: '#104a63',
+          base: '#af363c',
+          baseHighlight: '#fb4d56',
+          accent: '#80181d',
+          complement: '#ffffff',
+        },
+        secondary: {
+          base: '#424242',
+          baseHighlight: '#727272',
+          accent: '#1e1e1e',
           complement: '#ffffff',
         },
         success: {
@@ -82,9 +88,15 @@ const theme = {
       },
       status: {
         primary: {
-          base: '#2b76a3',
-          baseHighlight: '#5aa7cc',
-          accent: '#104a63',
+          base: '#af363c',
+          baseHighlight: '#fb4d56',
+          accent: '#80181d',
+          complement: '#ffffff',
+        },
+        secondary: {
+          base: '#424242',
+          baseHighlight: '#727272',
+          accent: '#1e1e1e',
           complement: '#ffffff',
         },
         success: {

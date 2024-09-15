@@ -130,18 +130,28 @@ const GlobalStyle = createGlobalStyle`
 
   button:focus,
   button:focus-visible {
-    box-shadow: 0 0 0 0.25em rgba(43, 118, 163, 0.5); /* #2b76a3 */
+    box-shadow: 0 0 0 0.25em ${({ theme }) => hexToRgba(theme.colors.status.primary.base, 0.5)};
   }
 
   button:disabled {
-    background-color: ${({ theme }) => theme.colors.status.disabled.base};
     cursor: not-allowed;
-    color: ${({ theme }) => theme.colors.status.disabled.baseHighlight};
-    border-color: ${({ theme }) => theme.colors.status.disabled.accent};
-  }
 
-  button:disabled:hover {
+    color: ${({ theme }) => theme.colors.status.disabled.complement};
     background-color: ${({ theme }) => theme.colors.status.disabled.base};
+
+    &:hover {
+      /* No hover effect for disabled buttons */
+      background-color: ${({ theme }) => theme.colors.status.disabled.base};
+    }
+
+    &:active {
+      background-color: ${({ theme }) => theme.colors.status.disabled.base};
+    }
+
+    &:focus,
+    &:focus-visible {
+      box-shadow: 0 0 0 0.25em ${({ theme }) => hexToRgba(theme.colors.status.disabled.base, 0.5)};
+    }
   }
 
   // Tables

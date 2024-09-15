@@ -25,6 +25,7 @@ import {
   validateEmail as payloadValidateEmail,
   validateContent as payloadValidateContent,
 } from '@/payload/collections/Comments/validators';
+import { PrimaryButton, SecondaryButton } from '@/styles/button';
 
 export const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCancel }: LeaveCommentProps) => {
   const [displayName, setDisplayName] = useState('');
@@ -196,10 +197,10 @@ export const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCan
       {isContentError && <InputError>{errors.get('content')}</InputError>}
 
       <ActionRow>
-        {canCancel && <button onClick={onCancel}>Cancel</button>}
-        <button onClick={handleCommentSubmit} disabled={isError}>
+        {canCancel && <SecondaryButton onClick={onCancel}>Cancel</SecondaryButton>}
+        <PrimaryButton onClick={handleCommentSubmit} disabled={isError}>
           Comment
-        </button>
+        </PrimaryButton>
       </ActionRow>
     </LeaveCommentContainer>
   );
