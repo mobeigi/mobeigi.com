@@ -4,8 +4,8 @@ import { convertLexicalNodesToReactNode } from '@/payload/lexical/serializeLexic
 import { getNodeText } from '@/utils/react';
 
 export const HeadingReactNodeConverter: ReactNodeConverter<SerializedHeadingNode> = {
-  async converter({ converters, node, parent }) {
-    const children = await convertLexicalNodesToReactNode({
+  converter({ converters, node, parent }) {
+    const children = convertLexicalNodesToReactNode({
       converters,
       lexicalNodes: node.children,
       parent: {

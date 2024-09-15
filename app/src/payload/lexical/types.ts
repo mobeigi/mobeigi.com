@@ -12,7 +12,7 @@ export type ReactNodeConverter<T extends SerializedLexicalNode = SerializedLexic
     converters: ReactNodeConverter[];
     node: T;
     parent: SerializedLexicalNodeWithParent;
-  }) => Promise<ReactNode> | ReactNode;
+  }) => ReactNode;
   nodeTypes: string[];
 };
 

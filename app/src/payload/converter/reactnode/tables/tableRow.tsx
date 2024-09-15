@@ -3,10 +3,10 @@ import { convertLexicalNodesToReactNode } from '@/payload/lexical/serializeLexic
 import { SerializedTableRowNode } from '@payloadcms/richtext-lexical';
 
 export const TableRowReactNodeConverter: ReactNodeConverter<SerializedTableRowNode> = {
-  async converter({ converters, node, parent }) {
+  converter({ converters, node, parent }) {
     return (
       <tr>
-        {await convertLexicalNodesToReactNode({
+        {convertLexicalNodesToReactNode({
           converters,
           lexicalNodes: node.children,
           parent: {

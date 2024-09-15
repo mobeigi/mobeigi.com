@@ -5,7 +5,7 @@ import { SerializedTableCellNode } from '@payloadcms/richtext-lexical';
 import { TableCellHeaderStates } from '@lexical/table';
 
 export const TableCellReactNodeConverter: ReactNodeConverter<SerializedTableCellNode> = {
-  async converter({ converters, node, parent }) {
+  converter({ converters, node, parent }) {
     const tag = node.headerState !== TableCellHeaderStates.NO_STATUS ? 'th' : 'td';
 
     return React.createElement(
@@ -14,7 +14,7 @@ export const TableCellReactNodeConverter: ReactNodeConverter<SerializedTableCell
         colSpan: node.colSpan,
         rowSpan: node.rowSpan,
       },
-      await convertLexicalNodesToReactNode({
+      convertLexicalNodesToReactNode({
         converters,
         lexicalNodes: node.children,
         parent: {
