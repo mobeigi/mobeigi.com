@@ -1,6 +1,6 @@
 'use client';
-// TODO: Do we need to make this entire component a client?
 
+import { LeaveCommentProps } from './types';
 import {
   ContentEditableWrapper,
   TopInputRow,
@@ -17,17 +17,19 @@ import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
+import { SerializedEditorState } from 'lexical';
 
 import { useState } from 'react';
 import {
   validateDisplayName as payloadValidateDisplayName,
   validateEmail as payloadValidateEmail,
+  validateContent as payloadValidateContent,
 } from '@/payload/collections/Comments/validators';
 
 export const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCancel }: LeaveCommentProps) => {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState<SerializedEditorState | null>(null);
   const [errors, setErrors] = useState<Map<string, string>>(new Map());
 
   const updateErrors = (key: string, value: string) => {
@@ -60,8 +62,9 @@ export const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCan
 
   // Validation
   const validateDisplayName = (displayName: string): boolean => {
-    const validateDisplayNameResult = payloadValidateDisplayName(displayName);
     resetErrors('displayName');
+
+    const validateDisplayNameResult = payloadValidateDisplayName(displayName);
     if (validateDisplayNameResult !== true) {
       updateErrors('displayName', validateDisplayNameResult);
       return false;
@@ -70,8 +73,9 @@ export const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCan
   };
 
   const validateEmail = (email: string): boolean => {
-    const validateEmailResult = payloadValidateEmail(email);
     resetErrors('email');
+
+    const validateEmailResult = payloadValidateEmail(email);
     if (validateEmailResult !== true) {
       updateErrors('email', validateEmailResult);
       return false;
@@ -79,8 +83,21 @@ export const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCan
     return true;
   };
 
+  const validateContent = (content: SerializedEditorState | null): boolean => {
+    resetErrors('content');
+
+    const validateContentResult = payloadValidateContent(content);
+    if (validateContentResult !== true) {
+      updateErrors('content', validateContentResult);
+      return false;
+    }
+    return true;
+  };
+
   const validateAll = (): boolean => {
-    return [validateDisplayName(displayName), validateEmail(email)].every((value) => value === true);
+    return [validateDisplayName(displayName), validateEmail(email), validateContent(content)].every(
+      (value) => value === true,
+    );
   };
 
   const handleCommentSubmit = async () => {
@@ -97,7 +114,7 @@ export const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCan
         body: JSON.stringify({
           displayName,
           email,
-          content,
+          content: JSON.stringify(content),
           parent: parentCommentId || undefined,
           post: postId,
         }),
@@ -116,7 +133,8 @@ export const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCan
   };
   const isDisplayNameError = (errors.get('displayName') ?? []).length > 0;
   const isEmailError = (errors.get('email') ?? []).length > 0;
-  const isError = isDisplayNameError || isEmailError;
+  const isContentError = (errors.get('content') ?? []).length > 0;
+  const isError = isDisplayNameError || isEmailError || isContentError;
 
   return (
     <LeaveCommentContainer>
@@ -157,22 +175,25 @@ export const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCan
       <LexicalComposer initialConfig={initialConfig}>
         <RichTextPlugin
           contentEditable={
-            <ContentEditableWrapper>
+            <ContentEditableWrapper $isError={isContentError}>
               <ContentEditable />
             </ContentEditableWrapper>
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
         <OnChangePlugin
+          ignoreSelectionChange={true}
           onChange={(editorState) => {
             editorState.read(() => {
-              const serializedContent = JSON.stringify(editorState.toJSON());
+              const serializedContent = editorState.toJSON();
               setContent(serializedContent);
+              validateContent(serializedContent);
             });
           }}
         />
         <HistoryPlugin />
       </LexicalComposer>
+      {isContentError && <InputError>{errors.get('content')}</InputError>}
 
       <ActionRow>
         {canCancel && <button onClick={onCancel}>Cancel</button>}
