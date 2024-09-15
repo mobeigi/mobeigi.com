@@ -5,7 +5,6 @@ import {
   LeaveCommentArea,
   CommentSectionContainer,
   ContentEditableWrapper,
-  InputWrapper,
   TopInputRow,
   CommentsArea,
   CommentBox,
@@ -20,6 +19,9 @@ import {
   ActionRow,
   LeaveCommentContainer,
   SingleCommentContainer,
+  InputFieldWrapper,
+  InputError,
+  InputWithError,
 } from './styled';
 
 import { LexicalComposer, type InitialConfigType } from '@lexical/react/LexicalComposer';
@@ -35,6 +37,10 @@ import { getRandomAnimalSvgUrl } from '@/utils/avatar';
 import { countTotalCommenters, countTotalComments } from '@/utils/blog';
 import { Comment } from '@/types/blog';
 import { useState } from 'react';
+import {
+  validateDisplayName as payloadValidateDisplayName,
+  validateEmail as payloadValidateEmail,
+} from '@/payload/collections/Comments/validators';
 
 interface CommentsProps {
   comments: Comment[];
@@ -135,18 +141,66 @@ const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCancel }: 
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [content, setContent] = useState('');
+  const [errors, setErrors] = useState<Map<string, string>>(new Map());
 
-  const onError = (error: Error) => {
+  const updateErrors = (key: string, value: string) => {
+    setErrors((prevErrors) => {
+      const newErrors = new Map(prevErrors);
+      newErrors.set(key, value);
+      return newErrors;
+    });
+  };
+
+  const resetErrors = (key: string) => {
+    setErrors((prevErrors) => {
+      const newErrors = new Map(prevErrors);
+      newErrors.delete(key);
+      return newErrors;
+    });
+  };
+
+  // Lexical config
+  const onLexicalEditorError = (error: Error) => {
     console.error(error);
+    // TODO: toast error
   };
 
   const initialConfig: InitialConfigType = {
     namespace: 'LeaveCommentEditor',
     theme: {},
-    onError,
+    onError: onLexicalEditorError,
+  };
+
+  // Validation
+  const validateDisplayName = (displayName: string): boolean => {
+    const validateDisplayNameResult = payloadValidateDisplayName(displayName);
+    resetErrors('displayName');
+    if (validateDisplayNameResult !== true) {
+      updateErrors('displayName', validateDisplayNameResult);
+      return false;
+    }
+    return true;
+  };
+
+  const validateEmail = (email: string): boolean => {
+    const validateEmailResult = payloadValidateEmail(email);
+    resetErrors('email');
+    if (validateEmailResult !== true) {
+      updateErrors('email', validateEmailResult);
+      return false;
+    }
+    return true;
+  };
+
+  const validateAll = (): boolean => {
+    return [validateDisplayName(displayName), validateEmail(email)].every((value) => value === true);
   };
 
   const handleCommentSubmit = async () => {
+    const isAllValid = validateAll();
+    if (!isAllValid) {
+      return;
+    }
     try {
       const response = await fetch('/api/comments', {
         method: 'POST',
@@ -163,27 +217,56 @@ const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCancel }: 
       });
 
       if (!response.ok) {
-        console.error('Error submitting comment');
+        console.error('Error submitting comment. Received non-ok response.');
+        // TODO: toast error
       } else {
-        console.log('Comment submitted successfully');
+        // TODO: success toast
       }
     } catch (err) {
-      console.error('Error:', err);
+      console.error('Error submitting comment:', err);
+      // TODO: toast error
     }
   };
+  const isDisplayNameError = (errors.get('displayName') ?? []).length > 0;
+  const isEmailError = (errors.get('email') ?? []).length > 0;
+  const isError = isDisplayNameError || isEmailError;
 
   return (
     <LeaveCommentContainer>
       <TopInputRow>
-        <InputWrapper>
-          <label htmlFor="displayName">Display Name:</label>
-          <input type="text" id="displayName" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
-        </InputWrapper>
-        <InputWrapper>
-          <label htmlFor="email">Email:</label>
-          <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </InputWrapper>
+        <InputFieldWrapper>
+          <InputWithError $isError={isDisplayNameError}>
+            <label htmlFor="displayName">Display Name:</label>
+            <input
+              type="text"
+              id="displayName"
+              value={displayName}
+              onChange={(e) => {
+                setDisplayName(e.target.value);
+                validateDisplayName(e.target.value);
+              }}
+            />
+            {isDisplayNameError && <InputError>{errors.get('displayName')}</InputError>}
+          </InputWithError>
+        </InputFieldWrapper>
+
+        <InputFieldWrapper>
+          <InputWithError $isError={isEmailError}>
+            <label htmlFor="email">Email:</label>
+            <input
+              type="text"
+              id="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                validateEmail(e.target.value);
+              }}
+            />
+            {isEmailError && <InputError>{errors.get('email')}</InputError>}
+          </InputWithError>
+        </InputFieldWrapper>
       </TopInputRow>
+
       <LexicalComposer initialConfig={initialConfig}>
         <RichTextPlugin
           contentEditable={
@@ -203,9 +286,12 @@ const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCancel }: 
         />
         <HistoryPlugin />
       </LexicalComposer>
+
       <ActionRow>
         {canCancel && <button onClick={onCancel}>Cancel</button>}
-        <button onClick={handleCommentSubmit}>Comment</button>
+        <button onClick={handleCommentSubmit} disabled={isError}>
+          Comment
+        </button>
       </ActionRow>
     </LeaveCommentContainer>
   );
