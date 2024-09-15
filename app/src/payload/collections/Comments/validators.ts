@@ -1,10 +1,36 @@
 import validator from 'validator';
 import { SerializedEditorState } from 'lexical';
 
-export const validateDisplayName = (displayName: string): true | string =>
-  (displayName && displayName.length <= 20) || 'Display name must be between 1 and 20 characters.';
+export const validateDisplayName = (displayName: string): true | string => {
+  const trimmedDisplayName = displayName.trim();
+  if (!trimmedDisplayName) {
+    return 'Display name cannot be empty.';
+  }
 
-export const validateEmail = (email: string): true | string => validator.isEmail(email) || 'Invalid email format.';
+  if (displayName !== trimmedDisplayName) {
+    return 'Display name cannot have leading or trailing spaces.';
+  }
+
+  if (trimmedDisplayName.length < 1 || trimmedDisplayName.length > 20) {
+    return 'Display name must be between 1 and 20 characters.';
+  }
+
+  // Regular expression to allow letters, numbers, and common punctuation (and disallow emojis or odd characters)
+  const allowedCharactersRegex = /^[\p{L}\p{N} _\-.,'"]+$/u;
+
+  if (!allowedCharactersRegex.test(trimmedDisplayName)) {
+    return 'Display name contains invalid characters.';
+  }
+
+  return true;
+};
+
+export const validateEmail = (email: string): true | string => {
+  if (!email.trim()) {
+    return 'Email cannot be empty.';
+  }
+  return validator.isEmail(email) ? true : 'Invalid email format.';
+};
 
 export const validateContent = (editorState: SerializedEditorState | null): true | string => {
   if (!editorState || !editorState.root || editorState.root.children.length === 0) {
