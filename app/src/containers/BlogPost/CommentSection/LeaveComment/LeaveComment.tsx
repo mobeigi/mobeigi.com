@@ -20,7 +20,7 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { SerializedEditorState } from 'lexical';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import {
   validateDisplayName as payloadValidateDisplayName,
   validateEmail as payloadValidateEmail,
@@ -143,15 +143,19 @@ const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCancel, on
   const isContentError = (errors.get('content') ?? []).length > 0;
   const isError = isDisplayNameError || isEmailError || isContentError;
 
+  const id = useId();
+  const displayNameUniqueId = `leave-comment-displayName-${id}`;
+  const emailUniqueId = `leave-comment-email-${id}`;
+
   return (
     <LeaveCommentContainer>
       <TopInputRow>
         <InputFieldWrapper>
           <InputWithError $isError={isDisplayNameError}>
-            <label htmlFor="displayName">Display Name:</label>
+            <label htmlFor={displayNameUniqueId}>Display Name:</label>
             <input
               type="text"
-              id="displayName"
+              id={displayNameUniqueId}
               value={displayName}
               disabled={isSubmitting}
               onChange={(e) => {
@@ -165,10 +169,10 @@ const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCancel, on
 
         <InputFieldWrapper>
           <InputWithError $isError={isEmailError}>
-            <label htmlFor="email">Email:</label>
+            <label htmlFor={emailUniqueId}>Email:</label>
             <input
               type="text"
-              id="email"
+              id={emailUniqueId}
               value={email}
               disabled={isSubmitting}
               onChange={(e) => {
