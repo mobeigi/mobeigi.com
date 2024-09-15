@@ -112,19 +112,9 @@ const transformPostToBlogPostProps = async (post: Post): Promise<BlogPostProps |
     return null;
   }
 
-  const contentBody = await serializeLexical(post.content);
-  const customFields = post.customFields
-    ? await Promise.all(
-        post.customFields.map(async (customField) => ({
-          key: customField.key,
-          value: await serializeLexical(customField.value),
-        })),
-      )
-    : undefined;
-
   const content: BlogPostContent = {
-    body: contentBody,
-    customFields: customFields,
+    body: post.content,
+    customFields: post.customFields || undefined,
   };
 
   const payload = await getPayloadHMR({

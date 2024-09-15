@@ -10,8 +10,10 @@ import {
 import { BlogPostProps } from './types';
 import Sidebar from './Sidebar';
 import CommentSection from './CommentSection';
+import { serializeLexical } from '@/payload/lexical/serializeLexical';
 
 export const BlogPost = ({ meta, content, comments }: BlogPostProps) => {
+  const contentBodyReactNode = serializeLexical(content.body);
   return (
     <BlogPostContainer>
       <BlogPostSummaryWrapper>
@@ -21,9 +23,9 @@ export const BlogPost = ({ meta, content, comments }: BlogPostProps) => {
         </BlogPostSummaryContainer>
       </BlogPostSummaryWrapper>
       <BlogPostBodyContainer>
-        <BlogPostContents id="blogpost-contents">{content.body}</BlogPostContents>
+        <BlogPostContents id="blogpost-contents">{contentBodyReactNode}</BlogPostContents>
         <BlogPostSidebarWrapper>
-          <Sidebar content={content} />
+          <Sidebar body={contentBodyReactNode} customFields={content.customFields} />
         </BlogPostSidebarWrapper>
       </BlogPostBodyContainer>
       <hr />

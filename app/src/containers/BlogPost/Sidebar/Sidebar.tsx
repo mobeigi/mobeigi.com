@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import extractHeadings, { HeadingElement } from '@/utils/extractHeadings';
 import {
   SidebarContainer,
@@ -11,6 +11,7 @@ import {
   CustomFieldsWrapper,
 } from './styled';
 import { SidebarProps } from './types';
+import { serializeLexical } from '@/payload/lexical/serializeLexical';
 
 const MAX_TOTAL_NUMBER_OF_HEADINGS = 8;
 
@@ -50,10 +51,10 @@ const renderHeadings = (headings: HeadingElement[]) => {
   return renderList(headings);
 };
 
-export const Sidebar = ({ content }: SidebarProps) => {
+export const Sidebar = ({ body, customFields }: SidebarProps) => {
   const [headingsInBlogpostContents, setHeadingsInBlogpostContents] = useState<Element[]>([]);
 
-  const headings = extractHeadings(content.body);
+  const headings = extractHeadings(body);
 
   // Show only 1-2 levels deep based on total number of headings
   // TODO: Handle case where even the top level headings are too many over our limit
@@ -161,14 +162,14 @@ export const Sidebar = ({ content }: SidebarProps) => {
           <TableOfContentsHeadings>{renderHeadings(filteredHeadings)}</TableOfContentsHeadings>
         </TableOfContentsNav>
       )}
-      {content.customFields && content.customFields.length > 0 && (
+      {customFields && customFields.length > 0 && (
         <CustomFieldsWrapper>
           <SectionHeading>Other details</SectionHeading>
           <CustomFieldsContainer>
-            {content.customFields?.map((customField, index) => (
+            {customFields?.map((customField, index) => (
               <span key={index}>
                 <strong>{customField.key}: </strong>
-                {customField.value}
+                {serializeLexical(customField.value)}
               </span>
             ))}
           </CustomFieldsContainer>
