@@ -3,4 +3,5 @@ export interface LeaveCommentProps {
   parentCommentId: number | null; // null for top level comment
   canCancel?: boolean;
   onCancel?: () => void;
+  onSuccess?: () => void;
 }
