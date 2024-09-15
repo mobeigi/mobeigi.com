@@ -193,6 +193,7 @@ const GlobalStyle = createGlobalStyle`
 
   // Input
   input {
+    font-size: 1em;
     padding: 0.6em 1em;
     background-color: ${({ theme }) => theme.colors.container.background};
     border: 0.1em solid ${({ theme }) => theme.colors.container.accent};
