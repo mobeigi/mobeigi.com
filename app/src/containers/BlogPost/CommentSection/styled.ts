@@ -27,15 +27,33 @@ export const TopInputRow = styled.div`
   }
 `;
 
-export const InputWrapper = styled.span`
+export const InputFieldWrapper = styled.span`
   display: flex;
+  width: 100%;
+`;
+
+interface InputWithErrorProps {
+  $isError: boolean;
+}
+
+export const InputWithError = styled.span<InputWithErrorProps>`
+  display: flex;
+  flex-direction: column;
   gap: 0.4em;
-  align-items: center;
   width: 100%;
 
   input {
-    flex-grow: 1;
+    ${({ $isError, theme }) => $isError && `border-color: ${theme.colors.status.error.base};`}
   }
+`;
+
+export const InputError = styled.p`
+  padding: 0;
+  margin: 0;
+
+  font-size: 0.85em;
+  text-align: center;
+  color: ${({ theme }) => theme.colors.status.error.base};
 `;
 
 export const ContentEditableWrapper = styled.div`

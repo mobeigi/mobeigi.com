@@ -42,6 +42,12 @@ const theme = {
           accent: '#2e7d32',
           complement: '#ffffff',
         },
+        error: {
+          base: '#cd524e',
+          baseHighlight: '#de5955',
+          accent: '#8c2d2a',
+          complement: '#ffffff',
+        },
         disabled: {
           base: '#9e9e9e',
           baseHighlight: '#666666',
@@ -85,6 +91,12 @@ const theme = {
           base: '#4caf50',
           baseHighlight: '#60d065',
           accent: '#2e7d32',
+          complement: '#ffffff',
+        },
+        error: {
+          base: '#cd524e',
+          baseHighlight: '#de5955',
+          accent: '#8c2d2a',
           complement: '#ffffff',
         },
         disabled: {

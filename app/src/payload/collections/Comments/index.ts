@@ -3,7 +3,7 @@ import { authenticated } from '@/payload/access/authenticated';
 import { fetchGravatarProfile } from '@/utils/gravatar';
 import { FixedToolbarFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
 import type { CollectionConfig } from 'payload';
-import validator from 'validator';
+import { validateDisplayName, validateEmail } from './validators';
 
 export const Comments: CollectionConfig = {
   slug: 'comments',
@@ -23,7 +23,7 @@ export const Comments: CollectionConfig = {
       name: 'displayName',
       type: 'text',
       required: true,
-      validate: (value) => (value && value.length <= 20) || 'Display name must be between 1 and 20 characters.',
+      validate: (value) => validateDisplayName(value),
     },
     {
       name: 'email',
@@ -35,9 +35,7 @@ export const Comments: CollectionConfig = {
       admin: {
         description: 'The email is for internal use only and will not be displayed publicly.',
       },
-      validate: (value) => {
-        return validator.isEmail(value) || 'Invalid email format.';
-      },
+      validate: (value) => validateEmail(value),
     },
     {
       name: 'content',
