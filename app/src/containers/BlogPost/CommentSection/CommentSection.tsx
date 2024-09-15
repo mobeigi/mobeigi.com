@@ -20,17 +20,20 @@ import {
 import { CommentSectionProps } from './types';
 import Image from 'next/image';
 import { getRandomAnimalSvgUrl } from '@/utils/avatar';
-import { countTotalCommenters, countTotalComments } from '@/utils/blog';
+import { countTotalCommenters, countTotalComments } from '@/utils/blog/comments';
 import { Comment } from '@/types/blog';
 import { useState } from 'react';
 import LeaveComment from './LeaveComment';
+import { serializeLexical } from '@/payload/lexical/serializeLexical';
+import { deserialize as deserializeComment } from '@/utils/blog/comments';
 
 interface CommentsProps {
   comments: Comment[];
   postId: number;
+  onCommentAdded: () => void;
 }
 
-const Comments = ({ comments, postId }: CommentsProps) => {
+const Comments = ({ comments, postId, onCommentAdded }: CommentsProps) => {
   if (!comments.length) {
     return null;
   }
@@ -39,9 +42,11 @@ const Comments = ({ comments, postId }: CommentsProps) => {
       {comments.map((comment) => {
         return (
           <li key={comment.id}>
-            <SingleComment comment={comment} postId={postId} />
+            <SingleComment comment={comment} postId={postId} onCommentAdded={onCommentAdded} />
             {/* Recursively render the children comments */}
-            {comment.children.length > 0 && <Comments comments={comment.children} postId={postId} />}
+            {comment.children.length > 0 && (
+              <Comments comments={comment.children} postId={postId} onCommentAdded={onCommentAdded} />
+            )}
           </li>
         );
       })}
@@ -52,11 +57,13 @@ const Comments = ({ comments, postId }: CommentsProps) => {
 interface SingleCommentProps {
   comment: Comment;
   postId: number;
+  onCommentAdded: () => void;
 }
 
-const SingleComment = ({ comment, postId }: SingleCommentProps) => {
+const SingleComment = ({ comment, postId, onCommentAdded }: SingleCommentProps) => {
   const [isReplying, setIsReplying] = useState<boolean>(false);
 
+  const commentContentReactNode = serializeLexical(comment.content);
   const createdAtDateString =
     comment.createdAt.toLocaleDateString('en-AU', {
       year: 'numeric',
@@ -91,7 +98,7 @@ const SingleComment = ({ comment, postId }: SingleCommentProps) => {
             <DisplayName>{comment.displayName}</DisplayName>
             <CreatedAtDate>{createdAtDateString}</CreatedAtDate>
           </CommentMeta>
-          <CommentContents>{comment.content}</CommentContents>
+          <CommentContents>{commentContentReactNode}</CommentContents>
           <CommentActions>
             <span>
               <a href="#" onClick={handleReply}>
@@ -107,15 +114,40 @@ const SingleComment = ({ comment, postId }: SingleCommentProps) => {
           parentCommentId={comment.id}
           canCancel={true}
           onCancel={() => setIsReplying(false)}
+          onSuccess={() => {
+            setIsReplying(false);
+            onCommentAdded();
+          }}
         />
       )}
     </SingleCommentContainer>
   );
 };
 
-export const CommentSection = ({ comments, postId }: CommentSectionProps) => {
+export const CommentSection = ({ comments: initialComments, postId }: CommentSectionProps) => {
+  const [comments, setComments] = useState<Array<Comment>>(initialComments);
+
   const commentCount = countTotalComments(comments);
   const commentersCount = countTotalCommenters(comments);
+
+  const refreshComments = async () => {
+    try {
+      const response = await fetch(`/api/custom/posts/${postId}/comments`);
+
+      if (!response.ok) {
+        console.error('Failed to refresh comments.');
+        // TODO: toast error
+        return;
+      }
+
+      const data = await response.json();
+      const deserializedComments = data.comments.map((comment: any) => deserializeComment(comment));
+      setComments(deserializedComments);
+    } catch (error) {
+      console.error('Error while fetching during refresh comments:', error);
+      // TODO: toast error
+    }
+  };
 
   return (
     <CommentSectionContainer>
@@ -132,7 +164,7 @@ export const CommentSection = ({ comments, postId }: CommentSectionProps) => {
               <strong>{commentersCount}</strong> {commentersCount === 1 ? 'commenter' : 'commenters'}.
             </p>
             <CommentsContainer>
-              <Comments comments={comments} postId={postId} />
+              <Comments comments={comments} postId={postId} onCommentAdded={refreshComments} />
             </CommentsContainer>
           </>
         ) : (

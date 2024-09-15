@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { SerializedEditorState } from 'lexical';
 
 export type Breadcrumb = {
   title: string;
@@ -34,7 +35,7 @@ export type Comment = {
   displayPictureUrl?: string;
   emailHash: string;
   createdAt: Date;
-  content: ReactNode;
+  content: SerializedEditorState;
   children: Comment[];
 };
 

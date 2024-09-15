@@ -17,9 +17,10 @@ import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { SerializedEditorState } from 'lexical';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   validateDisplayName as payloadValidateDisplayName,
   validateEmail as payloadValidateEmail,
@@ -27,11 +28,21 @@ import {
 } from '@/payload/collections/Comments/validators';
 import { PrimaryButton, SecondaryButton } from '@/styles/button';
 
-export const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCancel }: LeaveCommentProps) => {
+const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCancel, onSuccess }: LeaveCommentProps) => {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [content, setContent] = useState<SerializedEditorState | null>(null);
   const [errors, setErrors] = useState<Map<string, string>>(new Map());
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const [editor] = useLexicalComposerContext();
+
+  /**
+   * Ensure editor is not editable during a submission
+   */
+  useEffect(() => {
+    editor.setEditable(!isSubmitting);
+  }, [isSubmitting, editor]);
 
   const updateErrors = (key: string, value: string) => {
     setErrors((prevErrors) => {
@@ -47,18 +58,6 @@ export const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCan
       newErrors.delete(key);
       return newErrors;
     });
-  };
-
-  // Lexical config
-  const onLexicalEditorError = (error: Error) => {
-    console.error(error);
-    // TODO: toast error
-  };
-
-  const initialConfig: InitialConfigType = {
-    namespace: 'LeaveCommentEditor',
-    theme: {},
-    onError: onLexicalEditorError,
   };
 
   // Validation
@@ -107,6 +106,8 @@ export const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCan
       return;
     }
     try {
+      setIsSubmitting(true);
+
       const response = await fetch('/api/comments', {
         method: 'POST',
         headers: {
@@ -121,15 +122,20 @@ export const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCan
         }),
       });
 
-      if (!response.ok) {
-        console.error('Error submitting comment. Received non-ok response.');
-        // TODO: toast error
-      } else {
+      if (response.ok) {
         // TODO: success toast
+        if (onSuccess) {
+          onSuccess();
+        }
+      } else {
+        // TODO: toast error
+        console.error('Error submitting comment. Received non-ok response.');
       }
     } catch (err) {
       console.error('Error submitting comment:', err);
       // TODO: toast error
+    } finally {
+      setIsSubmitting(false);
     }
   };
   const isDisplayNameError = (errors.get('displayName') ?? []).length > 0;
@@ -147,6 +153,7 @@ export const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCan
               type="text"
               id="displayName"
               value={displayName}
+              disabled={isSubmitting}
               onChange={(e) => {
                 setDisplayName(e.target.value);
                 validateDisplayName(e.target.value);
@@ -163,6 +170,7 @@ export const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCan
               type="text"
               id="email"
               value={email}
+              disabled={isSubmitting}
               onChange={(e) => {
                 setEmail(e.target.value);
                 validateEmail(e.target.value);
@@ -173,35 +181,57 @@ export const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCan
         </InputFieldWrapper>
       </TopInputRow>
 
-      <LexicalComposer initialConfig={initialConfig}>
-        <RichTextPlugin
-          contentEditable={
-            <ContentEditableWrapper $isError={isContentError}>
-              <ContentEditable />
-            </ContentEditableWrapper>
-          }
-          ErrorBoundary={LexicalErrorBoundary}
-        />
-        <OnChangePlugin
-          ignoreSelectionChange={true}
-          onChange={(editorState) => {
-            editorState.read(() => {
-              const serializedContent = editorState.toJSON();
-              setContent(serializedContent);
-              validateContent(serializedContent);
-            });
-          }}
-        />
-        <HistoryPlugin />
-      </LexicalComposer>
+      <RichTextPlugin
+        contentEditable={
+          <ContentEditableWrapper $isError={isContentError}>
+            <ContentEditable contentEditable={false} />
+          </ContentEditableWrapper>
+        }
+        ErrorBoundary={LexicalErrorBoundary}
+      />
+      <OnChangePlugin
+        ignoreSelectionChange={true}
+        onChange={(editorState) => {
+          editorState.read(() => {
+            const serializedContent = editorState.toJSON();
+            setContent(serializedContent);
+            validateContent(serializedContent);
+          });
+        }}
+      />
+      <HistoryPlugin />
       {isContentError && <InputError>{errors.get('content')}</InputError>}
 
       <ActionRow>
-        {canCancel && <SecondaryButton onClick={onCancel}>Cancel</SecondaryButton>}
-        <PrimaryButton onClick={handleCommentSubmit} disabled={isError}>
+        {canCancel && (
+          <SecondaryButton onClick={onCancel} disabled={isSubmitting}>
+            Cancel
+          </SecondaryButton>
+        )}
+        <PrimaryButton onClick={handleCommentSubmit} disabled={isSubmitting || isError}>
           Comment
         </PrimaryButton>
       </ActionRow>
     </LeaveCommentContainer>
+  );
+};
+
+export const LeaveCommentWithEditor = (props: LeaveCommentProps) => {
+  const onLexicalEditorError = (error: Error) => {
+    console.error(error);
+    // TODO: toast error
+  };
+
+  const initialConfig: InitialConfigType = {
+    namespace: 'LeaveCommentEditor',
+    theme: {},
+    onError: onLexicalEditorError,
+  };
+  return (
+    <>
+      <LexicalComposer initialConfig={initialConfig}>
+        <LeaveComment {...props} />
+      </LexicalComposer>
+    </>
   );
 };

@@ -1,1 +1,1 @@
-export { LeaveComment as default } from './LeaveComment';
+export { LeaveCommentWithEditor as default } from './LeaveComment';
