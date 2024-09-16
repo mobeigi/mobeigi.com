@@ -15,6 +15,7 @@ import { UserPreferencesProvider } from '@/context/userPreferencesContext';
 import { parseThemeCookieValue, resolveThemeMode } from '@/utils/theme';
 import { DEFAULT_THEME_MODE, FALLBACK_PREFERS_COLOR_SCHEME } from '@/constants/theme';
 import HighlightJsStyle from '@/styles/HighlightJsStyle';
+import ThemedToastContainer from '@/components/ThemedToastContainer';
 
 const roboto = Roboto({ subsets: ['latin'], style: ['normal', 'italic'], weight: ['400', '700'] });
 
@@ -65,6 +66,7 @@ const RootLayout = ({
           >
             <ThemeProviderWrapper>
               <GlobalStyle />
+              <ThemedToastContainer />
               <HighlightJsStyle currentTheme={currentTheme} />
               <Header id="header">
                 <HeaderContent />
