@@ -9,6 +9,8 @@ import {
   InputFieldWrapper,
   InputError,
   InputWithError,
+  LabelDetails,
+  LabelContainer,
 } from './styled';
 
 import { LexicalComposer, type InitialConfigType } from '@lexical/react/LexicalComposer';
@@ -152,7 +154,12 @@ const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCancel, on
       <TopInputRow>
         <InputFieldWrapper>
           <InputWithError $isError={isDisplayNameError}>
-            <label htmlFor={displayNameUniqueId}>Display Name:</label>
+            <LabelContainer>
+              <label htmlFor={displayNameUniqueId}>Display Name</label>
+              <LabelDetails>
+                <span>(required)</span>
+              </LabelDetails>
+            </LabelContainer>
             <input
               type="text"
               id={displayNameUniqueId}
@@ -169,7 +176,13 @@ const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCancel, on
 
         <InputFieldWrapper>
           <InputWithError $isError={isEmailError}>
-            <label htmlFor={emailUniqueId}>Email:</label>
+            <LabelContainer>
+              <label htmlFor={emailUniqueId}>Email</label>
+              <LabelDetails>
+                <span>(will not be published)</span>
+                <span>(required)</span>
+              </LabelDetails>
+            </LabelContainer>
             <input
               type="text"
               id={emailUniqueId}
