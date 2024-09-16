@@ -1,3 +1,5 @@
+'use client';
+
 import { hexToRgba } from '@/utils/theme';
 import { styled } from 'styled-components';
 

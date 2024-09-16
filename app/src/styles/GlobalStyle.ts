@@ -105,6 +105,10 @@ const GlobalStyle = createGlobalStyle`
 
   /* Buttons */
   button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
     border-radius: 0.2em;
     border: 0.1em solid transparent;
     padding: 0.6em 1.2em;

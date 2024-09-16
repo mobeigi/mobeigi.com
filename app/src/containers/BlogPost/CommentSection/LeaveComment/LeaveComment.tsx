@@ -29,6 +29,8 @@ import {
   validateContent as payloadValidateContent,
 } from '@/payload/collections/Comments/validators';
 import { PrimaryButton, SecondaryButton } from '@/styles/button';
+import ClipLoader from 'react-spinners/ClipLoader';
+import { ButtonLabel, SpinnerOverlay } from '@/styles/spinner';
 
 const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCancel, onSuccess }: LeaveCommentProps) => {
   const [displayName, setDisplayName] = useState('');
@@ -226,7 +228,12 @@ const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCancel, on
           </SecondaryButton>
         )}
         <PrimaryButton onClick={handleCommentSubmit} disabled={isSubmitting || isError}>
-          Comment
+          <ButtonLabel $isVisible={!isSubmitting}>Comment</ButtonLabel>
+          {isSubmitting && (
+            <SpinnerOverlay>
+              <ClipLoader size={'1em'} />
+            </SpinnerOverlay>
+          )}
         </PrimaryButton>
       </ActionRow>
     </LeaveCommentContainer>
