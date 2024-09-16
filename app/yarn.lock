@@ -7234,6 +7234,13 @@ react-spring@^9.7.4:
     "@react-spring/web" "~9.7.4"
     "@react-spring/zdog" "~9.7.4"
 
+react-toastify@^10.0.5:
+  version "10.0.5"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-10.0.5.tgz#6b8f8386060c5c856239f3036d1e76874ce3bd1e"
+  integrity sha512-mNKt2jBXJg4O7pSdbNUfDdTsK9FIdikfsIE/yUCxbAEXl4HMyJaivrVFcn3Elvt5xvCQYhUZm+hqTIu1UXM3Pw==
+  dependencies:
+    clsx "^2.1.0"
+
 "react-toggle-dark-mode@file:./packages/react-toggle-dark-mode-v2.0.0.tgz":
   version "2.0.0"
   resolved "file:./packages/react-toggle-dark-mode-v2.0.0.tgz#3c5a1e4003cb5e097198ed337719331bdc9e4c84"

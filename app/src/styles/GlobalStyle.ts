@@ -3,6 +3,8 @@
 import { hexToRgba } from '@/utils/theme';
 import { createGlobalStyle } from 'styled-components';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 const GlobalStyle = createGlobalStyle`
   /* Variables */
   :root {
