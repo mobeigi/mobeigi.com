@@ -5,4 +5,5 @@ export interface LeaveCommentProps {
   onCancel?: () => void;
   onSuccess?: () => void;
   onError?: (error: Error) => void;
+  autoFocus?: boolean;
 }

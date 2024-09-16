@@ -40,6 +40,7 @@ const LeaveComment = ({
   onCancel,
   onSuccess,
   onError,
+  autoFocus,
 }: LeaveCommentProps) => {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
@@ -180,6 +181,7 @@ const LeaveComment = ({
               id={displayNameUniqueId}
               value={displayName}
               disabled={isSubmitting}
+              autoFocus={autoFocus}
               onChange={(e) => {
                 setDisplayName(e.target.value);
                 validateDisplayName(e.target.value);
