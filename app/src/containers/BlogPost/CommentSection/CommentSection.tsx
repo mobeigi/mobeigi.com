@@ -123,6 +123,7 @@ const SingleComment = ({ comment, postId, onCommentAdded }: SingleCommentProps) 
             console.error(error);
             toast.error(error.message);
           }}
+          autoFocus
         />
       )}
     </SingleCommentContainer>
