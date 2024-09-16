@@ -1,5 +1,4 @@
 'use client';
-// TODO: Do we need to make this entire component a client?
 
 import {
   LeaveCommentArea,
@@ -26,6 +25,7 @@ import { useState } from 'react';
 import LeaveComment from './LeaveComment';
 import { serializeLexical } from '@/payload/lexical/serializeLexical';
 import { deserialize as deserializeComment } from '@/utils/blog/comments';
+import { toast } from 'react-toastify';
 
 interface CommentsProps {
   comments: Comment[];
@@ -116,7 +116,12 @@ const SingleComment = ({ comment, postId, onCommentAdded }: SingleCommentProps) 
           onCancel={() => setIsReplying(false)}
           onSuccess={() => {
             setIsReplying(false);
+            toast.success('Comment published!');
             onCommentAdded();
+          }}
+          onError={(error: Error) => {
+            console.error(error);
+            toast.error(error.message);
           }}
         />
       )}
@@ -135,8 +140,8 @@ export const CommentSection = ({ comments: initialComments, postId }: CommentSec
       const response = await fetch(`/api/custom/posts/${postId}/comments`);
 
       if (!response.ok) {
-        console.error('Failed to refresh comments.');
-        // TODO: toast error
+        console.error('Failed to refresh comments. Received non-ok response.');
+        toast.error('Failed to refresh comments.');
         return;
       }
 
@@ -144,8 +149,8 @@ export const CommentSection = ({ comments: initialComments, postId }: CommentSec
       const deserializedComments = data.comments.map((comment: any) => deserializeComment(comment));
       setComments(deserializedComments);
     } catch (error) {
-      console.error('Error while fetching during refresh comments:', error);
-      // TODO: toast error
+      console.error('Error encountered during refresh comments:', error);
+      toast.error('Failed to refresh comments.');
     }
   };
 
