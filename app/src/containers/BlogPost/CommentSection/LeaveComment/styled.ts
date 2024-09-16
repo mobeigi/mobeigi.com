@@ -39,6 +39,19 @@ export const InputWithError = styled.span<ErrorProps>`
   }
 `;
 
+export const LabelContainer = styled.span`
+  display: flex;
+  gap: 0.4em;
+  align-items: center;
+`;
+
+export const LabelDetails = styled.span`
+  display: inline-flex;
+  gap: 0.4em;
+  font-size: 0.85em;
+  color: ${({ theme }) => theme.colors.frame.text.base};
+`;
+
 export const InputError = styled.p`
   padding: 0;
   margin: 0;
