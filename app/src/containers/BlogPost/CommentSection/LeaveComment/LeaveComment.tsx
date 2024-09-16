@@ -31,8 +31,16 @@ import {
 import { PrimaryButton, SecondaryButton } from '@/styles/button';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { ButtonLabel, SpinnerOverlay } from '@/styles/spinner';
+import { toast } from 'react-toastify';
 
-const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCancel, onSuccess }: LeaveCommentProps) => {
+const LeaveComment = ({
+  postId,
+  parentCommentId,
+  canCancel = false,
+  onCancel,
+  onSuccess,
+  onError,
+}: LeaveCommentProps) => {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [content, setContent] = useState<SerializedEditorState | null>(null);
@@ -127,17 +135,22 @@ const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCancel, on
       });
 
       if (response.ok) {
-        // TODO: success toast
         if (onSuccess) {
           onSuccess();
         }
       } else {
-        // TODO: toast error
-        console.error('Error submitting comment. Received non-ok response.');
+        if (onError) {
+          onError(Error('Error submitting comment. Received non-ok response.'));
+        }
       }
-    } catch (err) {
-      console.error('Error submitting comment:', err);
-      // TODO: toast error
+    } catch (error) {
+      if (onError) {
+        if (error instanceof Error) {
+          onError(error);
+        } else {
+          onError(new Error(String(error)));
+        }
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -243,7 +256,7 @@ const LeaveComment = ({ postId, parentCommentId, canCancel = false, onCancel, on
 export const LeaveCommentWithEditor = (props: LeaveCommentProps) => {
   const onLexicalEditorError = (error: Error) => {
     console.error(error);
-    // TODO: toast error
+    toast.error(error.message);
   };
 
   const initialConfig: InitialConfigType = {
