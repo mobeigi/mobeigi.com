@@ -98,4 +98,7 @@ export const CreatedAtDate = styled.span`
 
 export const CommentContents = styled.span``;
 
-export const CommentActions = styled.span``;
+export const CommentActions = styled.span`
+  display: flex;
+  gap: 0.4em;
+`;
