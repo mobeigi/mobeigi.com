@@ -54,7 +54,7 @@ export const projects: ProjectBoxProps[] = [
     description: 'Fetch Facebook Birthdays events and create an ICS file for use with calendar apps.',
     url: 'https://pypi.org/project/fb2cal/',
     urlActive: true,
-    blogUrl: '/blog/development/programming/restoring-facebooks-birthday-calendar-export-feature-fb2cal/', //TODO: Make relative and point to new blog url
+    blogUrl: '/blog/development/programming/restoring-facebooks-birthday-calendar-export-feature-fb2cal/',
     githubUrl: 'https://github.com/mobeigi/fb2cal',
   },
   {
