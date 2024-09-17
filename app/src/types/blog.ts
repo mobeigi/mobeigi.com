@@ -12,7 +12,7 @@ export type Category = {
   url: string;
 };
 
-export type BlogPostMeta = {
+export type BlogPostPostMeta = {
   id: number;
   title: string;
   publishedAt: Date;
@@ -22,6 +22,16 @@ export type BlogPostMeta = {
   category: Category;
   breadcrumbs: Breadcrumb[];
   commentsEnabled: boolean;
+};
+
+/* Meta that is related to the post but not part of post data itself */
+export type BlogPostRelatedMeta = {
+  commentCount: number;
+};
+
+export type BlogPostMeta = {
+  post: BlogPostPostMeta;
+  related: BlogPostRelatedMeta;
 };
 
 export type BlogPostContent = {

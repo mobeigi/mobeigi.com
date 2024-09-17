@@ -9,9 +9,9 @@ export const BlogPage = ({ blogPostMetas }: BlogPageProps) => {
       <p>Explore my thoughts and insights through the blog posts below.</p>
       <BlogSummaryWrapper>
         {blogPostMetas.length ? (
-          blogPostMetas.map((blogPostMeta, index) => (
+          blogPostMetas.map((meta, index) => (
             <article key={index}>
-              <BlogSummary key={blogPostMeta.slug} blogPostMeta={blogPostMeta} />
+              <BlogSummary key={meta.post.slug} blogPostMeta={meta} />
             </article>
           ))
         ) : (
