@@ -23,7 +23,7 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { SerializedEditorState, $getRoot, $createParagraphNode, $setSelection, CLEAR_EDITOR_COMMAND } from 'lexical';
 
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import {
   validateDisplayName as payloadValidateDisplayName,
   validateEmail as payloadValidateEmail,
@@ -34,6 +34,7 @@ import ClipLoader from 'react-spinners/ClipLoader';
 import { ButtonLabel, SpinnerOverlay } from '@/styles/spinner';
 import { toast } from 'react-toastify';
 import { extractValidationErrorResponseMessage } from '@/utils/payload';
+import { Comment as PayloadComment } from '@/payload-types';
 
 const initialDisplayName = '';
 const initialEmail = '';
@@ -56,7 +57,7 @@ const LeaveComment = ({
   const [errors, setErrors] = useState<Map<string, string>>(initialErrors);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(initialIsSubmitting);
 
-  const [isResetting, setIsResetting] = useState<boolean>(false);
+  const skipNextLexicalOnChangeRef = useRef(false);
 
   const [editor] = useLexicalComposerContext();
 
@@ -84,20 +85,14 @@ const LeaveComment = ({
   };
 
   const reset = () => {
-    setIsResetting(true);
-
     setDisplayName(initialDisplayName);
     setEmail(initialEmail);
-
-    editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined);
-
     setContent(initialContent);
     setErrors(initialErrors);
     setIsSubmitting(initialIsSubmitting);
 
-    // TODO: Explore alternatives without timeout
-    // Slight delay to allow OnChangePlugin to skip one update
-    setTimeout(() => setIsResetting(false), 20);
+    skipNextLexicalOnChangeRef.current = true;
+    editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined);
   };
 
   // Validation
@@ -165,7 +160,9 @@ const LeaveComment = ({
       if (response.ok) {
         reset();
         if (onSuccess) {
-          onSuccess();
+          const json = await response.json();
+          const comment: PayloadComment = json.doc;
+          onSuccess(comment);
         }
       } else {
         if (onError) {
@@ -257,7 +254,8 @@ const LeaveComment = ({
         ignoreSelectionChange={true}
         onChange={(editorState) => {
           editorState.read(() => {
-            if (isResetting) {
+            if (skipNextLexicalOnChangeRef.current) {
+              skipNextLexicalOnChangeRef.current = false;
               return;
             }
             const serializedContent = editorState.toJSON();
@@ -278,7 +276,6 @@ const LeaveComment = ({
       />
       <HistoryPlugin />
       {isContentError && <InputError>{errors.get('content')}</InputError>}
-      {/* <button onClick={reset}>RESET</button> */}
       <ActionRow>
         {canCancel && (
           <SecondaryButton onClick={onCancel} disabled={isSubmitting}>
