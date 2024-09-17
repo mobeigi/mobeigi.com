@@ -31,17 +31,26 @@ export const CommentsContainer = styled.div`
   > ul:first-of-type {
     margin: 0;
     border-left: none;
-    padding-left: none;
+    padding-left: 0;
 
     > li:first-of-type {
       padding: 0;
     }
   }
 
+  /* Collpase very deep nested comments */
+  ul ul ul ul ul ul {
+    margin: 0;
+  }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px) {
     ul {
       margin: 0 0 0 1em;
     }
+
+    /* Collpase very deep nested comments */
+    ul ul ul ul {
+      margin: 0;
   }
 `;
 
