@@ -26,15 +26,16 @@ import LeaveComment from './LeaveComment';
 import { serializeLexical } from '@/payload/lexical/serializeLexical';
 import { deserialize as deserializeComment } from '@/utils/blog/comments';
 import { toast } from 'react-toastify';
+import { Comment as PayloadComment } from '@/payload-types';
 
 interface CommentsProps {
   comments: Comment[];
   postId: number;
-  onCommentAdded: () => void;
+  onSuccess: (comment: PayloadComment) => void;
   commentsEnabled: boolean;
 }
 
-const Comments = ({ comments, postId, onCommentAdded, commentsEnabled }: CommentsProps) => {
+const Comments = ({ comments, postId, onSuccess, commentsEnabled }: CommentsProps) => {
   if (!comments.length) {
     return null;
   }
@@ -43,18 +44,13 @@ const Comments = ({ comments, postId, onCommentAdded, commentsEnabled }: Comment
       {comments.map((comment) => {
         return (
           <li key={comment.id}>
-            <SingleComment
-              comment={comment}
-              postId={postId}
-              onCommentAdded={onCommentAdded}
-              commentsEnabled={commentsEnabled}
-            />
+            <SingleComment comment={comment} postId={postId} onSuccess={onSuccess} commentsEnabled={commentsEnabled} />
             {/* Recursively render the children comments */}
             {comment.children.length > 0 && (
               <Comments
                 comments={comment.children}
                 postId={postId}
-                onCommentAdded={onCommentAdded}
+                onSuccess={onSuccess}
                 commentsEnabled={commentsEnabled}
               />
             )}
@@ -68,11 +64,11 @@ const Comments = ({ comments, postId, onCommentAdded, commentsEnabled }: Comment
 interface SingleCommentProps {
   comment: Comment;
   postId: number;
-  onCommentAdded: () => void;
+  onSuccess: (comment: PayloadComment) => void;
   commentsEnabled: boolean;
 }
 
-const SingleComment = ({ comment, postId, onCommentAdded, commentsEnabled }: SingleCommentProps) => {
+const SingleComment = ({ comment, postId, onSuccess, commentsEnabled }: SingleCommentProps) => {
   const [isReplying, setIsReplying] = useState<boolean>(false);
 
   const commentContentReactNode = serializeLexical(comment.content);
@@ -100,7 +96,7 @@ const SingleComment = ({ comment, postId, onCommentAdded, commentsEnabled }: Sin
   };
 
   return (
-    <SingleCommentContainer>
+    <SingleCommentContainer id={`comment-${comment.id}`}>
       <CommentBox>
         <DisplayPicture $isCustomDisplayPicture={isCustomDisplayPicture}>
           <Image src={displayPictureUrl} alt={`Display picture for ${comment.displayName}`} width={55} height={55} />
@@ -128,10 +124,9 @@ const SingleComment = ({ comment, postId, onCommentAdded, commentsEnabled }: Sin
           parentCommentId={comment.id}
           canCancel={true}
           onCancel={() => setIsReplying(false)}
-          onSuccess={() => {
+          onSuccess={(comment) => {
             setIsReplying(false);
-            toast.success('Comment published!');
-            onCommentAdded();
+            onSuccess(comment);
           }}
           onError={(error: Error) => {
             console.error(error);
@@ -169,19 +164,20 @@ export const CommentSection = ({ comments: initialComments, postId, commentsEnab
     }
   };
 
+  const onCommentAdded = (comment: PayloadComment) => {
+    toast.success('Comment published!');
+    refreshComments();
+    setTimeout(() => {
+      window.location.hash = `#comment-${comment.id}`;
+    }, 100);
+  };
+
   return (
     <CommentSectionContainer>
       {commentsEnabled && (
         <LeaveCommentArea>
           <h2 id="leave-a-comment">Leave a comment</h2>
-          <LeaveComment
-            postId={postId}
-            parentCommentId={null}
-            onSuccess={() => {
-              toast.success('Comment published!');
-              refreshComments();
-            }}
-          />
+          <LeaveComment postId={postId} parentCommentId={null} onSuccess={onCommentAdded} />
         </LeaveCommentArea>
       )}
       <CommentsArea>
@@ -199,7 +195,7 @@ export const CommentSection = ({ comments: initialComments, postId, commentsEnab
               <Comments
                 comments={comments}
                 postId={postId}
-                onCommentAdded={refreshComments}
+                onSuccess={onCommentAdded}
                 commentsEnabled={commentsEnabled}
               />
             </CommentsContainer>

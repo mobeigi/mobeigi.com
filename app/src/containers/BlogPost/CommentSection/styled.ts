@@ -58,6 +58,9 @@ export const SingleCommentContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1em;
+
+  /* Adjust scroll margin to compensate for fixed header */
+  scroll-margin-top: var(--scroll-margin-top-offset);
 `;
 
 export const CommentBox = styled.div`
