@@ -17,10 +17,11 @@ import { LexicalComposer, type InitialConfigType } from '@lexical/react/LexicalC
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
+import { ClearEditorPlugin } from '@lexical/react/LexicalClearEditorPlugin';
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { SerializedEditorState } from 'lexical';
+import { SerializedEditorState, $getRoot, $createParagraphNode, $setSelection, CLEAR_EDITOR_COMMAND } from 'lexical';
 
 import { useEffect, useId, useState } from 'react';
 import {
@@ -34,6 +35,12 @@ import { ButtonLabel, SpinnerOverlay } from '@/styles/spinner';
 import { toast } from 'react-toastify';
 import { extractValidationErrorResponseMessage } from '@/utils/payload';
 
+const initialDisplayName = '';
+const initialEmail = '';
+const initialContent = null;
+const initialErrors = new Map();
+const initialIsSubmitting = false;
+
 const LeaveComment = ({
   postId,
   parentCommentId,
@@ -43,11 +50,13 @@ const LeaveComment = ({
   onError,
   autoFocus,
 }: LeaveCommentProps) => {
-  const [displayName, setDisplayName] = useState('');
-  const [email, setEmail] = useState('');
-  const [content, setContent] = useState<SerializedEditorState | null>(null);
-  const [errors, setErrors] = useState<Map<string, string>>(new Map());
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [displayName, setDisplayName] = useState(initialDisplayName);
+  const [email, setEmail] = useState(initialEmail);
+  const [content, setContent] = useState<SerializedEditorState | null>(initialContent);
+  const [errors, setErrors] = useState<Map<string, string>>(initialErrors);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(initialIsSubmitting);
+
+  const [isResetting, setIsResetting] = useState<boolean>(false);
 
   const [editor] = useLexicalComposerContext();
 
@@ -72,6 +81,23 @@ const LeaveComment = ({
       newErrors.delete(key);
       return newErrors;
     });
+  };
+
+  const reset = () => {
+    setIsResetting(true);
+
+    setDisplayName(initialDisplayName);
+    setEmail(initialEmail);
+
+    editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined);
+
+    setContent(initialContent);
+    setErrors(initialErrors);
+    setIsSubmitting(initialIsSubmitting);
+
+    // TODO: Explore alternatives without timeout
+    // Slight delay to allow OnChangePlugin to skip one update
+    setTimeout(() => setIsResetting(false), 20);
   };
 
   // Validation
@@ -137,6 +163,7 @@ const LeaveComment = ({
       });
 
       if (response.ok) {
+        reset();
         if (onSuccess) {
           onSuccess();
         }
@@ -221,7 +248,7 @@ const LeaveComment = ({
       <RichTextPlugin
         contentEditable={
           <ContentEditableWrapper $isError={isContentError}>
-            <ContentEditable contentEditable={false} />
+            <ContentEditable />
           </ContentEditableWrapper>
         }
         ErrorBoundary={LexicalErrorBoundary}
@@ -230,15 +257,28 @@ const LeaveComment = ({
         ignoreSelectionChange={true}
         onChange={(editorState) => {
           editorState.read(() => {
+            if (isResetting) {
+              return;
+            }
             const serializedContent = editorState.toJSON();
             setContent(serializedContent);
             validateContent(serializedContent);
           });
         }}
       />
+      <ClearEditorPlugin
+        onClear={() => {
+          // Clear without focusing
+          const root = $getRoot();
+          const paragraph = $createParagraphNode();
+          root.clear();
+          root.append(paragraph);
+          $setSelection(null);
+        }}
+      />
       <HistoryPlugin />
       {isContentError && <InputError>{errors.get('content')}</InputError>}
-
+      {/* <button onClick={reset}>RESET</button> */}
       <ActionRow>
         {canCancel && (
           <SecondaryButton onClick={onCancel} disabled={isSubmitting}>
