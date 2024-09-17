@@ -89,7 +89,7 @@ export const CommentMain = styled.div`
   flex-direction: column;
 `;
 
-export const CommentMeta = styled.span`
+export const CommentMetaHeader = styled.header`
   display: flex;
   gap: 0.4em;
 

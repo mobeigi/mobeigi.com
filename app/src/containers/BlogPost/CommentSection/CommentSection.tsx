@@ -6,7 +6,7 @@ import {
   CommentsArea,
   CommentBox,
   DisplayPicture,
-  CommentMeta,
+  CommentMetaHeader,
   CommentMain,
   DisplayName,
   CommentContents,
@@ -102,10 +102,10 @@ const SingleComment = ({ comment, postId, onSuccess, commentsEnabled }: SingleCo
           <Image src={displayPictureUrl} alt={`Display picture for ${comment.displayName}`} width={55} height={55} />
         </DisplayPicture>
         <CommentMain>
-          <CommentMeta>
+          <CommentMetaHeader>
             <DisplayName>{comment.displayName}</DisplayName>
             <CreatedAtTime dateTime={comment.createdAt.toISOString()}>{createdAtDateString}</CreatedAtTime>
-          </CommentMeta>
+          </CommentMetaHeader>
           <CommentContents>{commentContentReactNode}</CommentContents>
           <CommentActions>
             {commentsEnabled && (

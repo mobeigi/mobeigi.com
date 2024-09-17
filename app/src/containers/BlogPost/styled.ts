@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-export const BlogPostContainer = styled.article`
+export const BlogPostContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -137,11 +137,18 @@ export const BlogPostContainer = styled.article`
   }
 `;
 
-export const BlogPostSummaryWrapper = styled.div`
+export const BlogPostArticle = styled.article`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1em;
+`;
+
+export const BlogSummaryWrapper = styled.div`
   display: block;
 `;
 
-export const BlogPostSummaryContainer = styled.section`
+export const BlogSummaryContainer = styled.section`
   display: block;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet.maxWidth}px) {
