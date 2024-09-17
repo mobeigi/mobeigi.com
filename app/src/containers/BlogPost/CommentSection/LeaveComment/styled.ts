@@ -84,6 +84,10 @@ export const ContentEditableWrapper = styled.div<ErrorProps>`
 
     /* Apply outline on error */
     ${({ $isError, theme }) => $isError && `border-color: ${theme.colors.status.error.base};`}
+
+    &[disabled] {
+      color: ${({ theme }) => theme.colors.frame.text.base};
+    }
   }
 `;
 

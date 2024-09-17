@@ -221,6 +221,10 @@ const GlobalStyle = createGlobalStyle`
     border-color: ${({ theme }) => theme.colors.container.text.baseHighlight};
     outline: none;
   }
+
+  input:disabled {
+    color: ${({ theme }) => theme.colors.frame.text.base};
+  }
 `;
 
 export default GlobalStyle;
