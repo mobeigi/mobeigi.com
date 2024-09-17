@@ -32,6 +32,7 @@ import { PrimaryButton, SecondaryButton } from '@/styles/button';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { ButtonLabel, SpinnerOverlay } from '@/styles/spinner';
 import { toast } from 'react-toastify';
+import { extractValidationErrorResponseMessage } from '@/utils/payload';
 
 const LeaveComment = ({
   postId,
@@ -141,7 +142,9 @@ const LeaveComment = ({
         }
       } else {
         if (onError) {
-          onError(Error('Error submitting comment. Received non-ok response.'));
+          const json = await response.json();
+          const combinedErrorMessage = extractValidationErrorResponseMessage(json);
+          onError(Error(`Error submitting comment: ${combinedErrorMessage}`));
         }
       }
     } catch (error) {

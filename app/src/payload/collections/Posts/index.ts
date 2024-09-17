@@ -86,6 +86,18 @@ export const Posts: CollectionConfig = {
         {
           fields: [
             {
+              name: 'commentsEnabled',
+              type: 'checkbox',
+              label: 'Comments enabled',
+              defaultValue: true,
+              required: false,
+            },
+          ],
+          label: 'Comments',
+        },
+        {
+          fields: [
+            {
               name: 'customFields',
               type: 'array',
               label: 'Custom Field',

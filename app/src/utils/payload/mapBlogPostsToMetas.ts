@@ -52,6 +52,7 @@ export const mapBlogPostToMeta = (payloadPost: PayloadPost): BlogPostMeta | null
     breadcrumbs: blogPostBreadcrumbs,
     url: blogPostUrl,
     category: category,
+    commentsEnabled: payloadPost.commentsEnabled ?? true,
   };
 
   return blogPostMeta;

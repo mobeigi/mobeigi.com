@@ -29,7 +29,7 @@ export const BlogPost = ({ meta, content, comments }: BlogPostProps) => {
         </BlogPostSidebarWrapper>
       </BlogPostBodyContainer>
       <hr />
-      <CommentSection comments={comments} postId={meta.id} />
+      <CommentSection comments={comments} postId={meta.id} commentsEnabled={meta.commentsEnabled} />
     </BlogPostContainer>
   );
 };

@@ -21,6 +21,7 @@ export type BlogPostMeta = {
   url: string;
   category: Category;
   breadcrumbs: Breadcrumb[];
+  commentsEnabled: boolean;
 };
 
 export type BlogPostContent = {

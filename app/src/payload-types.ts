@@ -140,6 +140,7 @@ export interface Post {
     [k: string]: unknown;
   };
   excerpt: string;
+  commentsEnabled?: boolean | null;
   customFields?:
     | {
         key: string;
