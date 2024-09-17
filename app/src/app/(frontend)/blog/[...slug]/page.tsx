@@ -5,9 +5,9 @@ import config from '@payload-config';
 import BlogPost from '@/containers/BlogPost';
 import { notFound } from 'next/navigation';
 import { BlogPostProps } from '@/containers/BlogPost';
-import { BlogPostContent } from '@/types/blog';
-import { serializeLexical } from '@/payload/lexical/serializeLexical';
-import { mapBlogPostToMeta, mapComments } from '@/utils/payload';
+import { BlogPostContent, BlogPostMeta, BlogPostRelatedMeta } from '@/types/blog';
+import { mapPostToPostMeta, mapComments } from '@/utils/payload';
+import { countTotalComments } from '@/utils/blog/comments';
 
 const depth = 2;
 
@@ -106,9 +106,9 @@ const BlogPostHandler = async ({ params }: { params: { slug: string[] } }) => {
  * Transforms a Post to a BlogPostProps object
  */
 const transformPostToBlogPostProps = async (post: Post): Promise<BlogPostProps | null> => {
-  const meta = mapBlogPostToMeta(post);
-  if (!meta) {
-    console.warn('BlogPostMeta cannot be null.');
+  const postMeta = mapPostToPostMeta(post);
+  if (!postMeta) {
+    console.warn('postMeta should not be null.');
     return null;
   }
 
@@ -131,6 +131,15 @@ const transformPostToBlogPostProps = async (post: Post): Promise<BlogPostProps |
   });
 
   const mappedComments = mapComments(comments.docs);
+
+  const relatedMeta: BlogPostRelatedMeta = {
+    commentCount: countTotalComments(mappedComments),
+  };
+
+  const meta: BlogPostMeta = {
+    post: postMeta,
+    related: relatedMeta,
+  };
 
   const blogPostProps: BlogPostProps = {
     meta,

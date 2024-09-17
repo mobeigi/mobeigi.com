@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { IconWrapper } from '@/styles/icon';
 import CalendarSvg from '@/assets/icons/boxicons/bx-calendar.svg';
 import CategorySvg from '@/assets/icons/boxicons/bx-category.svg';
+import CommentDetailSvg from '@/assets/icons/boxicons/bxs-comment-detail.svg';
 
 export const BlogSummary = ({
   blogPostMeta,
@@ -17,7 +18,7 @@ export const BlogSummary = ({
   linkCategory = true,
   showExcerpt = true,
 }: BlogSummaryProps) => {
-  const publishedAtDateString = blogPostMeta.publishedAt.toLocaleDateString('en-AU', {
+  const publishedAtDateString = blogPostMeta.post.publishedAt.toLocaleDateString('en-AU', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -26,11 +27,11 @@ export const BlogSummary = ({
   return (
     <BlogSummaryContainer>
       {linkHeading ? (
-        <Link href={blogPostMeta.url}>
-          <Heading as={headingLevel}>{blogPostMeta.title}</Heading>
+        <Link href={blogPostMeta.post.url}>
+          <Heading as={headingLevel}>{blogPostMeta.post.title}</Heading>
         </Link>
       ) : (
-        <Heading as={headingLevel}>{blogPostMeta.title}</Heading>
+        <Heading as={headingLevel}>{blogPostMeta.post.title}</Heading>
       )}
       <DetailContainer>
         <Detail>
@@ -45,14 +46,20 @@ export const BlogSummary = ({
           </IconWrapper>
           <CategoryWrapper>
             {linkCategory ? (
-              <Link href={blogPostMeta.category.url}>{blogPostMeta.category.title}</Link>
+              <Link href={blogPostMeta.post.category.url}>{blogPostMeta.post.category.title}</Link>
             ) : (
-              blogPostMeta.category.title
+              blogPostMeta.post.category.title
             )}
           </CategoryWrapper>
         </Detail>
+        <Detail>
+          <IconWrapper>
+            <CommentDetailSvg />
+          </IconWrapper>
+          <span>{blogPostMeta.related.commentCount}</span>
+        </Detail>
       </DetailContainer>
-      {showExcerpt && <span>{blogPostMeta.excerpt}</span>}
+      {showExcerpt && <span>{blogPostMeta.post.excerpt}</span>}
     </BlogSummaryContainer>
   );
 };

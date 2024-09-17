@@ -1,12 +1,12 @@
 import { Category as PayloadCategory, Post as PayloadPost } from '@/payload-types';
 import { resolveCategoryUrl } from '@/payload/collections/Category/resolveUrl';
 import { resolvePostsUrl } from '@/payload/collections/Posts/resolveUrl';
-import { BlogPostMeta, Breadcrumb, Category } from '@/types/blog';
+import { BlogPostPostMeta, Breadcrumb, Category } from '@/types/blog';
 
 /**
- * Maps Payload blog posts to meta.
+ * Maps Payload blog post to post meta.
  */
-export const mapBlogPostToMeta = (payloadPost: PayloadPost): BlogPostMeta | null => {
+export const mapPostToPostMeta = (payloadPost: PayloadPost): BlogPostPostMeta | null => {
   if (!payloadPost.publishedAt || !payloadPost.category || !payloadPost.slug) {
     console.warn('Required blog post fields are not provided or are invalid.', payloadPost);
     return null;
@@ -43,7 +43,7 @@ export const mapBlogPostToMeta = (payloadPost: PayloadPost): BlogPostMeta | null
     return null;
   }
 
-  const blogPostMeta: BlogPostMeta = {
+  const postMeta: BlogPostPostMeta = {
     id: payloadPost.id,
     title: payloadPost.title,
     publishedAt: publishedAtDate,
@@ -55,11 +55,5 @@ export const mapBlogPostToMeta = (payloadPost: PayloadPost): BlogPostMeta | null
     commentsEnabled: payloadPost.commentsEnabled ?? true,
   };
 
-  return blogPostMeta;
+  return postMeta;
 };
-
-export const mapBlogPostsToMetas = (payloadPosts: PayloadPost[]): BlogPostMeta[] =>
-  payloadPosts
-    .map(mapBlogPostToMeta)
-    .filter((blogPostMeta) => blogPostMeta !== null)
-    .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime());
