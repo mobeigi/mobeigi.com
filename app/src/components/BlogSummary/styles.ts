@@ -31,9 +31,7 @@ export const Detail = styled.span`
   justify-content: center;
   align-items: center;
   color: ${({ theme }) => theme.colors.frame.text.base};
-`;
 
-export const CategoryWrapper = styled.span`
   a {
     color: ${({ theme }) => theme.colors.frame.text.base};
   }
