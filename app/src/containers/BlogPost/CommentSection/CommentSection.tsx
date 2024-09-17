@@ -31,9 +31,10 @@ interface CommentsProps {
   comments: Comment[];
   postId: number;
   onCommentAdded: () => void;
+  commentsEnabled: boolean;
 }
 
-const Comments = ({ comments, postId, onCommentAdded }: CommentsProps) => {
+const Comments = ({ comments, postId, onCommentAdded, commentsEnabled }: CommentsProps) => {
   if (!comments.length) {
     return null;
   }
@@ -42,10 +43,20 @@ const Comments = ({ comments, postId, onCommentAdded }: CommentsProps) => {
       {comments.map((comment) => {
         return (
           <li key={comment.id}>
-            <SingleComment comment={comment} postId={postId} onCommentAdded={onCommentAdded} />
+            <SingleComment
+              comment={comment}
+              postId={postId}
+              onCommentAdded={onCommentAdded}
+              commentsEnabled={commentsEnabled}
+            />
             {/* Recursively render the children comments */}
             {comment.children.length > 0 && (
-              <Comments comments={comment.children} postId={postId} onCommentAdded={onCommentAdded} />
+              <Comments
+                comments={comment.children}
+                postId={postId}
+                onCommentAdded={onCommentAdded}
+                commentsEnabled={commentsEnabled}
+              />
             )}
           </li>
         );
@@ -58,9 +69,10 @@ interface SingleCommentProps {
   comment: Comment;
   postId: number;
   onCommentAdded: () => void;
+  commentsEnabled: boolean;
 }
 
-const SingleComment = ({ comment, postId, onCommentAdded }: SingleCommentProps) => {
+const SingleComment = ({ comment, postId, onCommentAdded, commentsEnabled }: SingleCommentProps) => {
   const [isReplying, setIsReplying] = useState<boolean>(false);
 
   const commentContentReactNode = serializeLexical(comment.content);
@@ -100,11 +112,13 @@ const SingleComment = ({ comment, postId, onCommentAdded }: SingleCommentProps) 
           </CommentMeta>
           <CommentContents>{commentContentReactNode}</CommentContents>
           <CommentActions>
-            <span>
-              <a href="#" onClick={handleReply}>
-                Reply
-              </a>
-            </span>
+            {commentsEnabled && (
+              <span>
+                <a href="#" onClick={handleReply}>
+                  Reply
+                </a>
+              </span>
+            )}
           </CommentActions>
         </CommentMain>
       </CommentBox>
@@ -130,7 +144,7 @@ const SingleComment = ({ comment, postId, onCommentAdded }: SingleCommentProps) 
   );
 };
 
-export const CommentSection = ({ comments: initialComments, postId }: CommentSectionProps) => {
+export const CommentSection = ({ comments: initialComments, postId, commentsEnabled }: CommentSectionProps) => {
   const [comments, setComments] = useState<Array<Comment>>(initialComments);
 
   const commentCount = countTotalComments(comments);
@@ -157,12 +171,17 @@ export const CommentSection = ({ comments: initialComments, postId }: CommentSec
 
   return (
     <CommentSectionContainer>
-      <LeaveCommentArea>
-        <h2>Leave a comment</h2>
-        <LeaveComment postId={postId} parentCommentId={null} />
-      </LeaveCommentArea>
+      {commentsEnabled && (
+        <LeaveCommentArea>
+          <h2>Leave a comment</h2>
+          <LeaveComment postId={postId} parentCommentId={null} />
+        </LeaveCommentArea>
+      )}
       <CommentsArea>
         <h2>Comments</h2>
+        {!commentsEnabled && (
+          <p>Comments have been disabled for this post.{commentCount > 0 && ' Existing comments are still visible.'}</p>
+        )}
         {comments.length ? (
           <>
             <p>
@@ -170,11 +189,16 @@ export const CommentSection = ({ comments: initialComments, postId }: CommentSec
               <strong>{commentersCount}</strong> {commentersCount === 1 ? 'commenter' : 'commenters'}.
             </p>
             <CommentsContainer>
-              <Comments comments={comments} postId={postId} onCommentAdded={refreshComments} />
+              <Comments
+                comments={comments}
+                postId={postId}
+                onCommentAdded={refreshComments}
+                commentsEnabled={commentsEnabled}
+              />
             </CommentsContainer>
           </>
         ) : (
-          <p>There are no comments yet. Be the first to add one!</p>
+          commentsEnabled && <p>There are no comments yet. Be the first to add one!</p>
         )}
       </CommentsArea>
     </CommentSectionContainer>

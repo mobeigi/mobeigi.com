@@ -2,6 +2,7 @@ import { anyone } from '@/payload/access/anyone';
 import { authenticated } from '@/payload/access/authenticated';
 import { fetchGravatarProfile } from '@/utils/gravatar';
 import { FixedToolbarFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
+import { ValidationError } from 'payload';
 import type { CollectionConfig } from 'payload';
 import { validateDisplayName, validateEmail, validateContent } from './validators';
 
@@ -79,6 +80,41 @@ export const Comments: CollectionConfig = {
     },
   ],
   hooks: {
+    beforeValidate: [
+      async ({ data, req, operation }) => {
+        if (operation === 'create' || operation === 'update') {
+          if (!data) {
+            throw new ValidationError({
+              collection: 'comments',
+              errors: [],
+              global: 'No data provided for comment.',
+            });
+          }
+
+          const postId = data.post;
+          if (postId) {
+            const post = await req.payload.findByID({
+              collection: 'posts',
+              id: postId,
+            });
+
+            // Check if comments are enabled for the post
+            if (!post.commentsEnabled) {
+              throw new ValidationError({
+                collection: 'comments',
+                errors: [{ field: 'post', message: 'Comments are disabled for this post.' }],
+              });
+            }
+          } else {
+            throw new ValidationError({
+              collection: 'comments',
+              errors: [{ field: 'post', message: 'Post relationship is required.' }],
+            });
+          }
+        }
+        return data;
+      },
+    ],
     beforeChange: [
       async ({ data, req, operation }) => {
         if (operation === 'create' || operation === 'update') {

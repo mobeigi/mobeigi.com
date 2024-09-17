@@ -4,11 +4,7 @@ import styled from 'styled-components';
 
 export const CommentSectionContainer = styled.section``;
 
-export const LeaveCommentArea = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 0.4em;
-`;
+export const LeaveCommentArea = styled.section``;
 
 export const CommentsArea = styled.section`
   --display-picture-size: 55px;
