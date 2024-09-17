@@ -3,7 +3,7 @@
 // TODO: Remove above workaround when @svgr/webpack bug is resolved. This component does not need to be a client side component.
 // TOOD: Add Github issue link for this.
 
-import { BlogSummaryContainer, Detail, DetailContainer, Heading, CategoryWrapper } from './styles';
+import { BlogSummaryContainer, Detail, DetailContainer, Heading } from './styles';
 import { BlogSummaryProps } from './types';
 import Link from 'next/link';
 import { IconWrapper } from '@/styles/icon';
@@ -16,6 +16,7 @@ export const BlogSummary = ({
   headingLevel = 'h2',
   linkHeading = true,
   linkCategory = true,
+  commentsAnchor = 'comments',
   showExcerpt = true,
 }: BlogSummaryProps) => {
   const publishedAtDateString = blogPostMeta.post.publishedAt.toLocaleDateString('en-AU', {
@@ -44,19 +45,25 @@ export const BlogSummary = ({
           <IconWrapper>
             <CategorySvg />
           </IconWrapper>
-          <CategoryWrapper>
+          <span>
             {linkCategory ? (
               <Link href={blogPostMeta.post.category.url}>{blogPostMeta.post.category.title}</Link>
             ) : (
               blogPostMeta.post.category.title
             )}
-          </CategoryWrapper>
+          </span>
         </Detail>
         <Detail>
           <IconWrapper>
             <CommentDetailSvg />
           </IconWrapper>
-          <span>{blogPostMeta.related.commentCount}</span>
+          <span>
+            {commentsAnchor ? (
+              <Link href={`${blogPostMeta.post.url}#${commentsAnchor}`}>{blogPostMeta.related.commentCount}</Link>
+            ) : (
+              <>{blogPostMeta.related.commentCount}</>
+            )}
+          </span>
         </Detail>
       </DetailContainer>
       {showExcerpt && <span>{blogPostMeta.post.excerpt}</span>}
