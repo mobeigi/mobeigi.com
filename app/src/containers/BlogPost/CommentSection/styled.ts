@@ -54,7 +54,7 @@ export const CommentsContainer = styled.div`
   }
 `;
 
-export const SingleCommentContainer = styled.div`
+export const SingleCommentContainer = styled.article`
   display: flex;
   flex-direction: column;
   gap: 1em;
@@ -100,7 +100,7 @@ export const CommentMeta = styled.span`
 export const DisplayName = styled.span`
   font-weight: bold;
 `;
-export const CreatedAtDate = styled.span`
+export const CreatedAtTime = styled.time`
   color: ${({ theme }) => theme.colors.frame.text.base};
 `;
 
