@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-export const BlogSummaryContainer = styled.div`
+export const BlogSummaryContainer = styled.header`
   display: flex;
   flex-direction: column;
   gap: 0.4em;
