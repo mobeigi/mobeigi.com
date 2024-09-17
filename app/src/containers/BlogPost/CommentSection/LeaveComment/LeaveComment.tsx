@@ -245,7 +245,7 @@ const LeaveComment = ({
       <RichTextPlugin
         contentEditable={
           <ContentEditableWrapper $isError={isContentError}>
-            <ContentEditable />
+            <ContentEditable disabled={isSubmitting} />
           </ContentEditableWrapper>
         }
         ErrorBoundary={LexicalErrorBoundary}
