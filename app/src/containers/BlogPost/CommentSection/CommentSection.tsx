@@ -10,7 +10,7 @@ import {
   CommentMain,
   DisplayName,
   CommentContents,
-  CreatedAtDate,
+  CreatedAtTime,
   CommentsContainer,
   CommentActions,
   SingleCommentContainer,
@@ -104,7 +104,7 @@ const SingleComment = ({ comment, postId, onSuccess, commentsEnabled }: SingleCo
         <CommentMain>
           <CommentMeta>
             <DisplayName>{comment.displayName}</DisplayName>
-            <CreatedAtDate>{createdAtDateString}</CreatedAtDate>
+            <CreatedAtTime dateTime={comment.createdAt.toISOString()}>{createdAtDateString}</CreatedAtTime>
           </CommentMeta>
           <CommentContents>{commentContentReactNode}</CommentContents>
           <CommentActions>

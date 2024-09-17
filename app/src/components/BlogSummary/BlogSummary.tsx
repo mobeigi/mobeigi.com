@@ -39,7 +39,7 @@ export const BlogSummary = ({
           <IconWrapper>
             <CalendarSvg />
           </IconWrapper>
-          <span>{publishedAtDateString}</span>
+          <time dateTime={blogPostMeta.post.publishedAt.toISOString()}>{publishedAtDateString}</time>
         </Detail>
         <Detail>
           <IconWrapper>
