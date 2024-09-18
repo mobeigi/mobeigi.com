@@ -59,6 +59,18 @@ export const Comments: CollectionConfig = {
       },
     },
     {
+      name: 'author',
+      type: 'relationship',
+      relationTo: 'users',
+      required: false,
+      access: {
+        read: authenticated,
+      },
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'ipAddress',
       type: 'text',
       required: true,
@@ -103,6 +115,58 @@ export const Comments: CollectionConfig = {
               collection: 'comments',
               errors: [{ field: 'post', message: 'Post relationship is required.' }],
             });
+          }
+
+          /* Email validation */
+          if (!comment.email) {
+            throw new ValidationError({
+              collection: 'comments',
+              errors: [{ field: 'email', message: 'Email is required to submit a comment.' }],
+            });
+          }
+
+          const userBeingImpersonatedDocs = await req.payload.find({
+            collection: 'users',
+            where: {
+              email: {
+                equals: comment.email,
+              },
+            },
+            limit: 1,
+          });
+
+          // Authenticated comment path where the comment email belongs to a user
+          if (userBeingImpersonatedDocs.docs.length) {
+            const userBeingImpersonated = userBeingImpersonatedDocs.docs[0];
+            const signedInUser = req.user;
+
+            if (!signedInUser) {
+              throw new ValidationError({
+                collection: 'comments',
+                errors: [
+                  {
+                    field: 'email',
+                    message: 'You must be signed in to submit a comment using this email address.',
+                  },
+                ],
+              });
+            }
+
+            if (signedInUser.id !== userBeingImpersonated.id) {
+              throw new ValidationError({
+                collection: 'comments',
+                errors: [
+                  {
+                    field: 'email',
+                    message:
+                      'The email address provided does not match your authenticated account. Please use your account email to submit a comment.',
+                  },
+                ],
+              });
+            }
+
+            // Set author to signed in user
+            comment.author = signedInUser.id;
           }
         }
         return comment;
