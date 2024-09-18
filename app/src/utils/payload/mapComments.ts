@@ -27,6 +27,7 @@ export const mapComments = async (payloadComments: PayloadComment[]): Promise<Co
         displayName: doc.displayName,
         displayPictureUrl: gravatarAvatarUrl || undefined,
         emailHash: emailHash,
+        verified: doc.author !== null,
         createdAt: new Date(doc.createdAt),
         content: doc.content,
         children: [], // Initialize an empty array for children

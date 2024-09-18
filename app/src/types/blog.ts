@@ -44,6 +44,7 @@ export type Comment = {
   displayName: string;
   displayPictureUrl?: string;
   emailHash: string;
+  verified: boolean;
   createdAt: Date;
   content: SerializedEditorState;
   children: Comment[];
