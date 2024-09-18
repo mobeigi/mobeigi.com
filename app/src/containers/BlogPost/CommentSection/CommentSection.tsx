@@ -21,7 +21,7 @@ import Image from 'next/image';
 import { getRandomAnimalSvgUrl } from '@/utils/avatar';
 import { countTotalCommenters, countTotalComments } from '@/utils/blog/comments';
 import { Comment } from '@/types/blog';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LeaveComment from './LeaveComment';
 import { serializeLexical } from '@/payload/lexical/serializeLexical';
 import { deserialize as deserializeComment } from '@/utils/blog/comments';
@@ -141,36 +141,50 @@ const SingleComment = ({ comment, postId, onSuccess, commentsEnabled }: SingleCo
 
 export const CommentSection = ({ comments: initialComments, postId, commentsEnabled }: CommentSectionProps) => {
   const [comments, setComments] = useState<Array<Comment>>(initialComments);
+  const [scrollToCommentId, setScrollToCommentId] = useState<string | null>(null);
 
   const commentCount = countTotalComments(comments);
   const commentersCount = countTotalCommenters(comments);
 
-  const refreshComments = async () => {
+  const refreshComments = async (): Promise<boolean> => {
     try {
       const response = await fetch(`/api/custom/posts/${postId}/comments`);
 
       if (!response.ok) {
         console.error('Failed to refresh comments. Received non-ok response.');
         toast.error('Failed to refresh comments.');
-        return;
+        return false;
       }
 
       const data = await response.json();
       const deserializedComments = data.comments.map((comment: any) => deserializeComment(comment));
       setComments(deserializedComments);
+      return true;
     } catch (error) {
       console.error('Error encountered during refresh comments:', error);
       toast.error('Failed to refresh comments.');
+      return false;
     }
   };
 
-  const onCommentAdded = (comment: PayloadComment) => {
+  const onCommentAdded = async (comment: PayloadComment) => {
     toast.success('Comment published!');
-    refreshComments();
-    setTimeout(() => {
-      window.location.hash = `#comment-${comment.id}`;
-    }, 100);
+    const isRefreshSuccessful = await refreshComments();
+    if (isRefreshSuccessful) {
+      setScrollToCommentId(`#comment-${comment.id}`);
+    }
   };
+
+  /**
+   * When comments are updated, scroll to comment if state is set
+   */
+  useEffect(() => {
+    if (scrollToCommentId) {
+      window.location.hash = scrollToCommentId;
+      setScrollToCommentId(null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [comments]);
 
   return (
     <CommentSectionContainer>
