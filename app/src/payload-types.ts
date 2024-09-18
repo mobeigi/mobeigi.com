@@ -225,6 +225,7 @@ export interface Comment {
     [k: string]: unknown;
   };
   post: number | Post;
+  author?: (number | null) | User;
   ipAddress: string;
   parent?: (number | null) | Comment;
   breadcrumbs?:

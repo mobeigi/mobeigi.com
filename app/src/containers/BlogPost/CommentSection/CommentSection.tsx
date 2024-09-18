@@ -191,7 +191,15 @@ export const CommentSection = ({ comments: initialComments, postId, commentsEnab
       {commentsEnabled && (
         <LeaveCommentArea>
           <h2 id="leave-a-comment">Leave a comment</h2>
-          <LeaveComment postId={postId} parentCommentId={null} onSuccess={onCommentAdded} />
+          <LeaveComment
+            postId={postId}
+            parentCommentId={null}
+            onSuccess={onCommentAdded}
+            onError={(error: Error) => {
+              console.error(error);
+              toast.error(error.message);
+            }}
+          />
         </LeaveCommentArea>
       )}
       <CommentsArea>
