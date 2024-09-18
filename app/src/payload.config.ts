@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 import sharp from 'sharp';
 import { seoPlugin } from '@payloadcms/plugin-seo';
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs';
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
 
 import { Users } from '@payload/collections/Users';
 import { Media } from '@payload/collections/Media';
@@ -14,6 +15,7 @@ import { Files } from '@payload/collections/Files';
 import { Posts } from '@payload/collections/Posts';
 import { Category } from '@/payload/collections/Category';
 import { Comments } from '@/payload/collections/Comments';
+import { getNextEnv } from '@/utils/next';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -37,14 +39,26 @@ export default buildConfig({
       ];
     },
   }),
-  secret: process.env.PAYLOAD_SECRET || '',
+  email: nodemailerAdapter({
+    defaultFromAddress: getNextEnv('PAYLOAD_FROM_EMAIL_ADDRESS'),
+    defaultFromName: 'Payload',
+    transportOptions: {
+      host: getNextEnv('SMTP_HOST'),
+      port: getNextEnv('SMTP_PORT'),
+      auth: {
+        user: getNextEnv('SMTP_USER'),
+        pass: getNextEnv('SMTP_PASS'),
+      },
+    },
+  }),
+  secret: getNextEnv('PAYLOAD_SECRET'),
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: postgresAdapter({
     migrationDir: './src/payload/migrations',
     pool: {
-      connectionString: process.env.DATABASE_URI || '',
+      connectionString: getNextEnv('DATABASE_URI'),
     },
   }),
   sharp,

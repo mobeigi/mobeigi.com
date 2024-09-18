@@ -1,6 +1,7 @@
 import type { CollectionSlug, DataFromCollectionSlug } from 'payload';
-import { resolvePostsUrl } from '../collections/Posts/resolveUrl';
-import { resolveCategoryUrl } from '../collections/Category/resolveUrl';
+import { resolvePostsUrl } from '@payload/collections/Posts/resolveUrl';
+import { resolveCategoryUrl } from '@payload/collections/Category/resolveUrl';
+import { resolveCommentsUrl } from '@payload/collections/Comments/resolveUrl';
 
 /**
  * Define custom URL resolver functions.
@@ -12,6 +13,7 @@ export const customUrlResolvers: Record<
 > = {
   posts: (doc) => resolvePostsUrl(doc),
   category: (doc) => resolveCategoryUrl(doc),
+  comments: (doc) => resolveCommentsUrl(doc),
   users: () => {
     throw new Error('Function not implemented.');
   },
