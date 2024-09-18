@@ -35,7 +35,16 @@ export const InputWithError = styled.span<ErrorProps>`
   width: 100%;
 
   input {
+    /* Apply outline on error */
     ${({ $isError, theme }) => $isError && `border-color: ${theme.colors.status.error.base};`}
+
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      /* Apply outline based on isError status */
+      border-color: ${({ $isError, theme }) =>
+        $isError ? theme.colors.status.error.base : theme.colors.container.text.baseHighlight};
+    }
   }
 `;
 
@@ -74,12 +83,12 @@ export const ContentEditableWrapper = styled.div<ErrorProps>`
     border-radius: 0.2em;
     transition: border-color 0.3s ease;
 
-    &:focus {
-      border-color: ${({ theme }) => theme.colors.container.text.baseHighlight};
+    &:focus,
+    &:focus-visible {
       outline: none;
-
-      /* Apply outline on error */
-      ${({ $isError, theme }) => $isError && `border-color: ${theme.colors.status.error.base};`}
+      /* Apply outline based on isError status */
+      border-color: ${({ $isError, theme }) =>
+        $isError ? theme.colors.status.error.base : theme.colors.container.text.baseHighlight};
     }
 
     /* Apply outline on error */

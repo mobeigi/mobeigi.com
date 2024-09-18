@@ -217,9 +217,10 @@ const GlobalStyle = createGlobalStyle`
     transition: border-color 0.3s ease;
   }
 
-  input:focus {
-    border-color: ${({ theme }) => theme.colors.container.text.baseHighlight};
+  input:focus,
+  input:focus-visible {
     outline: none;
+    border-color: ${({ theme }) => theme.colors.container.text.baseHighlight};
   }
 
   input:disabled {
