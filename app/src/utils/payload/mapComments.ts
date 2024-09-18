@@ -2,12 +2,14 @@ import { Comment } from '@/types/blog';
 import { Comment as PayloadComment } from '@/payload-types';
 import { getNextEnv } from '@/utils/next';
 import crypto from 'crypto';
+import { getGravatarAvatarUrl } from '@/utils/gravatar';
+import { DISPLAY_PICTURE_SIZE } from './constants';
 
 /**
  * Maps Payload comments to Comments.
  * The output comments are sorted by their createdAt date.
  */
-export const mapComments = (payloadComments: PayloadComment[]): Comment[] => {
+export const mapComments = async (payloadComments: PayloadComment[]): Promise<Comment[]> => {
   // Step 1: Sort comments by createdAt to ensure parents are processed before children.
   // This is required to resolve parent hierarchy effeciently.
   const sortedPayloadComments = payloadComments.sort(
@@ -16,20 +18,22 @@ export const mapComments = (payloadComments: PayloadComment[]): Comment[] => {
 
   // Step 2: Map all sorted comments and store them in a commentMap
   const emailHashSalt = getNextEnv('EMAIL_HASH_SALT');
-  const comments = sortedPayloadComments.map((doc: PayloadComment) => {
-    const emailHash = crypto.createHmac('sha256', emailHashSalt).update(doc.email).digest('hex');
-
-    const comment: Comment = {
-      id: doc.id,
-      displayName: doc.displayName,
-      displayPictureUrl: doc.gravatarAvatarUrl || undefined,
-      emailHash: emailHash,
-      createdAt: new Date(doc.createdAt),
-      content: doc.content,
-      children: [], // Initialize an empty array for children
-    };
-    return comment;
-  });
+  const comments = await Promise.all(
+    sortedPayloadComments.map(async (doc: PayloadComment) => {
+      const emailHash = crypto.createHmac('sha256', emailHashSalt).update(doc.email.toLowerCase()).digest('hex');
+      const gravatarAvatarUrl = await getGravatarAvatarUrl({ email: doc.email, size: DISPLAY_PICTURE_SIZE });
+      const comment: Comment = {
+        id: doc.id,
+        displayName: doc.displayName,
+        displayPictureUrl: gravatarAvatarUrl || undefined,
+        emailHash: emailHash,
+        createdAt: new Date(doc.createdAt),
+        content: doc.content,
+        children: [], // Initialize an empty array for children
+      };
+      return comment;
+    }),
+  );
 
   // Step 3: Store all comments in the commentMap and establish parent-child relationships
   const rootComments: Comment[] = [];

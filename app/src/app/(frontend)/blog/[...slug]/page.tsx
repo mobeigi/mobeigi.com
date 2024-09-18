@@ -130,7 +130,7 @@ const transformPostToBlogPostProps = async (post: Post): Promise<BlogPostProps |
     limit: 0,
   });
 
-  const mappedComments = mapComments(comments.docs);
+  const mappedComments = await mapComments(comments.docs);
 
   const relatedMeta: BlogPostRelatedMeta = {
     commentCount: countTotalComments(mappedComments),

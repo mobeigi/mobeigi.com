@@ -1,26 +1,23 @@
 import crypto from 'crypto';
-import { GravatarProfile } from './types';
+import { GetGravatarAvatarUrlProps } from './types';
 
-const getGravatarProfileUrl = (email: string): string => {
-  const hash = crypto.createHash('sha256').update(email.trim().toLowerCase()).digest('hex');
-  return `https://api.gravatar.com/v3/profiles/${hash}`;
-};
-
-export const fetchGravatarProfile = async (email: string): Promise<GravatarProfile | null> => {
-  const gravatarUrl = getGravatarProfileUrl(email);
-
+export const getGravatarAvatarUrl = async ({ email, size = 80 }: GetGravatarAvatarUrlProps): Promise<string | null> => {
+  const sha256EmailHash = crypto.createHash('sha256').update(email.toLowerCase()).digest('hex');
+  const queryParams: Record<string, string> = {
+    d: '404',
+    s: size.toString(),
+  };
+  const queryString = new URLSearchParams(queryParams).toString();
+  const url = `https://gravatar.com/avatar/${sha256EmailHash}?${queryString}`;
   try {
-    const response = await fetch(gravatarUrl);
-
-    if (!response.ok) {
-      console.warn(`Gravatar request failed with status: ${response.status}`);
-      return null;
+    // Make a HEAD request to avoid downloading image data
+    const response = await fetch(url, { method: 'HEAD' });
+    if (response.ok) {
+      return url;
     }
-
-    const data = await response.json();
-    return data;
+    return null;
   } catch (error) {
-    console.error('Error fetching Gravatar profile:', error);
+    console.error('Error fetching Gravatar avatar:', error);
     return null;
   }
 };

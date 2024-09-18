@@ -1,1 +1,1 @@
-export { fetchGravatarProfile } from './gravatar';
+export { getGravatarAvatarUrl } from './gravatar';
