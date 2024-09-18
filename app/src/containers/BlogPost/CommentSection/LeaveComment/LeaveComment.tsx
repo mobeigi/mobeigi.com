@@ -35,12 +35,15 @@ import { ButtonLabel, SpinnerOverlay } from '@/styles/spinner';
 import { toast } from 'react-toastify';
 import { extractValidationErrorResponseMessage } from '@/utils/payload';
 import { Comment as PayloadComment } from '@/payload-types';
+import { debounce } from 'lodash-es';
 
 const initialDisplayName = '';
 const initialEmail = '';
 const initialContent = null;
 const initialErrors = new Map();
 const initialIsSubmitting = false;
+
+const debounceTimeoutMs = 500;
 
 const LeaveComment = ({
   postId,
@@ -58,16 +61,18 @@ const LeaveComment = ({
   const [isSubmitting, setIsSubmitting] = useState<boolean>(initialIsSubmitting);
 
   const skipNextLexicalOnChangeRef = useRef(false);
-
   const [editor] = useLexicalComposerContext();
 
   /**
-   * Ensure editor is not editable during a submission
+   * Ensure editor is not editable during a submission.
    */
   useEffect(() => {
     editor.setEditable(!isSubmitting);
   }, [isSubmitting, editor]);
 
+  /**
+   * State manipulation.
+   */
   const updateErrors = (key: string, value: string) => {
     setErrors((prevErrors) => {
       const newErrors = new Map(prevErrors);
@@ -95,7 +100,9 @@ const LeaveComment = ({
     editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined);
   };
 
-  // Validation
+  /**
+   * Validators.
+   */
   const validateDisplayName = (displayName: string): boolean => {
     resetErrors('displayName');
 
@@ -135,6 +142,30 @@ const LeaveComment = ({
     );
   };
 
+  /**
+   * Debounced validators.
+   */
+  const debouncedValidateDisplayName = useRef(
+    debounce((displayName: string) => {
+      validateDisplayName(displayName);
+    }, debounceTimeoutMs),
+  ).current;
+
+  const debouncedValidateEmail = useRef(
+    debounce((email: string) => {
+      validateEmail(email);
+    }, debounceTimeoutMs),
+  ).current;
+
+  const debouncedValidateContent = useRef(
+    debounce((content: SerializedEditorState | null) => {
+      validateContent(content);
+    }, debounceTimeoutMs),
+  ).current;
+
+  /**
+   * Comment submit handler.
+   */
   const handleCommentSubmit = async () => {
     const isAllValid = validateAll();
     if (!isAllValid) {
@@ -183,6 +214,7 @@ const LeaveComment = ({
       setIsSubmitting(false);
     }
   };
+
   const isDisplayNameError = (errors.get('displayName') ?? []).length > 0;
   const isEmailError = (errors.get('email') ?? []).length > 0;
   const isContentError = (errors.get('content') ?? []).length > 0;
@@ -211,7 +243,7 @@ const LeaveComment = ({
               autoFocus={autoFocus}
               onChange={(e) => {
                 setDisplayName(e.target.value);
-                validateDisplayName(e.target.value);
+                debouncedValidateDisplayName(e.target.value);
               }}
             />
             {isDisplayNameError && <InputError>{errors.get('displayName')}</InputError>}
@@ -234,7 +266,7 @@ const LeaveComment = ({
               disabled={isSubmitting}
               onChange={(e) => {
                 setEmail(e.target.value);
-                validateEmail(e.target.value);
+                debouncedValidateEmail(e.target.value);
               }}
             />
             {isEmailError && <InputError>{errors.get('email')}</InputError>}
@@ -260,7 +292,7 @@ const LeaveComment = ({
             }
             const serializedContent = editorState.toJSON();
             setContent(serializedContent);
-            validateContent(serializedContent);
+            debouncedValidateContent(serializedContent);
           });
         }}
       />
