@@ -227,6 +227,7 @@ export interface Comment {
   post: number | Post;
   ipAddress: string;
   gravatarAvatarUrl?: string | null;
+  gravatarProfileLastFetched?: string | null;
   parent?: (number | null) | Comment;
   breadcrumbs?:
     | {
