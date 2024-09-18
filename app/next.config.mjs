@@ -45,6 +45,16 @@ const nextConfig = {
     // Modify the file loader rule to ignore *.svg, since we have it handled now.
     fileLoaderRule.exclude = /\.svg$/i;
 
+    // TODO: Remove this eventually
+    // Fix for TypeError: hexoid is not a function
+    config.resolve = {
+      ...config.resolve,
+      alias: {
+        ...config.resolve.alias,
+        hexoid: 'hexoid/dist/index.js',
+      },
+    };
+
     return config;
   },
 };

@@ -1,5 +1,6 @@
 import validator from 'validator';
 import { SerializedEditorState } from 'lexical';
+import { extractTextContent } from '@/utils/lexical';
 
 export const validateDisplayName = (displayName: string): true | string => {
   const trimmedDisplayName = displayName.trim();
@@ -37,25 +38,8 @@ export const validateContent = (editorState: SerializedEditorState | null): true
     return 'Comment cannot be empty.';
   }
 
-  // Recursive function to extract text content from all nodes
-  const extractTextContent = (node: any): string => {
-    // If the node has a text property, return its text
-    if (node.text) {
-      return node.text.trim();
-    }
-
-    // Recursively extract text from children
-    if (node.children && node.children.length > 0) {
-      return node.children.map(extractTextContent).join('');
-    }
-
-    return ''; // Return empty if no text found
-  };
-
-  // Check text content length
-  const textContent = editorState.root.children.map(extractTextContent).join('');
-
-  if (textContent.length === 0) {
+  const textContent = extractTextContent(editorState);
+  if (!textContent || textContent.length === 0) {
     return 'Comment cannot be empty.';
   }
 
