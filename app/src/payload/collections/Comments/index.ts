@@ -1,6 +1,5 @@
 import { anyone } from '@/payload/access/anyone';
 import { authenticated } from '@/payload/access/authenticated';
-import { fetchGravatarProfile } from '@/utils/gravatar';
 import { FixedToolbarFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
 import { ValidationError } from 'payload';
 import type { CollectionConfig } from 'payload';
@@ -71,65 +70,8 @@ export const Comments: CollectionConfig = {
         description: 'The IP address from which the comment was made.',
       },
     },
-    {
-      name: 'gravatarAvatarUrl',
-      type: 'text',
-      admin: {
-        position: 'sidebar',
-        description: 'The Gravatar URL for the users avatar, based on their email.',
-      },
-    },
-    {
-      name: 'gravatarProfileLastFetched',
-      type: 'date',
-      admin: {
-        position: 'sidebar',
-        description: 'Last time the Gravatar profile was fetched.',
-        date: {
-          pickerAppearance: 'dayAndTime',
-        },
-      },
-    },
   ],
   hooks: {
-    beforeRead: [
-      async ({ req, doc }) => {
-        const comment = doc as Comment;
-
-        if (!comment.gravatarAvatarUrl) {
-          const now = new Date();
-          const fetchInterval = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-
-          // Check if gravatarProfileLastFetched exists and has passed the fetch interval
-          if (
-            !comment.gravatarProfileLastFetched ||
-            now.getMilliseconds() - new Date(comment.gravatarProfileLastFetched!).getMilliseconds() > fetchInterval
-          ) {
-            const gravatarProfile = await fetchGravatarProfile(comment.email);
-            if (gravatarProfile) {
-              const updatedGravatarAvatarUrl = gravatarProfile.avatar_url;
-              const updatedGravatarProfileLastFetched = now.toISOString();
-
-              // Update all comments with matching email
-              // Since they will all have the same Gravatar profile data
-              await req.payload.update({
-                collection: 'comments',
-                where: { email: { equals: comment.email } },
-                data: {
-                  gravatarAvatarUrl: updatedGravatarAvatarUrl,
-                  gravatarProfileLastFetched: updatedGravatarProfileLastFetched,
-                },
-              });
-
-              // Ensure latest data is passed back
-              comment.gravatarAvatarUrl = updatedGravatarAvatarUrl;
-              comment.gravatarProfileLastFetched = updatedGravatarProfileLastFetched;
-            }
-          }
-        }
-        return comment;
-      },
-    ],
     beforeValidate: [
       async ({ data, req, operation }) => {
         if (!data) {
@@ -173,15 +115,6 @@ export const Comments: CollectionConfig = {
           const ipAddress = req.headers.get('x-forwarded-for') || ''; // TODO: validation error here
           if (!comment.ipAddress) {
             comment.ipAddress = ipAddress;
-          }
-
-          // Save the gravatar url to our database for this comment
-          if (comment.email) {
-            const gravatarProfile = await fetchGravatarProfile(comment.email);
-            if (gravatarProfile) {
-              comment.gravatarAvatarUrl = gravatarProfile.avatar_url;
-              comment.gravatarProfileLastFetched = new Date().toISOString();
-            }
           }
         }
         return comment;

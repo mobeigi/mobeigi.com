@@ -22,7 +22,7 @@ export async function GET(request: Request, { params }: { params: { postId: stri
       limit: 0,
     });
 
-    const mappedComments = mapComments(comments.docs);
+    const mappedComments = await mapComments(comments.docs);
     return NextResponse.json({ comments: mappedComments });
   } catch (error) {
     console.error('Failed to fetch comments for post.', error);
