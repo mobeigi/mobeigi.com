@@ -29,6 +29,7 @@
     "@payloadcms/plugin-nested-docs": "beta",
     "@payloadcms/plugin-seo": "beta",
     "@payloadcms/richtext-lexical": "beta",
+    "akismet-api": "^6.0.0",
     "cross-env": "^7.0.3",
     "graphql": "^16.8.1",
     "highlight.js": "^11.10.0",

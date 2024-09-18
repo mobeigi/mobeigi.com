@@ -5,6 +5,10 @@ import { ValidationError } from 'payload';
 import type { CollectionConfig } from 'payload';
 import { validateDisplayName, validateEmail, validateContent } from './validators';
 import { Comment } from '@/payload-types';
+import { AkismetClient, CommentWithIP } from 'akismet-api';
+import { getNextEnv } from '@/utils/next';
+import { BASE_URL } from '@/constants/app';
+import { extractTextContent } from '@/utils/lexical';
 
 export const Comments: CollectionConfig = {
   slug: 'comments',
@@ -95,6 +99,8 @@ export const Comments: CollectionConfig = {
         }
 
         const comment: Partial<Comment> = data;
+        const signedInUser = req.user;
+
         if (operation === 'create' || operation === 'update') {
           const postId = comment.post as number;
           if (postId) {
@@ -138,7 +144,6 @@ export const Comments: CollectionConfig = {
           // Authenticated comment path where the comment email belongs to a user
           if (userBeingImpersonatedDocs.docs.length) {
             const userBeingImpersonated = userBeingImpersonatedDocs.docs[0];
-            const signedInUser = req.user;
 
             if (!signedInUser) {
               throw new ValidationError({
@@ -168,17 +173,56 @@ export const Comments: CollectionConfig = {
             // Set author to signed in user
             comment.author = signedInUser.id;
           }
-        }
-        return comment;
-      },
-    ],
-    beforeChange: [
-      async ({ data, req, operation }) => {
-        const comment: Partial<Comment> = data;
-        if (operation === 'create' || operation === 'update') {
-          const ipAddress = req.headers.get('x-forwarded-for') || ''; // TODO: validation error here
+
+          // Populate ip address
+          const xForwardedFor = req.headers.get('x-forwarded-for') || ''; // TODO: validation error here
           if (!comment.ipAddress) {
-            comment.ipAddress = ipAddress;
+            comment.ipAddress = xForwardedFor;
+          }
+
+          // Akismet spam check for anonymous comments
+          if (!signedInUser) {
+            if (!comment.content) {
+              throw new ValidationError({
+                collection: 'comments',
+                errors: [{ field: 'content', message: 'Content is required to submit a comment.' }],
+              });
+            }
+            const commentTextContent = extractTextContent(comment.content) || undefined;
+
+            const akismetClient = new AkismetClient({ key: getNextEnv('AKISMET_API_KEY'), blog: BASE_URL });
+            const userAgent = req.headers.get('user-agent') || undefined;
+            const referrer = req.headers.get('referrer') || undefined;
+
+            let isSpam = false;
+            const akismetCommentToCheck: CommentWithIP = {
+              ip: comment.ipAddress,
+              useragent: userAgent,
+              referrer: referrer,
+              content: commentTextContent,
+              email: comment.email,
+              name: comment.displayName,
+              date: comment.createdAt,
+              type: 'comment',
+              isTest: true, // TODO: remove this before going to prod and we are done testing
+            };
+            try {
+              isSpam = await akismetClient.checkSpam(akismetCommentToCheck);
+            } catch (error) {
+              throw new ValidationError({
+                collection: 'comments',
+                errors: [],
+                global: 'Unable to perform spam check. Please try again later.',
+              });
+            }
+
+            if (isSpam) {
+              throw new ValidationError({
+                collection: 'comments',
+                errors: [],
+                global: 'Your comment was flagged as spam and could not be submitted.',
+              });
+            }
           }
         }
         return comment;
