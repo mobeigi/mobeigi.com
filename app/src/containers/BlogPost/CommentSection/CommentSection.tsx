@@ -14,6 +14,7 @@ import {
   CommentsContainer,
   CommentActions,
   SingleCommentContainer,
+  DisplayNameWrapper,
 } from './styled';
 
 import { CommentSectionProps } from './types';
@@ -27,6 +28,8 @@ import { serializeLexical } from '@/payload/lexical/serializeLexical';
 import { deserialize as deserializeComment } from '@/utils/blog/comments';
 import { toast } from 'react-toastify';
 import { Comment as PayloadComment } from '@/payload-types';
+import VerifiedBadgeSvg from '@/assets/icons/social/verified-badge.svg';
+import { IconWrapper } from '@/styles/icon';
 
 interface CommentsProps {
   comments: Comment[];
@@ -103,7 +106,14 @@ const SingleComment = ({ comment, postId, onSuccess, commentsEnabled }: SingleCo
         </DisplayPicture>
         <CommentMain>
           <CommentMetaHeader>
-            <DisplayName>{comment.displayName}</DisplayName>
+            <DisplayNameWrapper>
+              <DisplayName>{comment.displayName}</DisplayName>
+              {comment.verified && (
+                <IconWrapper>
+                  <VerifiedBadgeSvg />
+                </IconWrapper>
+              )}
+            </DisplayNameWrapper>
             <CreatedAtTime dateTime={comment.createdAt.toISOString()}>{createdAtDateString}</CreatedAtTime>
           </CommentMetaHeader>
           <CommentContents>{commentContentReactNode}</CommentContents>

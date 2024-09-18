@@ -97,9 +97,16 @@ export const CommentMetaHeader = styled.header`
     flex-direction: column;
   }
 `;
+
+export const DisplayNameWrapper = styled.span`
+  display: flex;
+  gap: 0.2em;
+`;
+
 export const DisplayName = styled.span`
   font-weight: bold;
 `;
+
 export const CreatedAtTime = styled.time`
   color: ${({ theme }) => theme.colors.frame.text.base};
 `;
