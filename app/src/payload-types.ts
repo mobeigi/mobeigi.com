@@ -227,6 +227,7 @@ export interface Comment {
   post: number | Post;
   author?: (number | null) | User;
   ipAddress: string;
+  userAgent: string;
   parent?: (number | null) | Comment;
   breadcrumbs?:
     | {
