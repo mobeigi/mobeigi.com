@@ -79,6 +79,18 @@ export const Comments: CollectionConfig = {
         description: 'The IP address from which the comment was made.',
       },
     },
+    {
+      name: 'userAgent',
+      type: 'text',
+      required: true,
+      access: {
+        read: authenticated,
+      },
+      admin: {
+        position: 'sidebar',
+        description: 'The browser user agent at the time the comment was submitted.',
+      },
+    },
   ],
   hooks: {
     beforeValidate: [validationHook],

@@ -94,7 +94,15 @@ export const validationHook: CollectionBeforeValidateHook = async ({ data, req, 
     // Populate ip address
     const xForwardedFor = req.headers.get('x-forwarded-for') || ''; // TODO: validation error here
     if (!comment.ipAddress) {
+      // TODO: Should not rely on provided for request
       comment.ipAddress = xForwardedFor;
+    }
+
+    // Populate user agent
+    const userAgent = req.headers.get('user-agent') || ''; // TODO: validation error here
+    if (!comment.userAgent) {
+      // TODO: Should not rely on provided for request
+      comment.userAgent = userAgent;
     }
 
     // Akismet spam check for anonymous comments
@@ -108,14 +116,11 @@ export const validationHook: CollectionBeforeValidateHook = async ({ data, req, 
       const commentTextContent = extractTextContent(comment.content) || undefined;
 
       const akismetClient = new AkismetClient({ key: getNextEnv('AKISMET_API_KEY'), blog: BASE_URL });
-      const userAgent = req.headers.get('user-agent') || undefined;
-      const referrer = req.headers.get('referrer') || undefined;
 
       let isSpam = false;
       const akismetCommentToCheck: CommentWithIP = {
         ip: comment.ipAddress,
-        useragent: userAgent,
-        referrer: referrer,
+        useragent: comment.userAgent,
         content: commentTextContent,
         email: comment.email,
         name: comment.displayName,
