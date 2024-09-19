@@ -50,7 +50,7 @@ export const generateMetadata = async ({ params }: { params: { slug: string[] } 
   const category = await getCategoryFromParams({ params });
   if (!category) {
     console.warn('Failed to find category during generateMetadata.');
-    return {};
+    return notFound();
   }
   const seoData = category.meta;
   const fallbackTitle = `Category: ${category.title}`;

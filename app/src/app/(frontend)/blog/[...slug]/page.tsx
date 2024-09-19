@@ -74,7 +74,7 @@ export const generateMetadata = async ({ params }: { params: { slug: string[] } 
   const post = await getPostFromParams({ params });
   if (!post) {
     console.warn('Failed to find post during generateMetadata.');
-    return {};
+    notFound();
   }
 
   const seoData = post.meta;
