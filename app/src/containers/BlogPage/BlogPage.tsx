@@ -7,6 +7,11 @@ export const BlogPage = ({ blogPostMetas }: BlogPageProps) => {
     <BlogPageContainer>
       <h1>Blog</h1>
       <p>Explore my thoughts and insights through the blog posts below.</p>
+      {blogPostMetas.length && (
+        <p>
+          Showing <strong>{blogPostMetas.length}</strong> {blogPostMetas.length === 1 ? 'post' : 'posts'}.
+        </p>
+      )}
       <BlogSummaryWrapper>
         {blogPostMetas.length ? (
           blogPostMetas.map((meta, index) => (
