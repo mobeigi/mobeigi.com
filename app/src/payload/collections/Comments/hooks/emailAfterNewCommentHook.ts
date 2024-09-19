@@ -6,6 +6,7 @@ import { BASE_URL } from '@/constants/app';
 import { getNextEnv } from '@/utils/next';
 import { newCommentEmailHtml } from '@/components/Emails/NewCommentEmail';
 
+// TODO: Should this be entirely non-blocking? Does slow email sending have any performance impact on payload at all?
 export const emailAfterNewCommentHook: CollectionAfterChangeHook = async ({ doc, operation, req }) => {
   if (operation === 'create') {
     // Refetch doc with overiden access to get restricted fields
