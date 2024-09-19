@@ -4,6 +4,7 @@ import { extractTextContent } from '@/utils/lexical';
 import { resolveCommentsUrl } from '../resolveUrl';
 import { BASE_URL } from '@/constants/app';
 import { getNextEnv } from '@/utils/next';
+import { newCommentEmailHtml } from '@/components/Emails/NewCommentEmail';
 
 export const emailAfterNewCommentHook: CollectionAfterChangeHook = async ({ doc, operation, req }) => {
   if (operation === 'create') {
@@ -17,45 +18,27 @@ export const emailAfterNewCommentHook: CollectionAfterChangeHook = async ({ doc,
 
     const post = comment.post as Post;
 
-    const textContent = extractTextContent(comment.content);
+    const textContent = extractTextContent(comment.content) || '';
+
     const relativeCommentUrl = resolveCommentsUrl(comment);
     const absoluteCommentUrl = BASE_URL + relativeCommentUrl;
 
-    // TODO: use date library and standarise all of this
-    const createdAtDate = new Date(comment.createdAt);
-    const createdAtDateString =
-      createdAtDate.toLocaleDateString('en-AU', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      }) +
-      ' at ' +
-      createdAtDate
-        .toLocaleTimeString('en-AU', {
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: true,
-        })
-        .toLocaleUpperCase();
-
-    const subject = `New comment on blog post "${post.title}"`;
-    const text = `There is a new comment on blog post "${post.title}":
-${absoluteCommentUrl}
-
-Display Name: ${comment.displayName}
-Author: ${comment.author || 'anonymous'}
-Email: ${comment.email}
-IP Address: ${comment.ipAddress}
-Created at: ${createdAtDateString}
-
-Comment:
-${textContent}
-`;
+    const subject = `New comment on blog post: "${post.title}"`;
+    const html = await newCommentEmailHtml({
+      postTitle: post.title,
+      commentUrl: absoluteCommentUrl,
+      displayName: comment.displayName,
+      author: comment.author?.toString() || 'anonymous',
+      email: comment.email,
+      ipAddress: comment.ipAddress,
+      createdAt: new Date(comment.createdAt),
+      commentTextContent: textContent,
+    });
 
     await req.payload.sendEmail({
       to: getNextEnv('PAYLOAD_TO_EMAIL_ADDRESS'),
       subject: subject,
-      text: text,
+      html: html,
     });
   }
 };
