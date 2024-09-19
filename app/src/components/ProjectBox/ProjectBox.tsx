@@ -1,7 +1,7 @@
 'use client';
 // Uncomment during local development (with hot reloading) to fix @svgr/webpack bug.
 // TODO: Remove above workaround when @svgr/webpack bug is resolved. This component does not need to be a client side component.
-// TOOD: Add Github issue link for this.
+// Github link: https://github.com/vercel/next.js/issues/69545
 
 import Link from 'next/link';
 import {
