@@ -29,6 +29,8 @@
     "@payloadcms/plugin-nested-docs": "beta",
     "@payloadcms/plugin-seo": "beta",
     "@payloadcms/richtext-lexical": "beta",
+    "@react-email/components": "^0.0.25",
+    "@react-email/render": "^1.0.1",
     "akismet-api": "^6.0.0",
     "cross-env": "^7.0.3",
     "graphql": "^16.8.1",
