@@ -10,6 +10,7 @@ import { IconWrapper } from '@/styles/icon';
 import CalendarSvg from '@/assets/icons/boxicons/bx-calendar.svg';
 import CategorySvg from '@/assets/icons/boxicons/bx-category.svg';
 import CommentDetailSvg from '@/assets/icons/boxicons/bxs-comment-detail.svg';
+import DateFormatter from '@/components/DateFormatter';
 
 export const BlogSummary = ({
   blogPostMeta,
@@ -19,11 +20,7 @@ export const BlogSummary = ({
   commentsAnchor = 'comments',
   showExcerpt = true,
 }: BlogSummaryProps) => {
-  const publishedAtDateString = blogPostMeta.post.publishedAt.toLocaleDateString('en-AU', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  const publishedAtDate = new Date(blogPostMeta.post.publishedAt);
 
   return (
     <BlogSummaryContainer>
@@ -39,7 +36,9 @@ export const BlogSummary = ({
           <IconWrapper>
             <CalendarSvg />
           </IconWrapper>
-          <time dateTime={blogPostMeta.post.publishedAt.toISOString()}>{publishedAtDateString}</time>
+          <time dateTime={publishedAtDate.toISOString()}>
+            <DateFormatter date={publishedAtDate} format="d MMMM yyyy" />
+          </time>
         </Detail>
         <Detail>
           <IconWrapper>

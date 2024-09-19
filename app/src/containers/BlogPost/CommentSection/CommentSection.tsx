@@ -30,6 +30,7 @@ import { toast } from 'react-toastify';
 import { Comment as PayloadComment } from '@/payload-types';
 import VerifiedBadgeSvg from '@/assets/icons/social/verified-badge.svg';
 import { IconWrapper } from '@/styles/icon';
+import DateFormatter from '@/components/DateFormatter';
 
 interface CommentsProps {
   comments: Comment[];
@@ -75,21 +76,6 @@ const SingleComment = ({ comment, postId, onSuccess, commentsEnabled }: SingleCo
   const [isReplying, setIsReplying] = useState<boolean>(false);
 
   const commentContentReactNode = serializeLexical(comment.content);
-  const createdAtDateString =
-    comment.createdAt.toLocaleDateString('en-AU', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    }) +
-    ' at ' +
-    comment.createdAt
-      .toLocaleTimeString('en-AU', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true,
-      })
-      .toLocaleUpperCase();
-
   const isCustomDisplayPicture = comment.displayPictureUrl !== undefined;
   const displayPictureUrl = comment.displayPictureUrl || getRandomAnimalSvgUrl(comment.emailHash);
 
@@ -114,7 +100,9 @@ const SingleComment = ({ comment, postId, onSuccess, commentsEnabled }: SingleCo
                 </IconWrapper>
               )}
             </DisplayNameWrapper>
-            <CreatedAtTime dateTime={comment.createdAt.toISOString()}>{createdAtDateString}</CreatedAtTime>
+            <CreatedAtTime dateTime={comment.createdAt.toISOString()}>
+              <DateFormatter date={comment.createdAt} format="d MMMM yyyy 'at' hh:mm a" />
+            </CreatedAtTime>
           </CommentMetaHeader>
           <CommentContents>{commentContentReactNode}</CommentContents>
           <CommentActions>

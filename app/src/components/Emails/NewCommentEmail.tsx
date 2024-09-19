@@ -1,6 +1,7 @@
 import { Html, Body, Heading, Text, Link, Section } from '@react-email/components';
 import { render } from '@react-email/render';
 import { HeaderSection } from './common/HeaderSection';
+import { format as formatDate } from 'date-fns';
 
 interface NewCommentEmailProps {
   postTitle: string;
@@ -23,21 +24,7 @@ export const NewCommentEmail = ({
   createdAt,
   commentTextContent,
 }: NewCommentEmailProps) => {
-  // TODO: use date library and standarise all of this
-  const createdAtDateString =
-    createdAt.toLocaleDateString('en-AU', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    }) +
-    ' at ' +
-    createdAt
-      .toLocaleTimeString('en-AU', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true,
-      })
-      .toLocaleUpperCase();
+  const createdAtDateString = formatDate(createdAt, "d MMMM yyyy 'at' hh:mm a");
 
   return (
     <Html>
