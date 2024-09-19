@@ -7,12 +7,15 @@ export const BlogPostContainer = styled.div`
   flex-direction: column;
   width: 100%;
   gap: 1em;
+`;
+
+export const BlogPostArticle = styled.article`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1em;
 
   // TODO: MOVE SOME OF THESE TO GLOBAL STYLES IF RELEVANT
-  .nestedListItem {
-    list-style-type: none;
-  }
-
   /* Nested OL */
   ol {
     list-style-type: decimal;
@@ -135,13 +138,6 @@ export const BlogPostContainer = styled.div`
     aspect-ratio: 16 / 9;
     border-radius: 0.2em;
   }
-`;
-
-export const BlogPostArticle = styled.article`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 1em;
 `;
 
 export const BlogSummaryWrapper = styled.div`
