@@ -111,7 +111,9 @@ export const CreatedAtTime = styled.time`
   color: ${({ theme }) => theme.colors.frame.text.base};
 `;
 
-export const CommentContents = styled.span``;
+export const CommentContents = styled.span`
+  word-break: break-word;
+`;
 
 export const CommentActions = styled.span`
   display: flex;
