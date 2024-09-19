@@ -175,6 +175,8 @@ export const BlogPostContents = styled.section`
   max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px;
   flex-grow: 1;
 
+  word-break: break-word;
+
   /* Remove top margin from first childfor consistent layout (start position) */
   :first-child {
     margin-top: 0;
