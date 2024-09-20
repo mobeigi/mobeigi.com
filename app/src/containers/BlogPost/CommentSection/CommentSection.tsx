@@ -2,7 +2,7 @@
 
 import {
   LeaveCommentArea,
-  CommentSectionContainer,
+  CommentContainer,
   CommentsArea,
   CommentBox,
   DisplayPicture,
@@ -185,7 +185,7 @@ export const CommentSection = ({ comments: initialComments, postId, commentsEnab
   }, [comments]);
 
   return (
-    <CommentSectionContainer>
+    <CommentContainer>
       {commentsEnabled && (
         <LeaveCommentArea>
           <h2 id="leave-a-comment">Leave a comment</h2>
@@ -224,6 +224,6 @@ export const CommentSection = ({ comments: initialComments, postId, commentsEnab
           commentsEnabled && <p>There are no comments yet. Be the first to add one!</p>
         )}
       </CommentsArea>
-    </CommentSectionContainer>
+    </CommentContainer>
   );
 };

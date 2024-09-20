@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-export const CommentSectionContainer = styled.section``;
+export const CommentContainer = styled.div``;
 
 export const LeaveCommentArea = styled.section``;
 

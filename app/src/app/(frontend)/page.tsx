@@ -19,10 +19,10 @@ const Home = () => {
   return (
     <div>
       {breadcrumbs && (
-        <section>
+        <div>
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
           {/* Don't show breadcrumbs component on homepage as exception */}
-        </section>
+        </div>
       )}
       <div>
         <h1>Title</h1>
