@@ -1,3 +1,4 @@
+import { ListItemItem } from '@/types/schema-dts';
 import { ListItem } from 'schema-dts';
 
 export const listItem = (props: Partial<ListItem>): ListItem => {
@@ -9,6 +10,6 @@ export const listItem = (props: Partial<ListItem>): ListItem => {
 
 export const getLastItemId = (listItems: ListItem[]): string | null => {
   const lastListItem = listItems.at(-1);
-  const lastItem = lastListItem?.item! as { '@id'?: string }; // TODO: Use a better type here
+  const lastItem = lastListItem?.item! as ListItemItem;
   return lastItem['@id'] || null;
 };

@@ -13,6 +13,7 @@ import { joinUrl } from '@/utils/url';
 import { appendItem } from '@/utils/seo/breadCrumbList';
 import { getLastItemId } from '@/utils/seo/listItem';
 import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const depth = 2;
 
@@ -145,12 +146,15 @@ const BlogPostHandler = async ({ params }: { params: { slug: string[] } }) => {
   const breadcrumbs = generateBreadcrumbs(post);
 
   return (
-    <>
+    <div>
       {breadcrumbs && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+        <section>
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+          <Breadcrumbs breadcrumbList={breadcrumbs} />
+        </section>
       )}
       <BlogPost {...blogPostProps} />
-    </>
+    </div>
   );
 };
 

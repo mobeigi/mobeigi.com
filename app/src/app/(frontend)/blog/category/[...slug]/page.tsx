@@ -13,6 +13,7 @@ import { appendItem } from '@/utils/seo/breadCrumbList';
 import { getLastItemId } from '@/utils/seo/listItem';
 import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
 import { joinUrl } from '@/utils/url';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const depth = 2;
 
@@ -145,12 +146,15 @@ const CategoryPageHandler = async ({ params }: { params: { slug: string[] } }) =
   const breadcrumbs = generateBreadcrumbs(category);
 
   return (
-    <>
+    <div>
       {breadcrumbs && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+        <section>
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+          <Breadcrumbs breadcrumbList={breadcrumbs} />
+        </section>
       )}
       <CategoryPage categoryTitle={title} categoryDescription={description} blogPostMetas={blogPostMetas} />
-    </>
+    </div>
   );
 };
 

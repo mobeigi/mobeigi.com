@@ -17,9 +17,12 @@ export const generateBreadcrumbs = (): WithContext<BreadcrumbList> =>
 const Home = () => {
   const breadcrumbs = generateBreadcrumbs();
   return (
-    <>
+    <div>
       {breadcrumbs && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+        <section>
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+          {/* Don't show breadcrumbs component on homepage as exception */}
+        </section>
       )}
       <div>
         <h1>Title</h1>
@@ -32,7 +35,7 @@ const Home = () => {
         <p>Paragraph</p>
         <p>Paragraph</p>
       </div>
-    </>
+    </div>
   );
 };
 
