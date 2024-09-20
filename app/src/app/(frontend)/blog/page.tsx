@@ -5,10 +5,31 @@ import config from '@payload-config';
 import { mapPostToPostMeta } from '@/utils/payload';
 import { BlogPostMeta, BlogPostRelatedMeta } from '@/types/blog';
 import { sortBlogPostMetaByPublishedAtDate } from '@/utils/blog/post';
+import { generateBreadcrumbs as generateParentBreadcrumbs } from '../page';
+import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
+import { appendItem } from '@/utils/seo/breadCrumbList';
+import { getLastItemId } from '@/utils/seo/listItem';
+import { joinUrl } from '@/utils/url';
 
 export const metadata: Metadata = {
   title: 'Blog',
   description: "Explore Mo's blog for insights on programming, technology, and other topics of interest.",
+};
+
+export const generateBreadcrumbs = (): WithContext<BreadcrumbList> | null => {
+  let breadcrumbList = generateParentBreadcrumbs();
+  const lastItemId = getLastItemId(breadcrumbList.itemListElement as ListItem[]);
+  if (!lastItemId) {
+    return null;
+  }
+
+  appendItem({
+    breadcrumbList: breadcrumbList,
+    id: joinUrl([lastItemId, 'blog']),
+    name: 'Blog',
+  });
+
+  return breadcrumbList;
 };
 
 const depth = 2;
@@ -54,7 +75,16 @@ const BlogPageHandler = async () => {
     .filter((obj) => obj !== null)
     .sort(sortBlogPostMetaByPublishedAtDate);
 
-  return <BlogPage blogPostMetas={blogPostMetas} />;
+  const breadcrumbs = generateBreadcrumbs();
+
+  return (
+    <>
+      {breadcrumbs && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+      )}
+      <BlogPage blogPostMetas={blogPostMetas} />
+    </>
+  );
 };
 
 export default BlogPageHandler;
