@@ -10,7 +10,7 @@ export const FooterContent = () => (
       <LogoWrapper>
         <SignatureSvg />
       </LogoWrapper>
-      <FooterNav>
+      <FooterNav aria-label="Footer navigation">
         <div>
           <p>{SITE_TITLE}</p>
           <ul>

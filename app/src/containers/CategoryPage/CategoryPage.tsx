@@ -22,7 +22,7 @@ export const CategoryPage = ({ category, subcategories, blogPostMetas }: Categor
             Showing <strong>{subcategories.length}</strong>{' '}
             {subcategories.length === 1 ? 'subcategory' : 'subcategories'}.
           </p>
-          <SubcategoryNav>
+          <SubcategoryNav aria-label="Subcategory navigation">
             <ul>
               {subcategories.map((subcategory, index) => (
                 <li key={index}>

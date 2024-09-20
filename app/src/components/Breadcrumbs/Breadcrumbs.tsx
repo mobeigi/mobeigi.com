@@ -1,13 +1,13 @@
 import { ListItem } from 'schema-dts';
 import { BreadcrumbsProps } from './types';
-import { NavContainer, StyledLink, ChevronIconWrapper } from './styled';
+import { BreadcrumbsContainerNav, StyledLink, ChevronIconWrapper } from './styled';
 import ChevronRightSvg from '@/assets/icons/boxicons/bxs-chevron-right.svg';
 import { ListItemItem } from '@/types/schema-dts';
 
 export const Breadcrumbs = ({ breadcrumbList }: BreadcrumbsProps) => {
   const listItems = breadcrumbList.itemListElement as ListItem[];
   return (
-    <NavContainer>
+    <BreadcrumbsContainerNav aria-label="Breadcrumb">
       {listItems.map((listItem, index) => {
         const item = listItem.item as ListItemItem;
         const id = item['@id']!;
@@ -25,6 +25,6 @@ export const Breadcrumbs = ({ breadcrumbList }: BreadcrumbsProps) => {
           </>
         );
       })}
-    </NavContainer>
+    </BreadcrumbsContainerNav>
   );
 };

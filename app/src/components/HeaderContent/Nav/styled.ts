@@ -3,7 +3,7 @@
 import styled from 'styled-components';
 import Link from 'next/link';
 
-export const NavContainer = styled.nav`
+export const ContainerNav = styled.nav`
   display: flex;
   gap: 1em;
   font-weight: 700;
