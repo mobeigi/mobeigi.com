@@ -5,7 +5,7 @@
 
 import Link from 'next/link';
 import { CenteredH1, Headshot } from './styled';
-import AuFlagSvg from '@/assets/flags/au.svg';
+import AuFlagSvg from '@/assets/icons/flags/au.svg';
 
 const getAgeFromDate = (dateString: string) => {
   const birthDate = new Date(dateString);

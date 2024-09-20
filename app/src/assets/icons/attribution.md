@@ -1,5 +1,11 @@
 # Attribution
 
+## boxicons
+https://boxicons.com/
+
+## flags
+https://flagicons.lipis.dev/
+
 ## internet
 internet created by Smashicons - Flaticon
 https://www.flaticon.com/packs/internet-19
