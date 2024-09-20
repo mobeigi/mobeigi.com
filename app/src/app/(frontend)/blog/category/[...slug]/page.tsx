@@ -66,12 +66,7 @@ export const generateMetadata = async ({ params }: { params: { slug: string[] } 
   };
 };
 
-export const generateBreadcrumbs = async ({
-  params,
-}: {
-  params: { slug: string[] };
-}): Promise<WithContext<BreadcrumbList> | null> => {
-  const category = await getCategoryFromParams({ params });
+export const generateBreadcrumbs = (category: Category): WithContext<BreadcrumbList> | null => {
   if (!category) {
     return null;
   }
@@ -147,7 +142,7 @@ const CategoryPageHandler = async ({ params }: { params: { slug: string[] } }) =
   const title = category.title;
   const description = category.description;
 
-  const breadcrumbs = await generateBreadcrumbs({ params });
+  const breadcrumbs = generateBreadcrumbs(category);
 
   return (
     <>
