@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import { GetGravatarAvatarUrlProps } from './types';
+import { GRAVATAR_BASE_URL } from './constants';
 
 export const getGravatarAvatarUrl = async ({
   email,
@@ -13,7 +14,7 @@ export const getGravatarAvatarUrl = async ({
     r: rating,
   };
   const queryString = new URLSearchParams(queryParams).toString();
-  const url = `https://gravatar.com/avatar/${sha256EmailHash}?${queryString}`;
+  const url = `${GRAVATAR_BASE_URL}/avatar/${sha256EmailHash}?${queryString}`;
   try {
     // Make a HEAD request to avoid downloading image data
     const response = await fetch(url, { method: 'HEAD' });
