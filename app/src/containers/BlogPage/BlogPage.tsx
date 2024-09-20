@@ -7,7 +7,7 @@ export const BlogPage = ({ blogPostMetas }: BlogPageProps) => {
     <BlogPageContainer>
       <h1>Blog</h1>
       <p>Explore my thoughts and insights through the blog posts below.</p>
-      {blogPostMetas.length && (
+      {blogPostMetas.length > 0 && (
         <p>
           Showing <strong>{blogPostMetas.length}</strong> {blogPostMetas.length === 1 ? 'post' : 'posts'}.
         </p>

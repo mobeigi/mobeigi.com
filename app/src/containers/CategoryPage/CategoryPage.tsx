@@ -7,7 +7,7 @@ export const CategoryPage = ({ categoryTitle, categoryDescription, blogPostMetas
     <CategoryPageContainer>
       <h1>Category: {categoryTitle}</h1>
       <p>{categoryDescription}</p>
-      {blogPostMetas.length && (
+      {blogPostMetas.length > 0 && (
         <p>
           Showing <strong>{blogPostMetas.length}</strong> {blogPostMetas.length === 1 ? 'post' : 'posts'}.
         </p>
