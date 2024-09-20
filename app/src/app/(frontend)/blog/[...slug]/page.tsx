@@ -8,6 +8,11 @@ import { BlogPostProps } from '@/containers/BlogPost';
 import { BlogPostContent, BlogPostMeta, BlogPostRelatedMeta } from '@/types/blog';
 import { mapPostToPostMeta, mapComments } from '@/utils/payload';
 import { countTotalComments } from '@/utils/blog/comments';
+import { generateBreadcrumbs as generateParentBreadcrumbs } from '../page';
+import { joinUrl } from '@/utils/url';
+import { appendItem } from '@/utils/seo/breadCrumbList';
+import { getLastItemId } from '@/utils/seo/listItem';
+import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
 
 const depth = 2;
 
@@ -87,6 +92,49 @@ export const generateMetadata = async ({ params }: { params: { slug: string[] } 
   };
 };
 
+export const generateBreadcrumbs = async ({
+  params,
+}: {
+  params: { slug: string[] };
+}): Promise<WithContext<BreadcrumbList> | null> => {
+  const post = await getPostFromParams({ params });
+  if (!post || !post.slug) {
+    return null;
+  }
+
+  let breadcrumbList = generateParentBreadcrumbs();
+  if (!breadcrumbList) {
+    return null;
+  }
+  const lastItemId = getLastItemId(breadcrumbList.itemListElement as ListItem[]);
+  if (!lastItemId) {
+    return null;
+  }
+
+  // Add category part
+  const category = post.category as Category;
+  category.breadcrumbs?.forEach((breadcrumb) => {
+    appendItem({
+      breadcrumbList: breadcrumbList,
+      id: joinUrl([lastItemId, 'category', breadcrumb.url!]),
+      name: breadcrumb.label!,
+    });
+  });
+
+  // Add post part
+  const categorySlugUrl = getCategorySlugUrl(category);
+  if (!categorySlugUrl) {
+    return null;
+  }
+  appendItem({
+    breadcrumbList: breadcrumbList,
+    id: joinUrl([lastItemId, categorySlugUrl, post.slug]),
+    name: post.title,
+  });
+
+  return breadcrumbList;
+};
+
 const BlogPostHandler = async ({ params }: { params: { slug: string[] } }) => {
   const post = await getPostFromParams({ params });
   if (!post) {
@@ -99,7 +147,16 @@ const BlogPostHandler = async ({ params }: { params: { slug: string[] } }) => {
     return null;
   }
 
-  return <BlogPost {...blogPostProps} />;
+  const breadcrumbs = await generateBreadcrumbs({ params });
+
+  return (
+    <>
+      {breadcrumbs && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+      )}
+      <BlogPost {...blogPostProps} />
+    </>
+  );
 };
 
 /**

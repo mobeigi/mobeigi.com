@@ -8,6 +8,11 @@ import { PaginatedDocs } from 'payload';
 import { mapPostToPostMeta } from '@/utils/payload';
 import { BlogPostMeta, BlogPostRelatedMeta } from '@/types/blog';
 import { sortBlogPostMetaByPublishedAtDate } from '@/utils/blog/post';
+import { generateBreadcrumbs as generateParentBreadcrumbs } from '../../page';
+import { appendItem } from '@/utils/seo/breadCrumbList';
+import { getLastItemId } from '@/utils/seo/listItem';
+import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
+import { joinUrl } from '@/utils/url';
 
 const depth = 2;
 
@@ -61,6 +66,36 @@ export const generateMetadata = async ({ params }: { params: { slug: string[] } 
   };
 };
 
+export const generateBreadcrumbs = async ({
+  params,
+}: {
+  params: { slug: string[] };
+}): Promise<WithContext<BreadcrumbList> | null> => {
+  const category = await getCategoryFromParams({ params });
+  if (!category) {
+    return null;
+  }
+
+  let breadcrumbList = generateParentBreadcrumbs();
+  if (!breadcrumbList) {
+    return null;
+  }
+  const lastItemId = getLastItemId(breadcrumbList.itemListElement as ListItem[]);
+  if (!lastItemId) {
+    return null;
+  }
+
+  category.breadcrumbs?.forEach((breadcrumb) => {
+    appendItem({
+      breadcrumbList: breadcrumbList,
+      id: joinUrl([lastItemId, 'category', breadcrumb.url!]),
+      name: breadcrumb.label!,
+    });
+  });
+
+  return breadcrumbList;
+};
+
 const CategoryPageHandler = async ({ params }: { params: { slug: string[] } }) => {
   const category = await getCategoryFromParams({ params });
   if (!category) {
@@ -112,7 +147,16 @@ const CategoryPageHandler = async ({ params }: { params: { slug: string[] } }) =
   const title = category.title;
   const description = category.description;
 
-  return <CategoryPage categoryTitle={title} categoryDescription={description} blogPostMetas={blogPostMetas} />;
+  const breadcrumbs = await generateBreadcrumbs({ params });
+
+  return (
+    <>
+      {breadcrumbs && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+      )}
+      <CategoryPage categoryTitle={title} categoryDescription={description} blogPostMetas={blogPostMetas} />;
+    </>
+  );
 };
 
 export default CategoryPageHandler;
