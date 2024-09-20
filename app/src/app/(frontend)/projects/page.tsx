@@ -32,10 +32,10 @@ const Projects = () => {
   return (
     <div>
       {breadcrumbs && (
-        <section>
+        <div>
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
           <Breadcrumbs breadcrumbList={breadcrumbs} />
-        </section>
+        </div>
       )}
       <ProjectsPage />
     </div>

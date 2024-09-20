@@ -8,7 +8,7 @@ import {
   TableOfContentsNav,
   TableOfContentsHeadings,
   SectionHeading,
-  CustomFieldsWrapper,
+  CustomFieldsSection,
 } from './styled';
 import { SidebarProps } from './types';
 import { serializeLexical } from '@/payload/lexical/serializeLexical';
@@ -157,13 +157,17 @@ export const Sidebar = ({ body, customFields }: SidebarProps) => {
   return (
     <SidebarContainer>
       {filteredHeadings.length > 0 && (
-        <TableOfContentsNav id="blogpost-table-of-contents-nav" aria-label="Table of contents">
-          <SectionHeading>Contents</SectionHeading>
-          <TableOfContentsHeadings>{renderHeadings(filteredHeadings)}</TableOfContentsHeadings>
-        </TableOfContentsNav>
+        <>
+          <section>
+            <SectionHeading>Contents</SectionHeading>
+            <TableOfContentsNav id="blogpost-table-of-contents-nav" aria-label="Table of contents">
+              <TableOfContentsHeadings>{renderHeadings(filteredHeadings)}</TableOfContentsHeadings>
+            </TableOfContentsNav>
+          </section>
+        </>
       )}
       {customFields && customFields.length > 0 && (
-        <CustomFieldsWrapper>
+        <CustomFieldsSection>
           <SectionHeading>Other details</SectionHeading>
           <CustomFieldsContainer>
             {customFields?.map((customField, index) => (
@@ -173,7 +177,7 @@ export const Sidebar = ({ body, customFields }: SidebarProps) => {
               </span>
             ))}
           </CustomFieldsContainer>
-        </CustomFieldsWrapper>
+        </CustomFieldsSection>
       )}
     </SidebarContainer>
   );

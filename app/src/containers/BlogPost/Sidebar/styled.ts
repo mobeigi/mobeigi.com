@@ -54,7 +54,7 @@ export const TableOfContentsHeadings = styled.span`
   }
 `;
 
-export const CustomFieldsWrapper = styled.div``;
+export const CustomFieldsSection = styled.section``;
 
 export const CustomFieldsContainer = styled.div`
   display: flex;
