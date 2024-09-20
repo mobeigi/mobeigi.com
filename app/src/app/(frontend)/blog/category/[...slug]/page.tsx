@@ -2,11 +2,11 @@ import CategoryPage from '@/containers/CategoryPage';
 import { Metadata } from 'next';
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import config from '@payload-config';
-import { Category } from '@/payload-types';
+import { Category as PayloadCategory } from '@/payload-types';
 import { notFound } from 'next/navigation';
 import { PaginatedDocs } from 'payload';
 import { mapPostToPostMeta } from '@/utils/payload';
-import { BlogPostMeta, BlogPostRelatedMeta } from '@/types/blog';
+import { BlogPostMeta, BlogPostRelatedMeta, Category } from '@/types/blog';
 import { sortBlogPostMetaByPublishedAtDate } from '@/utils/blog/post';
 import { generateBreadcrumbs as generateParentBreadcrumbs } from '../../page';
 import { appendItem } from '@/utils/seo/breadCrumbList';
@@ -14,10 +14,16 @@ import { getLastItemId } from '@/utils/seo/listItem';
 import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
 import { joinUrl } from '@/utils/url';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { resolveCategoryUrl } from '@/payload/collections/Category/resolveUrl';
+import { sortCategoryByTitle } from '@/utils/blog/category';
 
 const depth = 2;
 
-export const getCategoryFromParams = async ({ params }: { params: { slug: string[] } }): Promise<Category | null> => {
+export const getPayloadCategoryFromParams = async ({
+  params,
+}: {
+  params: { slug: string[] };
+}): Promise<PayloadCategory | null> => {
   const payload = await getPayloadHMR({
     config,
   });
@@ -31,7 +37,7 @@ export const getCategoryFromParams = async ({ params }: { params: { slug: string
   let category = null;
 
   for (const slug of categorySlugs) {
-    const foundCategory: PaginatedDocs<Category> = await payload.find({
+    const foundCategory: PaginatedDocs<PayloadCategory> = await payload.find({
       collection: 'category',
       where: {
         slug: { equals: slug },
@@ -53,22 +59,22 @@ export const getCategoryFromParams = async ({ params }: { params: { slug: string
 };
 
 export const generateMetadata = async ({ params }: { params: { slug: string[] } }): Promise<Metadata> => {
-  const category = await getCategoryFromParams({ params });
-  if (!category) {
-    console.warn('Failed to find category during generateMetadata.');
+  const payloadCategory = await getPayloadCategoryFromParams({ params });
+  if (!payloadCategory) {
+    console.warn('Failed to find payload category during generateMetadata.');
     return notFound();
   }
-  const seoData = category.meta;
-  const fallbackTitle = `Category: ${category.title}`;
-  const fallbackDescription = category.description;
+  const seoData = payloadCategory.meta;
+  const fallbackTitle = `Category: ${payloadCategory.title}`;
+  const fallbackDescription = payloadCategory.description;
   return {
     title: seoData?.title || fallbackTitle,
     description: seoData?.description || fallbackDescription,
   };
 };
 
-export const generateBreadcrumbs = (category: Category): WithContext<BreadcrumbList> | null => {
-  if (!category) {
+export const generateBreadcrumbs = (payloadCategory: PayloadCategory): WithContext<BreadcrumbList> | null => {
+  if (!payloadCategory) {
     return null;
   }
 
@@ -81,7 +87,7 @@ export const generateBreadcrumbs = (category: Category): WithContext<BreadcrumbL
     return null;
   }
 
-  category.breadcrumbs?.forEach((breadcrumb) => {
+  payloadCategory.breadcrumbs?.forEach((breadcrumb) => {
     appendItem({
       breadcrumbList: breadcrumbList,
       id: joinUrl([lastItemId, 'category', breadcrumb.url!]),
@@ -93,8 +99,8 @@ export const generateBreadcrumbs = (category: Category): WithContext<BreadcrumbL
 };
 
 const CategoryPageHandler = async ({ params }: { params: { slug: string[] } }) => {
-  const category = await getCategoryFromParams({ params });
-  if (!category) {
+  const payloadCategory = await getPayloadCategoryFromParams({ params });
+  if (!payloadCategory) {
     notFound();
     return null;
   }
@@ -103,16 +109,16 @@ const CategoryPageHandler = async ({ params }: { params: { slug: string[] } }) =
     config,
   });
 
-  const posts = await payload.find({
+  const payloadPosts = await payload.find({
     collection: 'posts',
-    where: { category: { equals: category.id } },
+    where: { category: { equals: payloadCategory.id } },
     depth,
-    limit: 0, // no limit so we can retreive all posts
+    limit: 0, // no limit
   });
 
   const blogPostMetas = (
     await Promise.all(
-      posts.docs.map(async (post) => {
+      payloadPosts.docs.map(async (post) => {
         const postMeta = mapPostToPostMeta(post);
         if (!postMeta) {
           console.warn('postMeta should not be null.');
@@ -140,10 +146,42 @@ const CategoryPageHandler = async ({ params }: { params: { slug: string[] } }) =
     .filter((obj) => obj !== null)
     .sort(sortBlogPostMetaByPublishedAtDate);
 
-  const title = category.title;
-  const description = category.description;
+  const categoryUrl = resolveCategoryUrl(payloadCategory);
+  if (!categoryUrl) {
+    notFound();
+    return null;
+  }
 
-  const breadcrumbs = generateBreadcrumbs(category);
+  const category: Category = {
+    title: payloadCategory.title,
+    description: payloadCategory.description,
+    url: categoryUrl,
+  };
+
+  const payloadSubcategories = await payload.find({
+    collection: 'category',
+    where: { parent: { equals: payloadCategory.id } },
+    depth,
+    limit: 0, // no limit
+  });
+
+  const subcategories: Category[] = payloadSubcategories.docs
+    .map((payloadSubCategory) => {
+      const categoryUrl = resolveCategoryUrl(payloadSubCategory);
+      if (!categoryUrl) {
+        return null;
+      }
+      const subCategory: Category = {
+        title: payloadSubCategory.title,
+        description: payloadSubCategory.description,
+        url: categoryUrl,
+      };
+      return subCategory;
+    })
+    .filter((obj) => obj !== null)
+    .sort(sortCategoryByTitle);
+
+  const breadcrumbs = generateBreadcrumbs(payloadCategory);
 
   return (
     <div>
@@ -153,7 +191,7 @@ const CategoryPageHandler = async ({ params }: { params: { slug: string[] } }) =
           <Breadcrumbs breadcrumbList={breadcrumbs} />
         </section>
       )}
-      <CategoryPage categoryTitle={title} categoryDescription={description} blogPostMetas={blogPostMetas} />
+      <CategoryPage category={category} subcategories={subcategories} blogPostMetas={blogPostMetas} />
     </div>
   );
 };

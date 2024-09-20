@@ -43,7 +43,7 @@ const BlogPageHandler = async () => {
   const posts = await payload.find({
     collection: 'posts',
     depth,
-    limit: 0, // no limit so we can retreive all posts
+    limit: 0, // no limit
   });
 
   const blogPostMetas = (
