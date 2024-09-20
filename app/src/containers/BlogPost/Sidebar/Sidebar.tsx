@@ -157,7 +157,7 @@ export const Sidebar = ({ body, customFields }: SidebarProps) => {
   return (
     <SidebarContainer>
       {filteredHeadings.length > 0 && (
-        <TableOfContentsNav id="blogpost-table-of-contents-nav">
+        <TableOfContentsNav id="blogpost-table-of-contents-nav" aria-label="Table of contents">
           <SectionHeading>Contents</SectionHeading>
           <TableOfContentsHeadings>{renderHeadings(filteredHeadings)}</TableOfContentsHeadings>
         </TableOfContentsNav>

@@ -4,7 +4,7 @@ import { IconWrapper } from '@/styles/icon';
 import Link from 'next/link';
 import styled from 'styled-components';
 
-export const NavContainer = styled.nav`
+export const BreadcrumbsContainerNav = styled.nav`
   display: flex;
   gap: 0.4em;
   align-items: center;

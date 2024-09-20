@@ -1,6 +1,6 @@
 'use client';
 
-import { NavContainer, StyledLink } from './styled';
+import { ContainerNav, StyledLink } from './styled';
 import { usePathname } from 'next/navigation';
 import { pages } from '@/constants/links';
 
@@ -8,7 +8,7 @@ export const Nav = () => {
   const pathname = usePathname();
 
   return (
-    <NavContainer>
+    <ContainerNav aria-label="Main navigation">
       {pages.map((page) => {
         const active = pathname === page.href;
         return (
@@ -17,7 +17,7 @@ export const Nav = () => {
           </StyledLink>
         );
       })}
-    </NavContainer>
+    </ContainerNav>
   );
 };
 
