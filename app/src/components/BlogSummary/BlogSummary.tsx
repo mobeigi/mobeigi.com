@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { IconWrapper } from '@/styles/icon';
 import CalendarSvg from '@/assets/icons/boxicons/bx-calendar.svg';
 import CategorySvg from '@/assets/icons/boxicons/bx-category.svg';
-import CommentDetailSvg from '@/assets/icons/boxicons/bxs-comment-detail.svg';
+import CommentDetailSvg from '@/assets/icons/boxicons/bx-comment-detail.svg';
 import DateFormatter from '@/components/DateFormatter';
 
 export const BlogSummary = ({
