@@ -149,7 +149,7 @@ const CategoryPageHandler = async ({ params }: { params: { slug: string[] } }) =
       {breadcrumbs && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
       )}
-      <CategoryPage categoryTitle={title} categoryDescription={description} blogPostMetas={blogPostMetas} />;
+      <CategoryPage categoryTitle={title} categoryDescription={description} blogPostMetas={blogPostMetas} />
     </>
   );
 };
