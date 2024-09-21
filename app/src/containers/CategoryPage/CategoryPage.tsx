@@ -3,63 +3,55 @@
 // TODO: Remove above workaround when @svgr/webpack bug is resolved. This component does not need to be a client side component.
 // Github link: https://github.com/vercel/next.js/issues/69545
 
-import { CategoryPageProps } from './types';
-import { CategoryPageContainer, BlogSummaryWrapper, SubcategoryNav, SubcategoryContainer } from './styled';
-import BlogSummary from '@/components/BlogSummary';
-import Link from 'next/link';
-import CategorySvg from '@/assets/icons/boxicons/bx-category.svg';
 import { IconWrapper } from '@/styles/icon';
+import { CategoryPageContainer, RootCategoryWrapper } from './styled';
+import { SubcategoryContainer, SubcategoryNav } from '@/styles/containers/subcategory';
+import { CategoryPageProps } from './types';
+import CategorySvg from '@/assets/icons/boxicons/bx-category.svg';
+import Link from 'next/link';
 
-export const CategoryPage = ({ category, subcategories, blogPostMetas }: CategoryPageProps) => {
+export const CategoryPage = ({ rootCategories }: CategoryPageProps) => {
   return (
     <CategoryPageContainer>
-      <h1>Category: {category.title}</h1>
-      <p>{category.description}</p>
-      {subcategories.length > 0 && (
-        <>
-          <h2>Subcategories</h2>
-          <p>
-            Showing <strong>{subcategories.length}</strong>{' '}
-            {subcategories.length === 1 ? 'subcategory' : 'subcategories'}.
-          </p>
-          <SubcategoryNav aria-label="Subcategory navigation">
-            <ul>
-              {subcategories.map((subcategory, index) => (
-                <li key={index}>
-                  <SubcategoryContainer>
-                    <IconWrapper>
-                      <CategorySvg />
-                    </IconWrapper>
-                    <Link href={subcategory.url}>{subcategory.title}</Link>
-                  </SubcategoryContainer>
-                </li>
-              ))}
-            </ul>
-          </SubcategoryNav>
-        </>
-      )}
-      <h2>Posts</h2>
-      {blogPostMetas.length > 0 ? (
+      <h1>Category</h1>
+      {rootCategories.length > 0 ? (
         <p>
-          Showing <strong>{blogPostMetas.length}</strong> {blogPostMetas.length === 1 ? 'post' : 'posts'} in this
-          category.
+          Showing <strong>{rootCategories.length}</strong> top-level{' '}
+          {rootCategories.length === 1 ? 'category' : 'categories'} in this blog.
         </p>
       ) : (
-        <p>There are no posts in this category.</p>
+        <p>There are no top-level categories in this blog.</p>
       )}
-      <BlogSummaryWrapper>
-        {blogPostMetas.length > 0 &&
-          blogPostMetas.map((blogPostMeta, index) => (
-            <article key={index}>
-              <BlogSummary
-                key={blogPostMeta.post.slug}
-                blogPostMeta={blogPostMeta}
-                linkCategory={false}
-                headingLevel="h3"
-              />
-            </article>
-          ))}
-      </BlogSummaryWrapper>
+      <RootCategoryWrapper>
+        {rootCategories.length > 0 &&
+          rootCategories.map((rootCategory) => {
+            return (
+              <div key={rootCategory.category.title}>
+                <Link href={rootCategory.category.url}>
+                  <h2>{rootCategory.category.title}</h2>
+                </Link>
+                <p>
+                  Showing <strong>{rootCategory.subcategories.length}</strong>{' '}
+                  {rootCategory.subcategories.length === 1 ? 'subcategory' : 'subcategories'}.
+                </p>
+                <SubcategoryNav aria-label={`Subcategory navigation for category: ${rootCategory.category.title}`}>
+                  <ul>
+                    {rootCategory.subcategories.map((subcategory, index) => (
+                      <li key={index}>
+                        <SubcategoryContainer>
+                          <IconWrapper>
+                            <CategorySvg />
+                          </IconWrapper>
+                          <Link href={subcategory.url}>{subcategory.title}</Link>
+                        </SubcategoryContainer>
+                      </li>
+                    ))}
+                  </ul>
+                </SubcategoryNav>
+              </div>
+            );
+          })}
+      </RootCategoryWrapper>
     </CategoryPageContainer>
   );
 };

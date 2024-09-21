@@ -1,7 +1,7 @@
 import { BlogPostMeta, Category } from '@/types/blog';
 
-export interface CategoryPageProps {
+export interface CategoryDetailPageProps {
   category: Category;
-  subcategories: Category[];
+  subCategories: Category[];
   blogPostMetas: BlogPostMeta[];
 }

@@ -1,4 +1,4 @@
-import CategoryPage from '@/containers/CategoryPage';
+import CategoryDetailPage from '@/containers/CategoryDetailPage';
 import { Metadata } from 'next';
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import config from '@payload-config';
@@ -8,7 +8,7 @@ import { PaginatedDocs } from 'payload';
 import { mapPostToPostMeta } from '@/utils/payload';
 import { BlogPostMeta, BlogPostRelatedMeta, Category } from '@/types/blog';
 import { sortBlogPostMetaByPublishedAtDate } from '@/utils/blog/post';
-import { generateBreadcrumbs as generateParentBreadcrumbs } from '../../page';
+import { generateBreadcrumbs as generateParentBreadcrumbs } from '../page';
 import { appendItem } from '@/utils/seo/breadCrumbList';
 import { getLastItemId } from '@/utils/seo/listItem';
 import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
@@ -93,7 +93,7 @@ export const generateBreadcrumbs = (payloadCategory: PayloadCategory): WithConte
   payloadCategory.breadcrumbs?.forEach((breadcrumb) => {
     appendItem({
       breadcrumbList: breadcrumbList,
-      id: joinUrl([lastItemId, 'category', breadcrumb.url!]),
+      id: joinUrl([lastItemId, breadcrumb.url!]),
       name: breadcrumb.label!,
     });
   });
@@ -101,7 +101,7 @@ export const generateBreadcrumbs = (payloadCategory: PayloadCategory): WithConte
   return breadcrumbList;
 };
 
-const CategoryPageHandler = async ({ params }: { params: { slug: string[] } }) => {
+const CategoryDetailPageHandler = async ({ params }: { params: { slug: string[] } }) => {
   await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', 'category', ...params.slug]) });
 
   const payloadCategory = await getPayloadCategoryFromParams({ params });
@@ -198,9 +198,9 @@ const CategoryPageHandler = async ({ params }: { params: { slug: string[] } }) =
           <Breadcrumbs breadcrumbList={breadcrumbs} />
         </div>
       )}
-      <CategoryPage category={category} subcategories={subcategories} blogPostMetas={blogPostMetas} />
+      <CategoryDetailPage category={category} subCategories={subcategories} blogPostMetas={blogPostMetas} />
     </div>
   );
 };
 
-export default CategoryPageHandler;
+export default CategoryDetailPageHandler;
