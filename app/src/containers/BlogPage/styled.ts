@@ -14,6 +14,5 @@ export const BlogSummaryWrapper = styled.div`
   & h2 {
     /* Make h2 visually look like h3 so it fits better */
     font-size: 1.75em;
-    margin: 1em 0;
   }
 `;
