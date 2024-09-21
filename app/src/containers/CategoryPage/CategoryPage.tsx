@@ -24,9 +24,9 @@ export const CategoryPage = ({ rootCategories }: CategoryPageProps) => {
       )}
       <RootCategoryWrapper>
         {rootCategories.length > 0 &&
-          rootCategories.map((rootCategory) => {
+          rootCategories.map((rootCategory, index) => {
             return (
-              <div key={rootCategory.category.title}>
+              <div key={index}>
                 <Link href={rootCategory.category.url}>
                   <h2>{rootCategory.category.title}</h2>
                 </Link>
