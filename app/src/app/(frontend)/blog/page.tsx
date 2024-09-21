@@ -43,7 +43,8 @@ const BlogPageHandler = async () => {
   const posts = await payload.find({
     collection: 'posts',
     depth,
-    limit: 0, // no limit
+    limit: 0,
+    pagination: false,
   });
 
   const blogPostMetas = (

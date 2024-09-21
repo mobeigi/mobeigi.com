@@ -113,7 +113,8 @@ const CategoryPageHandler = async ({ params }: { params: { slug: string[] } }) =
     collection: 'posts',
     where: { category: { equals: payloadCategory.id } },
     depth,
-    limit: 0, // no limit
+    limit: 0,
+    pagination: false,
   });
 
   const blogPostMetas = (
@@ -162,7 +163,8 @@ const CategoryPageHandler = async ({ params }: { params: { slug: string[] } }) =
     collection: 'category',
     where: { parent: { equals: payloadCategory.id } },
     depth,
-    limit: 0, // no limit
+    limit: 0,
+    pagination: false,
   });
 
   const subcategories: Category[] = payloadSubcategories.docs

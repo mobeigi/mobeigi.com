@@ -184,6 +184,7 @@ const transformPostToBlogPostProps = async (post: Post): Promise<BlogPostProps |
     },
     depth,
     limit: 0,
+    pagination: false,
   });
 
   const mappedComments = await mapComments(comments.docs);
