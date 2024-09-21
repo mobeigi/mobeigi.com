@@ -52,14 +52,9 @@ export const CategoryDetailPage = ({ category, subCategories, blogPostMetas }: C
       )}
       <BlogSummaryWrapper>
         {blogPostMetas.length > 0 &&
-          blogPostMetas.map((blogPostMeta, index) => (
-            <article key={index}>
-              <BlogSummary
-                key={blogPostMeta.post.slug}
-                blogPostMeta={blogPostMeta}
-                linkCategory={false}
-                headingLevel="h3"
-              />
+          blogPostMetas.map((blogPostMeta) => (
+            <article key={blogPostMeta.post.id}>
+              <BlogSummary blogPostMeta={blogPostMeta} linkCategory={false} headingLevel="h3" />
             </article>
           ))}
       </BlogSummaryWrapper>

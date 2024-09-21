@@ -20,9 +20,9 @@ export const BlogPage = ({ blogPostMetas }: BlogPageProps) => {
       )}
       <BlogSummaryWrapper>
         {blogPostMetas.length > 0 &&
-          blogPostMetas.map((meta, index) => (
-            <article key={index}>
-              <BlogSummary key={meta.post.slug} blogPostMeta={meta} headingLevel="h2" />
+          blogPostMetas.map((meta) => (
+            <article key={meta.post.id}>
+              <BlogSummary blogPostMeta={meta} headingLevel="h2" />
             </article>
           ))}
       </BlogSummaryWrapper>
