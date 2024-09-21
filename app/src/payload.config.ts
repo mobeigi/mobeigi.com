@@ -7,7 +7,9 @@ import { fileURLToPath } from 'url';
 import sharp from 'sharp';
 import { seoPlugin } from '@payloadcms/plugin-seo';
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs';
+import { redirectsPlugin } from '@payloadcms/plugin-redirects';
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
+import { getNextEnv } from '@/utils/next';
 
 import { Users } from '@payload/collections/Users';
 import { Media } from '@payload/collections/Media';
@@ -15,7 +17,7 @@ import { Files } from '@payload/collections/Files';
 import { Posts } from '@payload/collections/Posts';
 import { Category } from '@/payload/collections/Category';
 import { Comments } from '@/payload/collections/Comments';
-import { getNextEnv } from '@/utils/next';
+import { revalidateRedirects } from '@payload/hooks/revalidateRedirects';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -74,6 +76,14 @@ export default buildConfig({
       collections: [Comments.slug],
       generateLabel: (_, doc) => doc.displayName as string,
       generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.id}`, ''),
+    }),
+    redirectsPlugin({
+      collections: [Posts.slug, Category.slug],
+      overrides: {
+        hooks: {
+          afterChange: [revalidateRedirects],
+        },
+      },
     }),
   ],
 });

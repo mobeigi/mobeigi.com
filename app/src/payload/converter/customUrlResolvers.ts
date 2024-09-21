@@ -23,10 +23,16 @@ export const customUrlResolvers: Record<
   files: () => {
     throw new Error('Function not implemented.');
   },
+  redirects: () => {
+    throw new Error('Function not implemented.');
+  },
   'payload-preferences': () => {
     throw new Error('Function not implemented.');
   },
   'payload-migrations': () => {
+    throw new Error('Function not implemented.');
+  },
+  'payload-locked-documents': () => {
     throw new Error('Function not implemented.');
   },
 };

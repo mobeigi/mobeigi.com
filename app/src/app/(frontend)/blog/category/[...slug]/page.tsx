@@ -16,6 +16,7 @@ import { joinUrl } from '@/utils/url';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { resolveCategoryUrl } from '@/payload/collections/Category/resolveUrl';
 import { sortCategoryByTitle } from '@/utils/blog/category';
+import { payloadRedirect } from '@/payload/utils/payloadRedirect';
 
 const depth = 2;
 
@@ -59,6 +60,8 @@ export const getPayloadCategoryFromParams = async ({
 };
 
 export const generateMetadata = async ({ params }: { params: { slug: string[] } }): Promise<Metadata> => {
+  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', 'category', ...params.slug]) });
+
   const payloadCategory = await getPayloadCategoryFromParams({ params });
   if (!payloadCategory) {
     console.warn('Failed to find payload category during generateMetadata.');
@@ -99,6 +102,8 @@ export const generateBreadcrumbs = (payloadCategory: PayloadCategory): WithConte
 };
 
 const CategoryPageHandler = async ({ params }: { params: { slug: string[] } }) => {
+  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', 'category', ...params.slug]) });
+
   const payloadCategory = await getPayloadCategoryFromParams({ params });
   if (!payloadCategory) {
     notFound();

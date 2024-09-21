@@ -14,6 +14,7 @@ import { appendItem } from '@/utils/seo/breadCrumbList';
 import { getLastItemId } from '@/utils/seo/listItem';
 import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { payloadRedirect } from '@/payload/utils/payloadRedirect';
 
 const depth = 2;
 
@@ -77,6 +78,8 @@ const getCategorySlugUrl = (category: Category): string | null => {
 };
 
 export const generateMetadata = async ({ params }: { params: { slug: string[] } }): Promise<Metadata> => {
+  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', ...params.slug]) });
+
   const post = await getPostFromParams({ params });
   if (!post) {
     console.warn('Failed to find post during generateMetadata.');
@@ -132,6 +135,8 @@ export const generateBreadcrumbs = (post: Post): WithContext<BreadcrumbList> | n
 };
 
 const BlogPostHandler = async ({ params }: { params: { slug: string[] } }) => {
+  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', ...params.slug]) });
+
   const post = await getPostFromParams({ params });
   if (!post) {
     notFound();
