@@ -1,6 +1,6 @@
 import { SerializedEditorState } from 'lexical';
 
-export const extractTextContent = (editorState: SerializedEditorState | null): string | null => {
+export const extractTextContent = (editorState?: SerializedEditorState | null): string | null => {
   if (!editorState || !editorState.root || editorState.root.children.length === 0) {
     return null;
   }

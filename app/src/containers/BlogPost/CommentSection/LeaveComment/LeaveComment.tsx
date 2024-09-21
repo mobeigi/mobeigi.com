@@ -39,7 +39,27 @@ import { debounce } from 'lodash-es';
 
 const initialDisplayName = '';
 const initialEmail = '';
-const initialContent = null;
+const initialContent: SerializedEditorState<any> = {
+  root: {
+    children: [
+      {
+        children: [],
+        direction: null,
+        format: '',
+        indent: 0,
+        type: 'paragraph',
+        version: 1,
+        textFormat: 0,
+        textStyle: '',
+      },
+    ],
+    direction: null,
+    format: '',
+    indent: 0,
+    type: 'root',
+    version: 1,
+  },
+};
 const initialErrors = new Map();
 const initialIsSubmitting = false;
 
@@ -56,7 +76,7 @@ const LeaveComment = ({
 }: LeaveCommentProps) => {
   const [displayName, setDisplayName] = useState(initialDisplayName);
   const [email, setEmail] = useState(initialEmail);
-  const [content, setContent] = useState<SerializedEditorState | null>(initialContent);
+  const [content, setContent] = useState<SerializedEditorState>(initialContent);
   const [errors, setErrors] = useState<Map<string, string>>(initialErrors);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(initialIsSubmitting);
 
@@ -125,7 +145,7 @@ const LeaveComment = ({
     return true;
   };
 
-  const validateContent = (content: SerializedEditorState | null): boolean => {
+  const validateContent = (content: SerializedEditorState): boolean => {
     resetErrors('content');
 
     const validateContentResult = payloadValidateContent(content);
@@ -158,7 +178,7 @@ const LeaveComment = ({
   ).current;
 
   const debouncedValidateContent = useRef(
-    debounce((content: SerializedEditorState | null) => {
+    debounce((content: SerializedEditorState) => {
       validateContent(content);
     }, debounceTimeoutMs),
   ).current;
