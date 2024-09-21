@@ -15,8 +15,9 @@ export const Comments: CollectionConfig = {
     update: authenticated,
   },
   admin: {
-    defaultColumns: ['displayName', 'createdAt'],
+    defaultColumns: ['displayName', 'email', 'post', 'createdAt'],
     // TODO: Create custom title when useAsTitle supports functions https://github.com/payloadcms/payload/discussions/3257
+    listSearchableFields: ['displayName', 'email'],
   },
   timestamps: true,
   fields: [
