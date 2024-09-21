@@ -20,6 +20,7 @@ export async function GET(request: Request, { params }: { params: { postId: stri
       },
       depth,
       limit: 0,
+      pagination: false,
     });
 
     const mappedComments = await mapComments(comments.docs);
