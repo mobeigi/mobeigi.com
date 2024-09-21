@@ -2,7 +2,11 @@ import validator from 'validator';
 import { SerializedEditorState } from 'lexical';
 import { extractTextContent } from '@/utils/lexical';
 
-export const validateDisplayName = (displayName: string): true | string => {
+export const validateDisplayName = (displayName?: string | null): true | string => {
+  if (displayName === null || displayName === undefined) {
+    return 'Display name is null or undefined.';
+  }
+
   const trimmedDisplayName = displayName.trim();
   if (!trimmedDisplayName) {
     return 'Display name cannot be empty.';
@@ -26,15 +30,21 @@ export const validateDisplayName = (displayName: string): true | string => {
   return true;
 };
 
-export const validateEmail = (email: string): true | string => {
+export const validateEmail = (email?: string | null): true | string => {
+  if (email === null || email === undefined) {
+    return 'Email is null or undefined.';
+  }
   if (!email.trim()) {
     return 'Email cannot be empty.';
   }
   return validator.isEmail(email) ? true : 'Invalid email format.';
 };
 
-export const validateContent = (editorState: SerializedEditorState | null): true | string => {
-  if (!editorState || !editorState.root || editorState.root.children.length === 0) {
+export const validateContent = (editorState?: SerializedEditorState | null): true | string => {
+  if (editorState === null || editorState === undefined) {
+    return 'Comment is null or undefined.';
+  }
+  if (!editorState.root || editorState.root.children.length === 0) {
     return 'Comment cannot be empty.';
   }
 

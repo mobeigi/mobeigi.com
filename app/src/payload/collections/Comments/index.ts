@@ -24,6 +24,7 @@ export const Comments: CollectionConfig = {
       name: 'displayName',
       type: 'text',
       required: true,
+      hasMany: false,
       validate: (value) => validateDisplayName(value),
     },
     {
