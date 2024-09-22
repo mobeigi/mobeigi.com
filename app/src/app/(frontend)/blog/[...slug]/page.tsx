@@ -155,8 +155,9 @@ const BlogPostHandler = async ({ params }: { params: { slug: string[] } }) => {
   // Register post views
   const headerList = headers();
   const ipAddress = headerList.get('x-forwarded-for');
-  if (ipAddress) {
-    registerView({ postId: post.id, ipAddress });
+  const userAgent = headerList.get('user-agent');
+  if (ipAddress && userAgent) {
+    registerView({ postId: post.id, ipAddress, userAgent });
   }
 
   return (

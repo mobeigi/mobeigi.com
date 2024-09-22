@@ -3,6 +3,7 @@ import config from '@payload-config';
 import { parseISO, differenceInMinutes } from 'date-fns';
 import { sql, and, eq } from 'drizzle-orm';
 import ObjectID from 'bson-objectid';
+import crawlerUserAgents from 'crawler-user-agents';
 
 const EXPIRY_IN_MINUTES = 1440;
 
@@ -15,11 +16,24 @@ export const isCachedViewExpired = (timestamp: string): boolean => {
 interface RegisterViewProps {
   postId: number;
   ipAddress: string;
+  userAgent: string;
 }
 
 // TODO: need a function or cron to prune old entries regularly
 
-export const registerView = async ({ postId, ipAddress }: RegisterViewProps): Promise<void> => {
+export const isCrawler = (userAgent: string): boolean => {
+  return crawlerUserAgents.some((crawler) => {
+    const crawlerPattern = new RegExp(crawler.pattern, 'i'); // case insensitive match
+    return crawlerPattern.test(userAgent);
+  });
+};
+
+export const registerView = async ({ postId, ipAddress, userAgent }: RegisterViewProps): Promise<void> => {
+  // Don't register views for crawlers
+  if (isCrawler(userAgent)) {
+    return;
+  }
+
   const payload = await getPayloadHMR({
     config,
   });
@@ -50,7 +64,7 @@ export const registerView = async ({ postId, ipAddress }: RegisterViewProps): Pr
   if (viewsCacheResults.length === 1) {
     const viewsCacheResult = viewsCacheResults[0];
 
-    // If cached view is not expired, we should not count this view
+    // If cached view is not expired, we should not register this view
     if (!isCachedViewExpired(viewsCacheResult.timestamp)) {
       return;
     }
