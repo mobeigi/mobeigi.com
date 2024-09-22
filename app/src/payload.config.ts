@@ -9,7 +9,7 @@ import { seoPlugin } from '@payloadcms/plugin-seo';
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs';
 import { redirectsPlugin } from '@payloadcms/plugin-redirects';
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
-import { getNextEnv } from '@/utils/next';
+import { getEnv } from '@/utils/env';
 import cron from 'node-cron';
 import { pruneViewsCache } from '@/payload/utils/viewCounter';
 
@@ -44,25 +44,25 @@ export default buildConfig({
     },
   }),
   email: nodemailerAdapter({
-    defaultFromAddress: getNextEnv('PAYLOAD_FROM_EMAIL_ADDRESS'),
+    defaultFromAddress: getEnv('PAYLOAD_FROM_EMAIL_ADDRESS'),
     defaultFromName: 'Payload',
     transportOptions: {
-      host: getNextEnv('SMTP_HOST'),
-      port: getNextEnv('SMTP_PORT'),
+      host: getEnv('SMTP_HOST'),
+      port: getEnv('SMTP_PORT'),
       auth: {
-        user: getNextEnv('SMTP_USER'),
-        pass: getNextEnv('SMTP_PASS'),
+        user: getEnv('SMTP_USER'),
+        pass: getEnv('SMTP_PASS'),
       },
     },
   }),
-  secret: getNextEnv('PAYLOAD_SECRET'),
+  secret: getEnv('PAYLOAD_SECRET'),
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: postgresAdapter({
     migrationDir: './src/payload/migrations',
     pool: {
-      connectionString: getNextEnv('DATABASE_URI'),
+      connectionString: getEnv('DATABASE_URI'),
     },
   }),
   sharp,

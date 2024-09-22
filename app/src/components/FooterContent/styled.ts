@@ -107,13 +107,15 @@ export const InfoArea = styled.div`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet.maxWidth}px) {
     align-items: center;
+    margin-top: 1em;
   }
 `;
 
-export const Copyright = styled.p`
+export const Info = styled.p`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  gap: 0.2em;
 
   font-size: 0.85em;
 

@@ -1,11 +1,16 @@
 import { withPayload } from '@payloadcms/next/withPayload';
 import svgrConfig from './svgr.config.js';
+import { execSync } from 'child_process';
+
+const commitHash = execSync('git log --pretty=format:"%h" -n1').toString().trim();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  trailingSlash: true,
   compiler: {
     styledComponents: true,
+  },
+  env: {
+    COMMIT_HASH: commitHash,
   },
   images: {
     remotePatterns: [
@@ -17,6 +22,7 @@ const nextConfig = {
       },
     ],
   },
+  trailingSlash: true,
   webpack(config) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'));
