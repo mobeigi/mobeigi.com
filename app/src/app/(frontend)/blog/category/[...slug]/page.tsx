@@ -198,7 +198,7 @@ const CategoryDetailPageHandler = async ({ params }: { params: { slug: string[] 
           <Breadcrumbs breadcrumbList={breadcrumbs} />
         </div>
       )}
-      <CategoryDetailPage category={category} subCategories={subcategories} blogPostMetas={blogPostMetas} />
+      <CategoryDetailPage category={category} subcategories={subcategories} blogPostMetas={blogPostMetas} />
     </div>
   );
 };

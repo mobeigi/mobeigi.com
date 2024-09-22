@@ -6,39 +6,23 @@
 import { CategoryDetailPageProps } from './types';
 import { CategoryDetailPageContainer, BlogSummaryWrapper, CategoryNameWrapper } from './styled';
 import BlogSummary from '@/components/BlogSummary';
-import Link from 'next/link';
-import CategorySvg from '@/assets/icons/boxicons/bx-category.svg';
-import { IconWrapper } from '@/styles/icon';
-import { SubcategoryContainer, SubcategoryNav } from '@/styles/containers/subcategory';
+import SubcategoryNav from '@/components/SubcategoryNav';
 
-export const CategoryDetailPage = ({ category, subCategories, blogPostMetas }: CategoryDetailPageProps) => {
+export const CategoryDetailPage = ({ category, subcategories, blogPostMetas }: CategoryDetailPageProps) => {
   return (
     <CategoryDetailPageContainer>
       <h1>
         Category: <CategoryNameWrapper>{category.title}</CategoryNameWrapper>
       </h1>
       <p>{category.description}</p>
-      {subCategories.length > 0 && (
+      {subcategories.length > 0 && (
         <>
           <h2>Subcategories</h2>
           <p>
-            Showing <strong>{subCategories.length}</strong>{' '}
-            {subCategories.length === 1 ? 'subcategory' : 'subcategories'}.
+            Showing <strong>{subcategories.length}</strong>{' '}
+            {subcategories.length === 1 ? 'subcategory' : 'subcategories'}.
           </p>
-          <SubcategoryNav aria-label={`Subcategory navigation for category: ${category.title}`}>
-            <ul>
-              {subCategories.map((subcategory, index) => (
-                <li key={index}>
-                  <SubcategoryContainer>
-                    <IconWrapper>
-                      <CategorySvg />
-                    </IconWrapper>
-                    <Link href={subcategory.url}>{subcategory.title}</Link>
-                  </SubcategoryContainer>
-                </li>
-              ))}
-            </ul>
-          </SubcategoryNav>
+          <SubcategoryNav category={category} subcategories={subcategories} />
         </>
       )}
       <h2>Posts</h2>
