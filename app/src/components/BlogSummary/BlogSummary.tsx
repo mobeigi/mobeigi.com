@@ -3,10 +3,17 @@
 // TODO: Remove above workaround when @svgr/webpack bug is resolved. This component does not need to be a client side component.
 // Github link: https://github.com/vercel/next.js/issues/69545
 
-import { BlogSummaryContainer, Detail, DetailContainer, Heading } from './styles';
+import {
+  BlogSummaryContainer,
+  Detail,
+  DetailContainer,
+  Heading,
+  IconAndTextContainer,
+  DetailIconWrapper as IconWrapper,
+  StyledLink,
+} from './styled';
 import { BlogSummaryProps } from './types';
 import Link from 'next/link';
-import { IconWrapper } from '@/styles/icon';
 import CalendarSvg from '@/assets/icons/boxicons/bx-calendar.svg';
 import CategorySvg from '@/assets/icons/boxicons/bx-category.svg';
 import CommentDetailSvg from '@/assets/icons/boxicons/bx-comment-detail.svg';
@@ -23,6 +30,24 @@ export const BlogSummary = ({
 }: BlogSummaryProps) => {
   const publishedAtDate = new Date(blogPostMeta.post.publishedAt);
 
+  const categoryElement = (
+    <IconAndTextContainer>
+      <IconWrapper>
+        <CategorySvg />
+      </IconWrapper>
+      <span>{blogPostMeta.post.category.title}</span>
+    </IconAndTextContainer>
+  );
+
+  const commentCountElement = (
+    <IconAndTextContainer>
+      <IconWrapper>
+        <CommentDetailSvg />
+      </IconWrapper>
+      <span>{blogPostMeta.related.commentCount}</span>
+    </IconAndTextContainer>
+  );
+
   return (
     <BlogSummaryContainer>
       {linkHeading ? (
@@ -34,42 +59,36 @@ export const BlogSummary = ({
       )}
       <DetailContainer>
         <Detail>
-          <IconWrapper>
-            <CalendarSvg />
-          </IconWrapper>
-          <time dateTime={publishedAtDate.toISOString()}>
-            <DateFormatter date={publishedAtDate} format="d MMMM yyyy" />
-          </time>
+          <IconAndTextContainer>
+            <IconWrapper>
+              <CalendarSvg />
+            </IconWrapper>
+            <time dateTime={publishedAtDate.toISOString()}>
+              <DateFormatter date={publishedAtDate} format="d MMMM yyyy" />
+            </time>
+          </IconAndTextContainer>
         </Detail>
         <Detail>
-          <IconWrapper>
-            <CategorySvg />
-          </IconWrapper>
-          <span>
-            {linkCategory ? (
-              <Link href={blogPostMeta.post.category.url}>{blogPostMeta.post.category.title}</Link>
-            ) : (
-              blogPostMeta.post.category.title
-            )}
-          </span>
+          {linkCategory ? (
+            <StyledLink href={blogPostMeta.post.category.url}>{categoryElement}</StyledLink>
+          ) : (
+            categoryElement
+          )}
         </Detail>
         <Detail>
-          <IconWrapper>
-            <BarChartSvg />
-          </IconWrapper>
-          <span>{blogPostMeta.post.views}</span>
+          <IconAndTextContainer>
+            <IconWrapper>
+              <BarChartSvg />
+            </IconWrapper>
+            <span>{blogPostMeta.post.views}</span>
+          </IconAndTextContainer>
         </Detail>
         <Detail>
-          <IconWrapper>
-            <CommentDetailSvg />
-          </IconWrapper>
-          <span>
-            {commentsAnchor ? (
-              <Link href={`${blogPostMeta.post.url}#${commentsAnchor}`}>{blogPostMeta.related.commentCount}</Link>
-            ) : (
-              <>{blogPostMeta.related.commentCount}</>
-            )}
-          </span>
+          {commentsAnchor ? (
+            <StyledLink href={`${blogPostMeta.post.url}#${commentsAnchor}`}>{commentCountElement}</StyledLink>
+          ) : (
+            commentCountElement
+          )}
         </Detail>
       </DetailContainer>
       {showExcerpt && <span>{blogPostMeta.post.excerpt}</span>}
