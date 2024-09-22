@@ -11,7 +11,7 @@ import { redirectsPlugin } from '@payloadcms/plugin-redirects';
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
 import { getNextEnv } from '@/utils/next';
 import cron from 'node-cron';
-import { pruneViewsCache } from '@/payload/utils/registerView';
+import { pruneViewsCache } from '@/payload/utils/viewCounter';
 
 import { Users } from '@payload/collections/Users';
 import { Media } from '@payload/collections/Media';
@@ -93,7 +93,7 @@ export default buildConfig({
       payload.logger.info('Running cron job to prune views cache...');
       try {
         await pruneViewsCache();
-        payload.logger.info('Views cache pruning complete.');
+        payload.logger.info('Views cache pruning completed successfully.');
       } catch (error) {
         payload.logger.error('Error during views cache pruning:', error);
       }
