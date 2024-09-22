@@ -37,7 +37,6 @@ export type BlogPostMeta = {
 
 export type BlogPostContent = {
   body: SerializedEditorState;
-  customFields?: Array<{ key: string; value: SerializedEditorState }>;
 };
 
 export type Comment = {

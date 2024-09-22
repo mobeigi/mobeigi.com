@@ -185,7 +185,6 @@ const transformPostToBlogPostProps = async (post: Post): Promise<BlogPostProps |
 
   const content: BlogPostContent = {
     body: post.content,
-    customFields: post.customFields || undefined,
   };
 
   const payload = await getPayloadHMR({

@@ -53,15 +53,3 @@ export const TableOfContentsHeadings = styled.span`
     color: ${({ theme }) => theme.colors.text.link};
   }
 `;
-
-export const CustomFieldsSection = styled.section``;
-
-export const CustomFieldsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-
-  p {
-    margin: 0;
-  }
-`;

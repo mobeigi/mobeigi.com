@@ -97,34 +97,6 @@ export const Posts: CollectionConfig = {
           label: 'Comments',
         },
         {
-          fields: [
-            {
-              name: 'customFields',
-              type: 'array',
-              label: 'Custom Field',
-              required: false,
-              fields: [
-                {
-                  name: 'key',
-                  type: 'text',
-                  required: true,
-                },
-                {
-                  name: 'value',
-                  type: 'richText',
-                  editor: lexicalEditor({
-                    features: ({ rootFeatures }) => {
-                      return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()];
-                    },
-                  }),
-                  required: true,
-                },
-              ],
-            },
-          ],
-          label: 'Custom Fields',
-        },
-        {
           name: 'meta',
           label: 'SEO',
           fields: [
