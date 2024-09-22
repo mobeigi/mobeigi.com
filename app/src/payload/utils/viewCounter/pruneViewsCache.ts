@@ -4,6 +4,11 @@ import { lt } from 'drizzle-orm';
 
 import { EXPIRY_IN_MS } from './constants';
 
+/**
+ * Prunes the views cache by removing entries that are older than the specified expiration time.
+ *
+ * @returns {Promise<void>} A promise that resolves when the pruning operation is complete.
+ */
 export const pruneViewsCache = async (): Promise<void> => {
   const payload = await getPayloadHMR({
     config,

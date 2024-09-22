@@ -13,10 +13,19 @@ export const isCachedViewExpired = (timestamp: string): boolean => {
   return differenceInMs > EXPIRY_IN_MS;
 };
 
-export const registerView = async ({ postId, ipAddress, userAgent }: RegisterViewProps): Promise<void> => {
-  // Don't register views for crawlers
+/**
+ * Registers a view for a post if it passes the validation checks.
+ *
+ * @param {RegisterViewProps} props - The properties required to register a view.
+ * @param {string} props.postId - The ID of the post to register a view for.
+ * @param {string} props.ipAddress - The IP address of the viewer.
+ * @param {string} props.userAgent - The user agent string of the viewer.
+ *
+ * @returns {Promise<boolean>} True if the view was registered, false otherwise.
+ */
+export const registerView = async ({ postId, ipAddress, userAgent }: RegisterViewProps): Promise<boolean> => {
   if (isCrawler(userAgent)) {
-    return;
+    return false;
   }
 
   const payload = await getPayloadHMR({
@@ -34,12 +43,11 @@ export const registerView = async ({ postId, ipAddress, userAgent }: RegisterVie
 
   if (payloadPosts.totalDocs !== 1) {
     console.error(`registerView: Cannot find doc with id: ${postId}`);
-    return;
+    return false;
   }
 
-  // Check for entry in viewsCache
+  // Get entry in viewsCache
   const postsViewsCacheTable = payload.db.tables.posts_views_cache;
-
   const viewsCacheResults = await payload.db.drizzle
     .select()
     .from(postsViewsCacheTable)
@@ -49,9 +57,8 @@ export const registerView = async ({ postId, ipAddress, userAgent }: RegisterVie
   if (viewsCacheResults.length === 1) {
     const viewsCacheResult = viewsCacheResults[0];
 
-    // If cached view is not expired, we should not register this view
     if (!isCachedViewExpired(viewsCacheResult.timestamp)) {
-      return;
+      return false;
     }
 
     const newViewsCacheEntry = {
@@ -73,7 +80,6 @@ export const registerView = async ({ postId, ipAddress, userAgent }: RegisterVie
       timestamp: new Date().toISOString(),
     };
 
-    // Insert new entry into views cache
     await payload.db.drizzle.insert(postsViewsCacheTable).values(newViewsCacheEntry);
   }
 
@@ -84,4 +90,6 @@ export const registerView = async ({ postId, ipAddress, userAgent }: RegisterVie
       views: sql`${payload.db.tables.posts.views} + 1`,
     })
     .where(eq(payload.db.tables.posts.id, postId));
+
+  return true;
 };
