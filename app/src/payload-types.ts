@@ -169,6 +169,14 @@ export interface Post {
     description?: string | null;
   };
   publishedAt?: string | null;
+  views?: number | null;
+  viewsCache?:
+    | {
+        ipAddress: string;
+        timestamp: string;
+        id?: string | null;
+      }[]
+    | null;
   category?: (number | null) | Category;
   authors?: (number | User)[] | null;
   slug?: string | null;

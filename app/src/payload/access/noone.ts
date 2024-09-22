@@ -1,3 +1,3 @@
-import type { Access } from 'payload';
+import { AccessFunction } from './types';
 
-export const noone: Access = () => false;
+export const noone: AccessFunction = () => false;

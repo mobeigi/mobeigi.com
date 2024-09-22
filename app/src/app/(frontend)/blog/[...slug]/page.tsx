@@ -15,6 +15,8 @@ import { getLastItemId } from '@/utils/seo/listItem';
 import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { payloadRedirect } from '@/payload/utils/payloadRedirect';
+import { registerView } from '@/payload/utils/registerView';
+import { headers } from 'next/headers';
 
 const depth = 2;
 
@@ -149,6 +151,13 @@ const BlogPostHandler = async ({ params }: { params: { slug: string[] } }) => {
   }
 
   const breadcrumbs = generateBreadcrumbs(post);
+
+  // Register post views
+  const headerList = headers();
+  const ipAddress = headerList.get('x-forwarded-for');
+  if (ipAddress) {
+    registerView({ postId: post.id, ipAddress });
+  }
 
   return (
     <div>

@@ -19,8 +19,9 @@ export type BlogPostPostMeta = {
   excerpt: string;
   slug: string;
   url: string;
+  views: number;
   category: Category;
-  breadcrumbs: Breadcrumb[];
+  breadcrumbs: Breadcrumb[]; // TODO: can this be removed?
   commentsEnabled: boolean;
 };
 

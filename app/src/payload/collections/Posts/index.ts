@@ -18,6 +18,7 @@ import { Code } from '@payload/blocks/Code/config';
 import { MediaBlock } from '@payload/blocks/MediaBlock/config';
 import { File } from '@/payload/blocks/File/config';
 import { Embed } from '@payload/blocks/Embed/config';
+import { noone } from '@/payload/access/noone';
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -158,6 +159,37 @@ export const Posts: CollectionConfig = {
           },
         ],
       },
+    },
+    {
+      name: 'views',
+      type: 'number',
+      defaultValue: 0,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'viewsCache',
+      type: 'array',
+      admin: {
+        hidden: true,
+      },
+      access: {
+        // dont expose this field on read because it can be huge
+        read: noone,
+      },
+      fields: [
+        {
+          name: 'ipAddress',
+          type: 'text',
+          required: true,
+        },
+        {
+          name: 'timestamp',
+          type: 'date',
+          required: true,
+        },
+      ],
     },
     {
       name: 'category',
