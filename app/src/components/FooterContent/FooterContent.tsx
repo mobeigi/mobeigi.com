@@ -1,8 +1,9 @@
-import { Copyright, FooterContainer, FooterContents, InfoArea, FooterNav, LogoWrapper } from './styled';
+import { Info, FooterContainer, FooterContents, InfoArea, FooterNav, LogoWrapper } from './styled';
 import { COPYRIGHT_START_YEAR, SITE_TITLE } from '@/constants/app';
 import { essentials, legal, networks, pages } from '@/constants/links';
 import Link from 'next/link';
 import SignatureSvg from '@public/images/signature/mo-signature.svg';
+import { BuildInfoComponent } from './BuildInfo';
 
 export const FooterContent = () => (
   <FooterContainer>
@@ -53,13 +54,15 @@ export const FooterContent = () => (
         </div>
       </FooterNav>
       <InfoArea>
-        <p>TODO: Build info</p>
-        <Copyright>
+        <Info>
+          <BuildInfoComponent />
+        </Info>
+        <Info>
           <span>
             Copyright © {COPYRIGHT_START_YEAR} - {new Date().getFullYear()} &middot; {SITE_TITLE}
           </span>
           <span>All rights reserved</span>
-        </Copyright>
+        </Info>
       </InfoArea>
     </FooterContents>
   </FooterContainer>
