@@ -3,12 +3,10 @@
 // TODO: Remove above workaround when @svgr/webpack bug is resolved. This component does not need to be a client side component.
 // Github link: https://github.com/vercel/next.js/issues/69545
 
-import { IconWrapper } from '@/styles/icon';
 import { CategoryPageContainer, RootCategoryWrapper } from './styled';
-import { SubcategoryContainer, SubcategoryNav } from '@/styles/containers/subcategory';
 import { CategoryPageProps } from './types';
-import CategorySvg from '@/assets/icons/boxicons/bx-category.svg';
 import Link from 'next/link';
+import SubcategoryNav from '@/components/SubcategoryNav';
 
 export const CategoryPage = ({ rootCategories }: CategoryPageProps) => {
   return (
@@ -34,20 +32,7 @@ export const CategoryPage = ({ rootCategories }: CategoryPageProps) => {
                   Showing <strong>{rootCategory.subcategories.length}</strong>{' '}
                   {rootCategory.subcategories.length === 1 ? 'subcategory' : 'subcategories'}.
                 </p>
-                <SubcategoryNav aria-label={`Subcategory navigation for category: ${rootCategory.category.title}`}>
-                  <ul>
-                    {rootCategory.subcategories.map((subcategory, index) => (
-                      <li key={index}>
-                        <SubcategoryContainer>
-                          <IconWrapper>
-                            <CategorySvg />
-                          </IconWrapper>
-                          <Link href={subcategory.url}>{subcategory.title}</Link>
-                        </SubcategoryContainer>
-                      </li>
-                    ))}
-                  </ul>
-                </SubcategoryNav>
+                <SubcategoryNav category={rootCategory.category} subcategories={rootCategory.subcategories} />
               </div>
             );
           })}
