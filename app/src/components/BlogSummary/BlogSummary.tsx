@@ -10,6 +10,7 @@ import { IconWrapper } from '@/styles/icon';
 import CalendarSvg from '@/assets/icons/boxicons/bx-calendar.svg';
 import CategorySvg from '@/assets/icons/boxicons/bx-category.svg';
 import CommentDetailSvg from '@/assets/icons/boxicons/bx-comment-detail.svg';
+import BarChartSvg from '@/assets/icons/boxicons/bx-bar-chart.svg';
 import DateFormatter from '@/components/DateFormatter';
 
 export const BlogSummary = ({
@@ -51,6 +52,12 @@ export const BlogSummary = ({
               blogPostMeta.post.category.title
             )}
           </span>
+        </Detail>
+        <Detail>
+          <IconWrapper>
+            <BarChartSvg />
+          </IconWrapper>
+          <span>{blogPostMeta.post.views}</span>
         </Detail>
         <Detail>
           <IconWrapper>

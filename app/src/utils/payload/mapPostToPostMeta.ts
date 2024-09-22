@@ -51,6 +51,7 @@ export const mapPostToPostMeta = (payloadPost: PayloadPost): BlogPostPostMeta | 
     slug: payloadPost.slug,
     breadcrumbs: blogPostBreadcrumbs,
     url: blogPostUrl,
+    views: payloadPost.views || 0,
     category: category,
     commentsEnabled: payloadPost.commentsEnabled ?? true,
   };
