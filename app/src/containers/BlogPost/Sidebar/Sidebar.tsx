@@ -2,16 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import extractHeadings, { HeadingElement } from '@/utils/extractHeadings';
-import {
-  SidebarContainer,
-  CustomFieldsContainer,
-  TableOfContentsNav,
-  TableOfContentsHeadings,
-  SectionHeading,
-  CustomFieldsSection,
-} from './styled';
+import { SidebarContainer, TableOfContentsNav, TableOfContentsHeadings, SectionHeading } from './styled';
 import { SidebarProps } from './types';
-import { serializeLexical } from '@/payload/lexical/serializeLexical';
 
 const MAX_TOTAL_NUMBER_OF_HEADINGS = 8;
 
@@ -51,7 +43,7 @@ const renderHeadings = (headings: HeadingElement[]) => {
   return renderList(headings);
 };
 
-export const Sidebar = ({ body, customFields }: SidebarProps) => {
+export const Sidebar = ({ body }: SidebarProps) => {
   const [headingsInBlogpostContents, setHeadingsInBlogpostContents] = useState<Element[]>([]);
 
   const headings = extractHeadings(body);
@@ -165,19 +157,6 @@ export const Sidebar = ({ body, customFields }: SidebarProps) => {
             </TableOfContentsNav>
           </section>
         </>
-      )}
-      {customFields && customFields.length > 0 && (
-        <CustomFieldsSection>
-          <SectionHeading>Other details</SectionHeading>
-          <CustomFieldsContainer>
-            {customFields?.map((customField, index) => (
-              <span key={index}>
-                <strong>{customField.key}: </strong>
-                {serializeLexical(customField.value)}
-              </span>
-            ))}
-          </CustomFieldsContainer>
-        </CustomFieldsSection>
       )}
     </SidebarContainer>
   );
