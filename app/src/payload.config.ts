@@ -10,6 +10,8 @@ import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs';
 import { redirectsPlugin } from '@payloadcms/plugin-redirects';
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
 import { getNextEnv } from '@/utils/next';
+import cron from 'node-cron';
+import { pruneViewsCache } from '@/payload/utils/registerView';
 
 import { Users } from '@payload/collections/Users';
 import { Media } from '@payload/collections/Media';
@@ -86,4 +88,15 @@ export default buildConfig({
       },
     }),
   ],
+  async onInit(payload) {
+    cron.schedule('0 * * * *', async () => {
+      payload.logger.info('Running cron job to prune views cache...');
+      try {
+        await pruneViewsCache();
+        payload.logger.info('Views cache pruning complete.');
+      } catch (error) {
+        payload.logger.error('Error during views cache pruning:', error);
+      }
+    });
+  },
 });

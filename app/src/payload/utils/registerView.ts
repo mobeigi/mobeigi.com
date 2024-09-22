@@ -1,16 +1,16 @@
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import config from '@payload-config';
-import { parseISO, differenceInMinutes } from 'date-fns';
-import { sql, and, eq } from 'drizzle-orm';
+import { parseISO, differenceInMilliseconds } from 'date-fns';
+import { sql, and, eq, lt } from 'drizzle-orm';
 import ObjectID from 'bson-objectid';
 import crawlerUserAgents from 'crawler-user-agents';
 
-const EXPIRY_IN_MINUTES = 1440;
+const EXPIRY_IN_MS = 24 * 60 * 60 * 1000;
 
 export const isCachedViewExpired = (timestamp: string): boolean => {
   const parsedTimestamp = parseISO(timestamp);
-  const minuteDifference = differenceInMinutes(new Date(), parsedTimestamp);
-  return minuteDifference > EXPIRY_IN_MINUTES;
+  const differenceInMs = differenceInMilliseconds(new Date(), parsedTimestamp);
+  return differenceInMs > EXPIRY_IN_MS;
 };
 
 interface RegisterViewProps {
@@ -19,8 +19,6 @@ interface RegisterViewProps {
   userAgent: string;
 }
 
-// TODO: need a function or cron to prune old entries regularly
-
 export const isCrawler = (userAgent: string): boolean => {
   return crawlerUserAgents.some((crawler) => {
     const crawlerPattern = new RegExp(crawler.pattern, 'i'); // case insensitive match
@@ -28,11 +26,22 @@ export const isCrawler = (userAgent: string): boolean => {
   });
 };
 
+export const pruneViewsCache = async (): Promise<void> => {
+  const payload = await getPayloadHMR({
+    config,
+  });
+  const postsViewsCacheTable = payload.db.tables.posts_views_cache;
+  const thresholdDate = new Date(Date.now() - EXPIRY_IN_MS);
+  await payload.db.drizzle.delete(postsViewsCacheTable).where(lt(postsViewsCacheTable.timestamp, thresholdDate));
+};
+
 export const registerView = async ({ postId, ipAddress, userAgent }: RegisterViewProps): Promise<void> => {
   // Don't register views for crawlers
   if (isCrawler(userAgent)) {
     return;
   }
+
+  pruneViewsCache();
 
   const payload = await getPayloadHMR({
     config,
