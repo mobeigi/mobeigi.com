@@ -10,6 +10,7 @@ const theme = {
       frame: {
         background: '#181717',
         accent: '#3a3a3a',
+        // TODO: Change this text type to act like 'subtle' text, its not just for the frame
         text: {
           base: '#999',
           baseHighlight: '#f5f5f5',
