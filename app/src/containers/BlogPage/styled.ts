@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-export const BlogPageContainer = styled.div`
+export const BlogPageSection = styled.section`
   width: 100%;
 `;
 

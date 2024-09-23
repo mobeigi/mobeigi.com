@@ -14,7 +14,10 @@ export const SidebarContainer = styled.div`
   box-sizing: border-box;
 `;
 
-export const SectionHeading = styled.h5`
+export const SectionHeading = styled.h2`
+  /* Style as h5 */
+  font-size: 1.25em;
+
   margin-top: 0;
   margin-bottom: 1em;
 `;

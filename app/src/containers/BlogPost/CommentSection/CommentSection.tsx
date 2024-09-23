@@ -201,7 +201,9 @@ export const CommentSection = ({ comments: initialComments, postId, commentsEnab
         </LeaveCommentArea>
       )}
       <CommentsArea>
-        <h2 id="comments">Comments</h2>
+        <header>
+          <h2 id="comments">Comments</h2>
+        </header>
         {!commentsEnabled && (
           <p>Comments have been disabled for this post.{commentCount > 0 && ' Existing comments are still visible.'}</p>
         )}

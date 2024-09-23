@@ -3,7 +3,7 @@ import { ProjectsContainer } from './styled';
 import { projects } from '@/constants/projects';
 
 export const ProjectsPage = () => (
-  <div>
+  <section>
     <h1>Projects</h1>
     <p>Discover my most interesting projects below.</p>
     <ProjectsContainer>
@@ -24,5 +24,5 @@ export const ProjectsPage = () => (
           />
         ))}
     </ProjectsContainer>
-  </div>
+  </section>
 );

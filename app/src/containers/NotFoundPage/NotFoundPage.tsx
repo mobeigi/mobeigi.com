@@ -1,12 +1,14 @@
 import Link from 'next/link';
 import Error404Svg from '@/assets/icons/internet/404.svg';
-import { NotFoundPageContainer, TextContainer } from './styled';
+import { NotFoundPageSection, NotFoundBody } from './styled';
 
 export const NotFoundPage = () => (
-  <NotFoundPageContainer>
-    <h1>Not Found</h1>
-    <Error404Svg width="15em" height="12em" />
-    <TextContainer>
+  <NotFoundPageSection>
+    <header>
+      <h1>Not Found</h1>
+      <Error404Svg width="15em" height="12em" />
+    </header>
+    <NotFoundBody>
       <p>The page you are looking for was not found.</p>
       <br />
       <p>
@@ -15,6 +17,6 @@ export const NotFoundPage = () => (
       <p>
         Otherwise, feel free to return to the <Link href="/">home</Link> page.
       </p>
-    </TextContainer>
-  </NotFoundPageContainer>
+    </NotFoundBody>
+  </NotFoundPageSection>
 );

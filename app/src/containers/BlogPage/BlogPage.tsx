@@ -1,11 +1,11 @@
 import { BlogPageProps } from './types';
-import { BlogPageContainer, BlogSummaryWrapper } from './styled';
+import { BlogPageSection, BlogSummaryWrapper } from './styled';
 import BlogSummary from '@/components/BlogSummary';
 import Link from 'next/link';
 
 export const BlogPage = ({ blogPostMetas }: BlogPageProps) => {
   return (
-    <BlogPageContainer>
+    <BlogPageSection>
       <h1>Blog</h1>
       <p>
         Explore my thoughts and insights in the blog posts below, or browse by topics on the{' '}
@@ -26,6 +26,6 @@ export const BlogPage = ({ blogPostMetas }: BlogPageProps) => {
             </article>
           ))}
       </BlogSummaryWrapper>
-    </BlogPageContainer>
+    </BlogPageSection>
   );
 };
