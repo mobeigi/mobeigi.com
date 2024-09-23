@@ -1,4 +1,5 @@
 import { BASE_URL } from '@/constants/app';
+import HomePage from '@/containers/HomePage';
 import { breadcrumbList } from '@/utils/seo/breadCrumbList';
 import { listItem } from '@/utils/seo/listItem';
 import { BreadcrumbList, WithContext } from 'schema-dts';
@@ -19,22 +20,11 @@ const Home = () => {
   return (
     <div>
       {breadcrumbs && (
-        <div>
+        <>
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
-          {/* Don't show breadcrumbs component on homepage as exception */}
-        </div>
+        </>
       )}
-      <div>
-        <h1>Title</h1>
-        <p>Paragraph</p>
-        <p>Paragraph</p>
-        <p>Paragraph</p>
-        <p>Paragraph</p>
-        <p>Paragraph</p>
-        <p>Paragraph</p>
-        <p>Paragraph</p>
-        <p>Paragraph</p>
-      </div>
+      <HomePage />
     </div>
   );
 };

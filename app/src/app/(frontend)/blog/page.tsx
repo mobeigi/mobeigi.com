@@ -82,10 +82,10 @@ const BlogPageHandler = async () => {
   return (
     <div>
       {breadcrumbs && (
-        <div>
+        <>
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
           <Breadcrumbs breadcrumbList={breadcrumbs} />
-        </div>
+        </>
       )}
       <BlogPage blogPostMetas={blogPostMetas} />
     </div>
