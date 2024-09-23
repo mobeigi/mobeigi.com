@@ -6,6 +6,7 @@
 import Link from 'next/link';
 import { CenteredH1, Headshot } from './styled';
 import AuFlagSvg from '@/assets/icons/flags/au.svg';
+import { IconWrapper } from '@/styles/icon';
 
 const getAgeFromDate = (dateString: string) => {
   const birthDate = new Date(dateString);
@@ -31,7 +32,10 @@ export const AboutPage = () => {
         <CenteredH1>Howdy!</CenteredH1>
       </header>
       <p>
-        My name is <strong>Mo</strong>. I am {ageInYears} years old and live in <AuFlagSvg width="1em" />{' '}
+        My name is <strong>Mo</strong>. I am {ageInYears} years old and live in{' '}
+        <IconWrapper>
+          <AuFlagSvg />
+        </IconWrapper>{' '}
         <strong>Sydney, Australia</strong>.
       </p>
       <p>

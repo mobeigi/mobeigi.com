@@ -9,7 +9,7 @@ export const BlogPage = ({ blogPostMetas }: BlogPageProps) => {
       <h1>Blog</h1>
       <p>
         Explore my thoughts and insights in the blog posts below, or browse by topics on the{' '}
-        <Link href="/blog/category">categories</Link> page.
+        <Link href="/blog/category/">categories</Link> page.
       </p>
       {blogPostMetas.length > 0 ? (
         <p>

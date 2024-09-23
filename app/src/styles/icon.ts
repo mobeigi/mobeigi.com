@@ -8,11 +8,11 @@ export const IconWrapper = styled.span`
   justify-content: center;
   align-items: center;
 
-  width: 1em;
-  height: auto;
-
   svg {
     fill: ${({ theme }) => theme.colors.text.base};
+
+    width: auto;
+    height: 1em;
   }
 `;
 
