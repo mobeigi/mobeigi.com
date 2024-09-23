@@ -1,5 +1,6 @@
 import { BASE_URL } from '@/constants/app';
 import HomePage from '@/containers/HomePage';
+import { getCachedLatestPhotographyImage } from '@/utils/photography';
 import { breadcrumbList } from '@/utils/seo/breadCrumbList';
 import { listItem } from '@/utils/seo/listItem';
 import { BreadcrumbList, WithContext } from 'schema-dts';
@@ -15,8 +16,10 @@ export const generateBreadcrumbs = (): WithContext<BreadcrumbList> =>
     }),
   ]);
 
-const Home = () => {
+const Home = async () => {
   const breadcrumbs = generateBreadcrumbs();
+  const latestPhotographyImage = (await getCachedLatestPhotographyImage()) ?? undefined;
+
   return (
     <div>
       {breadcrumbs && (
@@ -24,7 +27,7 @@ const Home = () => {
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
         </>
       )}
-      <HomePage />
+      <HomePage latestPhotographyImage={latestPhotographyImage} />
     </div>
   );
 };

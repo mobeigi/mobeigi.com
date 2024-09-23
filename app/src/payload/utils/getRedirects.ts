@@ -1,6 +1,6 @@
+import { unstable_cache_safe } from '@/utils/next';
 import config from '@payload-config';
 import { getPayloadHMR } from '@payloadcms/next/utilities';
-import { unstable_cache } from 'next/cache';
 
 export const getRedirects = async (depth = 1) => {
   const payload = await getPayloadHMR({
@@ -22,7 +22,8 @@ export const getRedirects = async (depth = 1) => {
  *
  * Cache all redirects together to avoid multiple fetches.
  */
+// TODO: Should this be a function or just directly equal unstable_cache
 export const getCachedRedirects = () =>
-  unstable_cache(async () => getRedirects(), ['redirects'], {
+  unstable_cache_safe(async () => getRedirects(), ['redirects'], {
     tags: ['redirects'],
   });

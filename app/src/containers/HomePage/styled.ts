@@ -71,3 +71,26 @@ export const IconAndTextContainer = styled.span`
   justify-content: center;
   align-items: center;
 `;
+
+export const PhotographyImageWrapper = styled.div`
+  position: relative;
+  width: 750px;
+  height: auto;
+  aspect-ratio: 3/2;
+  max-width: 100%;
+
+  margin: 0 auto;
+
+  img {
+    border-radius: 0.2em;
+  }
+`;
+
+export const PhotographyTag = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  margin: 0.4em 0;
+
+  color: ${({ theme }) => theme.colors.frame.text.base};
+`;
