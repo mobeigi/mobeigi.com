@@ -18,12 +18,8 @@ export const getRedirects = async (depth = 1) => {
 };
 
 /**
- * Returns a unstable_cache function mapped with the cache tag for 'redirects'.
- *
  * Cache all redirects together to avoid multiple fetches.
  */
-// TODO: Should this be a function or just directly equal unstable_cache
-export const getCachedRedirects = () =>
-  unstable_cache_safe(async () => getRedirects(), ['redirects'], {
-    tags: ['redirects'],
-  });
+export const getCachedRedirects = unstable_cache_safe(async () => getRedirects(), ['redirects'], {
+  tags: ['redirects'],
+});

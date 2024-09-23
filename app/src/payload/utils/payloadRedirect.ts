@@ -24,7 +24,7 @@ const getAbsoluteUrl = (url: string): string => {
  * Use this function at the start of route loads to enforce redirects.
  */
 export const payloadRedirect = async ({ currentUrl }: PayloadRedirectProps): Promise<void> => {
-  const redirects: Redirect[] = await getCachedRedirects()();
+  const redirects: Redirect[] = await getCachedRedirects();
   const absoluteUrl = getAbsoluteUrl(currentUrl);
 
   const matchingRedirects = redirects.filter((redirect) => {
