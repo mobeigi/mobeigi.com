@@ -193,10 +193,10 @@ const CategoryDetailPageHandler = async ({ params }: { params: { slug: string[] 
   return (
     <div>
       {breadcrumbs && (
-        <div>
+        <>
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
           <Breadcrumbs breadcrumbList={breadcrumbs} />
-        </div>
+        </>
       )}
       <CategoryDetailPage category={category} subcategories={subcategories} blogPostMetas={blogPostMetas} />
     </div>
