@@ -3,7 +3,7 @@ import { COPYRIGHT_START_YEAR, SITE_TITLE } from '@/constants/app';
 import { essentials, legal, networks, pages } from '@/constants/links';
 import Link from 'next/link';
 import SignatureSvg from '@public/images/signature/mo-signature.svg';
-import { BuildInfoComponent } from './BuildInfo';
+import { BuildInfo } from './BuildInfo';
 
 export const FooterContent = () => (
   <FooterContainer>
@@ -55,7 +55,7 @@ export const FooterContent = () => (
       </FooterNav>
       <InfoArea>
         <Info>
-          <BuildInfoComponent />
+          <BuildInfo />
         </Info>
         <Info>
           <span>
