@@ -25,9 +25,11 @@ const getAgeFromDate = (dateString: string) => {
 export const AboutPage = () => {
   const ageInYears = getAgeFromDate('1994-07-20');
   return (
-    <div>
-      <Headshot />
-      <CenteredH1>Howdy!</CenteredH1>
+    <section>
+      <header>
+        <Headshot />
+        <CenteredH1>Howdy!</CenteredH1>
+      </header>
       <p>
         My name is <strong>Mo</strong>. I am {ageInYears} years old and live in <AuFlagSvg width="1em" />{' '}
         <strong>Sydney, Australia</strong>.
@@ -67,6 +69,6 @@ export const AboutPage = () => {
         <br />
         Mo
       </p>
-    </div>
+    </section>
   );
 };

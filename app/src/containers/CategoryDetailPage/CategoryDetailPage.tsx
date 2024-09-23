@@ -4,13 +4,13 @@
 // Github link: https://github.com/vercel/next.js/issues/69545
 
 import { CategoryDetailPageProps } from './types';
-import { CategoryDetailPageContainer, BlogSummaryWrapper, CategoryNameWrapper } from './styled';
+import { CategoryDetailPageSection, BlogSummaryWrapper, CategoryNameWrapper } from './styled';
 import BlogSummary from '@/components/BlogSummary';
 import SubcategoryNav from '@/components/SubcategoryNav';
 
 export const CategoryDetailPage = ({ category, subcategories, blogPostMetas }: CategoryDetailPageProps) => {
   return (
-    <CategoryDetailPageContainer>
+    <CategoryDetailPageSection>
       <h1>
         Category: <CategoryNameWrapper>{category.title}</CategoryNameWrapper>
       </h1>
@@ -42,6 +42,6 @@ export const CategoryDetailPage = ({ category, subcategories, blogPostMetas }: C
             </article>
           ))}
       </BlogSummaryWrapper>
-    </CategoryDetailPageContainer>
+    </CategoryDetailPageSection>
   );
 };

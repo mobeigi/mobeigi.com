@@ -3,14 +3,14 @@
 // TODO: Remove above workaround when @svgr/webpack bug is resolved. This component does not need to be a client side component.
 // Github link: https://github.com/vercel/next.js/issues/69545
 
-import { CategoryPageContainer, RootCategoryWrapper } from './styled';
+import { CategoryPageSection, RootCategoryWrapper } from './styled';
 import { CategoryPageProps } from './types';
 import Link from 'next/link';
 import SubcategoryNav from '@/components/SubcategoryNav';
 
 export const CategoryPage = ({ rootCategories }: CategoryPageProps) => {
   return (
-    <CategoryPageContainer>
+    <CategoryPageSection>
       <h1>Category</h1>
       {rootCategories.length > 0 ? (
         <p>
@@ -37,6 +37,6 @@ export const CategoryPage = ({ rootCategories }: CategoryPageProps) => {
             );
           })}
       </RootCategoryWrapper>
-    </CategoryPageContainer>
+    </CategoryPageSection>
   );
 };

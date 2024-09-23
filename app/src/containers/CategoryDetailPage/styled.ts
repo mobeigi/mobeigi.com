@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-export const CategoryDetailPageContainer = styled.div`
+export const CategoryDetailPageSection = styled.section`
   width: 100%;
 `;
 

@@ -1,5 +1,5 @@
 export const ContactPage = () => (
-  <div>
+  <section>
     <h1>Contact</h1>
     <h2>Email Me</h2>
     <p>
@@ -18,5 +18,5 @@ export const ContactPage = () => (
     <p>
       Check the <a href="#footer">footer</a> of this page for a list of networks.
     </p>
-  </div>
+  </section>
 );
