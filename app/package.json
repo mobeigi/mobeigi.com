@@ -52,6 +52,7 @@
     "react-toggle-dark-mode": "file:./packages/react-toggle-dark-mode-v2.0.0.tgz",
     "sharp": "0.33.5",
     "styled-components": "^6.1.12",
+    "superjson": "^2.2.1",
     "validator": "^13.12.0"
   },
   "devDependencies": {

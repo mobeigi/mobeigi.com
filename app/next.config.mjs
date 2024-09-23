@@ -16,6 +16,12 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: '*.mobeigi.com',
+        port: '',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
         hostname: '2.gravatar.com',
         port: '',
         pathname: '/avatar/**',

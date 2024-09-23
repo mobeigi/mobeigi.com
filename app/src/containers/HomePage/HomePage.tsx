@@ -15,12 +15,19 @@ import {
   CustomIconWrapper as IconWrapper,
   IconAndTextContainer,
   HeaderRows,
+  PhotographyImageWrapper,
+  PhotographyTag,
 } from './styled';
 import MapPinSvg from '@/assets/icons/boxicons/bx-map-pin.svg';
+import CalendarSvg from '@/assets/icons/boxicons/bx-calendar.svg';
+import FileSvg from '@/assets/icons/boxicons/bx-file.svg';
 import LanguageOutlineSvg from '@/assets/icons/misc/language-outline.svg';
 import Link from 'next/link';
+import Image from 'next/image';
+import { format as formatDate } from 'date-fns';
+import { HomePageProps } from './types';
 
-export const HomePage = () => (
+export const HomePage = ({ latestPhotographyImage }: HomePageProps) => (
   <HomePageSection>
     <HomePageHeader>
       <Headshot />
@@ -64,5 +71,46 @@ export const HomePage = () => (
         <Link href="/about/">Learn more about me!</Link>
       </p>
     </div>
+    <hr />
+    <section>
+      <h2>Latest blog post</h2>
+      <div>TODO</div>
+    </section>
+    {latestPhotographyImage && (
+      <>
+        <hr />
+        <section>
+          <h2>Latest photo</h2>
+          <p>
+            Through my lens, I capture the world. View my shots on{' '}
+            <a href="https://photos.mobeigi.com/">photos.mobeigi.com</a> or{' '}
+            <a href="https://www.instagram.com/lensofmobeigi">Instagram</a>.
+          </p>
+          <PhotographyImageWrapper>
+            <Image
+              src={latestPhotographyImage.thumbsUrl}
+              alt="Latest Photograpy Image"
+              fill
+              quality={100}
+              draggable={false}
+            />
+          </PhotographyImageWrapper>
+          <PhotographyTag>
+            <IconAndTextContainer>
+              <IconWrapper>
+                <CalendarSvg />
+              </IconWrapper>
+              <span>{formatDate(latestPhotographyImage.date, 'd MMMM yyyy')}</span>
+            </IconAndTextContainer>
+            <IconAndTextContainer>
+              <IconWrapper>
+                <FileSvg />
+              </IconWrapper>
+              <span>{latestPhotographyImage.niceName}</span>
+            </IconAndTextContainer>
+          </PhotographyTag>
+        </section>
+      </>
+    )}
   </HomePageSection>
 );
