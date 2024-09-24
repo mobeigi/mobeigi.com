@@ -9,7 +9,6 @@ import { seoPlugin } from '@payloadcms/plugin-seo';
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs';
 import { redirectsPlugin } from '@payloadcms/plugin-redirects';
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
-import { getEnv } from '@/utils/env';
 import cron from 'node-cron';
 import { pruneViewsCache } from '@/payload/utils/viewCounter';
 
@@ -20,6 +19,7 @@ import { Posts } from '@payload/collections/Posts';
 import { Category } from '@/payload/collections/Category';
 import { Comments } from '@/payload/collections/Comments';
 import { revalidateRedirects } from '@payload/hooks/revalidateRedirects';
+import { requireEnvVar } from './utils/env';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -44,25 +44,25 @@ export default buildConfig({
     },
   }),
   email: nodemailerAdapter({
-    defaultFromAddress: getEnv('PAYLOAD_FROM_EMAIL_ADDRESS'),
+    defaultFromAddress: requireEnvVar(process.env.PAYLOAD_FROM_EMAIL_ADDRESS, 'PAYLOAD_FROM_EMAIL_ADDRESS'),
     defaultFromName: 'Payload',
     transportOptions: {
-      host: getEnv('SMTP_HOST'),
-      port: getEnv('SMTP_PORT'),
+      host: requireEnvVar(process.env.SMTP_HOST, 'SMTP_HOST'),
+      port: requireEnvVar(process.env.SMTP_PORT, 'SMTP_PORT'),
       auth: {
-        user: getEnv('SMTP_USER'),
-        pass: getEnv('SMTP_PASS'),
+        user: requireEnvVar(process.env.SMTP_USER, 'SMTP_USER'),
+        pass: requireEnvVar(process.env.SMTP_PASS, 'SMTP_PASS'),
       },
     },
   }),
-  secret: getEnv('PAYLOAD_SECRET'),
+  secret: requireEnvVar(process.env.PAYLOAD_SECRET, 'PAYLOAD_SECRET'),
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: postgresAdapter({
     migrationDir: './src/payload/migrations',
     pool: {
-      connectionString: getEnv('DATABASE_URI'),
+      connectionString: requireEnvVar(process.env.DATABASE_URI, 'DATABASE_URI'),
     },
   }),
   sharp,

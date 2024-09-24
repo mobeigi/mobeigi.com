@@ -3,8 +3,8 @@ import { Comment, Post } from '@/payload-types';
 import { extractTextContent } from '@/utils/lexical';
 import { resolveCommentsUrl } from '../resolveUrl';
 import { BASE_URL } from '@/constants/app';
-import { getEnv } from '@/utils/env';
 import { newCommentEmailHtml } from '@/components/Emails/NewCommentEmail';
+import { requireEnvVar } from '@/utils/env';
 
 // TODO: Should this be entirely non-blocking? Does slow email sending have any performance impact on payload at all?
 export const emailAfterNewCommentHook: CollectionAfterChangeHook = async ({ doc, operation, req }) => {
@@ -37,7 +37,7 @@ export const emailAfterNewCommentHook: CollectionAfterChangeHook = async ({ doc,
     });
 
     await req.payload.sendEmail({
-      to: getEnv('PAYLOAD_TO_EMAIL_ADDRESS'),
+      to: requireEnvVar(process.env.PAYLOAD_TO_EMAIL_ADDRESS, 'PAYLOAD_TO_EMAIL_ADDRESS'),
       subject: subject,
       html: html,
     });

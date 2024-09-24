@@ -1,1 +1,1 @@
-export { getEnv } from './getEnv';
+export { requireEnvVar } from './requireEnvVar';

@@ -1,9 +1,9 @@
 import { Comment } from '@/types/blog';
 import { Comment as PayloadComment } from '@/payload-types';
-import { getEnv } from '@/utils/env';
 import crypto from 'crypto';
 import { getGravatarAvatarUrl } from '@/utils/gravatar';
 import { DISPLAY_PICTURE_SIZE } from './constants';
+import { requireEnvVar } from '../env';
 
 /**
  * Maps Payload comments to Comments.
@@ -17,7 +17,7 @@ export const mapComments = async (payloadComments: PayloadComment[]): Promise<Co
   );
 
   // Step 2: Map all sorted comments and store them in a commentMap
-  const emailHashSalt = getEnv('EMAIL_HASH_SALT');
+  const emailHashSalt = requireEnvVar(process.env.EMAIL_HASH_SALT, 'EMAIL_HASH_SALT');
   const comments = await Promise.all(
     sortedPayloadComments.map(async (doc: PayloadComment) => {
       const emailHash = crypto.createHmac('sha256', emailHashSalt).update(doc.email.toLowerCase()).digest('hex');
