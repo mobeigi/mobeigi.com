@@ -7,7 +7,7 @@ export const ProjectsPage = () => (
     <h1>Projects</h1>
     <p>
       Discover my most interesting projects below, and check out my other projects on{' '}
-      <a href="https://github.com/mobeigi" rel="nofollow">
+      <a href="https://github.com/mobeigi" title="Github (mobeigi)" rel="nofollow">
         Github
       </a>
       .
