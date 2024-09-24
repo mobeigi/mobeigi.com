@@ -67,7 +67,7 @@ export const HomePage = ({ latestBlogPostMetas, latestPhotographyImages }: HomeP
           <p>
             Through my lens, I capture the world. View my shots on{' '}
             <a href="https://photos.mobeigi.com/">photos.mobeigi.com</a> or{' '}
-            <a href="https://www.instagram.com/lensofmobeigi" title="Instagram (lensofmobeigi)">
+            <a href="https://www.instagram.com/lensofmobeigi" title="Instagram (lensofmobeigi)" rel="nofollow">
               Instagram
             </a>
             .
