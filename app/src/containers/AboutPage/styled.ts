@@ -1,19 +1,43 @@
 'use client';
 
+import { IconWrapper } from '@/styles/icon';
 import styled from 'styled-components';
 
-export const Headshot = styled.div`
+export const ImageWrapper = styled.div`
+  position: relative;
+  width: 750px;
+  height: auto;
+  aspect-ratio: 3/2;
+  max-width: 100%;
+
   margin: 0 auto;
 
-  background-image: url(/images/headshot/headshot.jpg);
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  background-position: center;
-  background-size: 85%;
+  img {
+    border-radius: 0.2em;
+  }
 `;
 
-export const CenteredH1 = styled.h1`
+export const ProgrammingLanguagesContainer = styled.div`
   display: flex;
+  justify-content: space-around;
+  gap: 1em;
+  color: ${({ theme }) => theme.colors.frame.text.base};
+`;
+
+export const IconAndTextContainer = styled.span`
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
   justify-content: center;
+  align-items: center;
+
+  svg {
+    font-size: 2em;
+  }
+`;
+
+export const CustomIconWrapper = styled(IconWrapper)`
+  svg {
+    fill: ${({ theme }) => theme.colors.frame.text.base};
+  }
 `;

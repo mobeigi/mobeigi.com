@@ -4,9 +4,24 @@
 // Github link: https://github.com/vercel/next.js/issues/69545
 
 import Link from 'next/link';
-import { CenteredH1, Headshot } from './styled';
+import Image from 'next/image';
+import {
+  IconAndTextContainer,
+  ImageWrapper,
+  ProgrammingLanguagesContainer,
+  CustomIconWrapper as IconWrapper,
+} from './styled';
+
 import AuFlagSvg from '@/assets/icons/flags/au.svg';
-import { IconWrapper } from '@/styles/icon';
+import CSvg from '@/assets/icons/misc/c.svg';
+import CppSvg from '@/assets/icons/boxicons/bxl-c-plus-plus.svg';
+import JavaSvg from '@/assets/icons/boxicons/bxl-java.svg';
+import KotlinSvg from '@/assets/icons/misc/kotlin.svg';
+import PythonSvg from '@/assets/icons/boxicons/bxl-python.svg';
+import TypescriptSvg from '@/assets/icons/boxicons/bxl-typescript.svg';
+import JavascriptSvg from '@/assets/icons/boxicons/bxl-javascript.svg';
+import ReactSvg from '@/assets/icons/boxicons/bxl-react.svg';
+import DataSvg from '@/assets/icons/boxicons/bx-data.svg';
 
 const getAgeFromDate = (dateString: string) => {
   const birthDate = new Date(dateString);
@@ -27,17 +42,19 @@ export const AboutPage = () => {
   const ageInYears = getAgeFromDate('1994-07-20');
   return (
     <section>
-      <header>
-        <Headshot />
-        <CenteredH1>Howdy!</CenteredH1>
-      </header>
+      <h1>About</h1>
+
+      <h2>Introduction</h2>
       <p>
-        My name is <strong>Mo</strong>. I am {ageInYears} years old and live in{' '}
+        My name is <strong>Mo</strong>. I am {ageInYears} years old and live in beautiful{' '}
         <IconWrapper>
           <AuFlagSvg />
         </IconWrapper>{' '}
         <strong>Sydney, Australia</strong>.
       </p>
+      <ImageWrapper>
+        <Image src="/images/about/sydney.webp" alt="Sydney" fill />
+      </ImageWrapper>
       <p>
         I am a Software Engineer and a{' '}
         <Link href="https://www.unsw.edu.au/" title="UNSW" rel="nofollow">
@@ -47,32 +64,103 @@ export const AboutPage = () => {
       </p>
       <p>
         I love computers and technology and the impact they have on our everyday lives. There is no greater feeling than
-        creating something that people use and genuinely enjoy. For this reason I have been interested in website
-        development since I was 10 years old. This was around about the time my father bought our family&apos;s first
-        computer. I wasted no time teaching myself HTML, CSS and, learning about web standards and protocols.
+        creating something that people use and genuinely enjoy. For this reason I have been interested in development
+        since I was 10 years old. This was around about the time my father bought our family&apos;s first computer. I
+        wasted no time teaching myself HTML, CSS and, learning about web standards and protocols.
       </p>
+      <p>To this day, my passion for programming is in an infinite loop.</p>
+      <hr />
+      <h2>Interests</h2>
+      <p>Outside of programming, my interests are:</p>
+      <ul>
+        <li>⚽ Playing & watching soccer</li>
+        <li>🎮 Video games</li>
+        <li>🎹 Piano</li>
+        <li>🏊 Swimming</li>
+        <li>🚀 Travelling</li>
+        <li>🍽️ Enjoying tasty food</li>
+        <li>📈 Stock trading & financial markets</li>
+        <li>👨‍👩‍👦 Spending time with friends & family</li>
+      </ul>
+      <hr />
+      <h2>Professional Background</h2>
+      <h3>Career</h3>
+      <p>Notable historians claim that I am a full-time legend. Notable historians are correct in their assessment.</p>
       <p>
-        I consider myself to be a strong programmer who can design elegant solutions and write clean, efficient code. I
-        love to learn and am always learning. You can find the projects I have been involved with on my{' '}
-        <Link href="/projects/">projects</Link> page and you can review my code on{' '}
-        <Link href="https://github.com/mobeigi/" title="Github (Mo Beigi)" rel="nofollow">
-          Github
-        </Link>
-        .
+        To learn about my career history please visit my{' '}
+        <a href="https://www.linkedin.com/in/mobeigi17/" title="Linked In (mobeigi17)" rel="nofollow">
+          Linked In
+        </a>
+        , download my <Link href="/resume/">Resume</Link> or <Link href="/contact/">contact me</Link>.
       </p>
+      <h3>Projects</h3>
       <p>
-        Outside of programming, I enjoy playing soccer, video games and the piano. I also love swimming, travelling and,
-        spending time with friends and family.
+        I am always working on various <Link href="/projects/">projects</Link> and am very active in the development
+        community. What can I say, I just love writing <s>bugs</s> code.
       </p>
-      <p>The main purpose of this website is to showcase my work as well as document my learnings.</p>
-      <p>
-        If you want to chat about anything, please <Link href="/contact/">contact</Link> me.
-      </p>
-      <p>
-        Regards,
-        <br />
-        Mo
-      </p>
+      <h3>Skills</h3>
+      <blockquote>
+        What I do have are a very particular set of skills, skills I have acquired over a long career, skills that make
+        me a nightmare for people like you. If you approve my PR now, that will be the end of it. But if you don't, I
+        will look for you. I will find you. And I will give you a mediocre peer performance review.
+      </blockquote>
+      <p>I dedicate my time and energy to staying proficient in these areas:</p>
+      <ProgrammingLanguagesContainer>
+        <IconAndTextContainer>
+          <IconWrapper>
+            <CSvg />
+          </IconWrapper>
+          <span>C</span>
+        </IconAndTextContainer>
+        <IconAndTextContainer>
+          <IconWrapper>
+            <CppSvg />
+          </IconWrapper>
+          <span>C++</span>
+        </IconAndTextContainer>
+        <IconAndTextContainer>
+          <IconWrapper>
+            <JavaSvg />
+          </IconWrapper>
+          <span>Java</span>
+        </IconAndTextContainer>
+        <IconAndTextContainer>
+          <IconWrapper>
+            <KotlinSvg />
+          </IconWrapper>
+          <span>Kotlin</span>
+        </IconAndTextContainer>
+        <IconAndTextContainer>
+          <IconWrapper>
+            <PythonSvg />
+          </IconWrapper>
+          <span>Python</span>
+        </IconAndTextContainer>
+        <IconAndTextContainer>
+          <IconWrapper>
+            <JavascriptSvg />
+          </IconWrapper>
+          <span>Javascript</span>
+        </IconAndTextContainer>
+        <IconAndTextContainer>
+          <IconWrapper>
+            <TypescriptSvg />
+          </IconWrapper>
+          <span>Typescript</span>
+        </IconAndTextContainer>
+        <IconAndTextContainer>
+          <IconWrapper>
+            <ReactSvg />
+          </IconWrapper>
+          <span>React</span>
+        </IconAndTextContainer>
+        <IconAndTextContainer>
+          <IconWrapper>
+            <DataSvg />
+          </IconWrapper>
+          <span>SQL</span>
+        </IconAndTextContainer>
+      </ProgrammingLanguagesContainer>
     </section>
   );
 };
