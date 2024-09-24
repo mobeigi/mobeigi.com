@@ -69,7 +69,7 @@ export const AboutPage = () => {
         since I was 10 years old. This was around about the time my father bought our family&apos;s first computer. I
         wasted no time teaching myself HTML, CSS and, learning about web standards and protocols.
       </p>
-      <p>To this day, my passion for programming is in an infinite loop! 😂😐</p>
+      <p>To this day, my passion for programming burns hot! 🔥</p>
       <hr />
       <h2>Interests</h2>
       <p>Outside of programming, my interests are:</p>
