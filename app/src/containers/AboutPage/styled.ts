@@ -22,6 +22,13 @@ export const ProgrammingLanguagesContainer = styled.div`
   justify-content: space-around;
   gap: 1em;
   color: ${({ theme }) => theme.colors.frame.text.base};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px) {
+    flex-wrap: wrap;
+    & span {
+      min-width: 16%;
+    }
+  }
 `;
 
 export const IconAndTextContainer = styled.span`
