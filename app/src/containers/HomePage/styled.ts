@@ -94,3 +94,9 @@ export const PhotographyTag = styled.div`
 
   color: ${({ theme }) => theme.colors.frame.text.base};
 `;
+
+export const BlogSummaryWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+`;
