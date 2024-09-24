@@ -17,6 +17,7 @@ import {
   HeaderRows,
   PhotographyImageWrapper,
   PhotographyTag,
+  BlogSummaryWrapper,
 } from './styled';
 import MapPinSvg from '@/assets/icons/boxicons/bx-map-pin.svg';
 import CalendarSvg from '@/assets/icons/boxicons/bx-calendar.svg';
@@ -26,8 +27,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { format as formatDate } from 'date-fns';
 import { HomePageProps } from './types';
+import BlogSummary from '@/components/BlogSummary';
 
-export const HomePage = ({ latestPhotographyImage }: HomePageProps) => (
+export const HomePage = ({ latestBlogPostMetas, latestPhotographyImage }: HomePageProps) => (
   <HomePageSection>
     <HomePageHeader>
       <Headshot />
@@ -57,10 +59,8 @@ export const HomePage = ({ latestPhotographyImage }: HomePageProps) => (
         </InfoArea>
       </HeaderRows>
     </HomePageHeader>
-    <div>
-      <p>
-        Hi, I&apos;m <strong>Mo</strong>! Welcome to my online portfolio. 😊
-      </p>
+    <section>
+      <h2>Hi, I&apos;m Mo! Welcome to my online portfolio 😊</h2>
       <p>
         I am a full stack developer chilling down under. I love sharing my thoughts and insights through my{' '}
         <Link href="/blog/">blog posts</Link>, and working on several interesting{' '}
@@ -70,11 +70,26 @@ export const HomePage = ({ latestPhotographyImage }: HomePageProps) => (
       <p>
         <Link href="/about/">Learn more about me!</Link>
       </p>
-    </div>
+    </section>
     <hr />
     <section>
-      <h2>Latest blog post</h2>
-      <div>TODO</div>
+      <h2>Latest blog {latestBlogPostMetas.length === 1 ? 'post' : 'posts'}</h2>
+      {latestBlogPostMetas.length > 0 ? (
+        <p>
+          Showing <strong>{latestBlogPostMetas.length}</strong> latest{' '}
+          {latestBlogPostMetas.length === 1 ? 'post' : 'posts'}.
+        </p>
+      ) : (
+        <p>There are no posts found to display.</p>
+      )}
+      <BlogSummaryWrapper>
+        {latestBlogPostMetas.length > 0 &&
+          latestBlogPostMetas.map((meta) => (
+            <article key={meta.post.id}>
+              <BlogSummary blogPostMeta={meta} headingLevel="h3" />
+            </article>
+          ))}
+      </BlogSummaryWrapper>
     </section>
     {latestPhotographyImage && (
       <>
