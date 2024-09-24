@@ -10,6 +10,7 @@ import {
   PhotographyImageWrapper,
   PhotographyTag,
   BlogSummaryWrapper,
+  PhotographyImagesWrapper,
 } from './styled';
 import CalendarSvg from '@/assets/icons/boxicons/bx-calendar.svg';
 import FileSvg from '@/assets/icons/boxicons/bx-file.svg';
@@ -20,7 +21,7 @@ import { HomePageProps } from './types';
 import BlogSummary from '@/components/BlogSummary';
 import PersonShowcase from '@/components/PersonShowcase';
 
-export const HomePage = ({ latestBlogPostMetas, latestPhotographyImage }: HomePageProps) => (
+export const HomePage = ({ latestBlogPostMetas, latestPhotographyImages }: HomePageProps) => (
   <HomePageSection>
     <header>
       <PersonShowcase headshotWidth="14em" headshotHeight="14em" headingLevel="h1" />
@@ -43,7 +44,7 @@ export const HomePage = ({ latestBlogPostMetas, latestPhotographyImage }: HomePa
       <h2>Latest blog {latestBlogPostMetas.length === 1 ? 'post' : 'posts'}</h2>
       {latestBlogPostMetas.length > 0 ? (
         <p>
-          Showing <strong>{latestBlogPostMetas.length}</strong> latest{' '}
+          Showing the latest <strong>{latestBlogPostMetas.length}</strong>{' '}
           {latestBlogPostMetas.length === 1 ? 'post' : 'posts'}.
         </p>
       ) : (
@@ -58,39 +59,50 @@ export const HomePage = ({ latestBlogPostMetas, latestPhotographyImage }: HomePa
           ))}
       </BlogSummaryWrapper>
     </section>
-    {latestPhotographyImage && (
+    {latestPhotographyImages && latestPhotographyImages.length > 0 && (
       <>
         <hr />
         <section>
-          <h2>Latest photo</h2>
+          <h2>Latest {latestPhotographyImages.length === 1 ? 'photo' : 'photos'}</h2>
           <p>
             Through my lens, I capture the world. View my shots on{' '}
             <a href="https://photos.mobeigi.com/">photos.mobeigi.com</a> or{' '}
             <a href="https://www.instagram.com/lensofmobeigi">Instagram</a>.
           </p>
-          <PhotographyImageWrapper>
-            <Image
-              src={latestPhotographyImage.thumbsUrl}
-              alt="Latest Photograpy Image"
-              fill
-              quality={100}
-              draggable={false}
-            />
-          </PhotographyImageWrapper>
-          <PhotographyTag>
-            <IconAndTextContainer>
-              <IconWrapper>
-                <CalendarSvg />
-              </IconWrapper>
-              <span>{formatDate(latestPhotographyImage.date, 'd MMMM yyyy')}</span>
-            </IconAndTextContainer>
-            <IconAndTextContainer>
-              <IconWrapper>
-                <FileSvg />
-              </IconWrapper>
-              <span>{latestPhotographyImage.niceName}</span>
-            </IconAndTextContainer>
-          </PhotographyTag>
+          <p>
+            Showing the latest <strong>{latestPhotographyImages.length}</strong>{' '}
+            {latestBlogPostMetas.length === 1 ? 'photo' : 'photos'}.
+          </p>
+          <PhotographyImagesWrapper>
+            {latestPhotographyImages.map((photographyImage) => (
+              <div key={photographyImage.filename}>
+                <PhotographyImageWrapper>
+                  <Image
+                    src={photographyImage.thumbsUrl}
+                    alt="Latest Photograpy Image"
+                    width={750}
+                    height={750}
+                    quality={100}
+                    draggable={false}
+                  />
+                </PhotographyImageWrapper>
+                <PhotographyTag>
+                  <IconAndTextContainer>
+                    <IconWrapper>
+                      <CalendarSvg />
+                    </IconWrapper>
+                    <span>{formatDate(photographyImage.date, 'd MMMM yyyy')}</span>
+                  </IconAndTextContainer>
+                  <IconAndTextContainer>
+                    <IconWrapper>
+                      <FileSvg />
+                    </IconWrapper>
+                    <span>{photographyImage.niceName}</span>
+                  </IconAndTextContainer>
+                </PhotographyTag>
+              </div>
+            ))}
+          </PhotographyImagesWrapper>
         </section>
       </>
     )}

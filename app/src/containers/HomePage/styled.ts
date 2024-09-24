@@ -26,17 +26,25 @@ export const IconAndTextContainer = styled.span`
   align-items: center;
 `;
 
+export const PhotographyImagesWrapper = styled.div`
+  display: flex;
+  gap: 1em;
+  flex-wrap: wrap;
+  max-width: 100%;
+  justify-content: space-around;
+`;
+
 export const PhotographyImageWrapper = styled.div`
   position: relative;
-  width: 750px;
+  width: 100%;
   height: auto;
   aspect-ratio: 3/2;
-  max-width: 100%;
-
-  margin: 0 auto;
+  max-width: 500px;
 
   img {
     border-radius: 0.2em;
+    width: 100%;
+    height: auto;
   }
 `;
 

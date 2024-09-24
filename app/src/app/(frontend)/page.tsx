@@ -1,6 +1,6 @@
 import { BASE_URL } from '@/constants/app';
 import HomePage from '@/containers/HomePage';
-import { getCachedLatestPhotographyImage } from '@/utils/photography';
+import { getCachedLatestPhotographyImages } from '@/utils/photography';
 import { breadcrumbList } from '@/utils/seo/breadCrumbList';
 import { listItem } from '@/utils/seo/listItem';
 import { BreadcrumbList, WithContext } from 'schema-dts';
@@ -67,7 +67,7 @@ const Home = async () => {
     .sort(sortBlogPostMetaByPublishedAtDate);
 
   const breadcrumbs = generateBreadcrumbs();
-  const latestPhotographyImage = (await getCachedLatestPhotographyImage()) ?? undefined;
+  const latestPhotographyImages = (await getCachedLatestPhotographyImages()) ?? undefined;
 
   return (
     <div>
@@ -76,7 +76,7 @@ const Home = async () => {
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
         </>
       )}
-      <HomePage latestBlogPostMetas={blogPostMetas} latestPhotographyImage={latestPhotographyImage} />
+      <HomePage latestBlogPostMetas={blogPostMetas} latestPhotographyImages={latestPhotographyImages} />
     </div>
   );
 };
