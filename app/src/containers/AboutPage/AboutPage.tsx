@@ -22,6 +22,7 @@ import TypescriptSvg from '@/assets/icons/boxicons/bxl-typescript.svg';
 import JavascriptSvg from '@/assets/icons/boxicons/bxl-javascript.svg';
 import ReactSvg from '@/assets/icons/boxicons/bxl-react.svg';
 import DataSvg from '@/assets/icons/boxicons/bx-data.svg';
+import PersonShowcase from '@/components/PersonShowcase';
 
 const getAgeFromDate = (dateString: string) => {
   const birthDate = new Date(dateString);
@@ -43,7 +44,7 @@ export const AboutPage = () => {
   return (
     <section>
       <h1>About</h1>
-
+      <PersonShowcase />
       <h2>Introduction</h2>
       <p>
         My name is <strong>Mo</strong>. I am {ageInYears} years old and live in beautiful{' '}
@@ -56,7 +57,7 @@ export const AboutPage = () => {
         <Image src="/images/about/sydney.webp" alt="Sydney" fill />
       </ImageWrapper>
       <p>
-        I am a Software Engineer and a{' '}
+        I am a full stack Software Engineer and a{' '}
         <Link href="https://www.unsw.edu.au/" title="UNSW" rel="nofollow">
           University of New South Wales
         </Link>{' '}
@@ -68,19 +69,19 @@ export const AboutPage = () => {
         since I was 10 years old. This was around about the time my father bought our family&apos;s first computer. I
         wasted no time teaching myself HTML, CSS and, learning about web standards and protocols.
       </p>
-      <p>To this day, my passion for programming is in an infinite loop.</p>
+      <p>To this day, my passion for programming is in an infinite loop! 😂😐</p>
       <hr />
       <h2>Interests</h2>
       <p>Outside of programming, my interests are:</p>
       <ul>
-        <li>⚽ Playing & watching soccer</li>
+        <li>⚽ Playing and watching soccer</li>
         <li>🎮 Video games</li>
         <li>🎹 Piano</li>
         <li>🏊 Swimming</li>
         <li>🚀 Travelling</li>
         <li>🍽️ Enjoying tasty food</li>
         <li>📈 Stock trading & financial markets</li>
-        <li>👨‍👩‍👦 Spending time with friends & family</li>
+        <li>👨‍👩‍👦 Spending time with friends and family</li>
       </ul>
       <hr />
       <h2>Professional Background</h2>
@@ -104,7 +105,7 @@ export const AboutPage = () => {
         me a nightmare for people like you. If you approve my PR now, that will be the end of it. But if you don't, I
         will look for you. I will find you. And I will give you a mediocre peer performance review.
       </blockquote>
-      <p>I dedicate my time and energy to staying proficient in these areas:</p>
+      <p>I dedicate my time and energy to staying proficient in these programming languages:</p>
       <ProgrammingLanguagesContainer>
         <IconAndTextContainer>
           <IconWrapper>
