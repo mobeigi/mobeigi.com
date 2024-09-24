@@ -5,7 +5,13 @@ import { projects } from '@/constants/projects';
 export const ProjectsPage = () => (
   <section>
     <h1>Projects</h1>
-    <p>Discover my most interesting projects below.</p>
+    <p>
+      Discover my most interesting projects below, and check out my other projects on{' '}
+      <a href="https://github.com/mobeigi" rel="nofollow">
+        Github
+      </a>
+      .
+    </p>
     <ProjectsContainer>
       {projects
         .slice()
