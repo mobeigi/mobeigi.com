@@ -30,13 +30,13 @@ export const HomePage = ({ latestBlogPostMetas, latestPhotographyImages }: HomeP
     <section>
       <h2>Hi, I&apos;m Mo! Welcome to my online portfolio 😊</h2>
       <p>
-        I am a full stack Software Engineer chilling down under. I love sharing my thoughts and insights through my{' '}
+        I am a full stack Software Engineer. I love sharing my thoughts and insights through my{' '}
         <Link href="/blog/">blog posts</Link>, and working on several interesting{' '}
         <Link href="/projects/">projects</Link>. I would love to have a chat so do{' '}
         <Link href="/contact/">contact me</Link>.
       </p>
       <p>
-        <Link href="/about/">Learn more about me!</Link>
+        Learn more <Link href="/about/">about me</Link>.
       </p>
     </section>
     <hr />
