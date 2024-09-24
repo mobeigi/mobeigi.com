@@ -1,1 +1,1 @@
-export { getLatestPhotographyImage, getCachedLatestPhotographyImage } from './getLatestPhotographyImage';
+export { getLatestPhotographyImages, getCachedLatestPhotographyImages } from './getLatestPhotographyImage';

@@ -5,3 +5,7 @@ export type PhotographyImage = {
   thumbsUrl: string;
   fullUrl: string;
 };
+
+export interface GetLatestPhotographyImagesProps {
+  limit?: number;
+}
