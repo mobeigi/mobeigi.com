@@ -3,66 +3,33 @@
 // TODO: Remove above workaround when @svgr/webpack bug is resolved. This component does not need to be a client side component.
 // Github link: https://github.com/vercel/next.js/issues/69545
 
-import { SITE_TITLE, TAGLINE } from '@/constants/app';
 import {
-  Headshot,
-  HomePageHeader,
   HomePageSection,
-  Info,
-  InfoArea,
-  StyledH1,
-  Tagline,
   CustomIconWrapper as IconWrapper,
   IconAndTextContainer,
-  HeaderRows,
   PhotographyImageWrapper,
   PhotographyTag,
   BlogSummaryWrapper,
 } from './styled';
-import MapPinSvg from '@/assets/icons/boxicons/bx-map-pin.svg';
 import CalendarSvg from '@/assets/icons/boxicons/bx-calendar.svg';
 import FileSvg from '@/assets/icons/boxicons/bx-file.svg';
-import LanguageOutlineSvg from '@/assets/icons/misc/language-outline.svg';
 import Link from 'next/link';
 import Image from 'next/image';
 import { format as formatDate } from 'date-fns';
 import { HomePageProps } from './types';
 import BlogSummary from '@/components/BlogSummary';
+import PersonShowcase from '@/components/PersonShowcase';
 
 export const HomePage = ({ latestBlogPostMetas, latestPhotographyImage }: HomePageProps) => (
   <HomePageSection>
-    <HomePageHeader>
-      <Headshot />
-      <HeaderRows>
-        {/* <StyledH1>{SITE_TITLE}</StyledH1>
-        <Tagline>{TAGLINE}</Tagline> */}
-        {/* TODO: Replace with above */}
-        <StyledH1>Mo Beigi</StyledH1>
-        <Tagline>Software Engineer</Tagline>
-        <InfoArea>
-          <Info>
-            <IconAndTextContainer>
-              <IconWrapper>
-                <MapPinSvg />
-              </IconWrapper>
-              <span>Sydney, Australia</span>
-            </IconAndTextContainer>
-          </Info>
-          <Info>
-            <IconAndTextContainer>
-              <IconWrapper>
-                <LanguageOutlineSvg />
-              </IconWrapper>
-              <span>English, Persian (فارسی)</span>
-            </IconAndTextContainer>
-          </Info>
-        </InfoArea>
-      </HeaderRows>
-    </HomePageHeader>
+    <header>
+      <PersonShowcase headshotWidth="14em" headshotHeight="14em" headingLevel="h1" />
+    </header>
+
     <section>
       <h2>Hi, I&apos;m Mo! Welcome to my online portfolio 😊</h2>
       <p>
-        I am a full stack developer chilling down under. I love sharing my thoughts and insights through my{' '}
+        I am a full stack Software Engineer chilling down under. I love sharing my thoughts and insights through my{' '}
         <Link href="/blog/">blog posts</Link>, and working on several interesting{' '}
         <Link href="/projects/">projects</Link>. I would love to have a chat so do{' '}
         <Link href="/contact/">contact me</Link>.
