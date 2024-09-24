@@ -2,9 +2,9 @@ import { CollectionBeforeValidateHook } from 'payload';
 import { ValidationError } from 'payload';
 import { Comment } from '@/payload-types';
 import { extractTextContent } from '@/utils/lexical';
-import { getEnv } from '@/utils/env';
 import { AkismetClient, CommentWithIP } from 'akismet-api';
 import { BASE_URL } from '@/constants/app';
+import { requireEnvVar } from '@/utils/env';
 
 export const validationHook: CollectionBeforeValidateHook = async ({ data, req, operation }) => {
   if (!data) {
@@ -114,8 +114,10 @@ export const validationHook: CollectionBeforeValidateHook = async ({ data, req, 
         });
       }
       const commentTextContent = extractTextContent(comment.content) || undefined;
-
-      const akismetClient = new AkismetClient({ key: getEnv('AKISMET_API_KEY'), blog: BASE_URL });
+      const akismetClient = new AkismetClient({
+        key: requireEnvVar(process.env.AKISMET_API_KEY, 'AKISMET_API_KEY'),
+        blog: BASE_URL,
+      });
 
       let isSpam = false;
       const akismetCommentToCheck: CommentWithIP = {
