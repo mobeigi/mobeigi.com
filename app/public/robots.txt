@@ -16,4 +16,3 @@
 
 User-agent: *
 Disallow: /sec/
-Sitemap: https://mobeigi.com/blog/sitemap.xml
