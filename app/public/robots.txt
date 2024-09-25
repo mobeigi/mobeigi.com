@@ -16,3 +16,5 @@
 
 User-agent: *
 Disallow: /sec/
+Disallow: /admin/
+Disallow: /api/
