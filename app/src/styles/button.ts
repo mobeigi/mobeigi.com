@@ -24,3 +24,25 @@ export const SecondaryButton = styled(BaseButton)`
     box-shadow: 0 0 0 0.25em ${({ theme }) => hexToRgba(theme.colors.status.secondary.base, 0.5)};
   }
 `;
+
+export const StylelessButton = styled.button`
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+
+  &:hover {
+    background: none;
+  }
+
+  &:active {
+    background: none;
+  }
+
+  &:focus,
+  &:focus-visible {
+    background: none;
+    box-shadow: none;
+  }
+`;

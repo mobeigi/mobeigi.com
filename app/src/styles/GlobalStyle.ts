@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
   /* Variables */
   :root {
     --max-layout-width: 1100px;
-    --header-height: 3.35rem;
+    --header-height: 3.5rem;
     
     --scroll-margin-extra: 0.4rem;
     --scroll-margin-top-offset: calc(var(--header-height) + var(--scroll-margin-extra));

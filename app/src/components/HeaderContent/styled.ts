@@ -9,6 +9,7 @@ export const HeaderContainer = styled.div`
   justify-content: center;
   background-color: ${({ theme }) => theme.colors.frame.background};
   border-bottom: 0.2em solid ${({ theme }) => theme.colors.frame.accent};
+  box-sizing: border-box;
 `;
 
 export const HeaderContents = styled.div`
@@ -17,16 +18,20 @@ export const HeaderContents = styled.div`
   max-width: var(--max-layout-width);
 
   justify-content: space-between;
-  gap: 1em;
 
   padding-left: 1em;
   padding-right: 1em;
   box-sizing: border-box;
 
-  /* Make each child take up same width, shared evenly */
+  /* Force each child to take up equal width */
   & > * {
-    flex-basis: 0;
-    flex-grow: 1;
+    flex: 1 1 0; /* Equal distribution of space */
+
+    /* Allow overflow to ensure equal width even if vw is very limited. 
+    This will cause overlapping elements if individual header items are too wide!
+    Each child should ensure its not too wide and handle its own overflow.
+    */
+    min-width: 0;
   }
 `;
 
