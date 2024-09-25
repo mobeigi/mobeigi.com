@@ -15,9 +15,12 @@ import { pruneViewsCache } from '@/payload/utils/viewCounter';
 import { Users } from '@payload/collections/Users';
 import { Media } from '@payload/collections/Media';
 import { Files } from '@payload/collections/Files';
+import { PrivateFiles } from '@payload/collections/PrivateFiles';
 import { Posts } from '@payload/collections/Posts';
 import { Category } from '@/payload/collections/Category';
 import { Comments } from '@/payload/collections/Comments';
+import { Resume } from '@/payload/globals/Resume';
+
 import { revalidateRedirects } from '@payload/hooks/revalidateRedirects';
 import { requireEnvVar } from './utils/env';
 
@@ -31,7 +34,13 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Files, Posts, Category, Comments],
+  collections: [Users, Media, Files, PrivateFiles, Posts, Category, Comments],
+  db: postgresAdapter({
+    migrationDir: './src/payload/migrations',
+    pool: {
+      connectionString: requireEnvVar(process.env.DATABASE_URI, 'DATABASE_URI'),
+    },
+  }),
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => {
       return [
@@ -55,17 +64,12 @@ export default buildConfig({
       },
     },
   }),
+  globals: [Resume],
   secret: requireEnvVar(process.env.PAYLOAD_SECRET, 'PAYLOAD_SECRET'),
+  sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  db: postgresAdapter({
-    migrationDir: './src/payload/migrations',
-    pool: {
-      connectionString: requireEnvVar(process.env.DATABASE_URI, 'DATABASE_URI'),
-    },
-  }),
-  sharp,
   plugins: [
     // storage-adapter-placeholder
     seoPlugin({}),

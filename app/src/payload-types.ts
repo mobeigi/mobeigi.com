@@ -14,6 +14,7 @@ export interface Config {
     users: User;
     media: Media;
     files: File;
+    'private-files': PrivateFile;
     posts: Post;
     category: Category;
     comments: Comment;
@@ -25,7 +26,9 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  globals: {};
+  globals: {
+    resume: Resume;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -57,6 +60,9 @@ export interface User {
   id: number;
   updatedAt: string;
   createdAt: string;
+  enableAPIKey?: boolean | null;
+  apiKey?: string | null;
+  apiKeyIndex?: string | null;
   email: string;
   resetPasswordToken?: string | null;
   resetPasswordExpiration?: string | null;
@@ -105,6 +111,25 @@ export interface Media {
  * via the `definition` "files".
  */
 export interface File {
+  id: number;
+  title?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "private-files".
+ */
+export interface PrivateFile {
   id: number;
   title?: string | null;
   updatedAt: string;
@@ -272,6 +297,10 @@ export interface PayloadLockedDocument {
         value: number | File;
       } | null)
     | ({
+        relationTo: 'private-files';
+        value: number | PrivateFile;
+      } | null)
+    | ({
         relationTo: 'posts';
         value: number | Post;
       } | null)
@@ -328,6 +357,22 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resume".
+ */
+export interface Resume {
+  id: number;
+  resumeFile: number | PrivateFile;
+  passwords?:
+    | {
+        password: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
