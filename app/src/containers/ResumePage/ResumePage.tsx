@@ -9,6 +9,7 @@ import ClipLoader from 'react-spinners/ClipLoader';
 import { saveAs } from 'file-saver';
 import { debounce } from 'lodash-es';
 import { DEBOUNCE_TIMEOUT_MS } from '@/constants/inputs';
+import { toast } from 'react-toastify';
 
 const initialPassword = '';
 const initialIsSubmitting = false;
@@ -89,12 +90,15 @@ export const ResumePage = () => {
       if (response.ok) {
         reset();
         saveAs(await response.blob(), 'Mo-Beigi-Resume.pdf');
+        toast.success('Resume was downloaded successfully.');
       } else {
         const json = await response.json();
         updateErrors('password', json.error);
       }
-    } catch (e) {
-      console.log('ERROR');
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
