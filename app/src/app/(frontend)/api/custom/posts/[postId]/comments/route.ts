@@ -5,7 +5,7 @@ import { mapComments } from '@/utils/payload';
 
 const depth = 2;
 
-export async function GET(request: Request, { params }: { params: { postId: string } }) {
+export const GET = async (request: Request, { params }: { params: { postId: string } }) => {
   try {
     const { postId } = params;
 
@@ -29,4 +29,4 @@ export async function GET(request: Request, { params }: { params: { postId: stri
     console.error('Failed to fetch comments for post.', error);
     return NextResponse.json({ error: 'Failed to fetch comments for post.' }, { status: 500 });
   }
-}
+};

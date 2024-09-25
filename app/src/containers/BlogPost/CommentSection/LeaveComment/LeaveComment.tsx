@@ -7,8 +7,6 @@ import {
   ActionRow,
   LeaveCommentContainer,
   InputFieldWrapper,
-  InputError,
-  InputWithError,
   LabelDetails,
   LabelContainer,
 } from './styled';
@@ -36,6 +34,8 @@ import { toast } from 'react-toastify';
 import { extractValidationErrorResponseMessage } from '@/utils/payload';
 import { Comment as PayloadComment } from '@/payload-types';
 import { debounce } from 'lodash-es';
+import { InputError, InputWithError } from '@/styles/input';
+import { DEBOUNCE_TIMEOUT_MS } from '@/constants/inputs';
 
 const initialDisplayName = '';
 const initialEmail = '';
@@ -62,8 +62,6 @@ const initialContent: SerializedEditorState<any> = {
 };
 const initialErrors = new Map();
 const initialIsSubmitting = false;
-
-const debounceTimeoutMs = 500;
 
 const LeaveComment = ({
   postId,
@@ -168,19 +166,19 @@ const LeaveComment = ({
   const debouncedValidateDisplayName = useRef(
     debounce((displayName: string) => {
       validateDisplayName(displayName);
-    }, debounceTimeoutMs),
+    }, DEBOUNCE_TIMEOUT_MS),
   ).current;
 
   const debouncedValidateEmail = useRef(
     debounce((email: string) => {
       validateEmail(email);
-    }, debounceTimeoutMs),
+    }, DEBOUNCE_TIMEOUT_MS),
   ).current;
 
   const debouncedValidateContent = useRef(
     debounce((content: SerializedEditorState) => {
       validateContent(content);
-    }, debounceTimeoutMs),
+    }, DEBOUNCE_TIMEOUT_MS),
   ).current;
 
   /**

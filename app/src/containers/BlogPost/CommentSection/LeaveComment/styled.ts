@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import { InputStatusProps } from '@/styles/input';
 
 export const LeaveCommentContainer = styled.div`
   display: flex;
@@ -24,30 +25,6 @@ export const InputFieldWrapper = styled.span`
   width: 100%;
 `;
 
-interface ErrorProps {
-  $isError: boolean;
-}
-
-export const InputWithError = styled.span<ErrorProps>`
-  display: flex;
-  flex-direction: column;
-  gap: 0.4em;
-  width: 100%;
-
-  input {
-    /* Apply outline on error */
-    ${({ $isError, theme }) => $isError && `border-color: ${theme.colors.status.error.base};`}
-
-    &:focus,
-    &:focus-visible {
-      outline: none;
-      /* Apply outline based on isError status */
-      border-color: ${({ $isError, theme }) =>
-        $isError ? theme.colors.status.error.base : theme.colors.container.text.baseHighlight};
-    }
-  }
-`;
-
 export const LabelContainer = styled.span`
   display: flex;
   gap: 0.4em;
@@ -61,16 +38,7 @@ export const LabelDetails = styled.span`
   color: ${({ theme }) => theme.colors.frame.text.base};
 `;
 
-export const InputError = styled.p`
-  padding: 0;
-  margin: 0;
-
-  font-size: 0.85em;
-  text-align: center;
-  color: ${({ theme }) => theme.colors.status.error.base};
-`;
-
-export const ContentEditableWrapper = styled.div<ErrorProps>`
+export const ContentEditableWrapper = styled.div<InputStatusProps>`
   > :first-child {
     max-width: 100%;
     height: 12em;

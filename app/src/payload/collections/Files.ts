@@ -7,6 +7,7 @@ import { authenticated } from '@payload/access/authenticated';
 
 export const Files: CollectionConfig = {
   slug: 'files',
+  labels: { singular: 'File', plural: 'Files' },
   access: {
     create: authenticated,
     delete: authenticated,
