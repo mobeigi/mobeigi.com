@@ -125,6 +125,11 @@ export const ResumePage = () => {
               setPassword(e.target.value);
               debouncedValidatePassword(e.target.value);
             }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleDownload();
+              }
+            }}
           />
           {isPasswordError && <InputError>{errors.get('password')}</InputError>}
 
