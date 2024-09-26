@@ -18,6 +18,7 @@ import HighlightJsStyle from '@/styles/HighlightJsStyle';
 import ThemedToastContainer from '@/components/ThemedToastContainer';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { GA_TAG_ID } from '@/constants/analytics';
+import GlobalTooltip from '@/containers/GlobalTooltip';
 
 const roboto = Roboto({ subsets: ['latin'], style: ['normal', 'italic'], weight: ['400', '700'] });
 
@@ -68,6 +69,7 @@ const RootLayout = ({
           >
             <ThemeProviderWrapper>
               <GlobalStyle />
+              <GlobalTooltip />
               <ThemedToastContainer />
               <HighlightJsStyle currentTheme={currentTheme} />
               <Header id="header">

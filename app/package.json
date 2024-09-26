@@ -52,6 +52,7 @@
     "react-spinners": "^0.14.1",
     "react-toastify": "^10.0.5",
     "react-toggle-dark-mode": "file:./packages/react-toggle-dark-mode-v2.0.0.tgz",
+    "react-tooltip": "^5.28.0",
     "sharp": "0.33.5",
     "styled-components": "^6.1.12",
     "superjson": "^2.2.1",
