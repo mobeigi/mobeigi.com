@@ -18,3 +18,4 @@ User-agent: *
 Disallow: /sec/
 Disallow: /admin/
 Disallow: /api/
+Sitemap: https://mobeigi.com/sitemap.xml
