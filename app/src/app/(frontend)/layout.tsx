@@ -16,6 +16,8 @@ import { parseThemeCookieValue, resolveThemeMode } from '@/utils/theme';
 import { DEFAULT_THEME_MODE, FALLBACK_PREFERS_COLOR_SCHEME } from '@/constants/theme';
 import HighlightJsStyle from '@/styles/HighlightJsStyle';
 import ThemedToastContainer from '@/components/ThemedToastContainer';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { GA_TAG_ID } from '@/constants/analytics';
 
 const roboto = Roboto({ subsets: ['latin'], style: ['normal', 'italic'], weight: ['400', '700'] });
 
@@ -80,6 +82,7 @@ const RootLayout = ({
             </ThemeProviderWrapper>
           </UserPreferencesProvider>
         </StyledComponentsRegistry>
+        <GoogleAnalytics gaId={GA_TAG_ID} />
       </body>
     </html>
   );

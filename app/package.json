@@ -23,6 +23,7 @@
     "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload"
   },
   "dependencies": {
+    "@next/third-parties": "15.0.0-canary.161",
     "@payloadcms/db-postgres": "3.0.0-beta.108",
     "@payloadcms/next": "3.0.0-beta.108",
     "@payloadcms/plugin-cloud": "3.0.0-beta.108",
