@@ -89,8 +89,8 @@ export const AboutPage = () => {
       <p>Notable historians claim that I am a full-time legend. Notable historians are correct in their assessment.</p>
       <p>
         To learn about my career history please visit my{' '}
-        <a href="https://www.linkedin.com/in/mobeigi17/" title="Linked In (mobeigi17)" rel="nofollow">
-          Linked In
+        <a href="https://www.linkedin.com/in/mobeigi17/" title="LinkedIn (mobeigi17)" rel="nofollow">
+          LinkedIn
         </a>
         , download my <Link href="/resume/">Resume</Link> or <Link href="/contact/">contact me</Link>.
       </p>
