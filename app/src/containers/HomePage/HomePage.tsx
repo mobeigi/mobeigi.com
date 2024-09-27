@@ -32,7 +32,7 @@ export const HomePage = ({ latestBlogPostMetas, latestPhotographyImages }: HomeP
       <p>
         I am a full stack Software Engineer. I love sharing my thoughts and insights through my{' '}
         <Link href="/blog/">blog posts</Link>, and working on several interesting{' '}
-        <Link href="/projects/">projects</Link>. I would love to have a chat so do{' '}
+        <Link href="/projects/">projects</Link>. I would love to have a chat so kindly{' '}
         <Link href="/contact/">contact me</Link>.
       </p>
       <p>
