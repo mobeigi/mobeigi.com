@@ -72,7 +72,7 @@ const theme: Theme = {
       accent: '#a1a1a1',
     },
     container: {
-      background: '#f9f9f9',
+      background: '#f2f2f2',
       accent: '#a1a1a1',
     },
     code: {
@@ -81,9 +81,9 @@ const theme: Theme = {
     },
     text: {
       base: '#404040',
-      baseHighlight: '#525252',
-      subtle: '#6e6e6e',
-      subtleHighlight: '#525252',
+      baseHighlight: '#424242',
+      subtle: '#6a6a6a',
+      subtleHighlight: '#424242',
       link: '#af363c',
       linkHighlight: '#fb4d56',
     },
