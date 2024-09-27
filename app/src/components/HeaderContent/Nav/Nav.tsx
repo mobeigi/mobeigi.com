@@ -4,9 +4,8 @@ import { ContainerNav, DesktopNav, DropdownMenu, MobileNav, StyledLink } from '.
 import { usePathname } from 'next/navigation';
 import { pages } from '@/constants/links';
 import { useState } from 'react';
-import { IconWrapperBubble } from '@/styles/icon';
+import { IconWrapperBubbleButton } from '@/styles/icon';
 import MenuSvg from '@/assets/icons/boxicons/bx-menu.svg';
-import { StylelessButton } from '@/styles/button';
 
 interface NavInnerProps {
   onLinkClick?: () => void;
@@ -38,11 +37,9 @@ export const Nav = () => {
         <NavInner />
       </DesktopNav>
       <MobileNav>
-        <StylelessButton onClick={toggleMenu}>
-          <IconWrapperBubble>
-            <MenuSvg />
-          </IconWrapperBubble>
-        </StylelessButton>
+        <IconWrapperBubbleButton onClick={toggleMenu}>
+          <MenuSvg />
+        </IconWrapperBubbleButton>
         {isMenuOpen && (
           <DropdownMenu>
             <NavInner onLinkClick={() => setIsMenuOpen(false)} />
