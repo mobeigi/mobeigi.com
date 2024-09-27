@@ -102,8 +102,8 @@ export const AboutPage = () => {
       <h3>Skills</h3>
       <blockquote>
         I do have are a very particular set of skills, skills I have acquired over a long career, skills that make me a
-        nightmare for people like you. If you approve my PR now, that will be the end of it. But if you don't, I will
-        look for you. I will find you. And I will give you a mediocre peer performance review.
+        nightmare for people like you. If you approve my PR now, that will be the end of it. But if you don&apos;t, I
+        will look for you. I will find you. And I will give you a mediocre peer performance review.
       </blockquote>
       <p>I dedicate my time and energy to staying proficient in these programming languages:</p>
       <ProgrammingLanguagesContainer>

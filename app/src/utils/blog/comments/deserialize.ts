@@ -1,10 +1,12 @@
 import { Comment } from '@/types/blog';
+import { SerializedComment } from '@/types/api/comment';
 
-// TODO: maybe add runtime type check here
-export const deserialize = (data: any): Comment => {
-  return {
+export const deserialize = (data: SerializedComment): Comment => {
+  const comment: Comment = {
     ...data,
     createdAt: new Date(data.createdAt),
-    children: Array.isArray(data.children) ? data.children.map((child: any) => deserialize(child)) : [],
+    children: Array.isArray(data.children) ? data.children.map((child) => deserialize(child)) : [],
   };
+
+  return comment;
 };

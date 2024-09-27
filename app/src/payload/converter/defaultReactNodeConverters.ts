@@ -1,5 +1,24 @@
 import type { ReactNodeConverter } from '@payload/lexical/types';
 
+import {
+  SerializedBlockNode,
+  SerializedHeadingNode,
+  SerializedHorizontalRuleNode,
+  SerializedInlineBlockNode,
+  SerializedLineBreakNode,
+  SerializedLinkNode,
+  SerializedListNode,
+  SerializedListItemNode,
+  SerializedParagraphNode,
+  SerializedQuoteNode,
+  SerializedRelationshipNode,
+  SerializedTableNode,
+  SerializedTableCellNode,
+  SerializedTableRowNode,
+  SerializedTextNode,
+  SerializedUploadNode,
+} from '@payloadcms/richtext-lexical';
+
 import { BlockReactNodeConverter } from '@payload/converter/reactnode/blocks';
 import { InlineBlockReactNodeConverter } from '@payload/converter/reactnode/inlineBlocks';
 import { HeadingReactNodeConverter } from '@payload/converter/reactnode/heading';
@@ -16,7 +35,25 @@ import { TableRowReactNodeConverter } from '@payload/converter/reactnode/tables/
 import { TextReactNodeConverter } from '@payload/converter/reactnode/text';
 import { UploadReactNodeConverter } from '@payload/converter/reactnode/upload';
 
-export const defaultReactNodeConverters: ReactNodeConverter<any>[] = [
+type ReactNodeConverters =
+  | ReactNodeConverter<SerializedBlockNode>
+  | ReactNodeConverter<SerializedHeadingNode>
+  | ReactNodeConverter<SerializedHorizontalRuleNode>
+  | ReactNodeConverter<SerializedInlineBlockNode>
+  | ReactNodeConverter<SerializedLineBreakNode>
+  | ReactNodeConverter<SerializedLinkNode>
+  | ReactNodeConverter<SerializedListNode>
+  | ReactNodeConverter<SerializedListItemNode>
+  | ReactNodeConverter<SerializedParagraphNode>
+  | ReactNodeConverter<SerializedQuoteNode>
+  | ReactNodeConverter<SerializedRelationshipNode>
+  | ReactNodeConverter<SerializedTableNode>
+  | ReactNodeConverter<SerializedTableCellNode>
+  | ReactNodeConverter<SerializedTableRowNode>
+  | ReactNodeConverter<SerializedTextNode>
+  | ReactNodeConverter<SerializedUploadNode>;
+
+export const defaultReactNodeConverters: ReactNodeConverters[] = [
   BlockReactNodeConverter,
   HeadingReactNodeConverter,
   HorizontalRuleReactNodeConverter,

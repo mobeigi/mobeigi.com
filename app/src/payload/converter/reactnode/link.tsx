@@ -32,7 +32,7 @@ export const LinkReactNodeConverter: ReactNodeConverter<SerializedLinkNode> = {
       href = link.url;
     } else if (link.linkType === 'internal') {
       const relationTo = link.doc?.relationTo as CollectionSlug;
-      const doc = link.doc?.value as DataFromCollectionSlug<any>;
+      const doc = link.doc?.value as unknown as DataFromCollectionSlug<typeof relationTo>;
 
       if (doc && relationTo && relationTo in customUrlResolvers) {
         const resolveUrl = customUrlResolvers[relationTo];

@@ -5,6 +5,7 @@ import type { CollectionConfig } from 'payload';
 import { validateDisplayName, validateEmail, validateContent } from './validators';
 import { emailAfterNewCommentHook } from './hooks/emailAfterNewCommentHook';
 import { validationHook } from './hooks/validationHook';
+import { SerializedEditorState } from 'lexical';
 
 export const Comments: CollectionConfig = {
   slug: 'comments',
@@ -49,7 +50,7 @@ export const Comments: CollectionConfig = {
         },
       }),
       required: true,
-      validate: (value) => validateContent(value),
+      validate: (value: SerializedEditorState | null | undefined) => validateContent(value),
     },
     {
       name: 'post',

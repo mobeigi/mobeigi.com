@@ -36,23 +36,24 @@ import { Comment as PayloadComment } from '@/payload-types';
 import { debounce } from 'lodash-es';
 import { InputError, InputWithError } from '@/styles/input';
 import { DEBOUNCE_TIMEOUT_MS } from '@/constants/inputs';
+import { SerializedParagraphNode } from '@payloadcms/richtext-lexical';
+import { ValidationErrorResponse } from '@/types/payload';
 
 const initialDisplayName = '';
 const initialEmail = '';
-const initialContent: SerializedEditorState<any> = {
+// TODO: Move this creation of empty lexical state to a util
+const emptyParagraph: SerializedParagraphNode = {
+  children: [],
+  direction: null,
+  format: '',
+  indent: 0,
+  type: 'paragraph',
+  version: 1,
+  textFormat: 0,
+};
+const initialContent: SerializedEditorState = {
   root: {
-    children: [
-      {
-        children: [],
-        direction: null,
-        format: '',
-        indent: 0,
-        type: 'paragraph',
-        version: 1,
-        textFormat: 0,
-        textStyle: '',
-      },
-    ],
+    children: [emptyParagraph],
     direction: null,
     format: '',
     indent: 0,
@@ -209,13 +210,13 @@ const LeaveComment = ({
       if (response.ok) {
         reset();
         if (onSuccess) {
-          const json = await response.json();
-          const comment: PayloadComment = json.doc;
-          onSuccess(comment);
+          // TODO: better type for this. Does Payload provide one?
+          const json = (await response.json()) as { doc: PayloadComment };
+          onSuccess(json.doc);
         }
       } else {
         if (onError) {
-          const json = await response.json();
+          const json = (await response.json()) as ValidationErrorResponse;
           const combinedErrorMessage = extractValidationErrorResponseMessage(json);
           onError(Error(`Error submitting comment: ${combinedErrorMessage}`));
         }
@@ -332,7 +333,12 @@ const LeaveComment = ({
             Cancel
           </SecondaryButton>
         )}
-        <PrimaryButton onClick={handleCommentSubmit} disabled={isSubmitting || isError}>
+        <PrimaryButton
+          onClick={() => {
+            void handleCommentSubmit();
+          }}
+          disabled={isSubmitting || isError}
+        >
           <ButtonLabel $isVisible={!isSubmitting}>Comment</ButtonLabel>
           {isSubmitting && (
             <SpinnerOverlay>

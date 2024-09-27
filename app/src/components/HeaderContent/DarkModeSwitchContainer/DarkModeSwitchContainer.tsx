@@ -31,7 +31,7 @@ const toDarkModeToggleThemeMode = (themeMode: ThemeMode) => {
     case ThemeMode.Dark:
       return DarkModeSwitchThemeMode.Dark;
     default:
-      throw Error(`Unsupported themeMode: ${ThemeMode}`);
+      throw Error(`Unsupported themeMode: ${String(themeMode)}`);
   }
 };
 
@@ -44,7 +44,7 @@ const toThemeMode = (darkModeToggleThemeMode: DarkModeSwitchThemeMode) => {
     case DarkModeSwitchThemeMode.Dark:
       return ThemeMode.Dark;
     default:
-      throw Error(`Unsupported darkModeToggleThemeMode: ${darkModeToggleThemeMode}`);
+      throw Error(`Unsupported darkModeToggleThemeMode: ${String(darkModeToggleThemeMode)}`);
   }
 };
 

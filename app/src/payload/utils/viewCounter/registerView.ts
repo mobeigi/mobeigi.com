@@ -1,3 +1,6 @@
+// TODO: Type drizzle tables when types becomes available in Payload
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import config from '@payload-config';
 import { parseISO, differenceInMilliseconds } from 'date-fns';
@@ -47,6 +50,8 @@ export const registerView = async ({ postId, ipAddress, userAgent }: RegisterVie
   }
 
   // Get entry in viewsCache
+  // TODO: Type drizzle tables when types becomes available in Payload
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const postsViewsCacheTable = payload.db.tables.posts_views_cache;
   const viewsCacheResults = await payload.db.drizzle
     .select()
@@ -57,7 +62,8 @@ export const registerView = async ({ postId, ipAddress, userAgent }: RegisterVie
   if (viewsCacheResults.length === 1) {
     const viewsCacheResult = viewsCacheResults[0];
 
-    if (!isCachedViewExpired(viewsCacheResult.timestamp)) {
+    // TODO: Remove typecast when drizzle tables have type
+    if (!isCachedViewExpired(viewsCacheResult.timestamp as string)) {
       return false;
     }
 

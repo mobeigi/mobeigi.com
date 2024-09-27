@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect } from 'react';
 import { useField, useFieldProps, Button, TextInput, FieldLabel, useFormFields } from '@payloadcms/ui';
-import type { TextFieldClientProps, TextFieldServerProps } from 'payload';
+import type { TextFieldClientProps } from 'payload';
 
 import { formatSlug } from './formatSlug';
 import './index.scss';
@@ -28,7 +28,7 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
     path: checkboxFieldPath,
   });
 
-  const fieldToUseValue = useFormFields(([fields, dispatch]) => {
+  const fieldToUseValue = useFormFields(([fields]) => {
     return fields[fieldToUse].value as string;
   });
 

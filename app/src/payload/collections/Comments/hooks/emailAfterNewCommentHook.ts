@@ -12,7 +12,7 @@ export const emailAfterNewCommentHook: CollectionAfterChangeHook = async ({ doc,
     // Refetch doc with overiden access to get restricted fields
     const comment: Comment = await req.payload.findByID({
       collection: 'comments',
-      id: doc.id,
+      id: (doc as Comment).id,
       overrideAccess: true,
       req, // passthrough req
     });

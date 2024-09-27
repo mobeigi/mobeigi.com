@@ -104,7 +104,7 @@ export const generateBreadcrumbs = (post: Post): WithContext<BreadcrumbList> | n
     return null;
   }
 
-  let breadcrumbList = generateParentBreadcrumbs();
+  const breadcrumbList = generateParentBreadcrumbs();
   if (!breadcrumbList) {
     return null;
   }
@@ -158,7 +158,7 @@ const BlogPostHandler = async ({ params }: { params: { slug: string[] } }) => {
   const ipAddress = headerList.get('x-forwarded-for');
   const userAgent = headerList.get('user-agent');
   if (ipAddress && userAgent) {
-    registerView({ postId: post.id, ipAddress, userAgent });
+    void registerView({ postId: post.id, ipAddress, userAgent });
   }
 
   return (

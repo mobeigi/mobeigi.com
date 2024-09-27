@@ -23,6 +23,9 @@ export const customUrlResolvers: Record<
   files: () => {
     throw new Error('Function not implemented.');
   },
+  'private-files': () => {
+    throw new Error('Function not implemented.');
+  },
   redirects: () => {
     throw new Error('Function not implemented.');
   },

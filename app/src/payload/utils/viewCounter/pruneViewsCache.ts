@@ -13,7 +13,10 @@ export const pruneViewsCache = async (): Promise<void> => {
   const payload = await getPayloadHMR({
     config,
   });
+  // TODO: Type drizzle tables when types becomes available in Payload
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const postsViewsCacheTable = payload.db.tables.posts_views_cache;
   const thresholdDate = new Date(Date.now() - EXPIRY_IN_MS);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   await payload.db.drizzle.delete(postsViewsCacheTable).where(lt(postsViewsCacheTable.timestamp, thresholdDate));
 };

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import config from '@payload-config';
 import { mapComments } from '@/utils/payload';
+import { CommentsForPost } from '@/types/api/commentsForPost';
 
 const depth = 2;
 
@@ -24,7 +25,10 @@ export const GET = async (request: Request, { params }: { params: { postId: stri
     });
 
     const mappedComments = await mapComments(comments.docs);
-    return NextResponse.json({ comments: mappedComments });
+    const commentsForPost: CommentsForPost = {
+      comments: mappedComments,
+    };
+    return NextResponse.json(commentsForPost);
   } catch (error) {
     console.error('Failed to fetch comments for post.', error);
     return NextResponse.json({ error: 'Failed to fetch comments for post.' }, { status: 500 });

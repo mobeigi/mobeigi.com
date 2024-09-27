@@ -8,7 +8,7 @@ export const extractHeadings = (node: ReactNode): HeadingElement[] => {
   const traverse = (child: ReactNode): void => {
     if (!isValidElement(child)) return;
 
-    const element = child as ReactElement<any>;
+    const element = child as ReactElement<{ children?: ReactNode }>;
 
     // Check if the node is a heading element (h1-h6)
     const type = element.type;

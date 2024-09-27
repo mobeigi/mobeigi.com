@@ -15,9 +15,9 @@ export const getStoredThemeMode = (): ThemeMode => {
     let parsedThemeCookieValue;
     try {
       parsedThemeCookieValue = parseThemeCookieValue(themeCookie);
-      return parsedThemeCookieValue.themeMode as ThemeMode;
+      return parsedThemeCookieValue.themeMode;
     } catch (error) {
-      console.warn(`Parsing theme cookie value failed. themeCookie: ${themeCookie}`);
+      console.warn(`Parsing theme cookie value failed. themeCookie: ${themeCookie}`, error);
     }
   }
   return DEFAULT_THEME_MODE;

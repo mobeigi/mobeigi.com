@@ -8,12 +8,13 @@ export const formatSlug = (val: string): string =>
 
 export const formatSlugHook =
   (fallback: string): FieldHook =>
-  ({ data, operation, originalDoc, value }) => {
+  ({ data, operation, value }) => {
     if (typeof value === 'string') {
       return formatSlug(value);
     }
 
     if (operation === 'create' || !data?.slug) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const fallbackData = data?.[fallback] || data?.[fallback];
 
       if (fallbackData && typeof fallbackData === 'string') {
@@ -21,5 +22,6 @@ export const formatSlugHook =
       }
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return value;
   };

@@ -76,11 +76,15 @@ export default buildConfig({
     nestedDocsPlugin({
       collections: [Category.slug],
       generateLabel: (_, doc) => doc.title as string,
+      // TODO: Can this type be improved?
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
     }),
     nestedDocsPlugin({
       collections: [Comments.slug],
       generateLabel: (_, doc) => doc.displayName as string,
+      // TODO: Can this type be improved?
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.id}`, ''),
     }),
     redirectsPlugin({
@@ -92,15 +96,17 @@ export default buildConfig({
       },
     }),
   ],
-  async onInit(payload) {
-    cron.schedule('0 * * * *', async () => {
+  onInit(payload) {
+    cron.schedule('0 * * * *', () => {
       payload.logger.info('Running cron job to prune views cache...');
-      try {
-        await pruneViewsCache();
-        payload.logger.info('Views cache pruning completed successfully.');
-      } catch (error) {
-        payload.logger.error('Error during views cache pruning:', error);
-      }
+      void (async () => {
+        try {
+          await pruneViewsCache();
+          payload.logger.info('Views cache pruning completed successfully.');
+        } catch (error) {
+          payload.logger.error('Error during views cache pruning:', error);
+        }
+      })();
     });
   },
 });

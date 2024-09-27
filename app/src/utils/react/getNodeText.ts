@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode } from 'react';
 
 export const getNodeText = (node: ReactNode): string | null => {
-  if (node == null) return '';
+  if (node === null || node === undefined) return '';
 
   switch (typeof node) {
     case 'string':
@@ -14,7 +14,8 @@ export const getNodeText = (node: ReactNode): string | null => {
       }
 
       if ('props' in node) {
-        const props = (node as ReactElement<any>).props;
+        const element = node as ReactElement<{ children?: ReactNode }>;
+        const props = element.props;
         return getNodeText(props.children);
       }
     }

@@ -31,6 +31,7 @@ import { Comment as PayloadComment } from '@/payload-types';
 import VerifiedBadgeSvg from '@/assets/icons/social/verified-badge.svg';
 import { IconWrapper } from '@/styles/icon';
 import DateFormatter from '@/components/DateFormatter';
+import { SerializedCommentsForPost } from '@/types/api/commentsForPost';
 
 interface CommentsProps {
   comments: Comment[];
@@ -154,8 +155,8 @@ export const CommentSection = ({ comments: initialComments, postId, commentsEnab
         return false;
       }
 
-      const data = await response.json();
-      const deserializedComments = data.comments.map((comment: any) => deserializeComment(comment));
+      const data = (await response.json()) as SerializedCommentsForPost;
+      const deserializedComments = data.comments.map((comment) => deserializeComment(comment));
       setComments(deserializedComments);
       return true;
     } catch (error) {
@@ -192,7 +193,9 @@ export const CommentSection = ({ comments: initialComments, postId, commentsEnab
           <LeaveComment
             postId={postId}
             parentCommentId={null}
-            onSuccess={onCommentAdded}
+            onSuccess={(comment) => {
+              void onCommentAdded(comment);
+            }}
             onError={(error: Error) => {
               console.error(error);
               toast.error(error.message);
@@ -217,7 +220,9 @@ export const CommentSection = ({ comments: initialComments, postId, commentsEnab
               <Comments
                 comments={comments}
                 postId={postId}
-                onSuccess={onCommentAdded}
+                onSuccess={(comment) => {
+                  void onCommentAdded(comment);
+                }}
                 commentsEnabled={commentsEnabled}
               />
             </CommentsContainer>

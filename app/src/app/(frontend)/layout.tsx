@@ -8,7 +8,7 @@ import FooterContent from '@/components/FooterContent';
 import GlobalStyle from '@/styles/GlobalStyle';
 import StyledComponentsRegistry from '@/lib/registry';
 import ThemeProviderWrapper from '@/lib/ThemeProviderWrapper';
-import { PrefersColorScheme, ThemeMode } from '@/types/theme';
+import { PrefersColorScheme } from '@/types/theme';
 import { THEME_COOKIE_NAME } from '@/constants/cookies';
 import { Header, Main, MainContents, Footer } from './styled';
 import { UserPreferencesProvider } from '@/context/userPreferencesContext';
@@ -53,7 +53,7 @@ const RootLayout = ({
       initialThemeMode = parsedThemeCookieValue.themeMode;
       initialPrefersColorScheme = parsedThemeCookieValue.prefersColorScheme;
     } catch (error) {
-      console.warn(`Parsing theme cookie value failed. themeCookie: ${themeCookie.value}`);
+      console.warn(`Parsing theme cookie value failed. themeCookie: ${themeCookie.value}`, error);
     }
   }
 

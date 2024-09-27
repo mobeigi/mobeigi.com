@@ -1,5 +1,5 @@
 import validator from 'validator';
-import { SerializedEditorState } from 'lexical';
+import { SerializedEditorState, SerializedLexicalNode } from 'lexical';
 import { extractTextContent } from '@/utils/lexical';
 
 export const validateDisplayName = (displayName?: string | null): true | string => {
@@ -56,13 +56,13 @@ export const validateContent = (editorState?: SerializedEditorState | null): tru
   // Enforce node type allow list
   const allowedTypes = ['paragraph', 'text', 'linebreak'];
 
-  const checkNodeTypes = (node: any): boolean => {
+  const checkNodeTypes = (node: SerializedLexicalNode): boolean => {
     if (!allowedTypes.includes(node.type)) {
       return false;
     }
 
     // Check all children recursively
-    if (node.children && node.children.length > 0) {
+    if ('children' in node && Array.isArray(node.children) && node.children.length > 0) {
       return node.children.every(checkNodeTypes);
     }
 

@@ -9,6 +9,7 @@ export const Embed: Block = {
       type: 'text',
       required: true,
       label: 'Embed URL',
+      hasMany: false,
       validate: (value) => {
         if (!value || !value.match(/^(https?:\/\/)?([a-zA-Z0-9.-]+)(\/[^\s]*)?$/)) {
           return 'Please enter a valid URL';

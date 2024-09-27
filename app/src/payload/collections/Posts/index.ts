@@ -127,6 +127,7 @@ export const Posts: CollectionConfig = {
             if (siblingData._status === 'published' && !value) {
               return new Date();
             }
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
             return value;
           },
         ],
