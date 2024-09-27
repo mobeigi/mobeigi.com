@@ -48,10 +48,10 @@ export const AboutPage = () => {
       <h2>Introduction</h2>
       <p>
         My name is <strong>Mo</strong>. I am {ageInYears} years old and live in beautiful{' '}
+        <strong>Sydney, Australia</strong>.{' '}
         <IconWrapper>
           <AuFlagSvg />
-        </IconWrapper>{' '}
-        <strong>Sydney, Australia</strong>.
+        </IconWrapper>
       </p>
       <ImageWrapper>
         <Image src="/images/about/sydney.webp" alt="Sydney" fill />
