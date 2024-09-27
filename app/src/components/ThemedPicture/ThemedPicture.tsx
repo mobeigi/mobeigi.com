@@ -6,7 +6,7 @@ import { useTheme } from 'styled-components';
 import { ThemedPictureProps } from './types';
 
 export const ThemedPicture = ({ dark, light }: ThemedPictureProps) => {
-  const { currentTheme } = useTheme();
+  const { currentThemeMode } = useTheme();
 
   const {
     props: { srcSet: darkSrcSet, ...darkRestImageProps },
@@ -15,10 +15,10 @@ export const ThemedPicture = ({ dark, light }: ThemedPictureProps) => {
     props: { srcSet: lightSrcSet, ...lightRestImageProps },
   } = getImageProps({ width: light.width, height: light.height, alt: light.alt, src: light.src });
 
-  const darkMedia = currentTheme === ThemeMode.Dark ? 'all' : 'none';
-  const lightMedia = currentTheme === ThemeMode.Light ? 'all' : 'none';
-  const style = currentTheme === ThemeMode.Dark ? dark.style : light.style;
-  const restImageProps = currentTheme === ThemeMode.Dark ? darkRestImageProps : lightRestImageProps;
+  const darkMedia = currentThemeMode === ThemeMode.Dark ? 'all' : 'none';
+  const lightMedia = currentThemeMode === ThemeMode.Light ? 'all' : 'none';
+  const style = currentThemeMode === ThemeMode.Dark ? dark.style : light.style;
+  const restImageProps = currentThemeMode === ThemeMode.Dark ? darkRestImageProps : lightRestImageProps;
 
   return (
     <picture>

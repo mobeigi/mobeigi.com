@@ -42,23 +42,23 @@ export const StyledHeading = styled.h2`
 export const Tagline = styled.p`
   margin: 0;
   font-size: 1.75em;
-  color: ${({ theme }) => theme.colors.text.subtle};
+  color: ${({ theme }) => theme.current.text.subtle};
 `;
 
 export const InfoArea = styled.span`
   display: flex;
   gap: 1em;
   margin-top: 0.2em;
-  color: ${({ theme }) => theme.colors.text.subtle};
+  color: ${({ theme }) => theme.current.text.subtle};
 `;
 
 export const Info = styled.span``;
 
 export const CustomIconWrapper = styled(IconWrapper)`
   svg {
-    fill: ${({ theme }) => theme.colors.text.subtle};
+    fill: ${({ theme }) => theme.current.text.subtle};
     path: {
-      stroke: ${({ theme }) => theme.colors.text.subtle};
+      stroke: ${({ theme }) => theme.current.text.subtle};
     }
   }
 `;

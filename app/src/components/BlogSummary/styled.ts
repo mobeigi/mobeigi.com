@@ -29,23 +29,23 @@ export const DetailContainer = styled.div`
 
 export const Detail = styled.span`
   display: flex;
-  color: ${({ theme }) => theme.colors.text.subtle};
+  color: ${({ theme }) => theme.current.text.subtle};
 `;
 
 export const StyledLink = styled(Link)`
-  color: ${({ theme }) => theme.colors.text.subtle};
+  color: ${({ theme }) => theme.current.text.subtle};
   &:hover {
-    color: ${({ theme }) => theme.colors.text.subtleHighlight};
+    color: ${({ theme }) => theme.current.text.subtleHighlight};
 
     svg {
-      fill: ${({ theme }) => theme.colors.text.subtleHighlight};
+      fill: ${({ theme }) => theme.current.text.subtleHighlight};
     }
   }
 `;
 
 export const DetailIconWrapper = styled(IconWrapper)`
   svg {
-    fill: ${({ theme }) => theme.colors.text.subtle};
+    fill: ${({ theme }) => theme.current.text.subtle};
   }
 `;
 

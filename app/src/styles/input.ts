@@ -14,14 +14,14 @@ export const InputWithError = styled.span<InputStatusProps>`
 
   input {
     /* Apply outline on error */
-    ${({ $isError, theme }) => $isError && `border-color: ${theme.colors.status.error.base};`}
+    ${({ $isError, theme }) => $isError && `border-color: ${theme.current.status.error.base};`}
 
     &:focus,
       &:focus-visible {
       outline: none;
       /* Apply outline based on isError status */
       border-color: ${({ $isError, theme }) =>
-        $isError ? theme.colors.status.error.base : theme.colors.text.baseHighlight};
+        $isError ? theme.current.status.error.base : theme.current.text.baseHighlight};
     }
   }
 `;
@@ -32,5 +32,5 @@ export const InputError = styled.p`
 
   font-size: 0.85em;
   text-align: center;
-  color: ${({ theme }) => theme.colors.status.error.base};
+  color: ${({ theme }) => theme.current.status.error.base};
 `;

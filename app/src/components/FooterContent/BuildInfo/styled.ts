@@ -8,19 +8,19 @@ export const BuildInfoSpan = styled.span`
 `;
 
 export const StyledA = styled.a`
-  color: ${({ theme }) => theme.colors.text.subtle};
+  color: ${({ theme }) => theme.current.text.subtle};
   &:hover {
-    color: ${({ theme }) => theme.colors.text.subtleHighlight};
+    color: ${({ theme }) => theme.current.text.subtleHighlight};
 
     svg {
-      fill: ${({ theme }) => theme.colors.text.subtleHighlight};
+      fill: ${({ theme }) => theme.current.text.subtleHighlight};
     }
   }
 `;
 
 export const CustomIconWrapper = styled(IconWrapper)`
   svg {
-    fill: ${({ theme }) => theme.colors.text.subtle};
+    fill: ${({ theme }) => theme.current.text.subtle};
   }
 `;
 

@@ -14,13 +14,13 @@ export const GlobalTooltipWrapper = styled.div`
   position: fixed;
 
   & .rt-theme-dark {
-    --rt-color-dark: ${({ theme }) => theme.colors.tooltip.background};
-    --rt-color-white: ${({ theme }) => theme.colors.tooltip.text};
+    --rt-color-dark: ${({ theme }) => theme.current.tooltip.background};
+    --rt-color-white: ${({ theme }) => theme.current.tooltip.text};
   }
 
   & .rt-theme-light {
-    --rt-color-dark: ${({ theme }) => theme.colors.tooltip.text};
-    --rt-color-white: ${({ theme }) => theme.colors.tooltip.background};
+    --rt-color-dark: ${({ theme }) => theme.current.tooltip.text};
+    --rt-color-white: ${({ theme }) => theme.current.tooltip.background};
   }
 `;
 

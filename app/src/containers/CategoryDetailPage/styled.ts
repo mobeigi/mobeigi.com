@@ -13,5 +13,5 @@ export const BlogSummaryWrapper = styled.div`
 `;
 
 export const CategoryNameWrapper = styled.span`
-  color: ${({ theme }) => theme.colors.text.link};
+  color: ${({ theme }) => theme.current.text.link};
 `;

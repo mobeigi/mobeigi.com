@@ -5,12 +5,12 @@ import { useTheme } from 'styled-components';
 import { ThemedVideoProps } from './types';
 
 export const ThemedVideo = ({ dark, light }: ThemedVideoProps) => {
-  const { currentTheme } = useTheme();
+  const { currentThemeMode } = useTheme();
 
-  const darkMedia = currentTheme === ThemeMode.Dark ? 'all' : 'none';
-  const lightMedia = currentTheme === ThemeMode.Light ? 'all' : 'none';
-  const style = currentTheme === ThemeMode.Dark ? dark.style : light.style;
-  const ariaLabel = currentTheme === ThemeMode.Dark ? dark.ariaLabel : light.ariaLabel;
+  const darkMedia = currentThemeMode === ThemeMode.Dark ? 'all' : 'none';
+  const lightMedia = currentThemeMode === ThemeMode.Light ? 'all' : 'none';
+  const style = currentThemeMode === ThemeMode.Dark ? dark.style : light.style;
+  const ariaLabel = currentThemeMode === ThemeMode.Dark ? dark.ariaLabel : light.ariaLabel;
 
   return (
     <video style={style} controls aria-label={ariaLabel}>
