@@ -96,7 +96,7 @@ const SingleComment = ({ comment, postId, onSuccess, commentsEnabled }: SingleCo
             <DisplayNameWrapper>
               <DisplayName>{comment.displayName}</DisplayName>
               {comment.verified && (
-                <IconWrapper>
+                <IconWrapper data-tooltip-id="base-tooltip" data-tooltip-content="Verified">
                   <VerifiedBadgeSvg />
                 </IconWrapper>
               )}
