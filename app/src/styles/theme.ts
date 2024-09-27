@@ -1,3 +1,4 @@
+// TODO: type this object
 const theme = {
   breakpoints: {
     mobile: { maxWidth: 800, maxHeight: 600 },
@@ -23,6 +24,10 @@ const theme = {
           base: '#e3e3e3',
           baseHighlight: '#f5f5f5',
         },
+      },
+      tooltip: {
+        text: '#e3e3e3',
+        background: '#424242',
       },
       text: {
         base: '#e3e3e3',
@@ -86,6 +91,10 @@ const theme = {
         baseHighlight: '#525252',
         link: '#af363c',
         linkHighlight: '#fb4d56',
+      },
+      tooltip: {
+        text: '#e3e3e3',
+        background: '#424242',
       },
       status: {
         primary: {

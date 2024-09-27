@@ -12,6 +12,16 @@ export const GlobalTooltipWrapper = styled.div`
   // Has to be applied to wrapper div around tooltip
   // This also fixes some flickering issues when focusing from one tooltip directly to another one that is wide on mobile
   position: fixed;
+
+  & .rt-theme-dark {
+    --rt-color-dark: ${({ theme }) => theme.colors.tooltip.background};
+    --rt-color-white: ${({ theme }) => theme.colors.tooltip.text};
+  }
+
+  & .rt-theme-light {
+    --rt-color-dark: ${({ theme }) => theme.colors.tooltip.text};
+    --rt-color-white: ${({ theme }) => theme.colors.tooltip.background};
+  }
 `;
 
 export const StyledTooltip = styled(Tooltip)`
