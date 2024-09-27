@@ -67,15 +67,16 @@
     "@types/node-cron": "^3.0.11",
     "@types/react": "npm:types-react@rc",
     "@types/react-dom": "npm:types-react-dom@rc",
-    "@types/styled-components": "^5.1.34",
     "@types/validator": "^13.12.1",
+    "@typescript-eslint/eslint-plugin": "^8.7.0",
+    "@typescript-eslint/parser": "^8.7.0",
     "eslint": "^8",
     "eslint-config-next": "15.0.0-canary.161",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "prettier": "^3.3.3",
     "schema-dts": "^1.1.2",
-    "typescript": "^5"
+    "typescript": "5.5.4"
   },
   "overrides": {
     "@types/react": "npm:types-react@rc",
