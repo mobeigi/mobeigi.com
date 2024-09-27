@@ -35,7 +35,7 @@ export const LabelDetails = styled.span`
   display: inline-flex;
   gap: 0.4em;
   font-size: 0.85em;
-  color: ${({ theme }) => theme.colors.text.subtle};
+  color: ${({ theme }) => theme.current.text.subtle};
 `;
 
 export const ContentEditableWrapper = styled.div<InputStatusProps>`
@@ -46,8 +46,8 @@ export const ContentEditableWrapper = styled.div<InputStatusProps>`
     padding: 0 1em;
 
     /* Reapply global input styling */
-    background-color: ${({ theme }) => theme.colors.container.background};
-    border: 0.1em solid ${({ theme }) => theme.colors.container.accent};
+    background-color: ${({ theme }) => theme.current.container.background};
+    border: 0.1em solid ${({ theme }) => theme.current.container.accent};
     border-radius: 0.2em;
     transition: border-color 0.3s ease;
 
@@ -56,14 +56,14 @@ export const ContentEditableWrapper = styled.div<InputStatusProps>`
       outline: none;
       /* Apply outline based on isError status */
       border-color: ${({ $isError, theme }) =>
-        $isError ? theme.colors.status.error.base : theme.colors.text.baseHighlight};
+        $isError ? theme.current.status.error.base : theme.current.text.baseHighlight};
     }
 
     /* Apply outline on error */
-    ${({ $isError, theme }) => $isError && `border-color: ${theme.colors.status.error.base};`}
+    ${({ $isError, theme }) => $isError && `border-color: ${theme.current.status.error.base};`}
 
     &[disabled] {
-      color: ${({ theme }) => theme.colors.text.subtle};
+      color: ${({ theme }) => theme.current.text.subtle};
     }
   }
 `;

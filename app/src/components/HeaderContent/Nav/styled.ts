@@ -35,7 +35,7 @@ export const MobileNav = styled.div`
 export const DropdownMenu = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.colors.frame.background};
+  background-color: ${({ theme }) => theme.current.frame.background};
   padding: 1em 0;
 
   top: calc(var(--header-height));
@@ -56,11 +56,11 @@ interface StyledLinkProps {
 }
 
 export const StyledLink = styled(Link)<StyledLinkProps>`
-  color: ${({ theme, $active }) => ($active ? theme.colors.text.link : theme.colors.text.subtle)};
+  color: ${({ theme, $active }) => ($active ? theme.current.text.link : theme.current.text.subtle)};
   text-decoration: none;
 
   &:hover,
   &:focus {
-    color: ${({ theme, $active }) => ($active ? theme.colors.text.link : theme.colors.text.subtleHighlight)};
+    color: ${({ theme, $active }) => ($active ? theme.current.text.link : theme.current.text.subtleHighlight)};
   }
 `;

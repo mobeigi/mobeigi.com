@@ -57,7 +57,7 @@ const RootLayout = ({
     }
   }
 
-  const currentTheme = resolveThemeMode(initialThemeMode, initialPrefersColorScheme);
+  const currentThemeMode = resolveThemeMode(initialThemeMode, initialPrefersColorScheme);
 
   return (
     <html lang="en">
@@ -71,7 +71,7 @@ const RootLayout = ({
               <GlobalStyle />
               <GlobalTooltip />
               <ThemedToastContainer />
-              <HighlightJsStyle currentTheme={currentTheme} />
+              <HighlightJsStyle currentThemeMode={currentThemeMode} />
               <Header id="header">
                 <HeaderContent />
               </Header>

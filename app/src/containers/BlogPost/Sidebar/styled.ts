@@ -44,15 +44,15 @@ export const TableOfContentsHeadings = styled.span`
   }
 
   li a {
-    color: ${({ theme }) => theme.colors.text.subtle};
+    color: ${({ theme }) => theme.current.text.subtle};
     transition: all 50ms ease-in-out;
   }
 
   li a:hover {
-    color: ${({ theme }) => theme.colors.text.subtleHighlight};
+    color: ${({ theme }) => theme.current.text.subtleHighlight};
   }
 
   li.active > a {
-    color: ${({ theme }) => theme.colors.text.link};
+    color: ${({ theme }) => theme.current.text.link};
   }
 `;

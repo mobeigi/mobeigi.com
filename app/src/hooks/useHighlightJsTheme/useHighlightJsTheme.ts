@@ -17,14 +17,14 @@ export const useHighlightJsTheme = () => {
 
   useEffect(() => {
     // Enable the correct stylesheet link based on theme mode
-    if (theme.currentTheme === ThemeMode.Light) {
+    if (theme.currentThemeMode === ThemeMode.Light) {
       setLinkEnabledById(HIGHLIGHTJS_THEME_LINK_ID_DARK, false);
       setLinkEnabledById(HIGHLIGHTJS_THEME_LINK_ID_LIGHT, true);
-    } else if (theme.currentTheme === ThemeMode.Dark) {
+    } else if (theme.currentThemeMode === ThemeMode.Dark) {
       setLinkEnabledById(HIGHLIGHTJS_THEME_LINK_ID_LIGHT, false);
       setLinkEnabledById(HIGHLIGHTJS_THEME_LINK_ID_DARK, true);
     } else {
       throw Error(`Unsupported themeMode: ${ThemeMode}`);
     }
-  }, [theme.currentTheme]);
+  }, [theme.currentThemeMode]);
 };

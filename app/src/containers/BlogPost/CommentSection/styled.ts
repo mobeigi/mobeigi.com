@@ -18,7 +18,7 @@ export const CommentsContainer = styled.div`
   ul {
     margin: 0 0 0 calc(var(--display-picture-size) + 1em);
     padding-left: 1em;
-    border-left: 0.15em solid ${({ theme }) => theme.colors.container.accent};
+    border-left: 0.15em solid ${({ theme }) => theme.current.container.accent};
   }
 
   li {
@@ -108,7 +108,7 @@ export const DisplayName = styled.span`
 `;
 
 export const CreatedAtTime = styled.time`
-  color: ${({ theme }) => theme.colors.text.subtle};
+  color: ${({ theme }) => theme.current.text.subtle};
 `;
 
 export const CommentContents = styled.span`

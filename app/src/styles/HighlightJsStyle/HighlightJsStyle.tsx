@@ -15,7 +15,7 @@ import {
  * We have two styles as stylesheet links loaded and use the 'disabled' attribute to support theme switching.
  * Technique reference: https://github.com/highlightjs/highlight.js/blob/main/demo/demo.js
  */
-export const HighlightJsStyle = ({ currentTheme }: HighlightJsStyleProps) => {
+export const HighlightJsStyle = ({ currentThemeMode }: HighlightJsStyleProps) => {
   // Enable theme switching
   useHighlightJsTheme();
   return (
@@ -25,7 +25,7 @@ export const HighlightJsStyle = ({ currentTheme }: HighlightJsStyleProps) => {
         id={HIGHLIGHTJS_THEME_LINK_ID_LIGHT}
         rel="stylesheet"
         /* @ts-ignore */
-        disabled={currentTheme !== ThemeMode.Light}
+        disabled={currentThemeMode !== ThemeMode.Light}
         href={HIGHLIGHTJS_THEME_LIGHT_CSS_PATH}
       />
 
@@ -34,7 +34,7 @@ export const HighlightJsStyle = ({ currentTheme }: HighlightJsStyleProps) => {
         id={HIGHLIGHTJS_THEME_LINK_ID_DARK}
         rel="stylesheet"
         /* @ts-ignore */
-        disabled={currentTheme !== ThemeMode.Dark}
+        disabled={currentThemeMode !== ThemeMode.Dark}
         href={HIGHLIGHTJS_THEME_DARK_CSS_PATH}
       />
     </>

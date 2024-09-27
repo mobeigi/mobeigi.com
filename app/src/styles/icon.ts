@@ -11,7 +11,7 @@ export const IconWrapper = styled.span`
   align-items: center;
 
   svg {
-    fill: ${({ theme }) => theme.colors.text.base};
+    fill: ${({ theme }) => theme.current.text.base};
 
     width: auto;
     height: 1em;
@@ -29,15 +29,15 @@ export const IconWrapperBubble = styled(IconWrapper)`
   user-select: none;
 
   &:hover {
-    background-color: ${({ theme }) => hexToRgba(theme.colors.text.baseHighlight, 0.15)};
+    background-color: ${({ theme }) => hexToRgba(theme.current.text.baseHighlight, 0.15)};
 
     svg {
-      fill: ${({ theme }) => theme.colors.text.baseHighlight};
+      fill: ${({ theme }) => theme.current.text.baseHighlight};
     }
   }
 
   &:hover:active {
-    background-color: ${({ theme }) => hexToRgba(theme.colors.text.baseHighlight, 0.3)};
+    background-color: ${({ theme }) => hexToRgba(theme.current.text.baseHighlight, 0.3)};
   }
 `;
 
