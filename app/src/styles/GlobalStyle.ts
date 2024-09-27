@@ -220,11 +220,11 @@ const GlobalStyle = createGlobalStyle`
   input:focus,
   input:focus-visible {
     outline: none;
-    border-color: ${({ theme }) => theme.colors.container.text.baseHighlight};
+    border-color: ${({ theme }) => theme.colors.text.baseHighlight};
   }
 
   input:disabled {
-    color: ${({ theme }) => theme.colors.frame.text.base};
+    color: ${({ theme }) => theme.colors.text.subtle};
   }
 `;
 

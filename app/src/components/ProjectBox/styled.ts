@@ -20,7 +20,7 @@ export const ProjectBoxContents = styled.div`
   overflow: hidden;
 
   border-radius: 3%;
-  color: ${({ theme }) => theme.colors.container.text.base};
+  color: ${({ theme }) => theme.colors.text.base};
   background-color: ${({ theme }) => theme.colors.container.background};
   border: 0.1em solid ${({ theme }) => theme.colors.container.accent};
 
