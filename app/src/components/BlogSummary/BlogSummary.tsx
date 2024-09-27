@@ -58,7 +58,7 @@ export const BlogSummary = ({
         <Heading as={headingLevel}>{blogPostMeta.post.title}</Heading>
       )}
       <DetailContainer>
-        <Detail>
+        <Detail data-tooltip-id="base-tooltip" data-tooltip-content="Date published">
           <IconAndTextContainer>
             <IconWrapper>
               <CalendarSvg />
@@ -68,14 +68,14 @@ export const BlogSummary = ({
             </time>
           </IconAndTextContainer>
         </Detail>
-        <Detail>
+        <Detail data-tooltip-id="base-tooltip" data-tooltip-content="Category">
           {linkCategory ? (
             <StyledLink href={blogPostMeta.post.category.url}>{categoryElement}</StyledLink>
           ) : (
             categoryElement
           )}
         </Detail>
-        <Detail>
+        <Detail data-tooltip-id="base-tooltip" data-tooltip-content="Views">
           <IconAndTextContainer>
             <IconWrapper>
               <BarChartSvg />
@@ -83,7 +83,7 @@ export const BlogSummary = ({
             <span>{blogPostMeta.post.views}</span>
           </IconAndTextContainer>
         </Detail>
-        <Detail>
+        <Detail data-tooltip-id="base-tooltip" data-tooltip-content="Comments">
           {commentsAnchor ? (
             <StyledLink href={`${blogPostMeta.post.url}#${commentsAnchor}`}>{commentCountElement}</StyledLink>
           ) : (

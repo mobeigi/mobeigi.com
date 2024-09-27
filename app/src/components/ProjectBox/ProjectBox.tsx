@@ -46,14 +46,14 @@ export const ProjectBox = ({
           <Title>{title}</Title>
           <Icons>
             {blogUrl && (
-              <Link href={blogUrl}>
+              <Link href={blogUrl} data-tooltip-id="base-tooltip" data-tooltip-content="Related blog post">
                 <IconWrapperBubble>
                   <BookSvg />
                 </IconWrapperBubble>
               </Link>
             )}
             {githubUrl && (
-              <Link href={githubUrl} rel="nofollow">
+              <Link href={githubUrl} rel="nofollow" data-tooltip-id="base-tooltip" data-tooltip-content="Source code">
                 <IconWrapperBubble>
                   <GithubSvg />
                 </IconWrapperBubble>
@@ -65,7 +65,13 @@ export const ProjectBox = ({
           {url && (
             <UrlContainer>
               {urlActive ? <Link href={url}>{url}</Link> : <InactiveUrl>{url}</InactiveUrl>}
-              <IconWrapper>{urlActive ? <ExternalSvg /> : <UnlinkSvg />}</IconWrapper>
+              <IconWrapper>
+                {urlActive ? (
+                  <ExternalSvg data-tooltip-id="base-tooltip" data-tooltip-content="External link" />
+                ) : (
+                  <UnlinkSvg data-tooltip-id="base-tooltip" data-tooltip-content="Dead link" />
+                )}
+              </IconWrapper>
             </UrlContainer>
           )}
         </UrlWrapper>

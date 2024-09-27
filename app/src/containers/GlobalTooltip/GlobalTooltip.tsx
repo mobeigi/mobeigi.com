@@ -10,7 +10,7 @@ export const GlobalTooltip = () => {
 
   return (
     <GlobalTooltipWrapper>
-      <StyledTooltip id={`base-tooltip`} place="top" opacity={0.9} className={`rt-theme-${currentTheme}`} />
+      <StyledTooltip id={`base-tooltip`} place="bottom" opacity={1.0} className={`rt-theme-${currentTheme}`} />
     </GlobalTooltipWrapper>
   );
 };
