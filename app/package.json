@@ -49,7 +49,6 @@
     "prism-react-renderer": "^2.4.0",
     "react": "19.0.0-rc-e4953922-20240919",
     "react-dom": "19.0.0-rc-e4953922-20240919",
-    "react-responsive": "^10.0.0",
     "react-spinners": "^0.14.1",
     "react-toastify": "^10.0.5",
     "react-toggle-dark-mode": "file:./packages/react-toggle-dark-mode-v2.0.0.tgz",
