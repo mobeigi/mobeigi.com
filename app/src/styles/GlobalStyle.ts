@@ -176,10 +176,10 @@ const GlobalStyle = createGlobalStyle`
 
   // Inline code
   code:not(pre > code) {
-    background-color: ${({ theme }) => theme.current.container.background};
+    background-color: ${({ theme }) => theme.current.code.background};
     padding: 0 0.2em;
     border-radius: 0.2em;
-    border: 0.1em solid ${({ theme }) => hexToRgba(theme.current.container.accent, 0.15)};
+    border: 0.1em solid ${({ theme }) => hexToRgba(theme.current.code.accent, 0.15)};
   }
 
   // Code
@@ -187,7 +187,7 @@ const GlobalStyle = createGlobalStyle`
     white-space: pre-wrap;
     word-break: break-word;
     border-radius: 0.4em;
-    border: 0.1em solid ${({ theme }) => hexToRgba(theme.current.container.accent, 0.15)};
+    border: 0.1em solid ${({ theme }) => hexToRgba(theme.current.code.accent, 0.15)};
   }
 
   // Blockquote

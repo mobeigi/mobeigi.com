@@ -54,6 +54,11 @@ type ContainerTheme = {
   accent: string;
 };
 
+type CodeTheme = {
+  background: string;
+  accent: string;
+};
+
 type FrameTheme = {
   background: string;
   accent: string;
@@ -68,6 +73,7 @@ type ColorMode = {
   background: string;
   frame: FrameTheme;
   container: ContainerTheme;
+  code: CodeTheme;
   tooltip: TooltipTheme;
   text: TextTheme;
   status: {

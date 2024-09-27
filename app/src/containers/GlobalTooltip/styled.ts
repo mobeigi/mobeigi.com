@@ -19,8 +19,8 @@ export const GlobalTooltipWrapper = styled.div`
   }
 
   & .rt-theme-light {
-    --rt-color-dark: ${({ theme }) => theme.current.tooltip.text};
-    --rt-color-white: ${({ theme }) => theme.current.tooltip.background};
+    --rt-color-dark: ${({ theme }) => theme.current.tooltip.background};
+    --rt-color-white: ${({ theme }) => theme.current.tooltip.text};
   }
 `;
 

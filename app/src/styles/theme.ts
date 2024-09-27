@@ -16,12 +16,16 @@ const theme: Theme = {
       background: '#232323',
       accent: '#3a3a3a',
     },
+    code: {
+      background: '#303030',
+      accent: '#7c7c7c',
+    },
     tooltip: {
-      text: '#e3e3e3',
+      text: '#dadada',
       background: '#424242',
     },
     text: {
-      base: '#e3e3e3',
+      base: '#dadada',
       baseHighlight: '#f5f5f5',
       subtle: '#999',
       subtleHighlight: '#f5f5f5',
@@ -71,6 +75,10 @@ const theme: Theme = {
       background: '#f9f9f9',
       accent: '#a1a1a1',
     },
+    code: {
+      background: '#f2f2f2',
+      accent: '#7c7c7c',
+    },
     text: {
       base: '#404040',
       baseHighlight: '#525252',
@@ -80,8 +88,8 @@ const theme: Theme = {
       linkHighlight: '#fb4d56',
     },
     tooltip: {
-      text: '#e3e3e3',
-      background: '#424242',
+      text: '#404040',
+      background: '#dadada',
     },
     status: {
       primary: {
