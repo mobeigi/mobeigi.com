@@ -48,6 +48,11 @@ const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.current.text.base};
   }
 
+  /* Paragraph */
+  p {
+    line-height: 1.5em;
+  }
+
   /* Headings */
   h1 {
     font-size: 2.25em;
