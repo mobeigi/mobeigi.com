@@ -38,6 +38,7 @@ export const getPostFromParams = async ({ params }: { params: { slug: string[] }
     collection: 'posts',
     where: {
       slug: { equals: postSlug },
+      _status: { equals: 'published' },
     },
     depth,
   });

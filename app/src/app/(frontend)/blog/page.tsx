@@ -42,6 +42,7 @@ const BlogPageHandler = async () => {
 
   const posts = await payload.find({
     collection: 'posts',
+    where: { _status: { equals: 'published' } },
     depth,
     limit: 0,
     pagination: false,

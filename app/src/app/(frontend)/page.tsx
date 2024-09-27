@@ -30,6 +30,7 @@ const Home = async () => {
 
   const posts = await payload.find({
     collection: 'posts',
+    where: { _status: { equals: 'published' } },
     depth,
     limit: 3,
     pagination: false,

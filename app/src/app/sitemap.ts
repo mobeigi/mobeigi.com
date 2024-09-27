@@ -13,6 +13,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
 
   const payloadPosts = await payload.find({
     collection: 'posts',
+    where: { _status: { equals: 'published' } },
     depth: 1,
     limit: 0,
     pagination: false,
