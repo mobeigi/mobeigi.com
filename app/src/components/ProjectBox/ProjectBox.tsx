@@ -24,7 +24,7 @@ import ExternalSvg from '@/assets/icons/boxicons/bx-link-external.svg';
 import UnlinkSvg from '@/assets/icons/boxicons/bx-unlink.svg';
 import GithubSvg from '@/assets/icons/boxicons/bxl-github.svg';
 import BookSvg from '@/assets/icons/boxicons/bx-book.svg';
-import { IconWrapper, IconWrapperBubble } from '@/styles/icon';
+import { IconWrapper, IconWrapperBubble, IconWrapperBubbleNextLink } from '@/styles/icon';
 
 export const ProjectBox = ({
   imgSrc,
@@ -46,18 +46,23 @@ export const ProjectBox = ({
           <Title>{title}</Title>
           <Icons>
             {blogUrl && (
-              <Link href={blogUrl} data-tooltip-id="base-tooltip" data-tooltip-content="Related blog post">
-                <IconWrapperBubble>
-                  <BookSvg />
-                </IconWrapperBubble>
-              </Link>
+              <IconWrapperBubbleNextLink
+                href={blogUrl}
+                data-tooltip-id="base-tooltip"
+                data-tooltip-content="Related blog post"
+              >
+                <BookSvg />
+              </IconWrapperBubbleNextLink>
             )}
             {githubUrl && (
-              <Link href={githubUrl} rel="nofollow" data-tooltip-id="base-tooltip" data-tooltip-content="Source code">
-                <IconWrapperBubble>
-                  <GithubSvg />
-                </IconWrapperBubble>
-              </Link>
+              <IconWrapperBubbleNextLink
+                href={githubUrl}
+                rel="nofollow"
+                data-tooltip-id="base-tooltip"
+                data-tooltip-content="Source code"
+              >
+                <GithubSvg />
+              </IconWrapperBubbleNextLink>
             )}
           </Icons>
         </Header>
