@@ -108,7 +108,7 @@ export const DisplayName = styled.span`
 `;
 
 export const CreatedAtTime = styled.time`
-  color: ${({ theme }) => theme.colors.frame.text.base};
+  color: ${({ theme }) => theme.colors.text.subtle};
 `;
 
 export const CommentContents = styled.span`

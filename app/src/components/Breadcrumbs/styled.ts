@@ -18,12 +18,12 @@ interface StyledLinkProps {
 }
 
 export const StyledLink = styled(Link)<StyledLinkProps>`
-  color: ${({ theme, $active }) => ($active ? theme.colors.text.link : theme.colors.frame.text.base)};
+  color: ${({ theme, $active }) => ($active ? theme.colors.text.link : theme.colors.text.subtle)};
   text-decoration: none;
 
   &:hover,
   &:focus {
-    color: ${({ theme, $active }) => ($active ? theme.colors.text.link : theme.colors.frame.text.baseHighlight)};
+    color: ${({ theme, $active }) => ($active ? theme.colors.text.link : theme.colors.text.subtleHighlight)};
   }
 
   /* Handle long breadcrumb names */
@@ -35,6 +35,6 @@ export const StyledLink = styled(Link)<StyledLinkProps>`
 
 export const ChevronIconWrapper = styled(IconWrapper)`
   svg {
-    fill: ${({ theme }) => theme.colors.frame.text.base};
+    fill: ${({ theme }) => theme.colors.text.subtle};
   }
 `;

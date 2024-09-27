@@ -35,7 +35,7 @@ export const LabelDetails = styled.span`
   display: inline-flex;
   gap: 0.4em;
   font-size: 0.85em;
-  color: ${({ theme }) => theme.colors.frame.text.base};
+  color: ${({ theme }) => theme.colors.text.subtle};
 `;
 
 export const ContentEditableWrapper = styled.div<InputStatusProps>`
@@ -56,14 +56,14 @@ export const ContentEditableWrapper = styled.div<InputStatusProps>`
       outline: none;
       /* Apply outline based on isError status */
       border-color: ${({ $isError, theme }) =>
-        $isError ? theme.colors.status.error.base : theme.colors.container.text.baseHighlight};
+        $isError ? theme.colors.status.error.base : theme.colors.text.baseHighlight};
     }
 
     /* Apply outline on error */
     ${({ $isError, theme }) => $isError && `border-color: ${theme.colors.status.error.base};`}
 
     &[disabled] {
-      color: ${({ theme }) => theme.colors.frame.text.base};
+      color: ${({ theme }) => theme.colors.text.subtle};
     }
   }
 `;

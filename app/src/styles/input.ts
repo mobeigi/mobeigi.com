@@ -21,7 +21,7 @@ export const InputWithError = styled.span<InputStatusProps>`
       outline: none;
       /* Apply outline based on isError status */
       border-color: ${({ $isError, theme }) =>
-        $isError ? theme.colors.status.error.base : theme.colors.container.text.baseHighlight};
+        $isError ? theme.colors.status.error.base : theme.colors.text.baseHighlight};
     }
   }
 `;

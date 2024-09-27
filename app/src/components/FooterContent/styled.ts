@@ -25,7 +25,7 @@ export const FooterContents = styled.div`
   box-sizing: border-box;
 
   font-size: 0.9em;
-  color: ${({ theme }) => theme.colors.frame.text.base};
+  color: ${({ theme }) => theme.colors.text.subtle};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet.maxWidth}px) {
     flex-direction: column;
@@ -40,10 +40,10 @@ export const LogoWrapper = styled.div`
   margin-top: 1em;
 
   svg {
-    fill: ${({ theme }) => theme.colors.frame.text.base} !important;
+    fill: ${({ theme }) => theme.colors.text.subtle} !important;
 
     path {
-      stroke: ${({ theme }) => theme.colors.frame.text.base} !important;
+      stroke: ${({ theme }) => theme.colors.text.subtle} !important;
     }
   }
 
@@ -82,11 +82,11 @@ export const FooterNav = styled.nav`
   }
 
   li a {
-    color: ${({ theme }) => theme.colors.frame.text.base};
+    color: ${({ theme }) => theme.colors.text.subtle};
   }
 
   li a:hover {
-    color: ${({ theme }) => theme.colors.frame.text.baseHighlight};
+    color: ${({ theme }) => theme.colors.text.subtleHighlight};
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet.maxWidth}px) {

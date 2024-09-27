@@ -12,9 +12,9 @@ export const HomePageSection = styled.section`
 
 export const CustomIconWrapper = styled(IconWrapper)`
   svg {
-    fill: ${({ theme }) => theme.colors.frame.text.base};
+    fill: ${({ theme }) => theme.colors.text.subtle};
     path: {
-      stroke: ${({ theme }) => theme.colors.frame.text.base};
+      stroke: ${({ theme }) => theme.colors.text.subtle};
     }
   }
 `;
@@ -54,7 +54,7 @@ export const PhotographyTag = styled.div`
   gap: 1em;
   margin: 0.4em 0;
 
-  color: ${({ theme }) => theme.colors.frame.text.base};
+  color: ${({ theme }) => theme.colors.text.subtle};
 `;
 
 export const BlogSummaryWrapper = styled.div`

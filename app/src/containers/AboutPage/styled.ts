@@ -21,7 +21,7 @@ export const ProgrammingLanguagesContainer = styled.div`
   display: flex;
   justify-content: space-around;
   gap: 1em;
-  color: ${({ theme }) => theme.colors.frame.text.base};
+  color: ${({ theme }) => theme.colors.text.subtle};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px) {
     flex-wrap: wrap;
@@ -45,6 +45,6 @@ export const IconAndTextContainer = styled.span`
 
 export const CustomIconWrapper = styled(IconWrapper)`
   svg {
-    fill: ${({ theme }) => theme.colors.frame.text.base};
+    fill: ${({ theme }) => theme.colors.text.subtle};
   }
 `;

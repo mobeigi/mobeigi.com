@@ -11,19 +11,10 @@ const theme = {
       frame: {
         background: '#181717',
         accent: '#3a3a3a',
-        // TODO: Change this text type to act like 'subtle' text, its not just for the frame
-        text: {
-          base: '#999',
-          baseHighlight: '#f5f5f5',
-        },
       },
       container: {
         background: '#232323',
         accent: '#3a3a3a',
-        text: {
-          base: '#e3e3e3',
-          baseHighlight: '#f5f5f5',
-        },
       },
       tooltip: {
         text: '#e3e3e3',
@@ -32,6 +23,8 @@ const theme = {
       text: {
         base: '#e3e3e3',
         baseHighlight: '#f5f5f5',
+        subtle: '#999',
+        subtleHighlight: '#f5f5f5',
         link: '#af363c',
         linkHighlight: '#fb4d56',
       },
@@ -73,22 +66,16 @@ const theme = {
       frame: {
         background: '#f6f6f6',
         accent: '#a1a1a1',
-        text: {
-          base: '#6e6e6e',
-          baseHighlight: '#525252',
-        },
       },
       container: {
         background: '#f9f9f9',
         accent: '#a1a1a1',
-        text: {
-          base: '#404040',
-          baseHighlight: '#525252',
-        },
       },
       text: {
         base: '#404040',
         baseHighlight: '#525252',
+        subtle: '#6e6e6e',
+        subtleHighlight: '#525252',
         link: '#af363c',
         linkHighlight: '#fb4d56',
       },
