@@ -81,7 +81,7 @@ export const generateBreadcrumbs = (payloadCategory: PayloadCategory): WithConte
     return null;
   }
 
-  let breadcrumbList = generateParentBreadcrumbs();
+  const breadcrumbList = generateParentBreadcrumbs();
   if (!breadcrumbList) {
     return null;
   }

@@ -1,14 +1,6 @@
 import { ReactNodeConverter } from '@/payload/lexical/types';
 import type { SerializedTextNode } from '@payloadcms/richtext-lexical';
-import {
-  IS_BOLD,
-  IS_CODE,
-  IS_ITALIC,
-  IS_STRIKETHROUGH,
-  IS_SUBSCRIPT,
-  IS_SUPERSCRIPT,
-  IS_UNDERLINE,
-} from '@payload/lexical/nodeFormat';
+import { IS_BOLD, IS_CODE, IS_ITALIC, IS_STRIKETHROUGH, IS_SUBSCRIPT, IS_SUPERSCRIPT, IS_UNDERLINE } from 'lexical';
 
 export const TextReactNodeConverter: ReactNodeConverter<SerializedTextNode> = {
   converter({ node }) {

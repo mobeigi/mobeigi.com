@@ -133,6 +133,7 @@ export const validationHook: CollectionBeforeValidateHook = async ({ data, req, 
       try {
         isSpam = await akismetClient.checkSpam(akismetCommentToCheck);
       } catch (error) {
+        console.warn('Unable to perform spam check.', error);
         throw new ValidationError({
           collection: 'comments',
           errors: [],

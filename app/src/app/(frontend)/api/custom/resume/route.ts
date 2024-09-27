@@ -5,13 +5,15 @@ import { PrivateFile } from '@/payload-types';
 import { BASE_URL } from '@/constants/app';
 import { requireEnvVar } from '@/utils/env';
 import { Users } from '@payload/collections/Users';
+import { ResumeRequest } from '@/types/api/resume';
+import { ErrorResonse } from '@/types/api/error';
 
 const depth = 2;
 const systemUserApiKey = requireEnvVar(process.env.PAYLOAD_SYSTEM_USER_API_KEY, 'PAYLOAD_SYSTEM_USER_API_KEY');
 
 export const POST = async (request: Request) => {
   try {
-    const body = await request.json();
+    const body = (await request.json()) as ResumeRequest;
     const { password } = body;
 
     const payload = await getPayloadHMR({
@@ -37,7 +39,10 @@ export const POST = async (request: Request) => {
       });
 
       if (!response.ok) {
-        return NextResponse.json({ error: 'Failed to fetch resume file.' }, { status: response.status });
+        const errorResponse: ErrorResonse = {
+          error: 'Failed to fetch resume file',
+        };
+        return NextResponse.json(errorResponse, { status: response.status });
       }
 
       const fileBuffer = await response.arrayBuffer();
@@ -52,10 +57,12 @@ export const POST = async (request: Request) => {
         },
       });
     } else {
-      return NextResponse.json({ error: 'Access denied. Password is incorrect.' }, { status: 403 });
+      const errorResponse: ErrorResonse = { error: 'Access denied. Password is incorrect.' };
+      return NextResponse.json(errorResponse, { status: 403 });
     }
   } catch (error) {
-    console.error('Encountered error while processing resume request.', error);
-    return NextResponse.json({ error: 'Encountered error while processing resume request.' }, { status: 500 });
+    const errorResponse: ErrorResonse = { error: 'Encountered error while processing resume request.' };
+    console.error(errorResponse.error, error);
+    return NextResponse.json(errorResponse, { status: 500 });
   }
 };

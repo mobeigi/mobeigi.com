@@ -24,7 +24,7 @@ export const HighlightJsStyle = ({ currentThemeMode }: HighlightJsStyleProps) =>
       <link
         id={HIGHLIGHTJS_THEME_LINK_ID_LIGHT}
         rel="stylesheet"
-        /* @ts-ignore */
+        /* @ts-expect-error Setting disabled attribute is required. */
         disabled={currentThemeMode !== ThemeMode.Light}
         href={HIGHLIGHTJS_THEME_LIGHT_CSS_PATH}
       />
@@ -33,7 +33,7 @@ export const HighlightJsStyle = ({ currentThemeMode }: HighlightJsStyleProps) =>
       <link
         id={HIGHLIGHTJS_THEME_LINK_ID_DARK}
         rel="stylesheet"
-        /* @ts-ignore */
+        /* @ts-expect-error Setting disabled attribute is required. */
         disabled={currentThemeMode !== ThemeMode.Dark}
         href={HIGHLIGHTJS_THEME_DARK_CSS_PATH}
       />

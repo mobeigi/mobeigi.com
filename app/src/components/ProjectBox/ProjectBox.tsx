@@ -24,7 +24,7 @@ import ExternalSvg from '@/assets/icons/boxicons/bx-link-external.svg';
 import UnlinkSvg from '@/assets/icons/boxicons/bx-unlink.svg';
 import GithubSvg from '@/assets/icons/boxicons/bxl-github.svg';
 import BookSvg from '@/assets/icons/boxicons/bx-book.svg';
-import { IconWrapper, IconWrapperBubble, IconWrapperBubbleNextLink } from '@/styles/icon';
+import { IconWrapper, IconWrapperBubbleNextLink } from '@/styles/icon';
 
 export const ProjectBox = ({
   imgSrc,

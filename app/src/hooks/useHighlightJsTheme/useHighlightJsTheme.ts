@@ -24,7 +24,7 @@ export const useHighlightJsTheme = () => {
       setLinkEnabledById(HIGHLIGHTJS_THEME_LINK_ID_LIGHT, false);
       setLinkEnabledById(HIGHLIGHTJS_THEME_LINK_ID_DARK, true);
     } else {
-      throw Error(`Unsupported themeMode: ${ThemeMode}`);
+      throw Error(`Unsupported themeMode: ${String(theme.currentThemeMode)}`);
     }
   }, [theme.currentThemeMode]);
 };

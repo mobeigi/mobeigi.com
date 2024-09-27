@@ -16,7 +16,7 @@ export const updateMediaSourcesForTheme = (resolvedThemeMode: ThemeMode) => {
       const currentMedia = source.getAttribute('media');
 
       if (sourceTheme !== null) {
-        const newMedia = sourceTheme === resolvedThemeMode ? 'all' : 'none';
+        const newMedia = sourceTheme === resolvedThemeMode.toString() ? 'all' : 'none';
         if (currentMedia !== newMedia) {
           source.setAttribute('media', newMedia);
         }
@@ -35,7 +35,7 @@ export const updateMediaSourcesForTheme = (resolvedThemeMode: ThemeMode) => {
       const currentMedia = source.getAttribute('media');
 
       if (sourceTheme !== null) {
-        const newMedia = sourceTheme === resolvedThemeMode ? 'all' : 'none';
+        const newMedia = sourceTheme === resolvedThemeMode.toString() ? 'all' : 'none';
         if (currentMedia !== newMedia) {
           source.setAttribute('media', newMedia);
           videoNeedsUpdate = true;

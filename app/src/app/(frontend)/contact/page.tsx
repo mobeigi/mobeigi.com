@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export const generateBreadcrumbs = (): WithContext<BreadcrumbList> | null => {
-  let breadcrumbList = generateParentBreadcrumbs();
+  const breadcrumbList = generateParentBreadcrumbs();
   const lastItemId = getLastItemId(breadcrumbList.itemListElement as ListItem[]);
   if (!lastItemId) {
     return null;

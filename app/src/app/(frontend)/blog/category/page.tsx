@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 export const generateBreadcrumbs = (): WithContext<BreadcrumbList> | null => {
-  let breadcrumbList = generateParentBreadcrumbs();
+  const breadcrumbList = generateParentBreadcrumbs();
   if (!breadcrumbList) {
     return null;
   }
@@ -39,7 +39,7 @@ export const generateBreadcrumbs = (): WithContext<BreadcrumbList> | null => {
   return breadcrumbList;
 };
 
-const CategoryPageHandler = async ({ params }: { params: { slug: string[] } }) => {
+const CategoryPageHandler = async () => {
   const payload = await getPayloadHMR({
     config,
   });

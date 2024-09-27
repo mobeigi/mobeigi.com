@@ -10,6 +10,7 @@ import { saveAs } from 'file-saver';
 import { debounce } from 'lodash-es';
 import { DEBOUNCE_TIMEOUT_MS } from '@/constants/inputs';
 import { toast } from 'react-toastify';
+import { ErrorResonse } from '@/types/api/error';
 
 const initialPassword = '';
 const initialIsSubmitting = false;
@@ -92,7 +93,7 @@ export const ResumePage = () => {
         saveAs(await response.blob(), 'Mo-Beigi-Resume.pdf');
         toast.success('Resume was downloaded successfully.');
       } else {
-        const json = await response.json();
+        const json = (await response.json()) as ErrorResonse;
         updateErrors('password', json.error);
       }
     } catch (error) {
@@ -127,13 +128,18 @@ export const ResumePage = () => {
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
-                handleDownload();
+                void handleDownload();
               }
             }}
           />
           {isPasswordError && <InputError>{errors.get('password')}</InputError>}
 
-          <PrimaryButton onClick={handleDownload} disabled={isSubmitting || isPasswordError}>
+          <PrimaryButton
+            onClick={() => {
+              void handleDownload();
+            }}
+            disabled={isSubmitting || isPasswordError}
+          >
             <ButtonLabel $isVisible={!isSubmitting}>Download</ButtonLabel>
             {isSubmitting && (
               <SpinnerOverlay>
