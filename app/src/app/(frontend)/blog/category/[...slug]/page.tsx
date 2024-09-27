@@ -116,7 +116,10 @@ const CategoryDetailPageHandler = async ({ params }: { params: { slug: string[] 
 
   const payloadPosts = await payload.find({
     collection: 'posts',
-    where: { category: { equals: payloadCategory.id } },
+    where: {
+      category: { equals: payloadCategory.id },
+      _status: { equals: 'published' },
+    },
     depth,
     limit: 0,
     pagination: false,
