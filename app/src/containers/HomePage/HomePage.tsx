@@ -90,13 +90,13 @@ export const HomePage = ({ latestBlogPostMetas, latestPhotographyImages }: HomeP
                   />
                 </PhotographyImageWrapper>
                 <PhotographyTag>
-                  <IconAndTextContainer>
+                  <IconAndTextContainer data-tooltip-id="base-tooltip" data-tooltip-content="Date taken">
                     <IconWrapper>
                       <CalendarSvg />
                     </IconWrapper>
                     <span>{formatDate(photographyImage.date, 'd MMMM yyyy')}</span>
                   </IconAndTextContainer>
-                  <IconAndTextContainer>
+                  <IconAndTextContainer data-tooltip-id="base-tooltip" data-tooltip-content="Photo name">
                     <IconWrapper>
                       <FileSvg />
                     </IconWrapper>
