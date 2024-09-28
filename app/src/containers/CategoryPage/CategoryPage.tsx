@@ -1,8 +1,3 @@
-'use client';
-// Uncomment during local development (with hot reloading) to fix @svgr/webpack bug.
-// TODO: Remove above workaround when @svgr/webpack bug is resolved. This component does not need to be a client side component.
-// Github link: https://github.com/vercel/next.js/issues/69545
-
 import { CategoryPageSection, RootCategoryWrapper } from './styled';
 import { CategoryPageProps } from './types';
 import Link from 'next/link';

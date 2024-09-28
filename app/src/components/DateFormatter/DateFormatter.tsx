@@ -1,14 +1,11 @@
-import lazy from 'next/dynamic';
-import { Suspense } from 'react';
+'use client';
+
+import dynamic from 'next/dynamic';
 import { DateFormatterProps } from './types';
 
-const DateFormatterClient = lazy(() => import('./Client'), {
+const DateFormatterClient = dynamic(() => import('./DateFormatterClient'), {
   ssr: false,
   loading: () => <>Loading...</>,
 });
 
-export const DateFormatter = (props: DateFormatterProps) => (
-  <Suspense>
-    <DateFormatterClient {...props} />
-  </Suspense>
-);
+export const DateFormatter = (props: DateFormatterProps) => <DateFormatterClient {...props} />;
