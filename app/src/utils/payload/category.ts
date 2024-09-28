@@ -1,5 +1,6 @@
 import { Category as PayloadCategory } from '@/payload-types';
 
+// TODO: Improve these utils, see if they are needed at all
 export const buildCategorySlugUrl = (categorySlugs: string[]): string => {
   return '/' + categorySlugs.join('/');
 };
