@@ -101,6 +101,76 @@ const GlobalStyle = createGlobalStyle`
     padding-bottom: 0.2em;
   }
   
+  /* Nested OL */
+  ol {
+    list-style-type: decimal;
+  }
+
+  ol ol {
+    list-style-type: upper-alpha;
+  }
+
+  ol ol ol {
+    list-style-type: lower-alpha;
+  }
+
+  ol ol ol ol {
+    list-style-type: upper-roman;
+  }
+
+  ol ol ol ol ol {
+    list-style-type: decimal;
+  }
+
+  ol ol ol ol ol ol {
+    list-style-type: upper-alpha;
+  }
+
+  ol ol ol ol ol ol ol {
+    list-style-type: lower-alpha;
+  }
+
+  ol ol ol ol ol ol ol ol {
+    list-style-type: upper-roman;
+  }
+
+  /* Nested UL */
+  ul {
+    list-style-type: disc;
+  }
+
+  ul ul {
+    list-style-type: circle;
+  }
+
+  ul ul ul {
+    list-style-type: square;
+  }
+
+  ul ul ul ul {
+    list-style-type: disc;
+  }
+
+  ul ul ul ul ul {
+    list-style-type: circle;
+  }
+
+  ul ul ul ul ul ul {
+    list-style-type: square;
+  }
+
+  ul ul ul ul ul ul ul {
+    list-style-type: disc;
+  }
+
+  ul ul ul ul ul ul ul ul {
+    list-style-type: circle;
+  }
+
+  ul ul ul ul ul ul ul ul ul {
+    list-style-type: square;
+  }
+  
   /* Links */
   a {
     color: ${({ theme }) => theme.current.text.link};
