@@ -20,6 +20,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { GA_TAG_ID } from '@/constants/analytics';
 import GlobalTooltip from '@/containers/GlobalTooltip';
 import { use } from 'react';
+import ConsoleWelcomeMessage from '@/components/ConsoleWelcomeMessage';
 
 const roboto = Roboto({ subsets: ['latin'], style: ['normal', 'italic'], weight: ['400', '700'] });
 
@@ -73,6 +74,7 @@ const RootLayout = ({
               <GlobalTooltip />
               <ThemedToastContainer />
               <HighlightJsStyle currentThemeMode={currentThemeMode} />
+              <ConsoleWelcomeMessage />
               <Header id="header">
                 <HeaderContent />
               </Header>
