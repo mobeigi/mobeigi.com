@@ -1,7 +1,7 @@
 import { Category as PayloadCategory, Post as PayloadPost } from '@/payload-types';
 import { resolveCategoryUrl } from '@/payload/collections/Category/resolveUrl';
 import { resolvePostsUrl } from '@/payload/collections/Posts/resolveUrl';
-import { BlogPostPostMeta, Breadcrumb, Category } from '@/types/blog';
+import { BlogPostPostMeta, Category } from '@/types/blog';
 
 /**
  * Maps Payload blog post to post meta.
@@ -14,18 +14,6 @@ export const mapPostToPostMeta = (payloadPost: PayloadPost): BlogPostPostMeta | 
 
   const payloadCategory = payloadPost.category as PayloadCategory;
   const publishedAtDate = new Date(payloadPost.publishedAt);
-
-  if (!payloadCategory.breadcrumbs) {
-    console.warn('Breadcrumbs cannot be absent.');
-    return null;
-  }
-
-  // TODO: Is this even used? Remove if not.
-  const blogPostBreadcrumbs: Breadcrumb[] = payloadCategory.breadcrumbs.map((breadcrumb) => ({
-    title: breadcrumb.label!,
-    slug: breadcrumb.url!.split('/').slice(-1)[0].replace('/', ''),
-    url: breadcrumb.url!,
-  }));
 
   const categoryUrl = resolveCategoryUrl(payloadCategory);
   if (!categoryUrl) {
@@ -49,7 +37,6 @@ export const mapPostToPostMeta = (payloadPost: PayloadPost): BlogPostPostMeta | 
     publishedAt: publishedAtDate,
     excerpt: payloadPost.excerpt,
     slug: payloadPost.slug,
-    breadcrumbs: blogPostBreadcrumbs,
     url: blogPostUrl,
     views: payloadPost.views || 0,
     category: category,
