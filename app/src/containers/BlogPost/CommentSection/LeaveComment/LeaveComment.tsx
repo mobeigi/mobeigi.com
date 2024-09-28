@@ -36,31 +36,12 @@ import { Comment as PayloadComment } from '@/payload-types';
 import { debounce } from 'lodash-es';
 import { InputError, InputWithError } from '@/styles/input';
 import { DEBOUNCE_TIMEOUT_MS } from '@/constants/inputs';
-import { SerializedParagraphNode } from '@payloadcms/richtext-lexical';
 import { ValidationErrorResponse } from '@/types/payload';
+import { emptySerializedEditorState } from '@/utils/lexical/state';
 
 const initialDisplayName = '';
 const initialEmail = '';
-// TODO: Move this creation of empty lexical state to a util
-const emptyParagraph: SerializedParagraphNode = {
-  children: [],
-  direction: null,
-  format: '',
-  indent: 0,
-  type: 'paragraph',
-  version: 1,
-  textFormat: 0,
-};
-const initialContent: SerializedEditorState = {
-  root: {
-    children: [emptyParagraph],
-    direction: null,
-    format: '',
-    indent: 0,
-    type: 'root',
-    version: 1,
-  },
-};
+const initialContent: SerializedEditorState = emptySerializedEditorState;
 const initialErrors = new Map();
 const initialIsSubmitting = false;
 
