@@ -20,13 +20,17 @@ import { headers } from 'next/headers';
 
 const depth = 2;
 
-export const getPostFromParams = async ({ params }: { params: { slug: string[] } }): Promise<Post | null> => {
+export const getPostFromResolvedParams = async ({
+  resolvedParams,
+}: {
+  resolvedParams: { slug: string[] };
+}): Promise<Post | null> => {
   const payload = await getPayloadHMR({
     config,
   });
 
-  const postSlug = params.slug[params.slug.length - 1];
-  const categorySlugs = params.slug.slice(0, -1);
+  const postSlug = resolvedParams.slug[resolvedParams.slug.length - 1];
+  const categorySlugs = resolvedParams.slug.slice(0, -1);
 
   if (categorySlugs.length === 0) {
     return null;
@@ -80,10 +84,12 @@ const getCategorySlugUrl = (category: Category): string | null => {
   return lastBreadcrumb.url;
 };
 
-export const generateMetadata = async ({ params }: { params: { slug: string[] } }): Promise<Metadata> => {
-  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', ...params.slug]) });
+export const generateMetadata = async ({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> => {
+  const resolvedParams = await params;
 
-  const post = await getPostFromParams({ params });
+  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', ...resolvedParams.slug]) });
+
+  const post = await getPostFromResolvedParams({ resolvedParams });
   if (!post) {
     console.warn('Failed to find post during generateMetadata.');
     notFound();
@@ -137,10 +143,12 @@ export const generateBreadcrumbs = (post: Post): WithContext<BreadcrumbList> | n
   return breadcrumbList;
 };
 
-const BlogPostHandler = async ({ params }: { params: { slug: string[] } }) => {
-  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', ...params.slug]) });
+const BlogPostHandler = async ({ params }: { params: Promise<{ slug: string[] }> }) => {
+  const resolvedParams = await params;
 
-  const post = await getPostFromParams({ params });
+  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', ...resolvedParams.slug]) });
+
+  const post = await getPostFromResolvedParams({ resolvedParams });
   if (!post) {
     notFound();
     return null;
@@ -154,7 +162,7 @@ const BlogPostHandler = async ({ params }: { params: { slug: string[] } }) => {
   const breadcrumbs = generateBreadcrumbs(post);
 
   // Register post views
-  const headerList = headers();
+  const headerList = await headers();
   const ipAddress = headerList.get('x-forwarded-for');
   const userAgent = headerList.get('user-agent');
   if (ipAddress && userAgent) {

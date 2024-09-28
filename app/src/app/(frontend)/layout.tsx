@@ -19,6 +19,7 @@ import ThemedToastContainer from '@/components/ThemedToastContainer';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { GA_TAG_ID } from '@/constants/analytics';
 import GlobalTooltip from '@/containers/GlobalTooltip';
+import { use } from 'react';
 
 const roboto = Roboto({ subsets: ['latin'], style: ['normal', 'italic'], weight: ['400', '700'] });
 
@@ -40,7 +41,7 @@ const RootLayout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const cookieStore = cookies();
+  const cookieStore = use(cookies());
   const themeCookie = cookieStore.get(THEME_COOKIE_NAME);
 
   let initialThemeMode = DEFAULT_THEME_MODE;

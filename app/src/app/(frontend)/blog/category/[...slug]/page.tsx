@@ -20,16 +20,16 @@ import { payloadRedirect } from '@/payload/utils/payloadRedirect';
 
 const depth = 2;
 
-export const getPayloadCategoryFromParams = async ({
-  params,
+export const getPayloadCategoryFromResolvedParams = async ({
+  resolvedParams,
 }: {
-  params: { slug: string[] };
+  resolvedParams: { slug: string[] };
 }): Promise<PayloadCategory | null> => {
   const payload = await getPayloadHMR({
     config,
   });
 
-  const categorySlugs = params.slug;
+  const categorySlugs = resolvedParams.slug;
   if (categorySlugs.length === 0) {
     return null;
   }
@@ -59,10 +59,12 @@ export const getPayloadCategoryFromParams = async ({
   return category;
 };
 
-export const generateMetadata = async ({ params }: { params: { slug: string[] } }): Promise<Metadata> => {
-  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', 'category', ...params.slug]) });
+export const generateMetadata = async ({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> => {
+  const resolvedParams = await params;
 
-  const payloadCategory = await getPayloadCategoryFromParams({ params });
+  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', 'category', ...resolvedParams.slug]) });
+
+  const payloadCategory = await getPayloadCategoryFromResolvedParams({ resolvedParams });
   if (!payloadCategory) {
     console.warn('Failed to find payload category during generateMetadata.');
     return notFound();
@@ -101,10 +103,12 @@ export const generateBreadcrumbs = (payloadCategory: PayloadCategory): WithConte
   return breadcrumbList;
 };
 
-const CategoryDetailPageHandler = async ({ params }: { params: { slug: string[] } }) => {
-  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', 'category', ...params.slug]) });
+const CategoryDetailPageHandler = async ({ params }: { params: Promise<{ slug: string[] }> }) => {
+  const resolvedParams = await params;
 
-  const payloadCategory = await getPayloadCategoryFromParams({ params });
+  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', 'category', ...resolvedParams.slug]) });
+
+  const payloadCategory = await getPayloadCategoryFromResolvedParams({ resolvedParams });
   if (!payloadCategory) {
     notFound();
     return null;
