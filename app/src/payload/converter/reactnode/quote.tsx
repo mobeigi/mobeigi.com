@@ -8,7 +8,6 @@ export const QuoteReactNodeConverter: ReactNodeConverter<SerializedQuoteNode> = 
       converters,
       lexicalNodes: node.children,
       parent: {
-        // TODO: Is spreading node here correct?
         ...node,
         parent,
       },
