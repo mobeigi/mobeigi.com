@@ -1,7 +1,0 @@
-{
-    "host": "localhost",
-    "port": 3306,
-    "username": "mobeigi_server_user",
-    "password": "example",
-    "database": "mobeigi_server"
-}
