@@ -17,7 +17,7 @@ import { generateBreadcrumbs } from './breadcrumbs';
 
 const depth = 2;
 
-export const getPayloadCategoryFromResolvedParams = async ({
+const getPayloadCategoryFromResolvedParams = async ({
   resolvedParams,
 }: {
   resolvedParams: { slug: string[] };

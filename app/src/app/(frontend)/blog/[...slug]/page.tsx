@@ -1,4 +1,3 @@
-import { Post, Category } from '@/payload-types';
 import { Metadata } from 'next';
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import config from '@payload-config';
@@ -14,14 +13,15 @@ import { payloadRedirect } from '@/payload/utils/payloadRedirect';
 import { registerView } from '@/payload/utils/viewCounter';
 import { headers } from 'next/headers';
 import { generateBreadcrumbs } from './breadcrumbs';
+import { Post as PayloadPost, Category as PayloadCategory } from '@/payload-types';
 
 const depth = 2;
 
-export const getPostFromResolvedParams = async ({
+const getPayloadPostFromResolvedParams = async ({
   resolvedParams,
 }: {
   resolvedParams: { slug: string[] };
-}): Promise<Post | null> => {
+}): Promise<PayloadPost | null> => {
   const payload = await getPayloadHMR({
     config,
   });
@@ -35,7 +35,7 @@ export const getPostFromResolvedParams = async ({
 
   const paramsCategorySlugUrl = buildCategorySlugUrl(categorySlugs);
 
-  const posts = await payload.find({
+  const payloadPosts = await payload.find({
     collection: 'posts',
     where: {
       slug: { equals: postSlug },
@@ -44,15 +44,15 @@ export const getPostFromResolvedParams = async ({
     depth,
   });
 
-  if (!posts.docs.length) {
+  if (!payloadPosts.docs.length) {
     return null;
   }
 
   // Ensure category slug urls match
   // We want to only show the blog post if the slug is correct
-  const postsMatchingCategorySlugUrl = posts.docs.filter((post) => {
+  const postsMatchingCategorySlugUrl = payloadPosts.docs.filter((post) => {
     if (!post.category) return false;
-    const category = post.category as Category;
+    const category = post.category as PayloadCategory;
     const categorySlugUrl = getCategorySlugUrl(category);
     return categorySlugUrl === paramsCategorySlugUrl;
   });
@@ -69,7 +69,7 @@ export const generateMetadata = async ({ params }: { params: Promise<{ slug: str
 
   await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', ...resolvedParams.slug]) });
 
-  const post = await getPostFromResolvedParams({ resolvedParams });
+  const post = await getPayloadPostFromResolvedParams({ resolvedParams });
   if (!post) {
     console.warn('Failed to find post during generateMetadata.');
     notFound();
@@ -90,7 +90,7 @@ const BlogPostHandler = async ({ params }: { params: Promise<{ slug: string[] }>
 
   await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', ...resolvedParams.slug]) });
 
-  const post = await getPostFromResolvedParams({ resolvedParams });
+  const post = await getPayloadPostFromResolvedParams({ resolvedParams });
   if (!post) {
     notFound();
     return null;
@@ -127,7 +127,7 @@ const BlogPostHandler = async ({ params }: { params: Promise<{ slug: string[] }>
 /**
  * Transforms a Post to a BlogPostProps object
  */
-const transformPostToBlogPostProps = async (post: Post): Promise<BlogPostProps | null> => {
+const transformPostToBlogPostProps = async (post: PayloadPost): Promise<BlogPostProps | null> => {
   const postMeta = mapPostToPostMeta(post);
   if (!postMeta) {
     console.warn('postMeta should not be null.');
