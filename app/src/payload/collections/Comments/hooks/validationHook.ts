@@ -91,17 +91,37 @@ export const validationHook: CollectionBeforeValidateHook = async ({ data, req, 
       comment.author = signedInUser.id;
     }
 
-    // Populate ip address
-    const xForwardedFor = req.headers.get('x-forwarded-for') || ''; // TODO: validation error here
     if (!comment.ipAddress) {
-      // TODO: Should not rely on provided for request
+      // Populate ip address
+      const xForwardedFor = req.headers.get('x-forwarded-for');
+      if (!xForwardedFor) {
+        throw new ValidationError({
+          collection: 'comments',
+          errors: [
+            {
+              field: 'ipAddress',
+              message: 'Failed to get ipAddress from headers.',
+            },
+          ],
+        });
+      }
       comment.ipAddress = xForwardedFor;
     }
 
-    // Populate user agent
-    const userAgent = req.headers.get('user-agent') || ''; // TODO: validation error here
     if (!comment.userAgent) {
-      // TODO: Should not rely on provided for request
+      // Populate user agent
+      const userAgent = req.headers.get('user-agent');
+      if (!userAgent) {
+        throw new ValidationError({
+          collection: 'comments',
+          errors: [
+            {
+              field: 'userAgent',
+              message: 'Failed to get userAgent from headers.',
+            },
+          ],
+        });
+      }
       comment.userAgent = userAgent;
     }
 
