@@ -1,7 +1,0 @@
-# Mo Beigi security.txt
-# Thank you for disclosing security issues responsibly!
-
-Contact: me@mobeigi.com
-Encryption: https://mobeigi.com/sec/mo-beigi-pgp-pub.asc
-Preferred-Languages: en
-Canonical: https://mobeigi.com/.well-known/security.txt

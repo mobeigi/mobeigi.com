@@ -3,10 +3,6 @@
     {
       "directory": "./app",
       "changeProcessCWD": true
-    },
-    {
-      "directory": "./server",
-      "changeProcessCWD": true
     }
   ],
   "search.exclude": {
