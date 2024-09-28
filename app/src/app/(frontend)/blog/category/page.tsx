@@ -2,41 +2,18 @@ import { Metadata } from 'next';
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import config from '@payload-config';
 import { Category } from '@/types/blog';
-import { generateBreadcrumbs as generateParentBreadcrumbs } from '../page';
-import { appendItem } from '@/utils/seo/breadCrumbList';
-import { getLastItemId } from '@/utils/seo/listItem';
-import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
-import { joinUrl } from '@/utils/url';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { resolveCategoryUrl } from '@/payload/collections/Category/resolveUrl';
 import { sortCategoryByTitle } from '@/utils/blog/category';
 import CategoryPage from '@/containers/CategoryPage';
 import { CategoryWithSubcategories } from '@/containers/CategoryPage/types';
+import { generateBreadcrumbs } from './breadcrumbs';
 
 const depth = 2;
 
 export const metadata: Metadata = {
   title: 'Category',
   description: "Explore Mo's categories for easy navigation through various topics and insights.",
-};
-
-export const generateBreadcrumbs = (): WithContext<BreadcrumbList> | null => {
-  const breadcrumbList = generateParentBreadcrumbs();
-  if (!breadcrumbList) {
-    return null;
-  }
-  const lastItemId = getLastItemId(breadcrumbList.itemListElement as ListItem[]);
-  if (!lastItemId) {
-    return null;
-  }
-
-  appendItem({
-    breadcrumbList: breadcrumbList,
-    id: joinUrl([lastItemId, 'category']),
-    name: 'Category',
-  });
-
-  return breadcrumbList;
 };
 
 const CategoryPageHandler = async () => {

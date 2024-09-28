@@ -6,17 +6,14 @@ import BlogPost from '@/containers/BlogPost';
 import { notFound } from 'next/navigation';
 import { BlogPostProps } from '@/containers/BlogPost';
 import { BlogPostContent, BlogPostMeta, BlogPostRelatedMeta } from '@/types/blog';
-import { mapPostToPostMeta, mapComments } from '@/utils/payload';
+import { mapPostToPostMeta, mapComments, buildCategorySlugUrl, getCategorySlugUrl } from '@/utils/payload';
 import { countTotalComments } from '@/utils/blog/comments';
-import { generateBreadcrumbs as generateParentBreadcrumbs } from '../page';
 import { joinUrl } from '@/utils/url';
-import { appendItem } from '@/utils/seo/breadCrumbList';
-import { getLastItemId } from '@/utils/seo/listItem';
-import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { payloadRedirect } from '@/payload/utils/payloadRedirect';
 import { registerView } from '@/payload/utils/viewCounter';
 import { headers } from 'next/headers';
+import { generateBreadcrumbs } from './breadcrumbs';
 
 const depth = 2;
 
@@ -67,23 +64,6 @@ export const getPostFromResolvedParams = async ({
   return postsMatchingCategorySlugUrl[0];
 };
 
-const buildCategorySlugUrl = (categorySlugs: string[]): string => {
-  return '/' + categorySlugs.join('/');
-};
-
-const getCategorySlugUrl = (category: Category): string | null => {
-  if (!category) return null;
-
-  const breadcrumbs = category.breadcrumbs;
-  if (!breadcrumbs || breadcrumbs.length === 0) return null;
-
-  const lastBreadcrumb = breadcrumbs[breadcrumbs.length - 1];
-  if (lastBreadcrumb.url === null || lastBreadcrumb.url === undefined) {
-    return null;
-  }
-  return lastBreadcrumb.url;
-};
-
 export const generateMetadata = async ({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> => {
   const resolvedParams = await params;
 
@@ -103,44 +83,6 @@ export const generateMetadata = async ({ params }: { params: Promise<{ slug: str
     title: seoData?.title || fallbackTitle,
     description: seoData?.description || fallbackDescription,
   };
-};
-
-export const generateBreadcrumbs = (post: Post): WithContext<BreadcrumbList> | null => {
-  if (!post || !post.slug) {
-    return null;
-  }
-
-  const breadcrumbList = generateParentBreadcrumbs();
-  if (!breadcrumbList) {
-    return null;
-  }
-  const lastItemId = getLastItemId(breadcrumbList.itemListElement as ListItem[]);
-  if (!lastItemId) {
-    return null;
-  }
-
-  // Add category part
-  const category = post.category as Category;
-  category.breadcrumbs?.forEach((breadcrumb) => {
-    appendItem({
-      breadcrumbList: breadcrumbList,
-      id: joinUrl([lastItemId, 'category', breadcrumb.url!]),
-      name: breadcrumb.label!,
-    });
-  });
-
-  // Add post part
-  const categorySlugUrl = getCategorySlugUrl(category);
-  if (!categorySlugUrl) {
-    return null;
-  }
-  appendItem({
-    breadcrumbList: breadcrumbList,
-    id: joinUrl([lastItemId, categorySlugUrl, post.slug]),
-    name: post.title,
-  });
-
-  return breadcrumbList;
 };
 
 const BlogPostHandler = async ({ params }: { params: Promise<{ slug: string[] }> }) => {
