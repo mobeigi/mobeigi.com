@@ -1,25 +1,11 @@
-import { BASE_URL } from '@/constants/app';
 import HomePage from '@/containers/HomePage';
 import { getCachedLatestPhotographyImages } from '@/utils/photography';
-import { breadcrumbList } from '@/utils/seo/breadCrumbList';
-import { listItem } from '@/utils/seo/listItem';
-import { BreadcrumbList, WithContext } from 'schema-dts';
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import config from '@payload-config';
 import { mapPostToPostMeta } from '@/utils/payload';
 import { BlogPostMeta, BlogPostRelatedMeta } from '@/types/blog';
 import { sortBlogPostMetaByPublishedAtDate } from '@/utils/blog/post';
-
-export const generateBreadcrumbs = (): WithContext<BreadcrumbList> =>
-  breadcrumbList([
-    listItem({
-      position: 1,
-      item: {
-        '@id': BASE_URL,
-        name: 'Home',
-      },
-    }),
-  ]);
+import { generateBreadcrumbs } from './breadcrumbs';
 
 const depth = 2;
 

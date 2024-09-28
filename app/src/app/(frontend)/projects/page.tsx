@@ -1,30 +1,12 @@
 import ProjectsPage from '@/containers/ProjectsPage';
 import { Metadata } from 'next';
-import { generateBreadcrumbs as generateParentBreadcrumbs } from '../page';
-import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
-import { getLastItemId } from '@/utils/seo/listItem';
-import { appendItem } from '@/utils/seo/breadCrumbList';
-import { joinUrl } from '@/utils/url';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { generateBreadcrumbs } from './breadcrumbs';
 
 export const metadata: Metadata = {
   title: 'Projects',
   description:
     "Discover Mo Beigi's most interesting projects, dive into open-source code, and explore related blog posts.",
-};
-
-export const generateBreadcrumbs = (): WithContext<BreadcrumbList> | null => {
-  const breadcrumbList = generateParentBreadcrumbs();
-  const lastItemId = getLastItemId(breadcrumbList.itemListElement as ListItem[]);
-  if (!lastItemId) {
-    return null;
-  }
-  appendItem({
-    breadcrumbList: breadcrumbList,
-    id: joinUrl([lastItemId, 'projects']),
-    name: 'Projects',
-  });
-  return breadcrumbList;
 };
 
 const Projects = () => {

@@ -8,15 +8,12 @@ import { PaginatedDocs } from 'payload';
 import { mapPostToPostMeta } from '@/utils/payload';
 import { BlogPostMeta, BlogPostRelatedMeta, Category } from '@/types/blog';
 import { sortBlogPostMetaByPublishedAtDate } from '@/utils/blog/post';
-import { generateBreadcrumbs as generateParentBreadcrumbs } from '../page';
-import { appendItem } from '@/utils/seo/breadCrumbList';
-import { getLastItemId } from '@/utils/seo/listItem';
-import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
 import { joinUrl } from '@/utils/url';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { resolveCategoryUrl } from '@/payload/collections/Category/resolveUrl';
 import { sortCategoryByTitle } from '@/utils/blog/category';
 import { payloadRedirect } from '@/payload/utils/payloadRedirect';
+import { generateBreadcrumbs } from './breadcrumbs';
 
 const depth = 2;
 
@@ -76,31 +73,6 @@ export const generateMetadata = async ({ params }: { params: Promise<{ slug: str
     title: seoData?.title || fallbackTitle,
     description: seoData?.description || fallbackDescription,
   };
-};
-
-export const generateBreadcrumbs = (payloadCategory: PayloadCategory): WithContext<BreadcrumbList> | null => {
-  if (!payloadCategory) {
-    return null;
-  }
-
-  const breadcrumbList = generateParentBreadcrumbs();
-  if (!breadcrumbList) {
-    return null;
-  }
-  const lastItemId = getLastItemId(breadcrumbList.itemListElement as ListItem[]);
-  if (!lastItemId) {
-    return null;
-  }
-
-  payloadCategory.breadcrumbs?.forEach((breadcrumb) => {
-    appendItem({
-      breadcrumbList: breadcrumbList,
-      id: joinUrl([lastItemId, breadcrumb.url!]),
-      name: breadcrumb.label!,
-    });
-  });
-
-  return breadcrumbList;
 };
 
 const CategoryDetailPageHandler = async ({ params }: { params: Promise<{ slug: string[] }> }) => {

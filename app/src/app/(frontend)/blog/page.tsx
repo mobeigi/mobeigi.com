@@ -5,32 +5,12 @@ import config from '@payload-config';
 import { mapPostToPostMeta } from '@/utils/payload';
 import { BlogPostMeta, BlogPostRelatedMeta } from '@/types/blog';
 import { sortBlogPostMetaByPublishedAtDate } from '@/utils/blog/post';
-import { generateBreadcrumbs as generateParentBreadcrumbs } from '../page';
-import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
-import { appendItem } from '@/utils/seo/breadCrumbList';
-import { getLastItemId } from '@/utils/seo/listItem';
-import { joinUrl } from '@/utils/url';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { generateBreadcrumbs } from './breadcrumbs';
 
 export const metadata: Metadata = {
   title: 'Blog',
   description: "Explore Mo's blog for insights on programming, technology, and other topics of interest.",
-};
-
-export const generateBreadcrumbs = (): WithContext<BreadcrumbList> | null => {
-  const breadcrumbList = generateParentBreadcrumbs();
-  const lastItemId = getLastItemId(breadcrumbList.itemListElement as ListItem[]);
-  if (!lastItemId) {
-    return null;
-  }
-
-  appendItem({
-    breadcrumbList: breadcrumbList,
-    id: joinUrl([lastItemId, 'blog']),
-    name: 'Blog',
-  });
-
-  return breadcrumbList;
 };
 
 const depth = 2;
