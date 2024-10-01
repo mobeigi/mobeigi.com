@@ -6,7 +6,7 @@ import { BASE_URL, SITE_TITLE } from '@/constants/app';
 import HeaderContent from '@/components/HeaderContent';
 import FooterContent from '@/components/FooterContent';
 import GlobalStyle from '@/styles/GlobalStyle';
-import StyledComponentsRegistry from '@/lib/registry';
+import StyledComponentsRegistry from '@/lib/StyledComponentsRegistry';
 import ThemeProviderWrapper from '@/lib/ThemeProviderWrapper';
 import { PrefersColorScheme } from '@/types/theme';
 import { THEME_COOKIE_NAME } from '@/constants/cookies';
