@@ -14,7 +14,7 @@ import { Header, Main, MainContents, Footer } from './styled';
 import { UserPreferencesProvider } from '@/context/userPreferencesContext';
 import { parseThemeCookieValue, resolveThemeMode } from '@/utils/theme';
 import { DEFAULT_THEME_MODE, FALLBACK_PREFERS_COLOR_SCHEME } from '@/constants/theme';
-import HighlightJsStyle from '@/styles/HighlightJsStyle';
+import HighlightJsThemeLoader from '@/components/HighlightJsThemeLoader';
 import ThemedToastContainer from '@/components/ThemedToastContainer';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { GA_TAG_ID } from '@/constants/analytics';
@@ -76,7 +76,7 @@ const RootLayout = ({
               <GlobalTooltip />
               <ThemedToastContainer />
               <NextTopLoader color={topLoaderColor} showSpinner={false} shadow="none" />
-              <HighlightJsStyle currentThemeMode={currentThemeMode} />
+              <HighlightJsThemeLoader currentThemeMode={currentThemeMode} />
               <ConsoleWelcomeMessage />
               <Header id="header">
                 <HeaderContent />

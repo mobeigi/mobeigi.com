@@ -15,7 +15,7 @@ import {
  * We have two styles as stylesheet links loaded and use the 'disabled' attribute to support theme switching.
  * Technique reference: https://github.com/highlightjs/highlight.js/blob/main/demo/demo.js
  */
-export const HighlightJsStyle = ({ currentThemeMode }: HighlightJsStyleProps) => {
+export const HighlightJsThemeLoader = ({ currentThemeMode }: HighlightJsStyleProps) => {
   // Enable theme switching
   useHighlightJsTheme();
   return (
