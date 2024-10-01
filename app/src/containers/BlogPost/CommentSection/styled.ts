@@ -92,10 +92,6 @@ export const CommentMain = styled.div`
 export const CommentMetaHeader = styled.header`
   display: flex;
   gap: 0.4em;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px) {
-    flex-direction: column;
-  }
 `;
 
 export const DisplayNameWrapper = styled.span`
