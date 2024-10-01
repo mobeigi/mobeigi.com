@@ -4,6 +4,7 @@ import { BreadcrumbsContainerNav, StyledLink, ChevronIconWrapper } from './style
 import ChevronRightSvg from '@/assets/icons/boxicons/bxs-chevron-right.svg';
 import { ListItemItem } from '@/types/schema-dts';
 import React from 'react';
+import { toRelativeUrl } from '@/utils/url';
 
 export const Breadcrumbs = ({ breadcrumbList }: BreadcrumbsProps) => {
   const listItems = breadcrumbList.itemListElement as ListItem[];
@@ -20,7 +21,7 @@ export const Breadcrumbs = ({ breadcrumbList }: BreadcrumbsProps) => {
                 <ChevronRightSvg />
               </ChevronIconWrapper>
             )}
-            <StyledLink href={id} $active={index === listItems.length - 1}>
+            <StyledLink href={toRelativeUrl(id)} $active={index === listItems.length - 1}>
               {name}
             </StyledLink>
           </React.Fragment>
