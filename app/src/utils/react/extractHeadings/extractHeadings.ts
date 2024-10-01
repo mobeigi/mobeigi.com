@@ -1,6 +1,6 @@
 import { Children, isValidElement, ReactElement, ReactNode } from 'react';
 import { HeadingElement } from './types';
-import { getNodeText } from '../react';
+import { getNodeText } from '../getNodeText';
 
 export const extractHeadings = (node: ReactNode): HeadingElement[] => {
   const headings: HeadingElement[] = [];
