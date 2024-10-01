@@ -13,7 +13,7 @@ import CalendarSvg from '@/assets/icons/boxicons/bx-calendar.svg';
 import CategorySvg from '@/assets/icons/boxicons/bx-category.svg';
 import CommentDetailSvg from '@/assets/icons/boxicons/bx-comment-detail.svg';
 import BarChartSvg from '@/assets/icons/boxicons/bx-bar-chart.svg';
-import DateFormatter from '@/components/DateFormatter';
+import { ClientFormattedDate } from '@/components/ClientFormattedDate';
 
 export const BlogSummary = ({
   blogPostMeta,
@@ -59,7 +59,7 @@ export const BlogSummary = ({
               <CalendarSvg />
             </IconWrapper>
             <time dateTime={publishedAtDate.toISOString()}>
-              <DateFormatter date={publishedAtDate} format="d MMMM yyyy" />
+              <ClientFormattedDate date={publishedAtDate} format="d MMMM yyyy" />
             </time>
           </IconAndTextContainer>
         </Detail>

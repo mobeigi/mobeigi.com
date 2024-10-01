@@ -30,8 +30,9 @@ import { toast } from 'react-toastify';
 import { Comment as PayloadComment } from '@/payload-types';
 import VerifiedBadgeSvg from '@/assets/icons/social/verified-badge.svg';
 import { IconWrapper } from '@/styles/icon';
-import DateFormatter from '@/components/DateFormatter';
 import { SerializedCommentsForPost } from '@/types/api/commentsForPost';
+import { ClientFormattedDate } from '@/components/ClientFormattedDate';
+import { useClientFormattedDate } from '@/components/ClientFormattedDate';
 
 interface CommentsProps {
   comments: Comment[];
@@ -85,6 +86,8 @@ const SingleComment = ({ comment, postId, onSuccess, commentsEnabled }: SingleCo
     setIsReplying(true);
   };
 
+  const createdAtTooltipDate = useClientFormattedDate({ date: comment.createdAt, format: "d MMMM yyyy 'at' hh:mm a" });
+
   return (
     <SingleCommentContainer id={`comment-${comment.id}`}>
       <CommentBox>
@@ -101,8 +104,12 @@ const SingleComment = ({ comment, postId, onSuccess, commentsEnabled }: SingleCo
                 </IconWrapper>
               )}
             </DisplayNameWrapper>
-            <CreatedAtTime dateTime={comment.createdAt.toISOString()}>
-              <DateFormatter date={comment.createdAt} format="d MMMM yyyy 'at' hh:mm a" />
+            <CreatedAtTime
+              dateTime={comment.createdAt.toISOString()}
+              data-tooltip-id="base-tooltip"
+              data-tooltip-content={createdAtTooltipDate}
+            >
+              <ClientFormattedDate date={comment.createdAt} format="d MMMM yyyy 'at' hh:mm a" useRelativeFormat />
             </CreatedAtTime>
           </CommentMetaHeader>
           <CommentContents>{commentContentReactNode}</CommentContents>
