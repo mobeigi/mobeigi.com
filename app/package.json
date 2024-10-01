@@ -26,6 +26,7 @@
     "@next/third-parties": "15.0.0-canary.172",
     "@octokit/rest": "^21.0.2",
     "@payloadcms/db-postgres": "3.0.0-beta.109",
+    "@payloadcms/email-nodemailer": "3.0.0-beta.109",
     "@payloadcms/next": "3.0.0-beta.109",
     "@payloadcms/plugin-nested-docs": "3.0.0-beta.109",
     "@payloadcms/plugin-redirects": "3.0.0-beta.109",

@@ -2264,6 +2264,13 @@
     to-snake-case "1.0.0"
     uuid "9.0.0"
 
+"@payloadcms/email-nodemailer@3.0.0-beta.109":
+  version "3.0.0-beta.109"
+  resolved "https://registry.yarnpkg.com/@payloadcms/email-nodemailer/-/email-nodemailer-3.0.0-beta.109.tgz#9ea7a904084dde1cc55c946dd8849eb7ad6809ca"
+  integrity sha512-+BPKFkXH5xMvUrMSwI+K7tXV/3u6YcVk0xL9Aecoj2aA/BNV5/1CEZC+YUNWNqnxFvtGzGkF3cbejvuXr1T9aQ==
+  dependencies:
+    nodemailer "6.9.10"
+
 "@payloadcms/graphql@3.0.0-beta.109":
   version "3.0.0-beta.109"
   resolved "https://registry.yarnpkg.com/@payloadcms/graphql/-/graphql-3.0.0-beta.109.tgz#1dd8784bac54c0e67de2e0d7225d417b2d0e3f4d"
@@ -5655,6 +5662,11 @@ node-releases@^2.0.18:
   version "2.0.18"
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.18.tgz#f010e8d35e2fe8d6b2944f03f70213ecedc4ca3f"
   integrity sha512-d9VeXT4SJ7ZeOqGX6R5EM022wpL+eWPooLI+5UpWn2jCT1aosUQEhQP214x33Wkwx3JQMvIm+tIoVOdodFS40g==
+
+nodemailer@6.9.10:
+  version "6.9.10"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.9.10.tgz#54cc1e062f20726606d3289fcf38ee731aff0d9d"
+  integrity sha512-qtoKfGFhvIFW5kLfrkw2R6Nm6Ur4LNUMykyqu6n9BRKJuyQrqEGwdXXUAbwWEKt33dlWUGXb7rzmJP/p4+O+CA==
 
 nopt@^7.2.0:
   version "7.2.1"
