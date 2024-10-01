@@ -1,5 +1,5 @@
 import { withPayload } from '@payloadcms/next/withPayload';
-import svgrConfig from './svgr.config.js';
+import svgrConfig from './svgr.config.mjs';
 import { execSync } from 'child_process';
 
 const commitHash = execSync('git log --pretty=format:"%h" -n1').toString().trim();
