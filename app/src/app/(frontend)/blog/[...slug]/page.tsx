@@ -5,7 +5,7 @@ import BlogPost from '@/containers/BlogPost';
 import { notFound } from 'next/navigation';
 import { BlogPostProps } from '@/containers/BlogPost';
 import { BlogPostContent, BlogPostMeta, BlogPostRelatedMeta } from '@/types/blog';
-import { mapPostToPostMeta, mapComments, buildCategorySlugUrl, getCategorySlugUrl } from '@/utils/payload';
+import { mapPostToPostMeta, mapComments, getCategorySlugUrl } from '@/utils/payload';
 import { countTotalComments } from '@/utils/blog/comments';
 import { joinUrl } from '@/utils/url';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -33,7 +33,7 @@ const getPayloadPostFromResolvedParams = async ({
     return null;
   }
 
-  const paramsCategorySlugUrl = buildCategorySlugUrl(categorySlugs);
+  const paramsCategorySlugUrl = joinUrl(['/', ...categorySlugs], false);
 
   const payloadPosts = await payload.find({
     collection: 'posts',
@@ -52,8 +52,8 @@ const getPayloadPostFromResolvedParams = async ({
   // We want to only show the blog post if the slug is correct
   const postsMatchingCategorySlugUrl = payloadPosts.docs.filter((post) => {
     if (!post.category) return false;
-    const category = post.category as PayloadCategory;
-    const categorySlugUrl = getCategorySlugUrl(category);
+    const payloadCategory = post.category as PayloadCategory;
+    const categorySlugUrl = getCategorySlugUrl(payloadCategory);
     return categorySlugUrl === paramsCategorySlugUrl;
   });
 
