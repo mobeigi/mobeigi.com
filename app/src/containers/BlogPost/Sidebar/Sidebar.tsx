@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import extractHeadings, { HeadingElement } from '@/utils/extractHeadings';
+import extractHeadings, { HeadingElement } from '@/utils/react/extractHeadings';
 import { SidebarContainer, TableOfContentsNav, TableOfContentsHeadings, SectionHeading } from './styled';
 import { SidebarProps } from './types';
 
