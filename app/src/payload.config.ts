@@ -38,7 +38,7 @@ export default buildConfig({
   db: postgresAdapter({
     migrationDir: './src/payload/migrations',
     pool: {
-      connectionString: requireEnvVar(process.env.DATABASE_URI, 'DATABASE_URI'),
+      connectionString: requireEnvVar(process.env.PAYLOAD_DATABASE_URI, 'PAYLOAD_DATABASE_URI'),
     },
   }),
   editor: lexicalEditor({
