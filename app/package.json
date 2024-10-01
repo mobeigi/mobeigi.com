@@ -44,6 +44,7 @@
     "js-cookie": "^3.0.5",
     "lodash-es": "^4.17.21",
     "next": "15.0.0-canary.172",
+    "nextjs-toploader": "^3.6.15",
     "node-cron": "^3.0.3",
     "payload": "3.0.0-beta.109",
     "prism-react-renderer": "^2.4.0",
