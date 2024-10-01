@@ -12,6 +12,10 @@ const nextConfig = {
   env: {
     COMMIT_HASH: commitHash,
   },
+  eslint: {
+    // Process all files & folders
+    dirs: ['.'],
+  },
   images: {
     remotePatterns: [
       {
