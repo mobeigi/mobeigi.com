@@ -19,9 +19,9 @@ Source code for the [mobeigi.com](http://mobeigi.com/) website.
 <div align="center">
 	<code><img width="70" src="https://user-images.githubusercontent.com/25181517/183897015-94a058a6-b86e-4e42-a37f-bf92061753e5.png" alt="React" title="React"/></code>
 	<code><img width="70" src="https://github.com/marwin1991/profile-technology-icons/assets/136815194/5f8c622c-c217-4649-b0a9-7e0ee24bd704" alt="Next.js" title="Next.js"/></code>
-  <code><img width="70" src="https://i.imgur.com/hqILHHM.png" alt="Payload CMS" title="Payload CMS"/></code>
+  	<code><img width="70" src="https://i.imgur.com/i6ruAIh.png" alt="Payload CMS" title="Payload CMS"/></code>
 	<code><img width="70" src="https://user-images.githubusercontent.com/25181517/183890598-19a0ac2d-e88a-4005-a8df-1ee36782fde1.png" alt="TypeScript" title="TypeScript"/></code>
-	<code><img width="70" src="https://github.com/marwin1991/profile-technology-icons/assets/25181517/2a36d1f6-2198-4726-89ac-2148ce46a69a" alt="styled-components" title="styled-components"/></code>
+	<code><img width="70" src="https://i.imgur.com/EDuMf2h.png" alt="styled-components" title="styled-components"/></code>
 </div>
 
 ## Contributions
