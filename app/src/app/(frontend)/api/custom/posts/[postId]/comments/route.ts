@@ -6,11 +6,11 @@ import { CommentsForPost } from '@/types/api/commentsForPost';
 
 const depth = 2;
 
-export const GET = async (request: Request, { params }: { params: Promise<{ postId: string }> }) => {
+export const GET = async (request: Request, { params: paramsPromise }: { params: Promise<{ postId: string }> }) => {
   try {
-    const resolvedParams = await params;
+    const params = await paramsPromise;
 
-    const { postId } = resolvedParams;
+    const { postId } = params;
 
     const payload = await getPayloadHMR({
       config,

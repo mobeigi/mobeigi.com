@@ -17,17 +17,13 @@ import { Post as PayloadPost, Category as PayloadCategory } from '@/payload-type
 
 const depth = 2;
 
-const getPayloadPostFromResolvedParams = async ({
-  resolvedParams,
-}: {
-  resolvedParams: { slug: string[] };
-}): Promise<PayloadPost | null> => {
+const getPayloadPostFromParams = async ({ params }: { params: { slug: string[] } }): Promise<PayloadPost | null> => {
   const payload = await getPayloadHMR({
     config,
   });
 
-  const postSlug = resolvedParams.slug[resolvedParams.slug.length - 1];
-  const categorySlugs = resolvedParams.slug.slice(0, -1);
+  const postSlug = params.slug[params.slug.length - 1];
+  const categorySlugs = params.slug.slice(0, -1);
 
   if (categorySlugs.length === 0) {
     return null;
@@ -64,12 +60,16 @@ const getPayloadPostFromResolvedParams = async ({
   return postsMatchingCategorySlugUrl[0];
 };
 
-export const generateMetadata = async ({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> => {
-  const resolvedParams = await params;
+export const generateMetadata = async ({
+  params: paramsPromise,
+}: {
+  params: Promise<{ slug: string[] }>;
+}): Promise<Metadata> => {
+  const params = await paramsPromise;
 
-  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', ...resolvedParams.slug]) });
+  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', ...params.slug]) });
 
-  const post = await getPayloadPostFromResolvedParams({ resolvedParams });
+  const post = await getPayloadPostFromParams({ params });
   if (!post) {
     console.warn('Failed to find post during generateMetadata.');
     notFound();
@@ -85,12 +85,12 @@ export const generateMetadata = async ({ params }: { params: Promise<{ slug: str
   };
 };
 
-const BlogPostHandler = async ({ params }: { params: Promise<{ slug: string[] }> }) => {
-  const resolvedParams = await params;
+const BlogPostHandler = async ({ params: paramsPromise }: { params: Promise<{ slug: string[] }> }) => {
+  const params = await paramsPromise;
 
-  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', ...resolvedParams.slug]) });
+  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', ...params.slug]) });
 
-  const post = await getPayloadPostFromResolvedParams({ resolvedParams });
+  const post = await getPayloadPostFromParams({ params });
   if (!post) {
     notFound();
     return null;
