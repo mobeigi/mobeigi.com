@@ -93,6 +93,7 @@ const GlobalStyle = createGlobalStyle`
   ul, ol {
     padding-left: 0;
     margin-left: 1.5em;
+    line-height: 1.5em;
   }
   
   li {
