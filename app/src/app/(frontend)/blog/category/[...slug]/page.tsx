@@ -17,16 +17,16 @@ import { generateBreadcrumbs } from './breadcrumbs';
 
 const depth = 2;
 
-const getPayloadCategoryFromResolvedParams = async ({
-  resolvedParams,
+const getPayloadCategoryFromParams = async ({
+  params,
 }: {
-  resolvedParams: { slug: string[] };
+  params: { slug: string[] };
 }): Promise<PayloadCategory | null> => {
   const payload = await getPayloadHMR({
     config,
   });
 
-  const categorySlugs = resolvedParams.slug;
+  const categorySlugs = params.slug;
   if (categorySlugs.length === 0) {
     return null;
   }
@@ -56,12 +56,16 @@ const getPayloadCategoryFromResolvedParams = async ({
   return category;
 };
 
-export const generateMetadata = async ({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> => {
-  const resolvedParams = await params;
+export const generateMetadata = async ({
+  params: paramsPromise,
+}: {
+  params: Promise<{ slug: string[] }>;
+}): Promise<Metadata> => {
+  const params = await paramsPromise;
 
-  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', 'category', ...resolvedParams.slug]) });
+  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', 'category', ...params.slug]) });
 
-  const payloadCategory = await getPayloadCategoryFromResolvedParams({ resolvedParams });
+  const payloadCategory = await getPayloadCategoryFromParams({ params });
   if (!payloadCategory) {
     console.warn('Failed to find payload category during generateMetadata.');
     return notFound();
@@ -75,12 +79,12 @@ export const generateMetadata = async ({ params }: { params: Promise<{ slug: str
   };
 };
 
-const CategoryDetailPageHandler = async ({ params }: { params: Promise<{ slug: string[] }> }) => {
-  const resolvedParams = await params;
+const CategoryDetailPageHandler = async ({ params: paramsPromise }: { params: Promise<{ slug: string[] }> }) => {
+  const params = await paramsPromise;
 
-  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', 'category', ...resolvedParams.slug]) });
+  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', 'category', ...params.slug]) });
 
-  const payloadCategory = await getPayloadCategoryFromResolvedParams({ resolvedParams });
+  const payloadCategory = await getPayloadCategoryFromParams({ params });
   if (!payloadCategory) {
     notFound();
     return null;
