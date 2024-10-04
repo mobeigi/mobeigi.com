@@ -21,7 +21,7 @@ import { GA_TAG_ID } from '@/constants/analytics';
 import GlobalTooltip from '@/containers/GlobalTooltip';
 import { use } from 'react';
 import ConsoleWelcomeMessage from '@/components/ConsoleWelcomeMessage';
-import NextTopLoader from 'nextjs-toploader';
+import HolyLoader from 'holy-loader';
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 };
 
 const roboto = Roboto({ subsets: ['latin'], style: ['normal', 'italic'], weight: ['400', '700'] });
-const topLoaderColor = '#af363c';
+const holyLoaderColor = '#af363c';
 
 const RootLayout = ({
   children,
@@ -75,7 +75,7 @@ const RootLayout = ({
               <GlobalStyle />
               <GlobalTooltip />
               <ThemedToastContainer />
-              <NextTopLoader color={topLoaderColor} showSpinner={false} shadow="none" />
+              <HolyLoader color={holyLoaderColor} height="0.2rem" />
               <HighlightJsThemeLoader currentThemeMode={currentThemeMode} />
               <ConsoleWelcomeMessage />
               <Header id="header">
