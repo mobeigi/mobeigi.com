@@ -4847,10 +4847,6 @@ help-me@^5.0.0:
   resolved "https://registry.npmjs.org/help-me/-/help-me-5.0.0.tgz"
   integrity sha512-7xgomUX6ADmcYzFik0HzAxh/73YlKR9bmFzf51CZwR+b6YtzU2m0u49hQCqV6SvlqIqsaxovfwdvbnsw3b/zpg==
 
-"hexoid@file:./packages/hexoid-v1.0.0-master.tgz":
-  version "1.0.0"
-  resolved "file:./packages/hexoid-v1.0.0-master.tgz#03fb5580a86d1ddea95ba8766033ba36c935879d"
-
 highlight.js@^11.10.0:
   version "11.10.0"
   resolved "https://registry.npmjs.org/highlight.js/-/highlight.js-11.10.0.tgz"

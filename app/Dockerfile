@@ -16,20 +16,19 @@ RUN yarn build
 # Stage 2: Run the Next.js app
 FROM node:22-alpine AS runner
 
-RUN apk add --no-cache git
+WORKDIR /app
 
-WORKDIR /project
-COPY --from=gitroot .git .
+COPY --from=builder /project/app/.next/standalone ./
+COPY --from=builder /project/app/.next/static ./.next/static
 
-WORKDIR /project/app
-
-COPY --from=builder /project/app/.next ./.next
-COPY --from=builder /project/app/node_modules ./node_modules
-COPY --from=builder /project/app/package.json ./package.json
+# Public / private file setup
+RUN rm -rf ./public ./private
 COPY --from=builder /project/app/public ./public
-COPY --from=builder /project/app/next.config.mjs ./next.config.mjs
-COPY --from=builder /project/app/svgr.config.mjs ./svgr.config.mjs
 
 EXPOSE 3000
+ENV PORT=3000
 
-CMD ["yarn", "start"]
+# server.js is created by next build from the standalone output
+# https://nextjs.org/docs/pages/api-reference/next-config-js/output
+ENV HOSTNAME="0.0.0.0"
+CMD ["node", "server.js"]
