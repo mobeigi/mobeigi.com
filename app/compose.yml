@@ -1,0 +1,12 @@
+services:
+  mobeigi-com-app-nextjs:
+    build:
+      context: .
+      # We require access to the git folder (i.e. for git commit hash)
+      additional_contexts:
+        - gitroot=..
+      dockerfile: Dockerfile
+    env_file:
+      - ./.env.production
+    ports:
+      - "3000"
