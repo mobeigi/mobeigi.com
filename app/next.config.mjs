@@ -32,6 +32,7 @@ const nextConfig = {
       },
     ],
   },
+  output: 'standalone',
   trailingSlash: true,
   webpack(config) {
     // Grab the existing rule that handles SVG imports
