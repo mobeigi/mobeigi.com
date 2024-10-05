@@ -1,9 +1,9 @@
-import { ReactNodeConverter } from '@/payload/lexical/types';
-import { SerializedListItemNode, SerializedListNode } from '@payloadcms/richtext-lexical';
-import { convertLexicalNodesToReactNode } from '@/payload/lexical/serializeLexical';
+import type { ReactNodeConverter } from '@/payload/lexical/types';
+import type { SerializedListNode, SerializedListItemNode } from '@payloadcms/richtext-lexical';
+import { convertLexicalNodesToReactNode } from '@/payload/lexical/convertLexicalNodesToReactNode';
 
 export const ListReactNodeConverter: ReactNodeConverter<SerializedListNode> = {
-  converter: ({ converters, node, parent }) => {
+  converter({ converters, node, parent }) {
     const children = convertLexicalNodesToReactNode({
       converters,
       lexicalNodes: node.children,
@@ -26,7 +26,7 @@ export const ListReactNodeConverter: ReactNodeConverter<SerializedListNode> = {
 };
 
 export const ListItemReactNodeConverter: ReactNodeConverter<SerializedListItemNode> = {
-  converter: ({ converters, node, parent }) => {
+  converter({ converters, node, parent }) {
     const children = convertLexicalNodesToReactNode({
       converters,
       lexicalNodes: node.children,

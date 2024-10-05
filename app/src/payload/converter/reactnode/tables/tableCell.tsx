@@ -1,6 +1,6 @@
 import React from 'react';
 import type { ReactNodeConverter } from '@/payload/lexical/types';
-import { convertLexicalNodesToReactNode } from '@/payload/lexical/serializeLexical';
+import { convertLexicalNodesToReactNode } from '@/payload/lexical/convertLexicalNodesToReactNode';
 import { SerializedTableCellNode } from '@payloadcms/richtext-lexical';
 import { TableCellHeaderStates } from '@lexical/table';
 

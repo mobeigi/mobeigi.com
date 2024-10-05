@@ -17,12 +17,10 @@ import { MediaBlock as MediaBlockConfig } from '@/payload/blocks/MediaBlock/conf
 import { MediaBlock } from '@/payload/blocks/MediaBlock/Component';
 import { type MediaBlock as MediaBlockType } from '@/payload-types';
 
-type CustomBlockFields = CodeBlockType | EmbedBlockType | FileBlockType | MediaBlockType;
-
 /**
  * Define custom block render functions for use in BlockReactNodeConverter.
  */
-export const customBlockRenderers: Record<string, (node: SerializedBlockNode<CustomBlockFields>) => ReactNode> = {
+export const customBlockRenderers: Record<string, (node: SerializedBlockNode) => ReactNode> = {
   [Code.slug]: (node) => <CodeBlock {...(node.fields as CodeBlockType)} />,
   [Embed.slug]: (node) => <EmbedBlock {...(node.fields as EmbedBlockType)} />,
   [File.slug]: (node) => <FileBlock {...(node.fields as FileBlockType)} />,
