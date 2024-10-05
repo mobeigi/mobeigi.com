@@ -1,6 +1,6 @@
 import { ReactNodeConverter } from '@/payload/lexical/types';
 import { SerializedHeadingNode } from '@payloadcms/richtext-lexical';
-import { convertLexicalNodesToReactNode } from '@/payload/lexical/serializeLexical';
+import { convertLexicalNodesToReactNode } from '@/payload/lexical/convertLexicalNodesToReactNode';
 import { getNodeText } from '@/utils/react';
 
 export const HeadingReactNodeConverter: ReactNodeConverter<SerializedHeadingNode> = {
