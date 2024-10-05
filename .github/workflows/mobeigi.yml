@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
 
     steps:
     - uses: actions/checkout@v4
@@ -26,12 +26,14 @@ jobs:
     - name: Lint
       working-directory: ./app
       run: yarn lint
+    # TODO: Wire up tests
     # - name: Test
     #   working-directory: ./app
     #   run: yarn test
-    - name: Build
-      working-directory: ./app
-      run: yarn build
+    # TODO: How to build without DB
+    # - name: Build
+    #   working-directory: ./app
+    #   run: yarn build
 
   deploy:
     runs-on: ubuntu-latest
