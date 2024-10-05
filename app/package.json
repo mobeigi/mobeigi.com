@@ -20,7 +20,8 @@
     "start": "cross-env next start",
     "lint": "cross-env next lint",
     "clean": "rm -rf node_modules .next",
-    "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload"
+    "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@next/third-parties": "15.0.0-canary.173",
@@ -75,6 +76,8 @@
     "eslint-config-next": "15.0.0-canary.173",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "patch-package": "^8.0.0",
+    "postinstall-postinstall": "^2.1.0",
     "prettier": "^3.3.3",
     "schema-dts": "^1.1.2",
     "typescript": "^5.6.2"
@@ -82,5 +85,8 @@
   "overrides": {
     "@types/react": "npm:types-react@rc",
     "@types/react-dom": "npm:types-react-dom@rc"
+  },
+  "resolutions": {
+    "hexoid": "file:./packages/hexoid-v1.0.0-master.tgz"
   }
 }
