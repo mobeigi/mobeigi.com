@@ -1,0 +1,1 @@
+export { getNodeText } from './getNodeText';
