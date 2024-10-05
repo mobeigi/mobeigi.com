@@ -142,7 +142,6 @@ export const validationHook: CollectionBeforeValidateHook = async ({ data, req, 
       });
       const akismetClient = new Client(requireEnvVar(process.env.AKISMET_API_KEY, 'AKISMET_API_KEY'), akismetWebsite, {
         userAgent: 'Node.js | Akismet/1.0',
-        isTest: true, // TODO: Remove before releasing on prod
       });
 
       const akismetAuthor = new Author({
