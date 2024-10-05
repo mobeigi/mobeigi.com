@@ -24,6 +24,7 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@cedx/akismet": "^16.2.0",
     "@next/third-parties": "15.0.0-canary.173",
     "@octokit/rest": "^21.0.2",
     "@payloadcms/db-postgres": "3.0.0-beta.111",
@@ -35,7 +36,6 @@
     "@payloadcms/richtext-lexical": "3.0.0-beta.111",
     "@react-email/components": "^0.0.25",
     "@react-email/render": "^1.0.1",
-    "akismet-api": "^6.0.0",
     "crawler-user-agents": "^1.0.150",
     "cross-env": "^7.0.3",
     "date-fns": "^4.1.0",
@@ -85,8 +85,5 @@
   "overrides": {
     "@types/react": "npm:types-react@rc",
     "@types/react-dom": "npm:types-react-dom@rc"
-  },
-  "resolutions": {
-    "hexoid": "file:./packages/hexoid-v1.0.0-master.tgz"
   }
 }

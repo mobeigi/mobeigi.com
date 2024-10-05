@@ -1,10 +1,10 @@
 import { CollectionBeforeValidateHook } from 'payload';
 import { ValidationError } from 'payload';
-import { Comment } from '@/payload-types';
+import { Comment as PayloadComment } from '@/payload-types';
 import { extractTextContent } from '@/utils/lexical';
-import { AkismetClient, CommentWithIP } from 'akismet-api';
 import { BASE_URL } from '@/constants/app';
 import { requireEnvVar } from '@/utils/env';
+import { Author, Blog, CheckResult, Client, Comment, CommentType } from '@cedx/akismet';
 
 export const validationHook: CollectionBeforeValidateHook = async ({ data, req, operation }) => {
   if (!data) {
@@ -15,7 +15,7 @@ export const validationHook: CollectionBeforeValidateHook = async ({ data, req, 
     });
   }
 
-  const comment: Partial<Comment> = data;
+  const comment: Partial<PayloadComment> = data;
   const signedInUser = req.user;
 
   if (operation === 'create' || operation === 'update') {
@@ -133,25 +133,36 @@ export const validationHook: CollectionBeforeValidateHook = async ({ data, req, 
           errors: [{ field: 'content', message: 'Content is required to submit a comment.' }],
         });
       }
-      const commentTextContent = extractTextContent(comment.content) || undefined;
-      const akismetClient = new AkismetClient({
-        key: requireEnvVar(process.env.AKISMET_API_KEY, 'AKISMET_API_KEY'),
-        blog: BASE_URL,
+      const commentTextContent = extractTextContent(comment.content) || '';
+
+      const akismetWebsite = new Blog({
+        charset: 'UTF-8',
+        languages: ['en'],
+        url: BASE_URL,
+      });
+      const akismetClient = new Client(requireEnvVar(process.env.AKISMET_API_KEY, 'AKISMET_API_KEY'), akismetWebsite, {
+        userAgent: 'Node.js | Akismet/1.0',
+        isTest: true, // TODO: Remove before releasing on prod
       });
 
-      let isSpam = false;
-      const akismetCommentToCheck: CommentWithIP = {
-        ip: comment.ipAddress,
-        useragent: comment.userAgent,
-        content: commentTextContent,
+      const akismetAuthor = new Author({
         email: comment.email,
+        ipAddress: comment.ipAddress,
         name: comment.displayName,
-        date: comment.createdAt,
-        type: 'comment',
-        isTest: true, // TODO: remove this before going to prod and we are done testing
-      };
+        role: 'guest',
+        userAgent: comment.userAgent,
+      });
+
+      const akismetComment = new Comment({
+        author: akismetAuthor,
+        date: comment.createdAt ? new Date(comment.createdAt) : null,
+        content: commentTextContent,
+        type: CommentType.comment,
+      });
+
+      let akismetCheckResult;
       try {
-        isSpam = await akismetClient.checkSpam(akismetCommentToCheck);
+        akismetCheckResult = await akismetClient.checkComment(akismetComment);
       } catch (error) {
         console.warn('Unable to perform spam check.', error);
         throw new ValidationError({
@@ -161,7 +172,7 @@ export const validationHook: CollectionBeforeValidateHook = async ({ data, req, 
         });
       }
 
-      if (isSpam) {
+      if (akismetCheckResult === CheckResult.spam) {
         throw new ValidationError({
           collection: 'comments',
           errors: [],
