@@ -1,0 +1,1 @@
+export { extractTextContent } from './extractTextContent';

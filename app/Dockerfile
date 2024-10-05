@@ -1,9 +1,9 @@
-# Stage 1: Build the React app
-FROM node:14.17.3-alpine AS builder
-
-RUN apk add --no-cache git
+# Stage 1: Build the Next.js app
+FROM node:22-alpine AS builder
 
 # We require access to the git folder (i.e. for git commit hash)
+RUN apk add --no-cache git
+
 WORKDIR /project
 COPY --from=gitroot .git .
 
@@ -13,16 +13,22 @@ COPY . .
 RUN yarn install
 RUN yarn build
 
-# Stage 2: Nginx setup
-FROM nginx:alpine
+# Stage 2: Run the Next.js app
+FROM node:22-alpine AS runner
 
-WORKDIR /usr/share/nginx/html
+WORKDIR /app
 
-# Remove default nginx static assets
-RUN rm -rf ./*
+COPY --from=builder /project/app/.next/standalone ./
+COPY --from=builder /project/app/.next/static ./.next/static
 
-COPY --from=builder /project/app/build .
+# Public / private file setup
+RUN rm -rf ./public ./private
+COPY --from=builder /project/app/public ./public
 
-EXPOSE 80
+EXPOSE 3000
+ENV PORT=3000
 
-CMD ["nginx", "-g", "daemon off;"]
+# server.js is created by next build from the standalone output
+# https://nextjs.org/docs/pages/api-reference/next-config-js/output
+ENV HOSTNAME="0.0.0.0"
+CMD ["node", "server.js"]

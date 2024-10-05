@@ -16,4 +16,6 @@
 
 User-agent: *
 Disallow: /sec/
-Sitemap: https://mobeigi.com/blog/sitemap.xml
+Disallow: /admin/
+Disallow: /api/
+Sitemap: https://mobeigi.com/sitemap.xml

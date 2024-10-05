@@ -1,0 +1,1 @@
+export { getRandomAnimalSvgUrl } from './randomAnimal';

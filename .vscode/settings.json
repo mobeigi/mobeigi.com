@@ -3,11 +3,11 @@
     {
       "directory": "./app",
       "changeProcessCWD": true
-    },
-    {
-      "directory": "./server",
-      "changeProcessCWD": true
     }
   ],
+  "search.exclude": {
+    "app/**/node_modules": true,
+    "app/**/.next": true
+  },
   "files.eol": "\n"
 }
