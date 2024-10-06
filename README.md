@@ -8,7 +8,7 @@
 <br />
 
 <p align="center">
-<a href="../../actions"><img src="https://img.shields.io/github/workflow/status/mobeigi/mobeigi.com/Build,%20Test%20and%20Deploy?style=flat-square" /></a>
+<a href="../../actions"><img src="https://img.shields.io/github/actions/workflow/status/mobeigi/mobeigi.com/mobeigi.yml?branch=main&style=flat-square" /></a>
 <a href="../../issues"><img src="https://img.shields.io/github/issues/mobeigi/mobeigi.com.svg?style=flat-square" /></a>
 <a href="../../pulls"><img src="https://img.shields.io/github/issues-pr/mobeigi/mobeigi.com.svg?style=flat-square" /></a> 
 </p>
