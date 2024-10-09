@@ -6,6 +6,8 @@ import config from '@payload-config';
 import { resolveCategoryUrl } from '@/payload/collections/Category/resolveUrl';
 import { resolvePostsUrl } from '@/payload/collections/Posts/resolveUrl';
 
+export const revalidate = 3600;
+
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const payload = await getPayloadHMR({
     config,
