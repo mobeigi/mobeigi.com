@@ -38,7 +38,11 @@ export default buildConfig({
   db: postgresAdapter({
     migrationDir: './src/payload/migrations',
     pool: {
-      connectionString: requireEnvVar(process.env.PAYLOAD_DATABASE_URI, 'PAYLOAD_DATABASE_URI'),
+      host: requireEnvVar(process.env.PAYLOAD_DATABASE_HOST, 'PAYLOAD_DATABASE_HOST'),
+      port: Number(requireEnvVar(process.env.PAYLOAD_DATABASE_PORT, 'PAYLOAD_DATABASE_PORT')),
+      user: requireEnvVar(process.env.PAYLOAD_DATABASE_USER, 'PAYLOAD_DATABASE_USER'),
+      password: requireEnvVar(process.env.PAYLOAD_DATABASE_PASS, 'PAYLOAD_DATABASE_PASS'),
+      database: requireEnvVar(process.env.PAYLOAD_DATABASE_DATABASE_NAME, 'PAYLOAD_DATABASE_DATABASE_NAME'),
     },
   }),
   editor: lexicalEditor({
