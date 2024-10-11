@@ -12,7 +12,8 @@ export const InputWithError = styled.span<InputStatusProps>`
   gap: 0.4em;
   width: 100%;
 
-  input {
+  input,
+  textarea {
     /* Apply outline on error */
     ${({ $isError, theme }) => $isError && `border-color: ${theme.current.status.error.base};`}
 
