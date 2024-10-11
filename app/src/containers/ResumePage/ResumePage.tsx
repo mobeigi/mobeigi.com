@@ -1,7 +1,7 @@
 'use client';
 
-import { InputError, InputWithError } from '@/styles/input';
-import { InputAreaWrapper, LabelContainer } from './styled';
+import { InputError, InputWithError, LabelContainer, LabelDetails } from '@/styles/input';
+import { InputAreaWrapper } from './styled';
 import React, { useRef, useState } from 'react';
 import { PrimaryButton } from '@/styles/button';
 import { ButtonLabel, SpinnerOverlay } from '@/styles/spinner';
@@ -115,6 +115,9 @@ export const ResumePage = () => {
         <InputWithError $isError={isPasswordError}>
           <LabelContainer>
             <label htmlFor="resumePassword">Password</label>
+            <LabelDetails>
+              <span>(required)</span>
+            </LabelDetails>
           </LabelContainer>
           <input
             type="password"

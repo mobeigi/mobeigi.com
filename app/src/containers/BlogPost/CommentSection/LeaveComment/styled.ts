@@ -25,19 +25,6 @@ export const InputFieldWrapper = styled.span`
   width: 100%;
 `;
 
-export const LabelContainer = styled.span`
-  display: flex;
-  gap: 0.4em;
-  align-items: center;
-`;
-
-export const LabelDetails = styled.span`
-  display: inline-flex;
-  gap: 0.4em;
-  font-size: 0.85em;
-  color: ${({ theme }) => theme.current.text.subtle};
-`;
-
 export const ContentEditableWrapper = styled.div<InputStatusProps>`
   > :first-child {
     max-width: 100%;
