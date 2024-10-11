@@ -4859,10 +4859,10 @@ hoist-non-react-statics@^3.3.1:
   dependencies:
     react-is "^16.7.0"
 
-holy-loader@^2.3.7:
-  version "2.3.7"
-  resolved "https://registry.yarnpkg.com/holy-loader/-/holy-loader-2.3.7.tgz#97aef1f60f7296880c86705d7fb2e12d7c2aa86c"
-  integrity sha512-REXJaGXQ+nZWlo+rixnL6UTIUdTyHxB91N+CTA/lX/p2SVL4v0Bva5alFNV70fqbGVthc9bubrIjREhry5+T9Q==
+holy-loader@^2.3.8:
+  version "2.3.8"
+  resolved "https://registry.yarnpkg.com/holy-loader/-/holy-loader-2.3.8.tgz#384d8591ba1d7a8e6635c06ba585974c86a6a5f6"
+  integrity sha512-EhdAbXSuZtEc5z0Ta1PAgJXr0t/9lfOWt8tl4fjObGl7ObYLESL4218VHR/zPcE+ibyALnUf9JgAIeEDyqKCDw==
 
 html-to-text@9.0.5:
   version "9.0.5"
