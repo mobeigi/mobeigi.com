@@ -16,5 +16,5 @@
     "theme_color": "#cc7156",
     "background_color": "#cc7156",
     "start_url": "https://mobeigi.com/",
-    "display": "standalone"
+    "display": "browser"
 }

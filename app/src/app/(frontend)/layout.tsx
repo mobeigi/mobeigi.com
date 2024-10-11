@@ -1,8 +1,8 @@
 import { cookies } from 'next/headers';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { Roboto } from 'next/font/google';
-import { BASE_URL, SITE_TITLE } from '@/constants/app';
+import { APPLICATION_NAME, BASE_URL, SITE_TITLE } from '@/constants/app';
 import HeaderContent from '@/components/HeaderContent';
 import FooterContent from '@/components/FooterContent';
 import GlobalStyle from '@/styles/GlobalStyle';
@@ -34,6 +34,35 @@ export const metadata: Metadata = {
   alternates: {
     canonical: './',
   },
+  applicationName: APPLICATION_NAME,
+  icons: {
+    icon: [
+      {
+        url: '/favicon-32x32.png',
+        type: 'image/png',
+        sizes: '32x32',
+      },
+      {
+        url: '/favicon-16x16.png',
+        type: 'image/png',
+        sizes: '16x16',
+      },
+    ],
+    apple: '/apple-touch-icon.png',
+    other: [{ url: '/safari-pinned-tab.svg', rel: 'mask-icon', color: '#5bbad5' }],
+  },
+  manifest: '/manifest.webmanifest',
+  other: {
+    'apple-mobile-web-app-title': APPLICATION_NAME,
+    'msapplication-TileColor': '#cc7156',
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#1e1e1e' },
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+  ],
 };
 
 const roboto = Roboto({ subsets: ['latin'], style: ['normal', 'italic'], weight: ['400', '700'] });
