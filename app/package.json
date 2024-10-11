@@ -42,7 +42,7 @@
     "file-saver": "^2.0.5",
     "graphql": "^16.8.1",
     "highlight.js": "^11.10.0",
-    "holy-loader": "^2.3.7",
+    "holy-loader": "^2.3.8",
     "js-cookie": "^3.0.5",
     "lodash-es": "^4.17.21",
     "next": "15.0.0-canary.173",
