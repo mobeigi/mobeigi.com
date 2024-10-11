@@ -1,15 +1,7 @@
 'use client';
 
 import { LeaveCommentProps } from './types';
-import {
-  ContentEditableWrapper,
-  TopInputRow,
-  ActionRow,
-  LeaveCommentContainer,
-  InputFieldWrapper,
-  LabelDetails,
-  LabelContainer,
-} from './styled';
+import { ContentEditableWrapper, TopInputRow, ActionRow, LeaveCommentContainer, InputFieldWrapper } from './styled';
 
 import { LexicalComposer, type InitialConfigType } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
@@ -34,7 +26,7 @@ import { toast } from 'react-toastify';
 import { extractValidationErrorResponseMessage } from '@/utils/payload';
 import { Comment as PayloadComment } from '@/payload-types';
 import { debounce } from 'lodash-es';
-import { InputError, InputWithError } from '@/styles/input';
+import { InputError, InputWithError, LabelContainer, LabelDetails } from '@/styles/input';
 import { DEBOUNCE_TIMEOUT_MS } from '@/constants/inputs';
 import { ValidationErrorResponse } from '@/types/payload';
 import { emptySerializedEditorState } from '@/utils/lexical/state';

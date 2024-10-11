@@ -1,7 +1,7 @@
 'use client';
 
-import { InputError, InputWithError } from '@/styles/input';
-import { InputFieldWrapper, LabelContainer, LabelDetails, PingFormContainer } from './styled';
+import { InputError, InputWithError, LabelContainer, LabelDetails } from '@/styles/input';
+import { InputFieldWrapper, PingFormContainer } from './styled';
 import { PrimaryButton } from '@/styles/button';
 import { ButtonLabel, SpinnerOverlay } from '@/styles/spinner';
 import ClipLoader from 'react-spinners/ClipLoader';
