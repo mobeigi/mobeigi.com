@@ -48,6 +48,7 @@ export const metadata: Metadata = {
         sizes: '16x16',
       },
     ],
+    shortcut: '/favicon.ico',
     apple: '/apple-touch-icon.png',
     other: [{ url: '/safari-pinned-tab.svg', rel: 'mask-icon', color: '#5bbad5' }],
   },
