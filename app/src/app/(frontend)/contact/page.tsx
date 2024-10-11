@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   description: 'Contact Mo Beigi via email or secure PGP. Alternatively, find him on various other networks.',
 };
 
+export const dynamic = 'force-static';
+export const revalidate = 86400;
+
 const Contact = () => {
   const breadcrumbs = generateBreadcrumbs();
   return (
