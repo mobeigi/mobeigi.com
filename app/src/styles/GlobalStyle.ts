@@ -283,8 +283,8 @@ const GlobalStyle = createGlobalStyle`
     border-color: ${({ theme }) => theme.current.container.accent};
   }
 
-  // Input
-  input {
+  // Input / textarea
+  input, textarea {
     font-size: 1em;
     padding: 0.6em 1em;
     color: ${({ theme }) => theme.current.text.base};
@@ -294,14 +294,19 @@ const GlobalStyle = createGlobalStyle`
     transition: border-color 0.3s ease;
   }
 
-  input:focus,
-  input:focus-visible {
+  input:focus, textarea:focus,
+  input:focus-visible, textarea:focus-visible {
     outline: none;
     border-color: ${({ theme }) => theme.current.text.baseHighlight};
   }
 
-  input:disabled {
+  input:disabled, textarea:disabled {
     color: ${({ theme }) => theme.current.text.subtle};
+  }
+
+  textarea {
+    font-family: inherit;
+    resize: none;
   }
 `;
 
