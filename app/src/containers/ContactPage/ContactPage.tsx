@@ -28,9 +28,7 @@ export const ContactPage = () => (
         <h2>Ping me</h2>
         <p>Use the form below to send me an anonymous message — it will pop up on my phone!</p>
         <p>If you would like a response, please send me an email instead.</p>
-        <div>
-          <PingForm />
-        </div>
+        <PingForm />
       </div>
     </ContactBodyContainer>
   </section>
