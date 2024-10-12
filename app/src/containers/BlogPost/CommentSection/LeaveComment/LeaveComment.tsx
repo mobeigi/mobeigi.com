@@ -155,6 +155,12 @@ const LeaveComment = ({
     }, DEBOUNCE_TIMEOUT_MS),
   ).current;
 
+  const cancelInflightDebouncedRequests = () => {
+    debouncedValidateDisplayName.cancel();
+    debouncedValidateEmail.cancel();
+    debouncedValidateContent.cancel();
+  };
+
   /**
    * Comment submit handler.
    */
@@ -165,6 +171,8 @@ const LeaveComment = ({
     }
     try {
       setIsSubmitting(true);
+
+      cancelInflightDebouncedRequests();
 
       const response = await fetch('/api/comments', {
         method: 'POST',
