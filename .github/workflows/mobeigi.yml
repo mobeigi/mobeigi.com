@@ -23,13 +23,16 @@ jobs:
         node-version: ${{ matrix.node-version }}
     
     - name: Enable Corepack
+      working-directory: ./app
       run: corepack enable
 
     - name: Get yarn cache directory path
+      working-directory: ./app
       id: yarn-cache-dir-path
       run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
     - name: Cache yarn dependencies
+      working-directory: ./app
       uses: actions/cache@v4
       id: yarn-cache
       with:
