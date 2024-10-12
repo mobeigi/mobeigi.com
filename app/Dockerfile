@@ -10,6 +10,8 @@ COPY --from=gitroot .git .
 WORKDIR /project/app
 COPY . .
 
+RUN corepack enable
+
 RUN yarn install
 RUN yarn build
 

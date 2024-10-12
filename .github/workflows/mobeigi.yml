@@ -16,16 +16,24 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+    
+    - name: Enable Corepack
+      working-directory: ./app
+      run: corepack enable
+    
     - name: Install
       working-directory: ./app
       run: yarn install
+
     - name: Lint
       working-directory: ./app
       run: yarn lint
+    
     # TODO: Wire up tests
     # - name: Test
     #   working-directory: ./app
