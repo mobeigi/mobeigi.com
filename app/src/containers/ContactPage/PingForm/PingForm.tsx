@@ -70,6 +70,10 @@ export const PingForm = () => {
     }, DEBOUNCE_TIMEOUT_MS),
   ).current;
 
+  const cancelInflightDebouncedRequests = () => {
+    debouncedValidateMessage.cancel();
+  };
+
   /**
    * Click handler.
    */
@@ -81,6 +85,8 @@ export const PingForm = () => {
     // Send ping
     try {
       setIsSubmitting(true);
+
+      cancelInflightDebouncedRequests();
 
       const response = await fetch('/api/custom/contact/ping', {
         method: 'POST',
