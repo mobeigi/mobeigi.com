@@ -67,6 +67,10 @@ export const ResumePage = () => {
     }, DEBOUNCE_TIMEOUT_MS),
   ).current;
 
+  const cancelInflightDebouncedRequests = () => {
+    debouncedValidatePassword.cancel();
+  };
+
   /**
    * Download handler.
    */
@@ -77,6 +81,8 @@ export const ResumePage = () => {
     // Download file
     try {
       setIsSubmitting(true);
+
+      cancelInflightDebouncedRequests();
 
       const response = await fetch('/api/custom/resume', {
         method: 'POST',
