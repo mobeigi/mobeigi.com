@@ -13,8 +13,6 @@ export const metadata: Metadata = {
   description: "Explore Mo's blog for insights on programming, technology, and other topics of interest.",
 };
 
-const depth = 2;
-
 const BlogPageHandler = async () => {
   const payload = await getPayloadHMR({
     config,
@@ -23,7 +21,7 @@ const BlogPageHandler = async () => {
   const posts = await payload.find({
     collection: 'posts',
     where: { _status: { equals: 'published' } },
-    depth,
+    depth: 1,
     limit: 0,
     pagination: false,
   });
@@ -39,7 +37,6 @@ const BlogPageHandler = async () => {
         const commentCount = await payload.count({
           collection: 'comments',
           where: { post: { equals: post.id } },
-          depth,
         });
 
         const relatedMeta: BlogPostRelatedMeta = {

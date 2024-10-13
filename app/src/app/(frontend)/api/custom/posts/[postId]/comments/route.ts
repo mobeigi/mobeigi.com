@@ -4,8 +4,6 @@ import config from '@payload-config';
 import { mapComments } from '@/utils/payload';
 import { CommentsForPost } from '@/types/api/commentsForPost';
 
-const depth = 2;
-
 export const GET = async (request: Request, { params: paramsPromise }: { params: Promise<{ postId: string }> }) => {
   try {
     const params = await paramsPromise;
@@ -21,7 +19,7 @@ export const GET = async (request: Request, { params: paramsPromise }: { params:
       where: {
         post: { equals: postId },
       },
-      depth,
+      depth: 1,
       limit: 0,
       pagination: false,
     });

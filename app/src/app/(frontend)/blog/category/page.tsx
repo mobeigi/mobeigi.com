@@ -9,8 +9,6 @@ import CategoryPage from '@/containers/CategoryPage';
 import { CategoryWithSubcategories } from '@/containers/CategoryPage/types';
 import { generateBreadcrumbs } from './breadcrumbs';
 
-const depth = 2;
-
 export const metadata: Metadata = {
   title: 'Category',
   description: "Explore Mo's categories for easy navigation through various topics and insights.",
@@ -24,7 +22,7 @@ const CategoryPageHandler = async () => {
   const payloadRootCategories = await payload.find({
     collection: 'category',
     where: { parent: { exists: false } },
-    depth,
+    depth: 1,
     limit: 0,
     pagination: false,
   });
@@ -36,7 +34,7 @@ const CategoryPageHandler = async () => {
         const payloadSubCategories = await payload.find({
           collection: 'category',
           where: { parent: { equals: payloadRootCategory.id } },
-          depth,
+          depth: 1,
           limit: 0,
           pagination: false,
         });

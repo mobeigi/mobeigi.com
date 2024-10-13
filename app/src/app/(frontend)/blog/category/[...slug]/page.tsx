@@ -15,8 +15,6 @@ import { sortCategoryByTitle } from '@/utils/blog/category';
 import { payloadRedirect } from '@/payload/utils/payloadRedirect';
 import { generateBreadcrumbs } from './breadcrumbs';
 
-const depth = 2;
-
 const getPayloadCategoryFromParams = async ({
   params,
 }: {
@@ -100,7 +98,7 @@ const CategoryDetailPageHandler = async ({ params: paramsPromise }: { params: Pr
       category: { equals: payloadCategory.id },
       _status: { equals: 'published' },
     },
-    depth,
+    depth: 1,
     limit: 0,
     pagination: false,
   });
@@ -116,7 +114,6 @@ const CategoryDetailPageHandler = async ({ params: paramsPromise }: { params: Pr
         const commentCount = await payload.count({
           collection: 'comments',
           where: { post: { equals: post.id } },
-          depth,
         });
 
         const relatedMeta: BlogPostRelatedMeta = {
@@ -150,7 +147,7 @@ const CategoryDetailPageHandler = async ({ params: paramsPromise }: { params: Pr
   const payloadSubcategories = await payload.find({
     collection: 'category',
     where: { parent: { equals: payloadCategory.id } },
-    depth,
+    depth: 1,
     limit: 0,
     pagination: false,
   });
