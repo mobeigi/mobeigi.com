@@ -15,8 +15,6 @@ import { headers } from 'next/headers';
 import { generateBreadcrumbs } from './breadcrumbs';
 import { Post as PayloadPost, Category as PayloadCategory } from '@/payload-types';
 
-const depth = 2;
-
 const getPayloadPostFromParams = async ({ params }: { params: { slug: string[] } }): Promise<PayloadPost | null> => {
   const payload = await getPayloadHMR({
     config,
@@ -37,7 +35,7 @@ const getPayloadPostFromParams = async ({ params }: { params: { slug: string[] }
       slug: { equals: postSlug },
       _status: { equals: 'published' },
     },
-    depth,
+    depth: 1,
   });
 
   if (!payloadPosts.docs.length) {
@@ -147,7 +145,7 @@ const transformPostToBlogPostProps = async (post: PayloadPost): Promise<BlogPost
     where: {
       post: { equals: post.id },
     },
-    depth,
+    depth: 1,
     limit: 0,
     pagination: false,
   });
