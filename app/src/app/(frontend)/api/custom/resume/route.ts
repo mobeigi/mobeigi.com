@@ -8,7 +8,6 @@ import { Users } from '@payload/collections/Users';
 import { ResumeRequest } from '@/types/api/resume';
 import { ErrorResonse } from '@/types/api/error';
 
-const depth = 2;
 const systemUserApiKey = requireEnvVar(process.env.PAYLOAD_SYSTEM_USER_API_KEY, 'PAYLOAD_SYSTEM_USER_API_KEY');
 
 export const POST = async (request: Request) => {
@@ -22,7 +21,7 @@ export const POST = async (request: Request) => {
 
     const resumeGlobal = await payload.findGlobal({
       slug: 'resume',
-      depth,
+      depth: 1,
     });
 
     const validPasswords = resumeGlobal.passwords?.map((entry) => entry.password) || [];
