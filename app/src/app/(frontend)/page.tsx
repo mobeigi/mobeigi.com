@@ -7,8 +7,6 @@ import { BlogPostMeta, BlogPostRelatedMeta } from '@/types/blog';
 import { sortBlogPostMetaByPublishedAtDate } from '@/utils/blog/post';
 import { generateBreadcrumbs } from './breadcrumbs';
 
-const depth = 2;
-
 const Home = async () => {
   const payload = await getPayloadHMR({
     config,
@@ -17,7 +15,7 @@ const Home = async () => {
   const posts = await payload.find({
     collection: 'posts',
     where: { _status: { equals: 'published' } },
-    depth,
+    depth: 1,
     limit: 3,
     pagination: false,
     sort: '-publishedAt',
@@ -34,7 +32,6 @@ const Home = async () => {
         const commentCount = await payload.count({
           collection: 'comments',
           where: { post: { equals: post.id } },
-          depth,
         });
 
         const relatedMeta: BlogPostRelatedMeta = {
