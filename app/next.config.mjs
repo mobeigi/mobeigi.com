@@ -18,6 +18,7 @@ const nextConfig = {
     dirs: ['.'],
   },
   images: {
+    contentDispositionType: 'inline',
     remotePatterns: [
       {
         protocol: 'https',
