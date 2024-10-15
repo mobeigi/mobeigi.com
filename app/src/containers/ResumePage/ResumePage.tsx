@@ -148,6 +148,7 @@ export const ResumePage = () => {
               void handleDownload();
             }}
             disabled={isSubmitting || isPasswordError}
+            aria-label="Download"
           >
             <ButtonLabel $isVisible={!isSubmitting}>Download</ButtonLabel>
             {isSubmitting && (
