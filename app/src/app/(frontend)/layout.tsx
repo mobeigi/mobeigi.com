@@ -56,6 +56,8 @@ export const metadata: Metadata = {
   other: {
     'apple-mobile-web-app-title': APPLICATION_NAME,
     'msapplication-TileColor': '#cc7156',
+    // Disable dark reader extension since we natively support dark mode
+    'darkreader-lock': '1',
   },
 };
 
