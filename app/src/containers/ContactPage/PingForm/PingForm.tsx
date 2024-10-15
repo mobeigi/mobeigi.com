@@ -145,6 +145,7 @@ export const PingForm = () => {
           void handleSend();
         }}
         disabled={isSubmitting || isMessageError}
+        aria-label="Send ping"
       >
         <ButtonLabel $isVisible={!isSubmitting}>Send</ButtonLabel>
         {isSubmitting && (

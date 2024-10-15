@@ -59,7 +59,7 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
       <div className="label-wrapper">
         <FieldLabel field={field} htmlFor={`field-${path}`} label={label} />
 
-        <Button className="lock-button" buttonStyle="none" onClick={handleLock}>
+        <Button className="lock-button" buttonStyle="none" onClick={handleLock} aria-label="Lock Button">
           {checkboxValue ? 'Unlock' : 'Lock'}
         </Button>
       </div>
