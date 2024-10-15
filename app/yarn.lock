@@ -11460,12 +11460,12 @@ __metadata:
 
 "react-toggle-dark-mode@file:./packages/react-toggle-dark-mode-v2.0.0.tgz::locator=mobeigi-com-app%40workspace%3A.":
   version: 2.0.0
-  resolution: "react-toggle-dark-mode@file:./packages/react-toggle-dark-mode-v2.0.0.tgz#./packages/react-toggle-dark-mode-v2.0.0.tgz::hash=6bf124&locator=mobeigi-com-app%40workspace%3A."
+  resolution: "react-toggle-dark-mode@file:./packages/react-toggle-dark-mode-v2.0.0.tgz#./packages/react-toggle-dark-mode-v2.0.0.tgz::hash=e02214&locator=mobeigi-com-app%40workspace%3A."
   dependencies:
     react-spring: "npm:^9.7.4"
   peerDependencies:
     react: ">=16"
-  checksum: 10c0/dbedaa1630f2b4d17f03d87e2f38102a6c96252ea486f39343745d1fc6b7735ccc67b4eef67eb9015b85b4d537d94ff8d24b04fa21495f503ac0a8b9b9ea7c85
+  checksum: 10c0/015d12ee247d62fefa35421c8d8f9e2b82777034551ff3c7fcb81c242a29a10ee4e2659098b72d2f426baf3a5b5227d286899b9e36f50f3c5472aa752564aae7
   languageName: node
   linkType: hard
 
