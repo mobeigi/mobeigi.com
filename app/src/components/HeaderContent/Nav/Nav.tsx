@@ -37,7 +37,7 @@ export const Nav = () => {
         <NavInner />
       </DesktopNav>
       <MobileNav>
-        <IconWrapperBubbleButton onClick={toggleMenu}>
+        <IconWrapperBubbleButton onClick={toggleMenu} aria-label="Toggle nav menu">
           <MenuSvg />
         </IconWrapperBubbleButton>
         {isMenuOpen && (

@@ -277,7 +277,7 @@ const LeaveComment = ({
       <RichTextPlugin
         contentEditable={
           <ContentEditableWrapper $isError={isContentError}>
-            <ContentEditable disabled={isSubmitting} />
+            <ContentEditable disabled={isSubmitting} ariaLabel="Comment content" />
           </ContentEditableWrapper>
         }
         ErrorBoundary={LexicalErrorBoundary}
@@ -310,7 +310,7 @@ const LeaveComment = ({
       {isContentError && <InputError>{errors.get('content')}</InputError>}
       <ActionRow>
         {canCancel && (
-          <SecondaryButton onClick={onCancel} disabled={isSubmitting}>
+          <SecondaryButton onClick={onCancel} disabled={isSubmitting} aria-label="Cancel comment">
             Cancel
           </SecondaryButton>
         )}
@@ -319,6 +319,7 @@ const LeaveComment = ({
             void handleCommentSubmit();
           }}
           disabled={isSubmitting || isError}
+          aria-label="Submit comment"
         >
           <ButtonLabel $isVisible={!isSubmitting}>Comment</ButtonLabel>
           {isSubmitting && (
