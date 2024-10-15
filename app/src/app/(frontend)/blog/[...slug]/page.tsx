@@ -27,7 +27,7 @@ const getPayloadPostFromParams = async ({ params }: { params: { slug: string[] }
     return null;
   }
 
-  const paramsCategorySlugUrl = joinUrl(['/', ...categorySlugs], false);
+  const paramsCategorySlugUrl = joinUrl([...categorySlugs], false);
 
   const payloadPosts = await payload.find({
     collection: 'posts',
@@ -65,7 +65,7 @@ export const generateMetadata = async ({
 }): Promise<Metadata> => {
   const params = await paramsPromise;
 
-  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', ...params.slug]) });
+  await payloadRedirect({ currentUrl: joinUrl(['blog', ...params.slug]) });
 
   const post = await getPayloadPostFromParams({ params });
   if (!post) {
@@ -86,7 +86,7 @@ export const generateMetadata = async ({
 const BlogPostHandler = async ({ params: paramsPromise }: { params: Promise<{ slug: string[] }> }) => {
   const params = await paramsPromise;
 
-  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', ...params.slug]) });
+  await payloadRedirect({ currentUrl: joinUrl(['blog', ...params.slug]) });
 
   const post = await getPayloadPostFromParams({ params });
   if (!post) {
