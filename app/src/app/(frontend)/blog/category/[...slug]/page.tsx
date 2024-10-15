@@ -61,7 +61,7 @@ export const generateMetadata = async ({
 }): Promise<Metadata> => {
   const params = await paramsPromise;
 
-  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', 'category', ...params.slug]) });
+  await payloadRedirect({ currentUrl: joinUrl(['blog', 'category', ...params.slug]) });
 
   const payloadCategory = await getPayloadCategoryFromParams({ params });
   if (!payloadCategory) {
@@ -80,7 +80,7 @@ export const generateMetadata = async ({
 const CategoryDetailPageHandler = async ({ params: paramsPromise }: { params: Promise<{ slug: string[] }> }) => {
   const params = await paramsPromise;
 
-  await payloadRedirect({ currentUrl: joinUrl(['/', 'blog', 'category', ...params.slug]) });
+  await payloadRedirect({ currentUrl: joinUrl(['blog', 'category', ...params.slug]) });
 
   const payloadCategory = await getPayloadCategoryFromParams({ params });
   if (!payloadCategory) {
