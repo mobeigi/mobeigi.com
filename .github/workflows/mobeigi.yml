@@ -34,10 +34,10 @@ jobs:
       working-directory: ./app
       run: yarn lint
     
-    # TODO: Wire up tests
-    # - name: Test
-    #   working-directory: ./app
-    #   run: yarn test
+    - name: Test
+      working-directory: ./app
+      run: yarn test
+    
     # TODO: How to build without DB
     # - name: Build
     #   working-directory: ./app
