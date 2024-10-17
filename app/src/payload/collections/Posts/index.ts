@@ -144,11 +144,13 @@ export const Posts: CollectionConfig = {
     {
       name: 'viewsCache',
       type: 'array',
+      // Avoid exposing this field on read to prevent potential performance issues due to its large size.
+      hidden: true,
       admin: {
         hidden: true,
       },
       access: {
-        // dont expose this field on read because it can be huge
+        // Avoid exposing this field on read to prevent potential performance issues due to its large size.
         read: noone,
       },
       fields: [
