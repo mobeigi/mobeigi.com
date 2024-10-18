@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description: "Here are some fun Easter Eggs i've added to my website, I hope you enjoy them!",
 };
 
-export const dynamic = 'force-static';
 export const revalidate = 86400;
 
 const EasterEggs = () => {
