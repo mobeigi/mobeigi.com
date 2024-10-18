@@ -1,43 +1,22 @@
-import { FALLBACK_PREFERS_COLOR_SCHEME, FALLBACK_SYSTEM_THEME_MODE } from '@/constants/theme';
-import { PrefersColorScheme, ThemeMode } from '@/types/theme';
+import { DEFAULT_THEME_MODE, FALLBACK_SYSTEM_THEME_MODE } from '@/constants/theme';
+import { ThemeMode } from '@/types/theme';
 
 /**
- * Resolves theme mode to either light or dark.
- * @param {ThemeMode} themeMode - The theme mode.
- * @param {string} prefersColorScheme - The user's preferred color scheme (light, dark).
- * @returns {ThemeMode} - The resolved theme mode (light or dark).
+ * Converts a next/themes string to a ThemeMode enum value.
+ * If the input is undefined or invalid, it defaults to the default theme mode.
+ *
+ * @param theme - The string to convert or undefined.
+ * @returns The matching ThemeMode value or the default theme mode.
  */
-export const resolveThemeMode = (themeMode: ThemeMode, prefersColorScheme?: PrefersColorScheme): ThemeMode => {
-  switch (themeMode) {
-    case ThemeMode.Dark:
-    case ThemeMode.Light:
-      return themeMode;
-    case ThemeMode.System:
-      if (prefersColorScheme) {
-        if (prefersColorScheme === PrefersColorScheme.Dark) {
-          return ThemeMode.Dark;
-        } else if (prefersColorScheme === PrefersColorScheme.Light) {
-          return ThemeMode.Light;
-        } else {
-          return FALLBACK_SYSTEM_THEME_MODE;
-        }
-      }
-    default:
-      throw Error(`Unsupported themeMode: ${themeMode}`);
-  }
-};
+export const nextThemeToThemeMode = (theme?: string): ThemeMode =>
+  Object.values(ThemeMode).includes(theme as ThemeMode) ? (theme as ThemeMode) : DEFAULT_THEME_MODE;
 
 /**
- * Gets the clients prefers-color-scheme media preference.
- * @returns {PrefersColorScheme} - The prefers color scheme if a match was made or the default fallback otherwise.
+ * Converts a resolved theme string to a ThemeMode enum value.
+ * If the input is undefined or invalid, it defaults to fallback system theme mode.
+ *
+ * @param theme - The resolved theme string to convert or undefined.
+ * @returns The matching ThemeMode value or the fallback system theme mode.
  */
-export const getPrefersColorScheme = (): PrefersColorScheme | undefined => {
-  if (window.matchMedia) {
-    if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-      return PrefersColorScheme.Light;
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return PrefersColorScheme.Dark;
-    }
-  }
-  return FALLBACK_PREFERS_COLOR_SCHEME;
-};
+export const resolvedThemeToThemeMode = (theme?: string): ThemeMode =>
+  Object.values(ThemeMode).includes(theme as ThemeMode) ? (theme as ThemeMode) : FALLBACK_SYSTEM_THEME_MODE;

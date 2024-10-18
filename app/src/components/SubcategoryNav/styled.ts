@@ -24,23 +24,23 @@ export const ContainerNav = styled.nav`
 export const SubcategoryContainer = styled.div`
   display: flex;
   gap: 0.4em;
-  color: ${({ theme }) => theme.current.text.link};
+  color: var(--theme-text-link);
 `;
 
 export const StyledLink = styled(Link)`
-  color: ${({ theme }) => theme.current.text.link};
+  color: var(--theme-text-link);
   &:hover {
-    color: ${({ theme }) => theme.current.text.linkHighlight};
+    color: var(--theme-text-link-highlight);
 
     svg {
-      fill: ${({ theme }) => theme.current.text.linkHighlight};
+      fill: var(--theme-text-link-highlight);
     }
   }
 `;
 
 export const CategoryIconWrapper = styled(IconWrapper)`
   svg {
-    fill: ${({ theme }) => theme.current.text.link};
+    fill: var(--theme-text-link);
   }
 `;
 

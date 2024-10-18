@@ -15,14 +15,14 @@ export const InputWithError = styled.span<InputStatusProps>`
   input,
   textarea {
     /* Apply outline on error */
-    ${({ $isError, theme }) => $isError && `border-color: ${theme.current.status.error.base};`}
+    ${({ $isError }) => $isError && 'border-color: var(--theme-status-error-base);'}
 
     &:focus,
       &:focus-visible {
       outline: none;
       /* Apply outline based on isError status */
-      border-color: ${({ $isError, theme }) =>
-        $isError ? theme.current.status.error.base : theme.current.text.baseHighlight};
+      border-color: ${({ $isError }) =>
+        $isError ? 'var(--theme-status-error-base)' : 'var(--theme-text-base-highlight)'};
     }
   }
 `;
@@ -33,7 +33,7 @@ export const InputError = styled.p`
 
   font-size: 0.85em;
   text-align: center;
-  color: ${({ theme }) => theme.current.status.error.base};
+  color: var(--theme-status-error-base);
 `;
 
 export const LabelContainer = styled.span`
@@ -46,5 +46,5 @@ export const LabelDetails = styled.span`
   display: inline-flex;
   gap: 0.4em;
   font-size: 0.85em;
-  color: ${({ theme }) => theme.current.text.subtle};
+  color: var(--theme-text-subtle);
 `;
