@@ -9,6 +9,8 @@ import CategoryPage from '@/containers/CategoryPage';
 import { CategoryWithSubcategories } from '@/containers/CategoryPage/types';
 import { generateBreadcrumbs } from './breadcrumbs';
 
+export const revalidate = 86400;
+
 export const metadata: Metadata = {
   title: 'Category',
   description: "Explore Mo's categories for easy navigation through various topics and insights.",
