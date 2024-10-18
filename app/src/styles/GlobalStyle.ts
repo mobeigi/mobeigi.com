@@ -1,11 +1,17 @@
 'use client';
 
-import { hexToRgba } from '@/utils/theme';
 import { createGlobalStyle } from 'styled-components';
+import HighlightJsStyles from './highlightjs';
+import { breakpoints } from '@/styles/breakpoints';
 
+// CSS includes
 import 'react-toastify/dist/ReactToastify.css';
+import '@public/css/highlight.js/mobeigi.css';
 
 const GlobalStyle = createGlobalStyle`
+  /* Includes */
+  ${HighlightJsStyles}
+
   /* Variables */
   :root {
     --max-layout-width: 1100px;
@@ -15,19 +21,117 @@ const GlobalStyle = createGlobalStyle`
     --scroll-margin-top-offset: calc(var(--header-height) + var(--scroll-margin-extra));
   }
 
+  /* Light Theme */
+  [data-theme='light'] {
+    --theme-background: #ffffff;
+    --theme-frame-background: #f6f6f6;
+    --theme-frame-accent: #a1a1a1;
+    --theme-container-background: #f2f2f2;
+    --theme-container-accent: #a1a1a1;
+    --theme-code-background: #f2f2f2;
+    --theme-code-accent: #7c7c7c;
+
+    /* Text Colors */
+    --theme-text-base: #404040;
+    --theme-text-base-highlight: #424242;
+    --theme-text-subtle: #6a6a6a;
+    --theme-text-subtle-highlight: #424242;
+    --theme-text-link: #af363c;
+    --theme-text-link-highlight: #fb4d56;
+
+    /* Tooltip */
+    --theme-tooltip-text: #404040;
+    --theme-tooltip-background: #dadada;
+
+    /* Status Colors */
+    --theme-status-primary-base: #af363c;
+    --theme-status-primary-highlight: #fb4d56;
+    --theme-status-primary-accent: #80181d;
+    --theme-status-primary-complement: #ffffff;
+
+    --theme-status-secondary-base: #424242;
+    --theme-status-secondary-highlight: #727272;
+    --theme-status-secondary-accent: #1e1e1e;
+    --theme-status-secondary-complement: #ffffff;
+
+    --theme-status-success-base: #4caf50;
+    --theme-status-success-highlight: #60d065;
+    --theme-status-success-accent: #2e7d32;
+    --theme-status-success-complement: #ffffff;
+
+    --theme-status-error-base: #cd524e;
+    --theme-status-error-highlight: #de5955;
+    --theme-status-error-accent: #8c2d2a;
+    --theme-status-error-complement: #ffffff;
+
+    --theme-status-disabled-base: #656565;
+    --theme-status-disabled-highlight: #666666;
+    --theme-status-disabled-accent: #999999;
+    --theme-status-disabled-complement: #333333;
+  }
+
+  /* Dark Theme */
+  [data-theme='dark'] {
+    --theme-background: #1e1e1e;
+    --theme-frame-background: #181717;
+    --theme-frame-accent: #3a3a3a;
+    --theme-container-background: #232323;
+    --theme-container-accent: #3a3a3a;
+    --theme-code-background: #303030;
+    --theme-code-accent: #7c7c7c;
+
+    /* Text Colors */
+    --theme-text-base: #dadada;
+    --theme-text-base-highlight: #f5f5f5;
+    --theme-text-subtle: #999;
+    --theme-text-subtle-highlight: #f5f5f5;
+    --theme-text-link: #af363c;
+    --theme-text-link-highlight: #fb4d56;
+
+    /* Tooltip */
+    --theme-tooltip-text: #dadada;
+    --theme-tooltip-background: #424242;
+
+    /* Status Colors */
+    --theme-status-primary-base: #af363c;
+    --theme-status-primary-highlight: #fb4d56;
+    --theme-status-primary-accent: #80181d;
+    --theme-status-primary-complement: #ffffff;
+
+    --theme-status-secondary-base: #424242;
+    --theme-status-secondary-highlight: #727272;
+    --theme-status-secondary-accent: #1e1e1e;
+    --theme-status-secondary-complement: #ffffff;
+
+    --theme-status-success-base: #4caf50;
+    --theme-status-success-highlight: #60d065;
+    --theme-status-success-accent: #2e7d32;
+    --theme-status-success-complement: #ffffff;
+
+    --theme-status-error-base: #cd524e;
+    --theme-status-error-highlight: #de5955;
+    --theme-status-error-accent: #8c2d2a;
+    --theme-status-error-complement: #ffffff;
+
+    --theme-status-disabled-base: #9e9e9e;
+    --theme-status-disabled-highlight: #666666;
+    --theme-status-disabled-accent: #999999;
+    --theme-status-disabled-complement: #333333;
+  }
+
   /* Base font size */
   html {
     font-size: 16px;
   }
 
   /* Adjust font size for different screen sizes */
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet.maxWidth}px) {
+  @media (max-width: ${breakpoints.tablet.maxWidth}px) {
     html {
       font-size: 15px;
     }
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px) {
+  @media (max-width: ${breakpoints.mobile.maxWidth}px) {
     html {
       font-size: 14px;
     }
@@ -44,8 +148,8 @@ const GlobalStyle = createGlobalStyle`
     flex-direction: column;
 
     // Default Colors
-    background-color: ${({ theme }) => theme.current.background};
-    color: ${({ theme }) => theme.current.text.base};
+    background-color: var(--theme-background);
+    color: var(--theme-text-base);
   }
 
   /* Paragraph */
@@ -174,11 +278,11 @@ const GlobalStyle = createGlobalStyle`
   
   /* Links */
   a {
-    color: ${({ theme }) => theme.current.text.link};
+    color: var(--theme-text-link);
     text-decoration: inherit;
   }
   a:hover {
-    color: ${({ theme }) => theme.current.text.linkHighlight};
+    color: var(--theme-text-link-highlight);
   }
 
   /* Buttons */
@@ -194,8 +298,8 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 500;
     font-family: inherit;
     cursor: pointer;
-    color: ${({ theme }) => theme.current.status.primary.complement};
-    background-color: ${({ theme }) => theme.current.status.primary.base};
+    color: var(--theme-status-primary-complement);
+    background-color: var(--theme-status-primary-base);
     transition:
         border-color 0.25s,
         background-color 0.3s ease,
@@ -203,36 +307,36 @@ const GlobalStyle = createGlobalStyle`
   }
   
   button:hover {
-    background-color: ${({ theme }) => theme.current.status.primary.baseHighlight};
+    background-color: var(--theme-status-primary-highlight);
   }
 
   button:active {
-    background-color: ${({ theme }) => theme.current.status.primary.base};
+    background-color: var(--theme-status-primary-base);
   }
 
   button:focus,
   button:focus-visible {
-    box-shadow: 0 0 0 0.25em ${({ theme }) => hexToRgba(theme.current.status.primary.base, 0.5)};
+    box-shadow: 0 0 0 0.25em color-mix(in srgb, var(--theme-status-primary-base) 50%, transparent);
   }
 
   button:disabled {
     cursor: not-allowed;
 
-    color: ${({ theme }) => theme.current.status.disabled.complement};
-    background-color: ${({ theme }) => theme.current.status.disabled.base};
+    color: var(--theme-status-disabled-complement);
+    background-color: var(--theme-status-disabled-base);
 
     &:hover {
       /* No hover effect for disabled buttons */
-      background-color: ${({ theme }) => theme.current.status.disabled.base};
+      background-color: var(--theme-status-disabled-base);
     }
 
     &:active {
-      background-color: ${({ theme }) => theme.current.status.disabled.base};
+      background-color: var(--theme-status-disabled-base);
     }
 
     &:focus,
     &:focus-visible {
-      box-shadow: 0 0 0 0.25em ${({ theme }) => hexToRgba(theme.current.status.disabled.base, 0.5)};
+      box-shadow: 0 0 0 0.25em color-mix(in srgb, var(--theme-status-disabled-base) 50%, transparent);
     }
   }
 
@@ -241,21 +345,21 @@ const GlobalStyle = createGlobalStyle`
     border-collapse: collapse;
 
     th {
-      background-color: ${({ theme }) => theme.current.container.background};
+      background-color: var(--theme-container-background);
     }
 
     th, td {
-      border: 0.1em solid ${({ theme }) => theme.current.container.accent};
+      border: 0.1em solid var(--theme-container-accent);
       padding: 0.5em;
     }
   }
 
   // Inline code
   code:not(pre > code) {
-    background-color: ${({ theme }) => theme.current.code.background};
+    background-color: var(--theme-code-background);
     padding: 0 0.2em;
     border-radius: 0.2em;
-    border: 0.1em solid ${({ theme }) => hexToRgba(theme.current.code.accent, 0.15)};
+    border: 0.1em solid color-mix(in srgb, var(--theme-code-accent) 15%, transparent);
   }
 
   // Code
@@ -263,14 +367,14 @@ const GlobalStyle = createGlobalStyle`
     white-space: pre-wrap;
     word-break: break-word;
     border-radius: 0.4em;
-    border: 0.1em solid ${({ theme }) => hexToRgba(theme.current.code.accent, 0.15)};
+    border: 0.1em solid color-mix(in srgb, var(--theme-code-accent) 15%, transparent);
   }
 
   // Blockquote
   blockquote {
     margin-block: 1em;
     margin-inline: 0.3em;
-    border-color: ${({ theme }) => theme.current.text.base};
+    border-color: var(--theme-text-base);
     border-inline-start-width: 0.3em;
     border-inline-start-style: solid;
     padding-inline-start: 0.9em;
@@ -280,16 +384,16 @@ const GlobalStyle = createGlobalStyle`
   // HR
   hr {
     width: 100%;
-    border-color: ${({ theme }) => theme.current.container.accent};
+    border-color: var(--theme-container-accent);
   }
 
   // Input / textarea
   input, textarea {
     font-size: 1em;
     padding: 0.6em 1em;
-    color: ${({ theme }) => theme.current.text.base};
-    background-color: ${({ theme }) => theme.current.container.background};
-    border: 0.1em solid ${({ theme }) => theme.current.container.accent};
+    color: var(--theme-text-base);
+    background-color: var(--theme-container-background);
+    border: 0.1em solid var(--theme-container-accent);
     border-radius: 0.2em;
     transition: border-color 0.3s ease;
   }
@@ -297,11 +401,11 @@ const GlobalStyle = createGlobalStyle`
   input:focus, textarea:focus,
   input:focus-visible, textarea:focus-visible {
     outline: none;
-    border-color: ${({ theme }) => theme.current.text.baseHighlight};
+    border-color: var(--theme-text-base-highlight);
   }
 
   input:disabled, textarea:disabled {
-    color: ${({ theme }) => theme.current.text.subtle};
+    color: var(--theme-text-subtle);
   }
 
   textarea {

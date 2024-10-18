@@ -1,27 +1,20 @@
-import { cookies } from 'next/headers';
-import type { Metadata, Viewport } from 'next';
 import './globals.css';
+
+import type { Metadata, Viewport } from 'next';
 import { Roboto } from 'next/font/google';
 import { APPLICATION_NAME, BASE_URL, SITE_TITLE } from '@/constants/app';
 import HeaderContent from '@/components/HeaderContent';
 import FooterContent from '@/components/FooterContent';
 import GlobalStyle from '@/styles/GlobalStyle';
 import StyledComponentsRegistry from '@/lib/StyledComponentsRegistry';
-import ThemeProviderWrapper from '@/lib/ThemeProviderWrapper';
-import { PrefersColorScheme } from '@/types/theme';
-import { THEME_COOKIE_NAME } from '@/constants/cookies';
 import { Header, Main, MainContents, Footer } from './styled';
-import { UserPreferencesProvider } from '@/context/userPreferencesContext';
-import { parseThemeCookieValue, resolveThemeMode } from '@/utils/theme';
-import { DEFAULT_THEME_MODE, FALLBACK_PREFERS_COLOR_SCHEME } from '@/constants/theme';
-import HighlightJsThemeLoader from '@/components/HighlightJsThemeLoader';
 import ThemedToastContainer from '@/components/ThemedToastContainer';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { GA_TAG_ID } from '@/constants/analytics';
 import GlobalTooltip from '@/containers/GlobalTooltip';
-import { use } from 'react';
 import ConsoleWelcomeMessage from '@/components/ConsoleWelcomeMessage';
 import HolyLoader from 'holy-loader';
+import { ThemeProvider } from 'next-themes';
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -76,51 +69,27 @@ const RootLayout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const cookieStore = use(cookies());
-  const themeCookie = cookieStore.get(THEME_COOKIE_NAME);
-
-  let initialThemeMode = DEFAULT_THEME_MODE;
-  let initialPrefersColorScheme: PrefersColorScheme | undefined = FALLBACK_PREFERS_COLOR_SCHEME;
-
-  if (themeCookie?.value) {
-    let parsedThemeCookieValue;
-    try {
-      parsedThemeCookieValue = parseThemeCookieValue(themeCookie.value);
-      initialThemeMode = parsedThemeCookieValue.themeMode;
-      initialPrefersColorScheme = parsedThemeCookieValue.prefersColorScheme;
-    } catch (error) {
-      console.warn(`Parsing theme cookie value failed. themeCookie: ${themeCookie.value}`, error);
-    }
-  }
-
-  const currentThemeMode = resolveThemeMode(initialThemeMode, initialPrefersColorScheme);
-
   return (
-    <html lang="en">
+    // suppressHydrationWarning needed for next-themes
+    <html lang="en" suppressHydrationWarning>
       <body className={roboto.className}>
         <StyledComponentsRegistry>
-          <UserPreferencesProvider
-            initialThemeMode={initialThemeMode}
-            initialPrefersColorScheme={initialPrefersColorScheme}
-          >
-            <ThemeProviderWrapper>
-              <GlobalStyle />
-              <GlobalTooltip />
-              <ThemedToastContainer />
-              <HolyLoader color={holyLoaderColor} height="0.2rem" />
-              <HighlightJsThemeLoader currentThemeMode={currentThemeMode} />
-              <ConsoleWelcomeMessage />
-              <Header id="header">
-                <HeaderContent />
-              </Header>
-              <Main id="main">
-                <MainContents>{children}</MainContents>
-              </Main>
-              <Footer id="footer">
-                <FooterContent />
-              </Footer>
-            </ThemeProviderWrapper>
-          </UserPreferencesProvider>
+          <ThemeProvider enableSystem={true} defaultTheme="system">
+            <GlobalStyle />
+            <GlobalTooltip />
+            <ThemedToastContainer />
+            <HolyLoader color={holyLoaderColor} height="0.2rem" />
+            <ConsoleWelcomeMessage />
+            <Header id="header">
+              <HeaderContent />
+            </Header>
+            <Main id="main">
+              <MainContents>{children}</MainContents>
+            </Main>
+            <Footer id="footer">
+              <FooterContent />
+            </Footer>
+          </ThemeProvider>
         </StyledComponentsRegistry>
         <GoogleAnalytics gaId={GA_TAG_ID} />
       </body>

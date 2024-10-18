@@ -20,9 +20,9 @@ export const ProjectBoxContents = styled.div`
   overflow: hidden;
 
   border-radius: 3%;
-  color: ${({ theme }) => theme.current.text.base};
-  background-color: ${({ theme }) => theme.current.container.background};
-  border: 0.1em solid ${({ theme }) => theme.current.container.accent};
+  color: var(--theme-text-base);
+  background-color: var(--theme-container-background);
+  border: 0.1em solid var(--theme-container-accent);
 
   /* Animations */
   font-size: 1em;
@@ -84,7 +84,7 @@ export const UrlContainer = styled.span`
 `;
 
 export const InactiveUrl = styled.span`
-  color: ${({ theme }) => theme.current.status.disabled.base};
+  color: var(--theme-status-disabled-base);
 `;
 
 export const Divider = styled.hr`

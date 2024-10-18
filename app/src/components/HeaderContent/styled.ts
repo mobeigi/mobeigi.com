@@ -7,8 +7,8 @@ export const HeaderContainer = styled.div`
   width: 100%;
   height: 100%;
   justify-content: center;
-  background-color: ${({ theme }) => theme.current.frame.background};
-  border-bottom: 0.2em solid ${({ theme }) => theme.current.frame.accent};
+  background-color: var(--theme-frame-background);
+  border-bottom: 0.2em solid var(--theme-frame-accent);
   box-sizing: border-box;
 `;
 

@@ -2,6 +2,7 @@
 
 import { IconWrapper } from '@/styles/icon';
 import styled from 'styled-components';
+import { breakpoints } from '@/styles/breakpoints';
 
 export const ImageWrapper = styled.div`
   position: relative;
@@ -21,9 +22,9 @@ export const ProgrammingLanguagesContainer = styled.div`
   display: flex;
   justify-content: space-around;
   gap: 1em;
-  color: ${({ theme }) => theme.current.text.subtle};
+  color: var(--theme-text-subtle);
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px) {
+  @media (max-width: ${breakpoints.mobile.maxWidth}px) {
     flex-wrap: wrap;
     & span {
       min-width: 16%;
@@ -45,6 +46,6 @@ export const IconAndTextContainer = styled.span`
 
 export const CustomIconWrapper = styled(IconWrapper)`
   svg {
-    fill: ${({ theme }) => theme.current.text.subtle};
+    fill: var(--theme-text-subtle);
   }
 `;
