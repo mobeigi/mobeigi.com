@@ -4,13 +4,17 @@ export const PrivacyPolicyPage = () => (
   <section>
     <h1>Privacy Policy</h1>
     <p>Below is a summary of all of the information we collect about you.</p>
+    <h2>Local storage</h2>
+    <p>This website stores the following data in your browser:</p>
+    <ul>
+      <li>
+        <strong>theme:</strong> Tracks your theme mode preference (<code>system</code>,&nbsp;<code>dark</code>,&nbsp;
+        <code>light</code>) in order to style the website.
+      </li>
+    </ul>
     <h2>Cookies</h2>
     <p>This website uses the following cookies:</p>
     <ul>
-      <li>
-        <strong>theme:</strong> Tracks your theme mode preference (<code>system</code>, <code>dark</code>,
-        <code>light</code>) as well as your browsers <code>prefers-color-scheme</code> CSS media feature value.
-      </li>
       <li>
         <strong>_ga:</strong> Used to power{' '}
         <a href="https://developers.google.com/analytics" rel="nofollow">
