@@ -15,6 +15,9 @@ import { sortCategoryByTitle } from '@/utils/blog/category';
 import { payloadRedirect } from '@/payload/utils/payloadRedirect';
 import { generateBreadcrumbs } from './breadcrumbs';
 
+export const dynamic = 'force-static';
+export const revalidate = 900;
+
 const getPayloadCategoryFromParams = async ({
   params,
 }: {

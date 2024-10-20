@@ -15,6 +15,9 @@ import { headers } from 'next/headers';
 import { generateBreadcrumbs } from './breadcrumbs';
 import { Post as PayloadPost, Category as PayloadCategory } from '@/payload-types';
 
+export const dynamic = 'force-static';
+export const revalidate = 900;
+
 const getPayloadPostFromParams = async ({ params }: { params: { slug: string[] } }): Promise<PayloadPost | null> => {
   const payload = await getPayloadHMR({
     config,

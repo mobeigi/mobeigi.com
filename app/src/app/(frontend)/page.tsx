@@ -7,6 +7,8 @@ import { BlogPostMeta, BlogPostRelatedMeta } from '@/types/blog';
 import { sortBlogPostMetaByPublishedAtDate } from '@/utils/blog/post';
 import { generateBreadcrumbs } from './breadcrumbs';
 
+export const revalidate = 900;
+
 const Home = async () => {
   const payload = await getPayloadHMR({
     config,
