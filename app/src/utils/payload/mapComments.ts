@@ -1,8 +1,8 @@
 import { Comment } from '@/types/blog';
 import { Comment as PayloadComment } from '@/payload-types';
 import crypto from 'crypto';
-// import { getGravatarAvatarUrl } from '@/utils/gravatar';
-// import { DISPLAY_PICTURE_SIZE } from './constants';
+import { getGravatarAvatarUrl } from '@/utils/gravatar';
+import { DISPLAY_PICTURE_SIZE } from './constants';
 import { requireEnvVar } from '../env';
 
 /**
@@ -19,11 +19,9 @@ export const mapComments = async (payloadComments: PayloadComment[]): Promise<Co
   // Step 2: Map all sorted comments and store them in a commentMap
   const emailHashSalt = requireEnvVar(process.env.EMAIL_HASH_SALT, 'EMAIL_HASH_SALT');
   const comments = await Promise.all(
-    sortedPayloadComments.map((doc: PayloadComment) => {
+    sortedPayloadComments.map(async (doc: PayloadComment) => {
       const emailHash = crypto.createHmac('sha256', emailHashSalt).update(doc.email.toLowerCase()).digest('hex');
-      // TODO: Opti: Reenable gravatar avatars with caching
-      //const gravatarAvatarUrl = await getGravatarAvatarUrl({ email: doc.email, size: DISPLAY_PICTURE_SIZE });
-      const gravatarAvatarUrl = null;
+      const gravatarAvatarUrl = await getGravatarAvatarUrl({ email: doc.email, size: DISPLAY_PICTURE_SIZE });
       const comment: Comment = {
         id: doc.id,
         displayName: doc.displayName,
