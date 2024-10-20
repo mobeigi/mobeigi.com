@@ -12,7 +12,7 @@ import {
 import { authenticated } from '../../access/authenticated';
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished';
 import { MetaDescriptionField, MetaTitleField, OverviewField } from '@payloadcms/plugin-seo/fields';
-import { revalidatePost } from './hooks/revalidatePost';
+import { revalidatePostAfterChange, revalidatePostAfterDelete } from './hooks/revalidatePost';
 import { slugField } from '../../fields/slug';
 import { Code } from '@payload/blocks/Code/config';
 import { MediaBlock } from '@payload/blocks/MediaBlock/config';
@@ -187,7 +187,8 @@ export const Posts: CollectionConfig = {
     ...slugField(),
   ],
   hooks: {
-    afterChange: [revalidatePost],
+    afterChange: [revalidatePostAfterChange],
+    afterDelete: [revalidatePostAfterDelete],
   },
   versions: {
     drafts: {

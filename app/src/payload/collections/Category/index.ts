@@ -4,6 +4,7 @@ import { anyone } from '@payload/access/anyone';
 import { authenticated } from '@payload/access/authenticated';
 import { slugField } from '@payload/fields/slug';
 import { MetaDescriptionField, MetaTitleField, OverviewField } from '@payloadcms/plugin-seo/fields';
+import { revalidateCategoryAfterChange, revalidateCategoryAfterDelete } from './hooks/revalidateCategory';
 
 export const Category: CollectionConfig = {
   slug: 'category',
@@ -60,4 +61,8 @@ export const Category: CollectionConfig = {
     },
     ...slugField(),
   ],
+  hooks: {
+    afterChange: [revalidateCategoryAfterChange],
+    afterDelete: [revalidateCategoryAfterDelete],
+  },
 };
