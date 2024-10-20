@@ -6,6 +6,10 @@ import { validateDisplayName, validateEmail, validateContent } from './validator
 import { emailAfterNewCommentHook } from './hooks/emailAfterNewCommentHook';
 import { validationHook } from './hooks/validationHook';
 import { SerializedEditorState } from 'lexical';
+import {
+  revalidateCommentParentPostAfterChange,
+  revalidateCommentParentPostAfterDelete,
+} from './hooks/revalidateComment';
 
 export const Comments: CollectionConfig = {
   slug: 'comments',
@@ -97,6 +101,7 @@ export const Comments: CollectionConfig = {
   ],
   hooks: {
     beforeValidate: [validationHook],
-    afterChange: [emailAfterNewCommentHook],
+    afterChange: [revalidateCommentParentPostAfterChange, emailAfterNewCommentHook],
+    afterDelete: [revalidateCommentParentPostAfterDelete],
   },
 };
