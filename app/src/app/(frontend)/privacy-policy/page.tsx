@@ -9,7 +9,6 @@ export const metadata: Metadata = {
     'Learn about the data we collect, how we use it, and your rights to manage or remove your information from our website.',
 };
 
-export const dynamic = 'force-static';
 export const revalidate = 86400;
 
 const PrivacyPolicy = () => {

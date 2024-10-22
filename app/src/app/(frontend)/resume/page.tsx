@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description: "Unlock and download Mo Beigi's resume to explore professional experience, skills, and achievements.",
 };
 
-export const dynamic = 'force-static';
 export const revalidate = 86400;
 
 const Resume = () => {

@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import { breakpoints } from '@/styles/breakpoints';
 
 export const BlogPostContainer = styled.div`
   display: flex;
@@ -66,8 +67,8 @@ export const BlogSummaryWrapper = styled.div`
 export const BlogSummaryContainer = styled.section`
   display: block;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet.maxWidth}px) {
-    max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px;
+  @media (max-width: ${breakpoints.tablet.maxWidth}px) {
+    max-width: ${breakpoints.mobile.maxWidth}px;
     margin: 0 auto;
   }
 `;
@@ -78,7 +79,7 @@ export const BlogPostBodyContainer = styled.div`
   flex-direction: row;
   gap: 1em;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet.maxWidth}px) {
+  @media (max-width: ${breakpoints.tablet.maxWidth}px) {
     flex-direction: column;
     align-items: center;
   }
@@ -87,7 +88,7 @@ export const BlogPostBodyContainer = styled.div`
 export const BlogPostContents = styled.section`
   display: block;
   width: 100%;
-  max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px;
+  max-width: ${breakpoints.mobile.maxWidth}px;
   flex-grow: 1;
 
   word-break: break-word;
@@ -106,7 +107,7 @@ export const BlogPostSidebarWrapper = styled.aside`
   top: calc(var(--header-height) + 1em); /* Show underneath header with slight offset when element becomes sticky */
   min-width: 225px;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet.maxWidth}px) {
+  @media (max-width: ${breakpoints.tablet.maxWidth}px) {
     /* Hide the sidebar */
     display: none;
   }

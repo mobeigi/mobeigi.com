@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { DarkModeSwitch, DarkModeSwitchHandle, ThemeMode as DarkModeSwitchThemeMode } from 'react-toggle-dark-mode';
-import useUserPreferences from '@/hooks/useUserPreferences';
 import { ThemeMode } from '@/types/theme';
 import { IconWrapperBubble } from '@/styles/icon';
 import { DarkModeSwitchWrapper } from './styled';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { useTheme } from 'next-themes';
+import { nextThemeToThemeMode } from '@/utils/theme';
 
 export const customColors = {
   halfSunLeftFill: '#ffca00',
@@ -61,11 +62,19 @@ const getTooltip = (currentThemeMode: ThemeMode) => {
 };
 
 export const DarkModeSwitchContainer = () => {
-  const { themeMode, setThemeMode } = useUserPreferences();
+  const [mounted, setMounted] = useState(false);
+
+  const { theme, setTheme } = useTheme();
+  const themeMode = nextThemeToThemeMode(theme);
+
   const darkModeSwitchRef = useRef<DarkModeSwitchHandle>(null);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const cycleThemeMode = (darkModeSwitchThemeMode: DarkModeSwitchThemeMode) => {
-    setThemeMode(toThemeMode(darkModeSwitchThemeMode));
+    setTheme(toThemeMode(darkModeSwitchThemeMode));
   };
 
   const triggerClick = () => {
@@ -76,6 +85,10 @@ export const DarkModeSwitchContainer = () => {
 
   const tooltipElement = getTooltip(themeMode);
   const tooltipHtml = useMemo(() => renderToStaticMarkup(tooltipElement), [tooltipElement]);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <IconWrapperBubble onClick={triggerClick} data-tooltip-id="base-tooltip" data-tooltip-html={tooltipHtml}>

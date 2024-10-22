@@ -1,4 +1,5 @@
 import { Category } from '@/payload-types';
+import { joinUrl } from '@/utils/url';
 import { CollectionSlug, DataFromCollectionSlug } from 'payload';
 
 export const getCategorySlugComponents = (category: Category): string[] | null => {
@@ -14,7 +15,7 @@ export const getCategorySlugComponents = (category: Category): string[] | null =
   return lastBreadcrumb.url.split('/').filter(Boolean);
 };
 
-export const resolveCategoryUrl = (doc: DataFromCollectionSlug<CollectionSlug>) => {
+export const resolveCategoryUrl = (doc: DataFromCollectionSlug<CollectionSlug>): string | null => {
   const category = doc as Category;
   if (!category) {
     return null;
@@ -23,6 +24,5 @@ export const resolveCategoryUrl = (doc: DataFromCollectionSlug<CollectionSlug>) 
   if (!categorySlugComponents || categorySlugComponents.length === 0) {
     return null;
   }
-  const categoryUrl = ['/blog', 'category', ...categorySlugComponents].join('/');
-  return categoryUrl;
+  return joinUrl(['/blog', 'category', ...categorySlugComponents]);
 };

@@ -17,6 +17,9 @@ const nextConfig = {
     // Process all files & folders
     dirs: ['.'],
   },
+  experimental: {
+    ppr: true,
+  },
   images: {
     contentDispositionType: 'inline',
     remotePatterns: [

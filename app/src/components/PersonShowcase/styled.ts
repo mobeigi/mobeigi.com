@@ -2,6 +2,7 @@
 
 import { IconWrapper } from '@/styles/icon';
 import { styled } from 'styled-components';
+import { breakpoints } from '@/styles/breakpoints';
 
 export const PersonShowcaseSection = styled.section`
   display: flex;
@@ -9,7 +10,7 @@ export const PersonShowcaseSection = styled.section`
   align-items: center;
   gap: 2em;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px) {
+  @media (max-width: ${breakpoints.mobile.maxWidth}px) {
     gap: 1em;
     flex-direction: column;
   }
@@ -42,23 +43,23 @@ export const StyledHeading = styled.h2`
 export const Tagline = styled.p`
   margin: 0;
   font-size: 1.75em;
-  color: ${({ theme }) => theme.current.text.subtle};
+  color: var(--theme-text-subtle);
 `;
 
 export const InfoArea = styled.span`
   display: flex;
   gap: 1em;
   margin-top: 0.2em;
-  color: ${({ theme }) => theme.current.text.subtle};
+  color: var(--theme-text-subtle);
 `;
 
 export const Info = styled.span``;
 
 export const CustomIconWrapper = styled(IconWrapper)`
   svg {
-    fill: ${({ theme }) => theme.current.text.subtle};
+    fill: var(--theme-text-subtle);
     path: {
-      stroke: ${({ theme }) => theme.current.text.subtle};
+      stroke: var(--theme-text-subtle);
     }
   }
 `;

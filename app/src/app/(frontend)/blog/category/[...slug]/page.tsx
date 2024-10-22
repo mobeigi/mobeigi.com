@@ -12,48 +12,151 @@ import { joinUrl } from '@/utils/url';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { resolveCategoryUrl } from '@/payload/collections/Category/resolveUrl';
 import { sortCategoryByTitle } from '@/utils/blog/category';
-import { payloadRedirect } from '@/payload/utils/payloadRedirect';
+import { payloadRedirect } from '@/payload/utils/redirects';
 import { generateBreadcrumbs } from './breadcrumbs';
+import { unstable_cache_safe } from '@/utils/next';
 
-const getPayloadCategoryFromParams = async ({
-  params,
-}: {
-  params: { slug: string[] };
-}): Promise<PayloadCategory | null> => {
-  const payload = await getPayloadHMR({
-    config,
-  });
+export const revalidate = 900;
 
-  const categorySlugs = params.slug;
-  if (categorySlugs.length === 0) {
-    return null;
-  }
+/**
+ * Data fetching
+ */
 
-  let currentParentId = null;
-  let category = null;
+const getPayloadCategoryFromParams = ({ params }: { params: { slug: string[] } }) =>
+  unstable_cache_safe(
+    async (): Promise<PayloadCategory | null> => {
+      const payload = await getPayloadHMR({
+        config,
+      });
 
-  for (const slug of categorySlugs) {
-    const foundCategory: PaginatedDocs<PayloadCategory> = await payload.find({
-      collection: 'category',
-      where: {
-        slug: { equals: slug },
-        ...(currentParentId ? { parent: { equals: currentParentId } } : { parent: { exists: false } }),
-      },
-      limit: 1, // We only expect one category with this slug and parent_id
-    });
+      const categorySlugs = params.slug;
+      if (categorySlugs.length === 0) {
+        return null;
+      }
 
-    if (!foundCategory || foundCategory.docs.length === 0) {
-      return null;
-    }
+      let currentParentId = null;
+      let category = null;
 
-    // Set the current category and update the parent ID for the next iteration
-    category = foundCategory.docs[0];
-    currentParentId = category.id; // Set the parent_id for the next slug
-  }
+      for (const slug of categorySlugs) {
+        const foundCategory: PaginatedDocs<PayloadCategory> = await payload.find({
+          collection: 'category',
+          where: {
+            slug: { equals: slug },
+            ...(currentParentId ? { parent: { equals: currentParentId } } : { parent: { exists: false } }),
+          },
+          limit: 1, // We only expect one category with this slug and parent_id
+        });
 
-  return category;
-};
+        if (!foundCategory || foundCategory.docs.length === 0) {
+          return null;
+        }
 
+        // Set the current category and update the parent ID for the next iteration
+        category = foundCategory.docs[0];
+        currentParentId = category.id; // Set the parent_id for the next slug
+      }
+
+      return category;
+    },
+    [`getPayloadCategoryFromParams-${params.slug.join('-')}`],
+    { revalidate: revalidate },
+  )();
+
+const getData = (payloadCategory: PayloadCategory) =>
+  unstable_cache_safe(
+    async () => {
+      const payload = await getPayloadHMR({
+        config,
+      });
+
+      const payloadPosts = await payload.find({
+        collection: 'posts',
+        where: {
+          category: { equals: payloadCategory.id },
+          _status: { equals: 'published' },
+        },
+        depth: 1,
+        limit: 0,
+        pagination: false,
+      });
+
+      const blogPostMetas = (
+        await Promise.all(
+          payloadPosts.docs.map(async (post) => {
+            const postMeta = mapPostToPostMeta(post);
+            if (!postMeta) {
+              console.warn('postMeta should not be null.');
+              return null;
+            }
+            const commentCount = await payload.count({
+              collection: 'comments',
+              where: { post: { equals: post.id } },
+            });
+
+            const relatedMeta: BlogPostRelatedMeta = {
+              commentCount: commentCount.totalDocs,
+            };
+
+            const blogPostMeta: BlogPostMeta = {
+              post: postMeta,
+              related: relatedMeta,
+            };
+
+            return blogPostMeta;
+          }),
+        )
+      )
+        .filter((obj) => obj !== null)
+        .sort(sortBlogPostMetaByPublishedAtDate);
+
+      const categoryUrl = resolveCategoryUrl(payloadCategory);
+      if (!categoryUrl) {
+        return null;
+      }
+
+      const category: Category = {
+        title: payloadCategory.title,
+        description: payloadCategory.description,
+        url: categoryUrl,
+      };
+
+      const payloadSubcategories = await payload.find({
+        collection: 'category',
+        where: { parent: { equals: payloadCategory.id } },
+        depth: 1,
+        limit: 0,
+        pagination: false,
+      });
+
+      const subcategories: Category[] = payloadSubcategories.docs
+        .map((payloadSubCategory) => {
+          const categoryUrl = resolveCategoryUrl(payloadSubCategory);
+          if (!categoryUrl) {
+            return null;
+          }
+          const subCategory: Category = {
+            title: payloadSubCategory.title,
+            description: payloadSubCategory.description,
+            url: categoryUrl,
+          };
+          return subCategory;
+        })
+        .filter((obj) => obj !== null)
+        .sort(sortCategoryByTitle);
+
+      return {
+        category,
+        subcategories,
+        blogPostMetas,
+      };
+    },
+    [`getData-${payloadCategory.id}`],
+    { revalidate: revalidate },
+  )();
+
+/**
+ * Metadata
+ */
 export const generateMetadata = async ({
   params: paramsPromise,
 }: {
@@ -77,10 +180,11 @@ export const generateMetadata = async ({
   };
 };
 
+/**
+ * Handler
+ */
 const CategoryDetailPageHandler = async ({ params: paramsPromise }: { params: Promise<{ slug: string[] }> }) => {
   const params = await paramsPromise;
-
-  await payloadRedirect({ currentUrl: joinUrl(['blog', 'category', ...params.slug]) });
 
   const payloadCategory = await getPayloadCategoryFromParams({ params });
   if (!payloadCategory) {
@@ -88,85 +192,11 @@ const CategoryDetailPageHandler = async ({ params: paramsPromise }: { params: Pr
     return null;
   }
 
-  const payload = await getPayloadHMR({
-    config,
-  });
-
-  const payloadPosts = await payload.find({
-    collection: 'posts',
-    where: {
-      category: { equals: payloadCategory.id },
-      _status: { equals: 'published' },
-    },
-    depth: 1,
-    limit: 0,
-    pagination: false,
-  });
-
-  const blogPostMetas = (
-    await Promise.all(
-      payloadPosts.docs.map(async (post) => {
-        const postMeta = mapPostToPostMeta(post);
-        if (!postMeta) {
-          console.warn('postMeta should not be null.');
-          return null;
-        }
-        const commentCount = await payload.count({
-          collection: 'comments',
-          where: { post: { equals: post.id } },
-        });
-
-        const relatedMeta: BlogPostRelatedMeta = {
-          commentCount: commentCount.totalDocs,
-        };
-
-        const blogPostMeta: BlogPostMeta = {
-          post: postMeta,
-          related: relatedMeta,
-        };
-
-        return blogPostMeta;
-      }),
-    )
-  )
-    .filter((obj) => obj !== null)
-    .sort(sortBlogPostMetaByPublishedAtDate);
-
-  const categoryUrl = resolveCategoryUrl(payloadCategory);
-  if (!categoryUrl) {
+  const data = await getData(payloadCategory);
+  if (!data) {
     notFound();
     return null;
   }
-
-  const category: Category = {
-    title: payloadCategory.title,
-    description: payloadCategory.description,
-    url: categoryUrl,
-  };
-
-  const payloadSubcategories = await payload.find({
-    collection: 'category',
-    where: { parent: { equals: payloadCategory.id } },
-    depth: 1,
-    limit: 0,
-    pagination: false,
-  });
-
-  const subcategories: Category[] = payloadSubcategories.docs
-    .map((payloadSubCategory) => {
-      const categoryUrl = resolveCategoryUrl(payloadSubCategory);
-      if (!categoryUrl) {
-        return null;
-      }
-      const subCategory: Category = {
-        title: payloadSubCategory.title,
-        description: payloadSubCategory.description,
-        url: categoryUrl,
-      };
-      return subCategory;
-    })
-    .filter((obj) => obj !== null)
-    .sort(sortCategoryByTitle);
 
   const breadcrumbs = generateBreadcrumbs(payloadCategory);
 
@@ -178,7 +208,11 @@ const CategoryDetailPageHandler = async ({ params: paramsPromise }: { params: Pr
           <Breadcrumbs breadcrumbList={breadcrumbs} />
         </>
       )}
-      <CategoryDetailPage category={category} subcategories={subcategories} blogPostMetas={blogPostMetas} />
+      <CategoryDetailPage
+        category={data.category}
+        subcategories={data.subcategories}
+        blogPostMetas={data.blogPostMetas}
+      />
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import { Comment } from '@/types/blog';
 import { Comment as PayloadComment } from '@/payload-types';
 import crypto from 'crypto';
-import { getGravatarAvatarUrl } from '@/utils/gravatar';
 import { DISPLAY_PICTURE_SIZE } from './constants';
 import { requireEnvVar } from '../env';
+import { getCachedGravatarAvatarUrl } from '@/utils/gravatar';
 
 /**
  * Maps Payload comments to Comments.
@@ -21,7 +21,9 @@ export const mapComments = async (payloadComments: PayloadComment[]): Promise<Co
   const comments = await Promise.all(
     sortedPayloadComments.map(async (doc: PayloadComment) => {
       const emailHash = crypto.createHmac('sha256', emailHashSalt).update(doc.email.toLowerCase()).digest('hex');
-      const gravatarAvatarUrl = await getGravatarAvatarUrl({ email: doc.email, size: DISPLAY_PICTURE_SIZE });
+      const gravatarAvatarUrl = await getCachedGravatarAvatarUrl({ email: doc.email, size: DISPLAY_PICTURE_SIZE });
+
+      // const gravatarAvatarUrl = null;
       const comment: Comment = {
         id: doc.id,
         displayName: doc.displayName,

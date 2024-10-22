@@ -1,6 +1,5 @@
 'use client';
 
-import { hexToRgba } from '@/utils/theme';
 import { styled } from 'styled-components';
 
 const BaseButton = styled.button``;
@@ -8,20 +7,20 @@ const BaseButton = styled.button``;
 export const PrimaryButton = styled(BaseButton)``;
 
 export const SecondaryButton = styled(BaseButton)`
-  color: ${({ theme }) => theme.current.status.secondary.complement};
-  background-color: ${({ theme }) => theme.current.status.secondary.base};
+  color: var(--theme-status-secondary-complement);
+  background-color: var(--theme-status-secondary-base);
 
   &:hover {
-    background-color: ${({ theme }) => theme.current.status.secondary.baseHighlight};
+    background-color: var(--theme-status-secondary-highlight);
   }
 
   &:active {
-    background-color: ${({ theme }) => theme.current.status.secondary.base};
+    background-color: var(--theme-status-secondary-base);
   }
 
   &:focus,
   &:focus-visible {
-    box-shadow: 0 0 0 0.25em ${({ theme }) => hexToRgba(theme.current.status.secondary.base, 0.5)};
+    box-shadow: 0 0 0 0.25em color-mix(in srgb, var(--theme-status-secondary-base) 50%, transparent);
   }
 `;
 
