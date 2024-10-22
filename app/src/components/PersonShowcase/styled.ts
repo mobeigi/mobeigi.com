@@ -33,6 +33,10 @@ export const Headshot = styled.div<HeadshotProps>`
 export const HeaderRows = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (max-width: ${breakpoints.mobile.maxWidth}px) {
+    align-items: center;
+  }
 `;
 
 export const StyledHeading = styled.h2`
