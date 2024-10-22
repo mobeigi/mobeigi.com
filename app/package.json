@@ -21,6 +21,7 @@
     "lint": "cross-env next lint",
     "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
     "start": "cross-env next start",
+    "start-server": "cross-env HOSTNAME=0.0.0.0 PORT=3000 node .next/standalone/server.js",
     "test": "jest"
   },
   "dependencies": {
