@@ -1,5 +1,5 @@
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, PayloadRequest } from 'payload';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import type { Post } from '@/payload-types';
 import { resolvePostsUrl } from '../resolveUrl';
 import { getDocByIdOrObject } from '@/utils/payload';
@@ -18,6 +18,10 @@ export const revalidatePostPage = (req: PayloadRequest, doc: Post) => {
 export const revalidatePost = async (req: PayloadRequest, doc: Post) => {
   if (doc._status === 'published') {
     req.payload.logger.info(`Revalidating all paths for post with id: ${doc.id}`);
+
+    // TODO: Avoid hard coding collection name while also avoiding cycling import issue
+    req.payload.logger.info(`Revalidating tag: payload:collection:posts:${doc.id}`);
+    revalidateTag(`payload:collection:posts:${doc.id}`);
 
     req.payload.logger.info(`Revalidating: /`);
     revalidatePath('/');
