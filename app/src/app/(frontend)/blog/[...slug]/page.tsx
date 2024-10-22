@@ -9,7 +9,7 @@ import { mapPostToPostMeta, mapComments, getCategorySlugUrl } from '@/utils/payl
 import { countTotalComments } from '@/utils/blog/comments';
 import { joinUrl } from '@/utils/url';
 import Breadcrumbs from '@/components/Breadcrumbs';
-import { payloadRedirect } from '@/payload/utils/payloadRedirect';
+import { payloadRedirect } from '@/payload/utils/redirects';
 import { registerView } from '@/payload/utils/viewCounter';
 import { headers } from 'next/headers';
 import { generateBreadcrumbs } from './breadcrumbs';

@@ -12,7 +12,7 @@ import { joinUrl } from '@/utils/url';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { resolveCategoryUrl } from '@/payload/collections/Category/resolveUrl';
 import { sortCategoryByTitle } from '@/utils/blog/category';
-import { payloadRedirect } from '@/payload/utils/payloadRedirect';
+import { payloadRedirect } from '@/payload/utils/redirects';
 import { generateBreadcrumbs } from './breadcrumbs';
 
 export const dynamic = 'force-static';

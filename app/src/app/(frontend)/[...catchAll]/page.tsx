@@ -1,4 +1,4 @@
-import { payloadRedirect } from '@/payload/utils/payloadRedirect';
+import { payloadRedirect } from '@/payload/utils/redirects';
 import { joinUrl } from '@/utils/url';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';

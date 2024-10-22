@@ -1,7 +1,7 @@
 import { Category, Post } from '@/payload-types';
 import { CollectionAfterChangeHook, CollectionAfterDeleteHook, PayloadRequest } from 'payload';
 import { getDocByIdOrObject } from '@/utils/payload';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { resolveCategoryUrl } from '../resolveUrl';
 import { revalidatePost } from '@/payload/collections/Posts/hooks/revalidatePost';
 
@@ -17,6 +17,10 @@ export const revalidateCategoryDetailPage = (req: PayloadRequest, doc: Category)
 
 export const revalidateCategory = async (req: PayloadRequest, doc: Category) => {
   req.payload.logger.info(`Revalidating all paths for category with id: ${doc.id}`);
+
+  // TODO: Avoid hard coding collection name while also avoiding cycling import issue
+  req.payload.logger.info(`Revalidating tag: payload:collection:category:${doc.id}`);
+  revalidateTag(`payload:collection:category:${doc.id}`);
 
   req.payload.logger.info(`Revalidating: /`);
   revalidatePath('/');
