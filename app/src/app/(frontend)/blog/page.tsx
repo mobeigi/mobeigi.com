@@ -8,7 +8,7 @@ import { sortBlogPostMetaByPublishedAtDate } from '@/utils/blog/post';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { generateBreadcrumbs } from './breadcrumbs';
 
-export const revalidate = 86400;
+export const revalidate = 900;
 
 export const metadata: Metadata = {
   title: 'Blog',

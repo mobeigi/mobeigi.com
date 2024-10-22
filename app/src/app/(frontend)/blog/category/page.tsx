@@ -9,7 +9,7 @@ import CategoryPage from '@/containers/CategoryPage';
 import { CategoryWithSubcategories } from '@/containers/CategoryPage/types';
 import { generateBreadcrumbs } from './breadcrumbs';
 
-export const revalidate = 86400;
+export const revalidate = 900;
 
 export const metadata: Metadata = {
   title: 'Category',
