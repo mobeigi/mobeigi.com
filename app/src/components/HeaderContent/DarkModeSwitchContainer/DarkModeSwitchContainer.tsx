@@ -9,10 +9,10 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { useTheme } from 'next-themes';
 import { nextThemeToThemeMode } from '@/utils/theme';
 
-export const customColors = {
-  halfSunLeftFill: '#ffca00',
-  halfSunLeftStroke: '#ffca00',
-  halfSunLeftBeamStroke: '#ffe873',
+const customColors = {
+  halfSunLeftFill: '#ebd75b',
+  halfSunLeftStroke: '#ebd75b',
+  halfSunLeftBeamStroke: '#e3cc42',
   halfMoonRightFill: '#44415d',
   halfMoonRightStroke: '#44415d',
   halfMoonRightBeamStroke: '#c0b9c7',
@@ -65,8 +65,7 @@ export const DarkModeSwitchContainer = () => {
   const [mounted, setMounted] = useState(false);
 
   const { theme, setTheme } = useTheme();
-  const themeMode = nextThemeToThemeMode(theme);
-
+  const themeMode = mounted ? nextThemeToThemeMode(theme) : ThemeMode.System;
   const darkModeSwitchRef = useRef<DarkModeSwitchHandle>(null);
 
   useEffect(() => {
@@ -85,10 +84,6 @@ export const DarkModeSwitchContainer = () => {
 
   const tooltipElement = getTooltip(themeMode);
   const tooltipHtml = useMemo(() => renderToStaticMarkup(tooltipElement), [tooltipElement]);
-
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <IconWrapperBubble onClick={triggerClick} data-tooltip-id="base-tooltip" data-tooltip-html={tooltipHtml}>
