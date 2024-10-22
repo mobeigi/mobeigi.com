@@ -2,13 +2,14 @@
 
 import styled from 'styled-components';
 import Link from 'next/link';
+import { breakpoints } from '@/styles/breakpoints';
 
 export const DesktopNav = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px) {
+  @media (max-width: ${breakpoints.mobile.maxWidth}px) {
     display: none;
   }
 `;
@@ -27,7 +28,7 @@ export const MobileNav = styled.div`
     font-size: 1.5em;
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px) {
+  @media (max-width: ${breakpoints.mobile.maxWidth}px) {
     display: flex;
   }
 `;
@@ -35,7 +36,7 @@ export const MobileNav = styled.div`
 export const DropdownMenu = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.current.frame.background};
+  background-color: var(--theme-frame-background);
   padding: 1em 0;
 
   top: calc(var(--header-height));
@@ -56,11 +57,11 @@ interface StyledLinkProps {
 }
 
 export const StyledLink = styled(Link)<StyledLinkProps>`
-  color: ${({ theme, $active }) => ($active ? theme.current.text.link : theme.current.text.subtle)};
+  color: ${({ $active }) => ($active ? 'var(--theme-text-link)' : 'var(--theme-text-subtle)')};
   text-decoration: none;
 
   &:hover,
   &:focus {
-    color: ${({ theme, $active }) => ($active ? theme.current.text.link : theme.current.text.subtleHighlight)};
+    color: ${({ $active }) => ($active ? 'var(--theme-text-link)' : 'var(--theme-text-subtle-highlight)')};
   }
 `;

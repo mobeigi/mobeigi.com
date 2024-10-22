@@ -9,55 +9,123 @@ import { mapPostToPostMeta, mapComments, getCategorySlugUrl } from '@/utils/payl
 import { countTotalComments } from '@/utils/blog/comments';
 import { joinUrl } from '@/utils/url';
 import Breadcrumbs from '@/components/Breadcrumbs';
-import { payloadRedirect } from '@/payload/utils/payloadRedirect';
-import { registerView } from '@/payload/utils/viewCounter';
-import { headers } from 'next/headers';
+import { payloadRedirect } from '@/payload/utils/redirects';
 import { generateBreadcrumbs } from './breadcrumbs';
 import { Post as PayloadPost, Category as PayloadCategory } from '@/payload-types';
+import { resolvePostsUrl } from '@/payload/collections/Posts/resolveUrl';
+import { unstable_cache_safe } from '@/utils/next';
+import { Suspense } from 'react';
+import { RegisterViewSc } from './RegisterViewSc';
 
-const getPayloadPostFromParams = async ({ params }: { params: { slug: string[] } }): Promise<PayloadPost | null> => {
-  const payload = await getPayloadHMR({
-    config,
-  });
+export const revalidate = 900;
 
-  const postSlug = params.slug[params.slug.length - 1];
-  const categorySlugs = params.slug.slice(0, -1);
+/**
+ * Data fetching
+ */
+const getPayloadPostFromParams = ({ params }: { params: { slug: string[] } }) =>
+  unstable_cache_safe(
+    async (): Promise<PayloadPost | null> => {
+      const payload = await getPayloadHMR({
+        config,
+      });
 
-  if (categorySlugs.length === 0) {
-    return null;
-  }
+      const postSlug = params.slug[params.slug.length - 1];
+      const categorySlugs = params.slug.slice(0, -1);
 
-  const paramsCategorySlugUrl = joinUrl([...categorySlugs], false);
+      if (categorySlugs.length === 0) {
+        return null;
+      }
 
-  const payloadPosts = await payload.find({
-    collection: 'posts',
-    where: {
-      slug: { equals: postSlug },
-      _status: { equals: 'published' },
+      const paramsCategorySlugUrl = joinUrl([...categorySlugs], false);
+
+      const payloadPosts = await payload.find({
+        collection: 'posts',
+        where: {
+          slug: { equals: postSlug },
+          _status: { equals: 'published' },
+        },
+        depth: 1,
+      });
+
+      if (!payloadPosts.docs.length) {
+        return null;
+      }
+
+      // Ensure category slug urls match
+      // We want to only show the blog post if the slug is correct
+      const postsMatchingCategorySlugUrl = payloadPosts.docs.filter((post) => {
+        if (!post.category) return false;
+        const payloadCategory = post.category as PayloadCategory;
+        const categorySlugUrl = getCategorySlugUrl(payloadCategory);
+        return categorySlugUrl === paramsCategorySlugUrl;
+      });
+
+      if (postsMatchingCategorySlugUrl.length !== 1) {
+        return null;
+      }
+
+      return postsMatchingCategorySlugUrl[0];
     },
-    depth: 1,
-  });
+    [`get-payload-post-from-params-${params.slug.join('-')}`],
+    { revalidate: revalidate },
+  )();
 
-  if (!payloadPosts.docs.length) {
-    return null;
-  }
+/**
+ * Transforms a Post to a BlogPostProps object
+ */
+const transformPostToBlogPostProps = (post: PayloadPost) =>
+  unstable_cache_safe(
+    async (): Promise<BlogPostProps | null> => {
+      const postMeta = mapPostToPostMeta(post);
+      if (!postMeta) {
+        console.warn('postMeta should not be null.');
+        return null;
+      }
 
-  // Ensure category slug urls match
-  // We want to only show the blog post if the slug is correct
-  const postsMatchingCategorySlugUrl = payloadPosts.docs.filter((post) => {
-    if (!post.category) return false;
-    const payloadCategory = post.category as PayloadCategory;
-    const categorySlugUrl = getCategorySlugUrl(payloadCategory);
-    return categorySlugUrl === paramsCategorySlugUrl;
-  });
+      const content: BlogPostContent = {
+        body: post.content,
+      };
 
-  if (postsMatchingCategorySlugUrl.length !== 1) {
-    return null;
-  }
+      const payload = await getPayloadHMR({
+        config,
+      });
 
-  return postsMatchingCategorySlugUrl[0];
-};
+      const comments = await payload.find({
+        collection: 'comments',
+        where: {
+          post: { equals: post.id },
+        },
+        depth: 1,
+        limit: 0,
+        pagination: false,
+      });
 
+      const mappedComments = await mapComments(comments.docs);
+
+      const relatedMeta: BlogPostRelatedMeta = {
+        commentCount: countTotalComments(mappedComments),
+      };
+
+      const meta: BlogPostMeta = {
+        post: postMeta,
+        related: relatedMeta,
+      };
+
+      const blogPostProps: BlogPostProps = {
+        meta,
+        content,
+        comments: mappedComments,
+      };
+
+      return blogPostProps;
+    },
+    [`transformPostToBlogPostProps-${post.id}`],
+    { revalidate: revalidate },
+  )();
+
+/**
+ * Metadata
+ */
 export const generateMetadata = async ({
   params: paramsPromise,
 }: {
@@ -83,10 +151,45 @@ export const generateMetadata = async ({
   };
 };
 
+/**
+ * Static params
+ */
+export const generateStaticParams = async () => {
+  const payload = await getPayloadHMR({
+    config,
+  });
+
+  const posts = await payload.find({
+    collection: 'posts',
+    where: {
+      _status: { equals: 'published' },
+    },
+    depth: 1,
+    limit: 0,
+    pagination: false,
+  });
+
+  return posts.docs
+    .map((post) => {
+      let resolvedPostsUrl = resolvePostsUrl(post);
+      if (!resolvedPostsUrl) {
+        return null;
+      }
+      if (resolvedPostsUrl.startsWith('/blog/')) {
+        resolvedPostsUrl = resolvedPostsUrl.slice(6);
+      }
+      return {
+        slug: resolvedPostsUrl.split('/'),
+      };
+    })
+    .filter((obj) => obj !== null);
+};
+
+/**
+ * Handler
+ */
 const BlogPostHandler = async ({ params: paramsPromise }: { params: Promise<{ slug: string[] }> }) => {
   const params = await paramsPromise;
-
-  await payloadRedirect({ currentUrl: joinUrl(['blog', ...params.slug]) });
 
   const post = await getPayloadPostFromParams({ params });
   if (!post) {
@@ -101,14 +204,6 @@ const BlogPostHandler = async ({ params: paramsPromise }: { params: Promise<{ sl
 
   const breadcrumbs = generateBreadcrumbs(post);
 
-  // Register post views
-  const headerList = await headers();
-  const ipAddress = headerList.get('x-forwarded-for');
-  const userAgent = headerList.get('user-agent');
-  if (ipAddress && userAgent) {
-    void registerView({ postId: post.id, ipAddress, userAgent });
-  }
-
   return (
     <div>
       {breadcrumbs && (
@@ -118,56 +213,13 @@ const BlogPostHandler = async ({ params: paramsPromise }: { params: Promise<{ sl
         </>
       )}
       <BlogPost {...blogPostProps} />
+
+      {/* Dynamically register view */}
+      <Suspense fallback={null}>
+        <RegisterViewSc postId={post.id} />
+      </Suspense>
     </div>
   );
-};
-
-/**
- * Transforms a Post to a BlogPostProps object
- */
-const transformPostToBlogPostProps = async (post: PayloadPost): Promise<BlogPostProps | null> => {
-  const postMeta = mapPostToPostMeta(post);
-  if (!postMeta) {
-    console.warn('postMeta should not be null.');
-    return null;
-  }
-
-  const content: BlogPostContent = {
-    body: post.content,
-  };
-
-  const payload = await getPayloadHMR({
-    config,
-  });
-
-  const comments = await payload.find({
-    collection: 'comments',
-    where: {
-      post: { equals: post.id },
-    },
-    depth: 1,
-    limit: 0,
-    pagination: false,
-  });
-
-  const mappedComments = await mapComments(comments.docs);
-
-  const relatedMeta: BlogPostRelatedMeta = {
-    commentCount: countTotalComments(mappedComments),
-  };
-
-  const meta: BlogPostMeta = {
-    post: postMeta,
-    related: relatedMeta,
-  };
-
-  const blogPostProps: BlogPostProps = {
-    meta,
-    content,
-    comments: mappedComments,
-  };
-
-  return blogPostProps;
 };
 
 export default BlogPostHandler;

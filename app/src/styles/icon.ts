@@ -1,6 +1,5 @@
 'use client';
 
-import { hexToRgba } from '@/utils/theme';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { StylelessButton } from './button';
@@ -11,7 +10,7 @@ export const IconWrapper = styled.span`
   align-items: center;
 
   svg {
-    fill: ${({ theme }) => theme.current.text.base};
+    fill: var(--theme-text-base);
 
     width: auto;
     height: 1em;
@@ -29,15 +28,15 @@ export const IconWrapperBubble = styled(IconWrapper)`
   user-select: none;
 
   &:hover {
-    background-color: ${({ theme }) => hexToRgba(theme.current.text.baseHighlight, 0.15)};
+    background-color: color-mix(in srgb, var(--theme-text-base-highlight) 15%, transparent);
 
     svg {
-      fill: ${({ theme }) => theme.current.text.baseHighlight};
+      fill: var(--theme-text-base-highlight);
     }
   }
 
   &:hover:active {
-    background-color: ${({ theme }) => hexToRgba(theme.current.text.baseHighlight, 0.3)};
+    background-color: color-mix(in srgb, var(--theme-text-base-highlight) 30%, transparent);
   }
 `;
 

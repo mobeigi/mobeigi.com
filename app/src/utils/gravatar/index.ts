@@ -1,1 +1,1 @@
-export { getGravatarAvatarUrl } from './gravatar';
+export { getGravatarAvatarUrl, getCachedGravatarAvatarUrl } from './gravatar';

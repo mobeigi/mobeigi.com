@@ -1,31 +1,41 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { ThemeMode } from '@/types/theme';
-import { getImageProps } from 'next/image';
-import { useTheme } from 'styled-components';
+import Image from 'next/image';
 import { ThemedPictureProps } from './types';
+import { useTheme } from 'next-themes';
+import { resolvedThemeToThemeMode } from '@/utils/theme';
 
 export const ThemedPicture = ({ dark, light }: ThemedPictureProps) => {
-  const { currentThemeMode } = useTheme();
+  const [hydrated, setHydrated] = useState(false);
+  const { resolvedTheme } = useTheme();
+  const resolvedThemeMode = resolvedThemeToThemeMode(resolvedTheme);
 
-  const {
-    props: { srcSet: darkSrcSet, ...darkRestImageProps },
-  } = getImageProps({ width: dark.width, height: dark.height, alt: dark.alt, src: dark.src });
-  const {
-    props: { srcSet: lightSrcSet, ...lightRestImageProps },
-  } = getImageProps({ width: light.width, height: light.height, alt: light.alt, src: light.src });
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
-  const darkMedia = currentThemeMode === ThemeMode.Dark ? 'all' : 'none';
-  const lightMedia = currentThemeMode === ThemeMode.Light ? 'all' : 'none';
-  const style = currentThemeMode === ThemeMode.Dark ? dark.style : light.style;
-  const restImageProps = currentThemeMode === ThemeMode.Dark ? darkRestImageProps : lightRestImageProps;
+  const imageStyle = hydrated ? (resolvedThemeMode === ThemeMode.Dark ? dark.style : light.style) : dark.style; // Use dark style for its dimension styling as fallback
+  const imageSrc = hydrated ? (resolvedThemeMode === ThemeMode.Dark ? dark.src : light.src) : '';
+  const imageAlt = hydrated ? (resolvedThemeMode === ThemeMode.Dark ? dark.alt : light.alt) : '';
+  const imageWidth = hydrated ? (resolvedThemeMode === ThemeMode.Dark ? dark.width : light.width) : dark.width; // Use dark width as fallback
+  const imageHeight = hydrated ? (resolvedThemeMode === ThemeMode.Dark ? dark.height : light.height) : dark.height; // Use dark height as fallback
 
-  return (
-    <picture>
-      <source media={darkMedia} data-theme={ThemeMode.Dark} srcSet={darkSrcSet} />
-      <source media={lightMedia} data-theme={ThemeMode.Light} srcSet={lightSrcSet} />
-      {/* eslint-disable-next-line jsx-a11y/alt-text */}
-      <img {...restImageProps} style={style} />
-    </picture>
+  return !hydrated ? (
+    // Use a empty image during hydration to preserve space so we can avoid layout shift
+    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
+    <img
+      width={imageWidth}
+      height={imageHeight}
+      style={{
+        ...imageStyle,
+        width: imageWidth,
+        height: 'auto',
+        visibility: 'hidden', // hide browser outlines often shown for image download in progress
+      }}
+    ></img>
+  ) : (
+    <Image src={imageSrc} alt={imageAlt} width={imageWidth} height={imageHeight} style={imageStyle} />
   );
 };

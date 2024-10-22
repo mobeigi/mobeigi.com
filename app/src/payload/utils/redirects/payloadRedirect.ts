@@ -3,9 +3,8 @@ import { getCachedRedirects } from './getRedirects';
 import { joinUrl } from '@/utils/url';
 import { Redirect } from '@/payload-types';
 import { permanentRedirect as nextPermanentRedirect } from 'next/navigation';
-import { getPayloadHMR } from '@payloadcms/next/utilities';
-import config from '@payload-config';
-import { customUrlResolvers } from '../converter/customUrlResolvers';
+import { customUrlResolvers } from '@payload/converter/customUrlResolvers';
+import { getCachedDocumentById } from '@payload/utils/docs';
 
 export interface PayloadRedirectProps {
   currentUrl: string;
@@ -55,10 +54,6 @@ export const payloadRedirect = async ({ currentUrl }: PayloadRedirectProps): Pro
     nextPermanentRedirect(redirect.to.url);
   } else if (redirect?.to?.type === 'reference') {
     // Internal url
-    const payload = await getPayloadHMR({
-      config,
-    });
-
     if (!redirect.to.reference?.relationTo) {
       console.error(`Redirect for url '${absoluteUrl}' has missing relationTo.`);
       return;
@@ -77,19 +72,12 @@ export const payloadRedirect = async ({ currentUrl }: PayloadRedirectProps): Pro
       return;
     }
 
-    const relationDocs = await payload.find({
-      collection: redirect.to.reference.relationTo,
-      where: { id: { equals: docId } },
-      depth: 1,
-      limit: 1,
-      pagination: false,
-    });
+    const doc = await getCachedDocumentById(redirect.to.reference.relationTo, docId);
 
-    if (relationDocs.docs.length === 0) {
+    if (!doc) {
       console.error(`Redirect for url '${absoluteUrl}' has no associated doc.`);
       return;
     }
-    const doc = relationDocs.docs[0];
 
     if (!(redirect.to.reference.relationTo in customUrlResolvers)) {
       console.error(`Redirect for url '${absoluteUrl}' has no custom resolveUrl function.`);

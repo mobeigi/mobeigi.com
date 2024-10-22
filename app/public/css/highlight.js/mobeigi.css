@@ -1,0 +1,142 @@
+/*!
+  Theme: MoBeigi.com
+  Author: Mo Beigi
+  License: See base16-schemes-source
+  Maintainer: Mo Beigi
+  Version: 2024.10.18
+
+  Based on the Highlight.js Base16 template builder.
+  Powered by CSS variables.
+  
+  https://github.com/highlightjs/base16-highlightjs
+*/
+
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+}
+
+code.hljs {
+  padding: 3px 5px;
+}
+
+.hljs {
+  color: var(--highlightjs-base05);
+  background: var(--highlightjs-base00);
+}
+
+.hljs::selection,
+.hljs ::selection {
+  background-color: var(--highlightjs-base02);
+  color: var(--highlightjs-base05);
+}
+
+/* purposely do not highlight these things */
+.hljs-formula,
+.hljs-params,
+.hljs-property {}
+
+/* base03 - Comments, Invisibles, Line Highlighting */
+.hljs-comment {
+  color: var(--highlightjs-base03);
+}
+
+/* base04 - Dark Foreground (Used for status bars) */
+.hljs-tag {
+  color: var(--highlightjs-base04);
+}
+
+/* base05 - Default Foreground, Caret, Delimiters, Operators */
+.hljs-subst,
+.hljs-punctuation,
+.hljs-operator {
+  color: var(--highlightjs-base05);
+}
+
+.hljs-operator {
+  opacity: 0.7;
+}
+
+/* base08 - Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted */
+.hljs-bullet,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-selector-tag,
+.hljs-name,
+.hljs-deletion {
+  color: var(--highlightjs-base08);
+}
+
+/* base09 - Integers, Boolean, Constants, XML Attributes, Markup Link Url */
+.hljs-symbol,
+.hljs-number,
+.hljs-link,
+.hljs-attr,
+.hljs-variable.constant_,
+.hljs-literal {
+  color: var(--highlightjs-base09);
+}
+
+/* base0A - Classes, Markup Bold, Search Text Background */
+.hljs-title,
+.hljs-class .hljs-title,
+.hljs-title.class_ {
+  color: var(--highlightjs-base0A);
+}
+
+.hljs-strong {
+  font-weight: bold;
+  color: var(--highlightjs-base0A);
+}
+
+/* base0B - Strings, Inherited Class, Markup Code, Diff Inserted */
+.hljs-code,
+.hljs-addition,
+.hljs-title.class_.inherited__,
+.hljs-string {
+  color: var(--highlightjs-base0B);
+}
+
+/* base0C - Support, Regular Expressions, Escape Characters, Markup Quotes */
+.hljs-built_in,
+.hljs-doctag,
+.hljs-quote,
+.hljs-keyword.hljs-atrule,
+.hljs-regexp {
+  color: var(--highlightjs-base0C);
+}
+
+/* base0D - Functions, Methods, Attribute IDs, Headings */
+.hljs-function .hljs-title,
+.hljs-attribute,
+.ruby .hljs-property,
+.hljs-title.function_,
+.hljs-section {
+  color: var(--highlightjs-base0D);
+}
+
+/* base0E - Keywords, Storage, Selector, Markup Italic, Diff Changed */
+.hljs-type,
+.hljs-template-tag,
+.diff .hljs-meta,
+.hljs-keyword {
+  color: var(--highlightjs-base0E);
+}
+
+.hljs-emphasis {
+  color: var(--highlightjs-base0E);
+  font-style: italic;
+}
+
+/* base0F - Deprecated, Opening/Closing Embedded Language Tags, e.g. <?php ?> */
+.hljs-meta,
+.hljs-meta .hljs-keyword,
+.hljs-meta .hljs-string {
+  color: var(--highlightjs-base0F);
+}
+
+.hljs-meta .hljs-keyword,
+.hljs-meta-keyword {
+  font-weight: bold;
+}

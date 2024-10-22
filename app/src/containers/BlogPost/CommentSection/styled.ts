@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import { breakpoints } from '@/styles/breakpoints';
 
 export const CommentContainer = styled.div``;
 
@@ -18,7 +19,7 @@ export const CommentsContainer = styled.div`
   ul {
     margin: 0 0 0 calc(var(--display-picture-size) + 1em);
     padding-left: 1em;
-    border-left: 0.15em solid ${({ theme }) => theme.current.container.accent};
+    border-left: 0.15em solid var(--theme-container-accent);
   }
 
   li {
@@ -43,7 +44,7 @@ export const CommentsContainer = styled.div`
     margin: 0;
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px) {
+  @media (max-width: ${breakpoints.mobile.maxWidth}px) {
     ul {
       margin: 0 0 0 1em;
     }
@@ -104,7 +105,7 @@ export const DisplayName = styled.span`
 `;
 
 export const CreatedAtTime = styled.time`
-  color: ${({ theme }) => theme.current.text.subtle};
+  color: var(--theme-text-subtle);
 `;
 
 export const CommentContents = styled.span`

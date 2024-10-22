@@ -9,8 +9,6 @@ export const metadata: Metadata = {
     "Discover Mo Beigi's most interesting projects, dive into open-source code, and explore related blog posts.",
 };
 
-// TODO: Remove when projects are loaded from a payload collection
-export const dynamic = 'force-static';
 export const revalidate = 86400;
 
 const Projects = () => {

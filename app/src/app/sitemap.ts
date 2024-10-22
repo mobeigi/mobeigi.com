@@ -132,7 +132,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     },
     {
       url: joinUrl([BASE_URL, 'privacy-policy']),
-      lastModified: new Date('2024-09-26T04:30:00+0000'),
+      lastModified: new Date('2024-10-18T13:24:45+0000'),
       changeFrequency: 'monthly',
       priority: 0.4,
     },

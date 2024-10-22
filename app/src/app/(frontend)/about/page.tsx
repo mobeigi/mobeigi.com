@@ -9,7 +9,6 @@ export const metadata: Metadata = {
     'Learn about Mo, a Software Engineer from Sydney, who showcases his tech projects, development skills, and personal interests.',
 };
 
-export const dynamic = 'force-static';
 export const revalidate = 86400;
 
 const About = () => {

@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import { breakpoints } from '@/styles/breakpoints';
 
 export const ContactBodyContainer = styled.div`
   display: flex;
@@ -12,7 +13,7 @@ export const ContactBodyContainer = styled.div`
     flex: 1;
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile.maxWidth}px) {
+  @media (max-width: ${breakpoints.mobile.maxWidth}px) {
     flex-direction: column;
     gap: 0;
   }
