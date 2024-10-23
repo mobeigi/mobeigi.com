@@ -64,6 +64,7 @@ export const projects: ProjectBoxProps[] = [
     description: 'My shiny, personal, custom-built website powered by React!',
     url: 'https://mobeigi.com',
     urlActive: true,
+    blogUrl: '/blog/development/website/rewriting-mobeigi-com-with-nextjs-and-payload-cms/',
     githubUrl: 'https://github.com/mobeigi/mobeigi.com',
   },
 ];
