@@ -157,7 +157,7 @@ export const generateStaticParams = async () => {
     config,
   });
 
-  const posts = await payload.find({
+  const payloadPosts = await payload.find({
     collection: 'posts',
     where: {
       _status: { equals: 'published' },
@@ -167,14 +167,15 @@ export const generateStaticParams = async () => {
     pagination: false,
   });
 
-  return posts.docs
-    .map((post) => {
-      let resolvedPostsUrl = resolvePostsUrl(post);
+  return payloadPosts.docs
+    .map((payloadPost) => {
+      let resolvedPostsUrl = resolvePostsUrl(payloadPost);
       if (!resolvedPostsUrl) {
         return null;
       }
-      if (resolvedPostsUrl.startsWith('/blog/')) {
-        resolvedPostsUrl = resolvedPostsUrl.slice(6);
+      const stripPrefix = '/blog/';
+      if (resolvedPostsUrl.startsWith(stripPrefix)) {
+        resolvedPostsUrl = resolvedPostsUrl.slice(stripPrefix.length);
       }
       return {
         slug: resolvedPostsUrl.split('/'),
