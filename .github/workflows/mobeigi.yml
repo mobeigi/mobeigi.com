@@ -43,6 +43,17 @@ jobs:
     #   working-directory: ./app
     #   run: yarn build
 
+
+  # TODO: temp
+  log:
+    runs-on: ubuntu-latest
+    needs: [build_test_app]
+    steps:
+      - name: Log GitHub Event Information
+        run: |
+          echo "Logging GitHub event payload:"
+          echo '${{ toJson(github) }}'
+
   deploy:
     runs-on: ubuntu-latest
     needs: [build_test_app]
