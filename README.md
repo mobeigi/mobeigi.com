@@ -50,7 +50,11 @@ It correctly bundles the Next.js app and optimizes the build for the best perfor
 
 #### `yarn start`
 
-Starts the Next.js app in production mode.<br />
+Starts the Next.js app in production mode using the built-in Next.js server.<br />
+
+#### `yarn start-server`
+
+Starts the Next.js app in production mode using a Node.js server.<br />
 
 #### `yarn test`
 
