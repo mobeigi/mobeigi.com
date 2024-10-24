@@ -48,7 +48,7 @@ jobs:
     needs: [build_test_app]
     if: |
       ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && 
-      (!contains(github.event.pull_request?.title || '', '[skip deploy]')) }}
+      (!github.event.pull_request || !contains(github.event.pull_request.title, '[skip deploy]')) }}
 
     steps:
       - name: Deploy App (via webhook)
