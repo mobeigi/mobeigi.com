@@ -14,8 +14,6 @@ import { generateBreadcrumbs } from './breadcrumbs';
 import { Post as PayloadPost, Category as PayloadCategory } from '@/payload-types';
 import { resolvePostsUrl } from '@/payload/collections/Posts/resolveUrl';
 import { unstable_cache_safe } from '@/utils/next';
-import { Suspense } from 'react';
-import { RegisterViewSc } from './RegisterViewSc';
 
 export const revalidate = 900;
 
@@ -213,11 +211,6 @@ const BlogPostHandler = async ({ params: paramsPromise }: { params: Promise<{ sl
         </>
       )}
       <BlogPost {...blogPostProps} />
-
-      {/* Dynamically register view */}
-      <Suspense fallback={null}>
-        <RegisterViewSc postId={post.id} />
-      </Suspense>
     </div>
   );
 };
