@@ -181,6 +181,38 @@ export const generateMetadata = async ({
 };
 
 /**
+ * Static params
+ */
+export const generateStaticParams = async () => {
+  const payload = await getPayloadHMR({
+    config,
+  });
+
+  const payloadCategory = await payload.find({
+    collection: 'category',
+    depth: 1,
+    limit: 0,
+    pagination: false,
+  });
+
+  return payloadCategory.docs
+    .map((payloadCategory) => {
+      let resolvedCategoryUrl = resolveCategoryUrl(payloadCategory);
+      if (!resolvedCategoryUrl) {
+        return null;
+      }
+      const stripPrefix = '/blog/category/';
+      if (resolvedCategoryUrl.startsWith(stripPrefix)) {
+        resolvedCategoryUrl = resolvedCategoryUrl.slice(stripPrefix.length);
+      }
+      return {
+        slug: resolvedCategoryUrl.split('/'),
+      };
+    })
+    .filter((obj) => obj !== null);
+};
+
+/**
  * Handler
  */
 const CategoryDetailPageHandler = async ({ params: paramsPromise }: { params: Promise<{ slug: string[] }> }) => {
