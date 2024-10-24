@@ -5,8 +5,8 @@ import { resolvePostsUrl } from '../resolveUrl';
 import { getDocByIdOrObject } from '@/utils/payload';
 import { revalidateCategoryDetailPage } from '@payload/collections/Category/hooks/revalidateCategory';
 
-export const revalidatePostPage = (req: PayloadRequest, doc: Post) => {
-  const postUrl = resolvePostsUrl(doc);
+export const revalidatePostPage = async (req: PayloadRequest, doc: Post) => {
+  const postUrl = await resolvePostsUrl(doc);
   if (postUrl) {
     req.payload.logger.info(`Revalidating: ${postUrl}`);
     revalidatePath(postUrl);
@@ -43,7 +43,7 @@ export const revalidatePost = async (req: PayloadRequest, doc: Post) => {
       ...doc,
       category: docCategory,
     };
-    revalidatePostPage(req, docWithCategory);
+    await revalidatePostPage(req, docWithCategory);
 
     // Revalidate the last published post if it exists.
     // This version is used instead of 'previousDoc' which may not be the last published version.
@@ -70,7 +70,7 @@ export const revalidatePost = async (req: PayloadRequest, doc: Post) => {
         revalidateCategoryDetailPage(req, lastPublishedDocCategory);
 
         // Previous blog post
-        revalidatePostPage(req, lastPublishedDoc);
+        await revalidatePostPage(req, lastPublishedDoc);
       } else {
         req.payload.logger.error(`Failed getting last published doc category for post with id: ${lastPublishedDoc.id}`);
       }

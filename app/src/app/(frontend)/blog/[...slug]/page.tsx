@@ -74,7 +74,7 @@ const getPayloadPostFromParams = ({ params }: { params: { slug: string[] } }) =>
 const transformPostToBlogPostProps = (post: PayloadPost) =>
   unstable_cache_safe(
     async (): Promise<BlogPostProps | null> => {
-      const postMeta = mapPostToPostMeta(post);
+      const postMeta = await mapPostToPostMeta(post);
       if (!postMeta) {
         console.warn('postMeta should not be null.');
         return null;
@@ -167,21 +167,23 @@ export const generateStaticParams = async () => {
     pagination: false,
   });
 
-  return payloadPosts.docs
-    .map((payloadPost) => {
-      let resolvedPostsUrl = resolvePostsUrl(payloadPost);
-      if (!resolvedPostsUrl) {
-        return null;
-      }
-      const stripPrefix = '/blog/';
-      if (resolvedPostsUrl.startsWith(stripPrefix)) {
-        resolvedPostsUrl = resolvedPostsUrl.slice(stripPrefix.length);
-      }
-      return {
-        slug: resolvedPostsUrl.split('/'),
-      };
-    })
-    .filter((obj) => obj !== null);
+  return (
+    await Promise.all(
+      payloadPosts.docs.map(async (payloadPost) => {
+        let resolvedPostsUrl = await resolvePostsUrl(payloadPost);
+        if (!resolvedPostsUrl) {
+          return null;
+        }
+        const stripPrefix = '/blog/';
+        if (resolvedPostsUrl.startsWith(stripPrefix)) {
+          resolvedPostsUrl = resolvedPostsUrl.slice(stripPrefix.length);
+        }
+        return {
+          slug: resolvedPostsUrl.split('/'),
+        };
+      }),
+    )
+  ).filter((obj) => obj !== null);
 };
 
 /**

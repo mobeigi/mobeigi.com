@@ -6,7 +6,7 @@ import { customUrlResolvers } from '../customUrlResolvers';
 import { CollectionSlug, DataFromCollectionSlug } from 'payload';
 
 export const LinkReactNodeConverter: ReactNodeConverter<SerializedLinkNode> = {
-  converter({ converters, node, parent }) {
+  async converter({ converters, node, parent }) {
     const children = convertLexicalNodesToReactNode({
       converters,
       lexicalNodes: node.children,
@@ -36,7 +36,7 @@ export const LinkReactNodeConverter: ReactNodeConverter<SerializedLinkNode> = {
 
       if (doc && relationTo && relationTo in customUrlResolvers) {
         const resolveUrl = customUrlResolvers[relationTo];
-        const url = resolveUrl(doc);
+        const url = await resolveUrl(doc);
         if (!url) {
           return <span>Failed to resolve url for collection: {relationTo}</span>;
         }
