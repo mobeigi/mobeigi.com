@@ -85,9 +85,9 @@ export const payloadRedirect = async ({ currentUrl }: PayloadRedirectProps): Pro
     }
     const resolveUrlFn = customUrlResolvers[redirect.to.reference.relationTo];
 
-    let targetDocUrl = null;
+    let targetDocUrl: string | null = null;
     try {
-      targetDocUrl = resolveUrlFn(doc);
+      targetDocUrl = await resolveUrlFn(doc);
     } catch (e) {
       const error = e as Error;
       console.error(`Redirect for url '${absoluteUrl}' encountered error during resolveUrl. ${error.message}`);

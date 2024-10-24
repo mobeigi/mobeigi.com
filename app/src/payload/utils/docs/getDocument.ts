@@ -1,3 +1,5 @@
+'use server';
+
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import { CollectionSlug } from 'payload';
 import config from '@payload-config';

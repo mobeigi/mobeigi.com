@@ -21,24 +21,27 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     pagination: false,
   });
 
-  const blogPostSitemapEntries: MetadataRoute.Sitemap = payloadPosts.docs
-    .map((post) => {
-      const postUrl = resolvePostsUrl(post);
-      if (!postUrl) {
-        console.warn(`sitemap: postUrl for post ${post.id} should not be null.`);
-        return null;
-      }
-      const singleSiteMapEntry: MetadataRoute.Sitemap = [
-        {
-          url: joinUrl([BASE_URL, postUrl]),
-          lastModified: new Date(post.updatedAt),
-          changeFrequency: 'weekly',
-          priority: 0.7,
-        },
-      ];
+  const blogPostSitemapEntries: MetadataRoute.Sitemap = (
+    await Promise.all(
+      payloadPosts.docs.map(async (post) => {
+        const postUrl = await resolvePostsUrl(post);
+        if (!postUrl) {
+          console.warn(`sitemap: postUrl for post ${post.id} should not be null.`);
+          return null;
+        }
+        const singleSiteMapEntry: MetadataRoute.Sitemap = [
+          {
+            url: joinUrl([BASE_URL, postUrl]),
+            lastModified: new Date(post.updatedAt),
+            changeFrequency: 'weekly',
+            priority: 0.7,
+          },
+        ];
 
-      return singleSiteMapEntry;
-    })
+        return singleSiteMapEntry;
+      }),
+    )
+  )
     .filter((obj) => obj !== null)
     .flat();
 
