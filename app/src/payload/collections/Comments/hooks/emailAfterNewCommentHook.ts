@@ -21,7 +21,7 @@ export const emailAfterNewCommentHook: CollectionAfterChangeHook = async ({ doc,
 
     const textContent = extractTextContent(comment.content) || '';
 
-    const relativeCommentUrl = resolveCommentsUrl(comment);
+    const relativeCommentUrl = await resolveCommentsUrl(comment);
     // TODO: Join the url below
     const absoluteCommentUrl = BASE_URL + relativeCommentUrl;
 

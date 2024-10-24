@@ -2,8 +2,9 @@ import { Category, Post } from '@/payload-types';
 import { CollectionSlug, DataFromCollectionSlug } from 'payload';
 import { getCategorySlugComponents } from '@payload/collections/Category/resolveUrl';
 import { joinUrl } from '@/utils/url';
+import { getCachedDocumentById } from '@/payload/utils/docs';
 
-export const resolvePostsUrl = (doc: DataFromCollectionSlug<CollectionSlug>): string | null => {
+export const resolvePostsUrl = async (doc: DataFromCollectionSlug<CollectionSlug>): Promise<string | null> => {
   const post = doc as Post;
   if (!post.category || !post.slug) {
     return null;
@@ -11,7 +12,11 @@ export const resolvePostsUrl = (doc: DataFromCollectionSlug<CollectionSlug>): st
 
   let category: Category;
   if (typeof post.category === 'number') {
-    return null;
+    const cachedCategory = await getCachedDocumentById('category', post.category);
+    if (!cachedCategory) {
+      return null;
+    }
+    category = cachedCategory as Category;
   } else {
     category = post.category;
   }

@@ -6,7 +6,7 @@ import { BlogPostPostMeta, Category } from '@/types/blog';
 /**
  * Maps Payload blog post to post meta.
  */
-export const mapPostToPostMeta = (payloadPost: PayloadPost): BlogPostPostMeta | null => {
+export const mapPostToPostMeta = async (payloadPost: PayloadPost): Promise<BlogPostPostMeta | null> => {
   if (!payloadPost.publishedAt || !payloadPost.category || !payloadPost.slug) {
     console.warn('Required blog post fields are not provided or are invalid.', payloadPost);
     return null;
@@ -26,7 +26,7 @@ export const mapPostToPostMeta = (payloadPost: PayloadPost): BlogPostPostMeta | 
     url: categoryUrl,
   };
 
-  const blogPostUrl = resolvePostsUrl(payloadPost);
+  const blogPostUrl = await resolvePostsUrl(payloadPost);
   if (!blogPostUrl) {
     return null;
   }

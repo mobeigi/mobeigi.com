@@ -26,7 +26,7 @@ const Home = async () => {
   const blogPostMetas = (
     await Promise.all(
       posts.docs.map(async (post) => {
-        const postMeta = mapPostToPostMeta(post);
+        const postMeta = await mapPostToPostMeta(post);
         if (!postMeta) {
           console.warn('postMeta should not be null.');
           return null;

@@ -9,11 +9,11 @@ import { resolveCommentsUrl } from '@payload/collections/Comments/resolveUrl';
  */
 export const customUrlResolvers: Record<
   CollectionSlug,
-  (doc: DataFromCollectionSlug<CollectionSlug>) => string | null
+  (doc: DataFromCollectionSlug<CollectionSlug>) => Promise<string | null>
 > = {
-  posts: (doc) => resolvePostsUrl(doc),
-  category: (doc) => resolveCategoryUrl(doc),
-  comments: (doc) => resolveCommentsUrl(doc),
+  posts: async (doc) => await resolvePostsUrl(doc),
+  category: (doc) => Promise.resolve(resolveCategoryUrl(doc)),
+  comments: async (doc) => await resolveCommentsUrl(doc),
   users: () => {
     throw new Error('Function not implemented.');
   },
