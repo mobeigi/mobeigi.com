@@ -29,6 +29,8 @@ export const MediaBlockVideo = ({ mediaDark, mediaLight, widthOverride, heightOv
     return <ThemedVideo dark={darkVideo} light={lightVideo} />;
   } else {
     // Dark is our default style
-    return <video src={mediaDarkData.url!} aria-label={mediaDarkData.alt} controls></video>;
+    return (
+      <video src={mediaDarkData.url!} aria-label={mediaDarkData.alt} controls style={darkDimensions.style}></video>
+    );
   }
 };
