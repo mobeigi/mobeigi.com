@@ -1,15 +1,15 @@
 // storage-adapter-import-placeholder
-import { postgresAdapter } from '@payloadcms/db-postgres';
-import { lexicalEditor, HTMLConverterFeature, EXPERIMENTAL_TableFeature } from '@payloadcms/richtext-lexical';
-import path from 'path';
 import { buildConfig } from 'payload';
 import { fileURLToPath } from 'url';
+import path from 'path';
 import sharp from 'sharp';
+import cron from 'node-cron';
+import { postgresAdapter } from '@payloadcms/db-postgres';
+import { lexicalEditor, HTMLConverterFeature, EXPERIMENTAL_TableFeature } from '@payloadcms/richtext-lexical';
 import { seoPlugin } from '@payloadcms/plugin-seo';
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs';
 import { redirectsPlugin } from '@payloadcms/plugin-redirects';
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
-import cron from 'node-cron';
 import { pruneViewsCache } from '@/payload/utils/viewCounter';
 
 import { Users } from '@payload/collections/Users';
@@ -22,7 +22,7 @@ import { Comments } from '@/payload/collections/Comments';
 import { Resume } from '@/payload/globals/Resume';
 
 import { revalidateRedirects } from '@payload/hooks/revalidateRedirects';
-import { requireEnvVar } from './utils/env';
+import { requireEnvVar } from '@/utils/env';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
