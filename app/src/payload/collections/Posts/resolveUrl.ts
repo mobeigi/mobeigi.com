@@ -1,3 +1,6 @@
+'use server';
+// This is only needed because the 'link' ReactNode converter for lexical relies on server side lookups.
+
 import { Category, Post } from '@/payload-types';
 import { CollectionSlug, DataFromCollectionSlug } from 'payload';
 import { getCategorySlugComponents } from '@payload/collections/Category/resolveUrl';

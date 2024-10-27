@@ -1,7 +1,3 @@
-'use server';
-// TODO: This does not need to be a server component.
-// Instead, we need to find a way fix the client-side usages of serializeLexical which currently relies on server-side resolveUrl functionality.
-
 import config from '@payload-config';
 import { getPayloadHMR } from '@payloadcms/next/utilities';
 import { CollectionSlug, DataFromCollectionSlug } from 'payload';
@@ -21,8 +17,7 @@ export const getDocumentById = async (
   });
 };
 
-// TODO: Remove async one todo at top of page is resolved
-export const getCachedDocumentById = async (relationTo: CollectionSlug, docId: number) =>
+export const getCachedDocumentById = (relationTo: CollectionSlug, docId: number) =>
   unstable_cache_safe(
     async () => getDocumentById(relationTo, docId),
     [`payload-get-document-by-id-${relationTo}-${docId}`],
