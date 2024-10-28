@@ -192,6 +192,8 @@ export const generateStaticParams = async () => {
 const BlogPostHandler = async ({ params: paramsPromise }: { params: Promise<{ slug: string[] }> }) => {
   const params = await paramsPromise;
 
+  await payloadRedirect({ currentUrl: joinUrl(['blog', ...params.slug]) });
+
   const post = await getPayloadPostFromParams({ params });
   if (!post) {
     notFound();

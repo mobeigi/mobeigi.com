@@ -14,7 +14,9 @@ export const generateMetadata = async ({
 };
 
 // Any route that isn't handled by other routes will end up here
-const CatchAllHandler = () => {
+const CatchAllHandler = async ({ params: paramsPromise }: { params: Promise<{ catchAll: string[] }> }) => {
+  const params = await paramsPromise;
+  await payloadRedirect({ currentUrl: joinUrl([...params.catchAll]) });
   notFound();
 };
 
