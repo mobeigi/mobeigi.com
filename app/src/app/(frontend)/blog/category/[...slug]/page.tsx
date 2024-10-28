@@ -21,7 +21,6 @@ export const revalidate = 900;
 /**
  * Data fetching
  */
-
 const getPayloadCategoryFromParams = ({ params }: { params: { slug: string[] } }) =>
   unstable_cache_safe(
     async (): Promise<PayloadCategory | null> => {
@@ -217,6 +216,8 @@ export const generateStaticParams = async () => {
  */
 const CategoryDetailPageHandler = async ({ params: paramsPromise }: { params: Promise<{ slug: string[] }> }) => {
   const params = await paramsPromise;
+
+  await payloadRedirect({ currentUrl: joinUrl(['blog', 'category', ...params.slug]) });
 
   const payloadCategory = await getPayloadCategoryFromParams({ params });
   if (!payloadCategory) {
