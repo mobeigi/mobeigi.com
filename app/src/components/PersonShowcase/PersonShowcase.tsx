@@ -1,4 +1,3 @@
-import { IconWrapper } from '@/styles/icon';
 import {
   HeaderRows,
   Headshot,
@@ -8,6 +7,7 @@ import {
   InfoArea,
   StyledHeading,
   Tagline,
+  CustomIconWrapper as IconWrapper,
 } from './styled';
 import MapPinSvg from '@/assets/icons/boxicons/bx-map-pin.svg';
 import LanguageOutlineSvg from '@/assets/icons/misc/language-outline.svg';
