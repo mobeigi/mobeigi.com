@@ -57,7 +57,10 @@ export const InfoArea = styled.span`
   color: var(--theme-text-subtle);
 `;
 
-export const Info = styled.span``;
+export const Info = styled.span`
+  display: flex;
+  align-items: center;
+`;
 
 export const CustomIconWrapper = styled(IconWrapper)`
   svg {
