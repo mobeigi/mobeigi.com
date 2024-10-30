@@ -1,17 +1,18 @@
+import type { NextConfig } from 'next';
 import { withPayload } from '@payloadcms/next/withPayload';
 import svgrConfig from './svgr.config.mjs';
 import { execSync } from 'child_process';
+import type { Configuration, RuleSetRule } from 'webpack';
 
 const commitHash = execSync('git log --pretty=format:"%h" -n1').toString().trim();
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },
   env: {
-    NEXT_TELEMETRY_DISABLED: '1',
     COMMIT_HASH: commitHash,
+    NEXT_TELEMETRY_DISABLED: '1',
   },
   eslint: {
     // Process all files & folders
@@ -36,11 +37,15 @@ const nextConfig = {
   },
   output: 'standalone',
   trailingSlash: true,
-  webpack(config) {
-    // Grab the existing rule that handles SVG imports
-    const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'));
+  webpack(config: Configuration) {
+    // TODO: Find a better way to type the SVGR next config below.
+    // https://react-svgr.com/docs/next/
 
-    config.module.rules.push(
+    // Grab the existing rule that handles SVG imports
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    const fileLoaderRule = config.module?.rules?.find((rule: any) => rule.test?.test?.('.svg')) as RuleSetRule;
+
+    config.module?.rules?.push(
       // Reapply the existing rule, but only for svg imports ending in ?url
       {
         ...fileLoaderRule,
@@ -51,7 +56,14 @@ const nextConfig = {
       {
         test: /\.svg$/i,
         issuer: fileLoaderRule.issuer,
-        resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
+        resourceQuery: {
+          not: [
+            // @ts-expect-error not cannot type resourceQuery properly
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            ...(fileLoaderRule.resourceQuery?.not || []),
+            /url/,
+          ],
+        }, // exclude if *.svg?url
         use: [
           {
             loader: '@svgr/webpack',
@@ -62,6 +74,7 @@ const nextConfig = {
     );
 
     // Modify the file loader rule to ignore *.svg, since we have it handled now.
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     fileLoaderRule.exclude = /\.svg$/i;
 
     return config;
