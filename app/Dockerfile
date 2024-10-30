@@ -27,10 +27,13 @@ COPY --from=builder /project/app/.next/static ./.next/static
 RUN rm -rf ./public ./private
 COPY --from=builder /project/app/public ./public
 
+ENV NODE_ENV=production
+
 EXPOSE 3000
 ENV PORT=3000
 
+ENV HOSTNAME="0.0.0.0"
+
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
-ENV HOSTNAME="0.0.0.0"
 CMD ["node", "server.js"]
