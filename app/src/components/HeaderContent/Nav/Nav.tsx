@@ -49,5 +49,3 @@ export const Nav = () => {
     </>
   );
 };
-
-export default Nav;
