@@ -37,5 +37,3 @@ export const Embed: Block = {
     },
   ],
 };
-
-export default Embed;
