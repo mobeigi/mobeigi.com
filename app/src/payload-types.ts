@@ -23,7 +23,8 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsSelect?: {
+  collectionsJoins: {};
+  collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     files: FilesSelect<false> | FilesSelect<true>;
@@ -42,7 +43,7 @@ export interface Config {
   globals: {
     resume: Resume;
   };
-  globalsSelect?: {
+  globalsSelect: {
     resume: ResumeSelect<false> | ResumeSelect<true>;
   };
   locale: null;
