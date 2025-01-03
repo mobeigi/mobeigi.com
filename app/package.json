@@ -45,7 +45,7 @@
     "highlight.js": "^11.10.0",
     "holy-loader": "^2.3.8",
     "lodash-es": "^4.17.21",
-    "next": "15.0.0",
+    "next": "15.1.2",
     "next-themes": "^0.3.0",
     "node-cron": "^3.0.3",
     "payload": "3.0.0-beta.127",
