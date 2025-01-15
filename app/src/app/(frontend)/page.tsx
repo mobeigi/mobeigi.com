@@ -1,6 +1,6 @@
 import HomePage from '@/containers/HomePage';
 import { getCachedLatestPhotographyImages } from '@/utils/photography';
-import { getPayloadHMR } from '@payloadcms/next/utilities';
+import { getPayload } from 'payload';
 import config from '@payload-config';
 import { mapPostToPostMeta } from '@/utils/payload';
 import { BlogPostMeta, BlogPostRelatedMeta } from '@/types/blog';
@@ -10,7 +10,7 @@ import { generateBreadcrumbs } from './breadcrumbs';
 export const revalidate = 900;
 
 const Home = async () => {
-  const payload = await getPayloadHMR({
+  const payload = await getPayload({
     config,
   });
 

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getPayloadHMR } from '@payloadcms/next/utilities';
+import { getPayload } from 'payload';
 import config from '@payload-config';
 import { PrivateFile } from '@/payload-types';
 import { BASE_URL } from '@/constants/app';
@@ -15,7 +15,7 @@ export const POST = async (request: Request) => {
     const body = (await request.json()) as ResumeRequest;
     const { password } = body;
 
-    const payload = await getPayloadHMR({
+    const payload = await getPayload({
       config,
     });
 

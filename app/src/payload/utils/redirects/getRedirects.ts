@@ -1,9 +1,9 @@
 import { unstable_cache_safe } from '@/utils/next';
 import config from '@payload-config';
-import { getPayloadHMR } from '@payloadcms/next/utilities';
+import { getPayload } from 'payload';
 
 export const getRedirects = async () => {
-  const payload = await getPayloadHMR({
+  const payload = await getPayload({
     config,
   });
 

@@ -50,9 +50,9 @@ export interface Config {
   user: User & {
     collection: 'users';
   };
-  jobs?: {
+  jobs: {
     tasks: unknown;
-    workflows?: unknown;
+    workflows: unknown;
   };
 }
 export interface UserAuthOperations {
@@ -187,6 +187,9 @@ export interface Post {
     };
     [k: string]: unknown;
   };
+  /**
+   * A short summary or snippet of the post content
+   */
   excerpt: string;
   commentsEnabled?: boolean | null;
   meta?: {
@@ -217,6 +220,9 @@ export interface Post {
 export interface Category {
   id: number;
   title: string;
+  /**
+   * A short description for the category.
+   */
   description: string;
   meta?: {
     title?: string | null;
@@ -243,6 +249,9 @@ export interface Category {
 export interface Comment {
   id: number;
   displayName: string;
+  /**
+   * The email is for internal use only and will not be displayed publicly.
+   */
   email: string;
   content: {
     root: {
@@ -261,7 +270,13 @@ export interface Comment {
   };
   post: number | Post;
   author?: (number | null) | User;
+  /**
+   * The IP address from which the comment was made.
+   */
   ipAddress: string;
+  /**
+   * The browser user agent at the time the comment was submitted.
+   */
   userAgent: string;
   parent?: (number | null) | Comment;
   breadcrumbs?:
@@ -464,7 +479,6 @@ export interface PostsSelect<T extends boolean = true> {
   meta?:
     | T
     | {
-        overview?: T;
         title?: T;
         description?: T;
       };
@@ -495,7 +509,6 @@ export interface CategorySelect<T extends boolean = true> {
   meta?:
     | T
     | {
-        overview?: T;
         title?: T;
         description?: T;
       };

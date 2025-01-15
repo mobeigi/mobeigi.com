@@ -30,13 +30,13 @@ export const validationHook: CollectionBeforeValidateHook = async ({ data, req, 
       if (!post.commentsEnabled) {
         throw new ValidationError({
           collection: 'comments',
-          errors: [{ field: 'post', message: 'Comments are disabled for this post.' }],
+          errors: [{ path: 'post', message: 'Comments are disabled for this post.' }],
         });
       }
     } else {
       throw new ValidationError({
         collection: 'comments',
-        errors: [{ field: 'post', message: 'Post relationship is required.' }],
+        errors: [{ path: 'post', message: 'Post relationship is required.' }],
       });
     }
 
@@ -44,7 +44,7 @@ export const validationHook: CollectionBeforeValidateHook = async ({ data, req, 
     if (!comment.email) {
       throw new ValidationError({
         collection: 'comments',
-        errors: [{ field: 'email', message: 'Email is required to submit a comment.' }],
+        errors: [{ path: 'email', message: 'Email is required to submit a comment.' }],
       });
     }
 
@@ -67,7 +67,7 @@ export const validationHook: CollectionBeforeValidateHook = async ({ data, req, 
           collection: 'comments',
           errors: [
             {
-              field: 'email',
+              path: 'email',
               message: 'You must be signed in to submit a comment using this email address.',
             },
           ],
@@ -79,7 +79,7 @@ export const validationHook: CollectionBeforeValidateHook = async ({ data, req, 
           collection: 'comments',
           errors: [
             {
-              field: 'email',
+              path: 'email',
               message:
                 'The email address provided does not match your authenticated account. Please use your account email to submit a comment.',
             },
@@ -99,7 +99,7 @@ export const validationHook: CollectionBeforeValidateHook = async ({ data, req, 
           collection: 'comments',
           errors: [
             {
-              field: 'ipAddress',
+              path: 'ipAddress',
               message: 'Failed to get ipAddress from headers.',
             },
           ],
@@ -116,7 +116,7 @@ export const validationHook: CollectionBeforeValidateHook = async ({ data, req, 
           collection: 'comments',
           errors: [
             {
-              field: 'userAgent',
+              path: 'userAgent',
               message: 'Failed to get userAgent from headers.',
             },
           ],
@@ -130,7 +130,7 @@ export const validationHook: CollectionBeforeValidateHook = async ({ data, req, 
       if (!comment.content) {
         throw new ValidationError({
           collection: 'comments',
-          errors: [{ field: 'content', message: 'Content is required to submit a comment.' }],
+          errors: [{ path: 'content', message: 'Content is required to submit a comment.' }],
         });
       }
       const commentTextContent = extractTextContent(comment.content) || '';

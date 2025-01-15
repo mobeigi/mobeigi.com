@@ -1,4 +1,3 @@
-// storage-adapter-import-placeholder
 import { buildConfig } from 'payload';
 import { fileURLToPath } from 'url';
 import path from 'path';
@@ -10,16 +9,16 @@ import { seoPlugin } from '@payloadcms/plugin-seo';
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs';
 import { redirectsPlugin } from '@payloadcms/plugin-redirects';
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
-import { pruneViewsCache } from '@/payload/utils/viewCounter';
+import { pruneViewsCache } from '@payload/utils/viewCounter';
 
 import { Users } from '@payload/collections/Users';
 import { Media } from '@payload/collections/Media';
 import { Files } from '@payload/collections/Files';
 import { PrivateFiles } from '@payload/collections/PrivateFiles';
 import { Posts } from '@payload/collections/Posts';
-import { Category } from '@/payload/collections/Category';
-import { Comments } from '@/payload/collections/Comments';
-import { Resume } from '@/payload/globals/Resume';
+import { Category } from '@payload/collections/Category';
+import { Comments } from '@payload/collections/Comments';
+import { Resume } from '@payload/globals/Resume';
 
 import { revalidateRedirects } from '@payload/hooks/revalidateRedirects';
 import { requireEnvVar } from '@/utils/env';
@@ -75,17 +74,16 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   plugins: [
-    // storage-adapter-placeholder
     seoPlugin({}),
     nestedDocsPlugin({
-      collections: [Category.slug],
+      collections: ['category'],
       generateLabel: (_, doc) => doc.title as string,
       // TODO: Can this type be improved?
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
     }),
     nestedDocsPlugin({
-      collections: [Comments.slug],
+      collections: ['comments'],
       generateLabel: (_, doc) => doc.displayName as string,
       // TODO: Can this type be improved?
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions

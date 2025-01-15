@@ -1,7 +1,7 @@
 // TODO: Type drizzle tables when types becomes available in Payload
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
-import { getPayloadHMR } from '@payloadcms/next/utilities';
+import { getPayload } from 'payload';
 import config from '@payload-config';
 import { parseISO, differenceInMilliseconds } from 'date-fns';
 import { sql, and, eq } from 'drizzle-orm';
@@ -31,7 +31,7 @@ export const registerView = async ({ postId, ipAddress, userAgent }: RegisterVie
     return false;
   }
 
-  const payload = await getPayloadHMR({
+  const payload = await getPayload({
     config,
   });
 
