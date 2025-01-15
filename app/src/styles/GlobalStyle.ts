@@ -5,7 +5,6 @@ import HighlightJsStyles from './highlightjs';
 import { breakpoints } from '@/styles/breakpoints';
 
 // CSS includes
-import 'react-toastify/dist/ReactToastify.css';
 import '@public/css/highlight.js/mobeigi.css';
 
 const GlobalStyle = createGlobalStyle`
