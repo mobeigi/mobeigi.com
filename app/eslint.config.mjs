@@ -15,6 +15,7 @@ const compat = new FlatCompat({
 const globalIgnores = {
   ignores: [
     '**/node_modules/',
+    '.next/',
     'src/app/(payload)/',
     'coverage/',
     //TODO: Add supporting for parsing this mjs file
@@ -23,8 +24,9 @@ const globalIgnores = {
 };
 
 // TODO: The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
-const nextConfig = [
-  ...compat.extends('next', 'next/core-web-vitals', 'next/typescript'),
+const nextConfig = [...compat.extends('next/core-web-vitals', 'next/typescript')];
+
+const typescriptConfig = [
   {
     rules: {
       '@typescript-eslint/ban-ts-comment': 'warn',
@@ -72,5 +74,6 @@ export default tseslint.config(
   tseslint.configs.recommendedTypeChecked,
   typedLinting,
   ...nextConfig,
+  ...typescriptConfig,
   ...prettierConfig,
 );
