@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getPayloadHMR } from '@payloadcms/next/utilities';
+import { getPayload } from 'payload';
 import config from '@payload-config';
 import { mapComments } from '@/utils/payload';
 import { CommentsForPost } from '@/types/api/commentsForPost';
@@ -10,7 +10,7 @@ export const GET = async (request: Request, { params: paramsPromise }: { params:
 
     const { postId } = params;
 
-    const payload = await getPayloadHMR({
+    const payload = await getPayload({
       config,
     });
 

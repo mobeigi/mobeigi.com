@@ -1,4 +1,4 @@
-import { getPayloadHMR } from '@payloadcms/next/utilities';
+import { getPayload } from 'payload';
 import config from '@payload-config';
 import { lt } from 'drizzle-orm';
 
@@ -10,7 +10,7 @@ import { EXPIRY_IN_MS } from './constants';
  * @returns {Promise<void>} A promise that resolves when the pruning operation is complete.
  */
 export const pruneViewsCache = async (): Promise<void> => {
-  const payload = await getPayloadHMR({
+  const payload = await getPayload({
     config,
   });
   // TODO: Type drizzle tables when types becomes available in Payload

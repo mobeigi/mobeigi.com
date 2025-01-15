@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { getPayloadHMR } from '@payloadcms/next/utilities';
+import { getPayload } from 'payload';
 import config from '@payload-config';
 import BlogPost from '@/containers/BlogPost';
 import { notFound } from 'next/navigation';
@@ -23,7 +23,7 @@ export const revalidate = 900;
 const getPayloadPostFromParams = ({ params }: { params: { slug: string[] } }) =>
   unstable_cache_safe(
     async (): Promise<PayloadPost | null> => {
-      const payload = await getPayloadHMR({
+      const payload = await getPayload({
         config,
       });
 
@@ -84,7 +84,7 @@ const transformPostToBlogPostProps = (post: PayloadPost) =>
         body: post.content,
       };
 
-      const payload = await getPayloadHMR({
+      const payload = await getPayload({
         config,
       });
 
@@ -153,7 +153,7 @@ export const generateMetadata = async ({
  * Static params
  */
 export const generateStaticParams = async () => {
-  const payload = await getPayloadHMR({
+  const payload = await getPayload({
     config,
   });
 
