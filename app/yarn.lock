@@ -3664,11 +3664,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@payloadcms/db-postgres@npm:3.0.0-beta.128":
-  version: 3.0.0-beta.128
-  resolution: "@payloadcms/db-postgres@npm:3.0.0-beta.128"
+"@payloadcms/db-postgres@npm:3.0.0-beta.131":
+  version: 3.0.0-beta.131
+  resolution: "@payloadcms/db-postgres@npm:3.0.0-beta.131"
   dependencies:
-    "@payloadcms/drizzle": "npm:3.0.0-beta.128"
+    "@payloadcms/drizzle": "npm:3.0.0-beta.131"
     "@types/pg": "npm:8.10.2"
     console-table-printer: "npm:2.12.1"
     drizzle-kit: "npm:0.28.0"
@@ -3678,14 +3678,14 @@ __metadata:
     to-snake-case: "npm:1.0.0"
     uuid: "npm:10.0.0"
   peerDependencies:
-    payload: 3.0.0-beta.128
-  checksum: 10c0/89d8bc98d88c21e12dc872a5e35d62ccbceafe2b03bc22697d54378a826898148a5c4af532a456c5d6cb513e229eab4de9794a922d5ba9384e544658aab8c2b4
+    payload: 3.0.0-beta.131
+  checksum: 10c0/b098561482e79da3e2b5043a1a8e03796070da5582598079ff1d7369c728fdcb628dd3dab89ec92a9b6f30b58904d30b8a3eb44cb1ccc1f0d29a5c3a4e88c40e
   languageName: node
   linkType: hard
 
-"@payloadcms/drizzle@npm:3.0.0-beta.128":
-  version: 3.0.0-beta.128
-  resolution: "@payloadcms/drizzle@npm:3.0.0-beta.128"
+"@payloadcms/drizzle@npm:3.0.0-beta.131":
+  version: 3.0.0-beta.131
+  resolution: "@payloadcms/drizzle@npm:3.0.0-beta.131"
   dependencies:
     console-table-printer: "npm:2.12.1"
     drizzle-orm: "npm:0.36.1"
@@ -3693,25 +3693,25 @@ __metadata:
     to-snake-case: "npm:1.0.0"
     uuid: "npm:9.0.0"
   peerDependencies:
-    payload: 3.0.0-beta.128
-  checksum: 10c0/1e5baec8d066641948963840472b243ef832e750baf53675c471847c8be3c1fc4b0b700624cb8928ce361f9bf159c60d5920796fc9bd70de210cb130192491c5
+    payload: 3.0.0-beta.131
+  checksum: 10c0/adf6cca5524a2144a02af2b8bccb4ddcb7c32a7f881d48b5b441f0c9177be6c8d5134305201e515c83dcf1940465355e96e0cf3e60324ca4f22e505721cbb7d0
   languageName: node
   linkType: hard
 
-"@payloadcms/email-nodemailer@npm:3.0.0-beta.128":
-  version: 3.0.0-beta.128
-  resolution: "@payloadcms/email-nodemailer@npm:3.0.0-beta.128"
+"@payloadcms/email-nodemailer@npm:3.0.0-beta.131":
+  version: 3.0.0-beta.131
+  resolution: "@payloadcms/email-nodemailer@npm:3.0.0-beta.131"
   dependencies:
     nodemailer: "npm:6.9.10"
   peerDependencies:
-    payload: 3.0.0-beta.128
-  checksum: 10c0/0f5db52d314ca684d07c6ede00ffabbd03d79860d008bbbdb5c77ca4af9edbafeea634e1c91084325b4584492522248d51152b0d0062e049e257618e35ab2d67
+    payload: 3.0.0-beta.131
+  checksum: 10c0/6467ffa1ee5f05a5693ad51d9c764508403334a773515df98ee84d1c44a4373d5500a3c438d1c097aad55a10b4db901f9bda6b10624853600ec838e31b8fa6a8
   languageName: node
   linkType: hard
 
-"@payloadcms/graphql@npm:3.0.0-beta.128":
-  version: 3.0.0-beta.128
-  resolution: "@payloadcms/graphql@npm:3.0.0-beta.128"
+"@payloadcms/graphql@npm:3.0.0-beta.131":
+  version: 3.0.0-beta.131
+  resolution: "@payloadcms/graphql@npm:3.0.0-beta.131"
   dependencies:
     graphql-scalars: "npm:1.22.2"
     pluralize: "npm:8.0.0"
@@ -3719,21 +3719,21 @@ __metadata:
     tsx: "npm:4.19.2"
   peerDependencies:
     graphql: ^16.8.1
-    payload: 3.0.0-beta.128
+    payload: 3.0.0-beta.131
   bin:
     payload-graphql: bin.js
-  checksum: 10c0/38206f79a725dab60224e65ea462092da70afc86d313619ccdca5141ffe9c68b28c8ec43010f6666bcc6e142aa04e42098f090b8f1d9576ebb4eed63f6d09db0
+  checksum: 10c0/a4b3bc3422885b96150e67f2f9046f351ff26c5c9f2ac9b01910bc80327712807b428163ef2748e2b5779982e300c42c3e6db4d00a053b2ec56d04aabef38f79
   languageName: node
   linkType: hard
 
-"@payloadcms/next@npm:3.0.0-beta.128":
-  version: 3.0.0-beta.128
-  resolution: "@payloadcms/next@npm:3.0.0-beta.128"
+"@payloadcms/next@npm:3.0.0-beta.131":
+  version: 3.0.0-beta.131
+  resolution: "@payloadcms/next@npm:3.0.0-beta.131"
   dependencies:
     "@dnd-kit/core": "npm:6.0.8"
-    "@payloadcms/graphql": "npm:3.0.0-beta.128"
-    "@payloadcms/translations": "npm:3.0.0-beta.128"
-    "@payloadcms/ui": "npm:3.0.0-beta.128"
+    "@payloadcms/graphql": "npm:3.0.0-beta.131"
+    "@payloadcms/translations": "npm:3.0.0-beta.131"
+    "@payloadcms/ui": "npm:3.0.0-beta.131"
     busboy: "npm:^1.6.0"
     file-type: "npm:19.3.0"
     graphql-http: "npm:^1.22.0"
@@ -3749,46 +3749,46 @@ __metadata:
   peerDependencies:
     graphql: ^16.8.1
     next: ^15.0.0
-    payload: 3.0.0-beta.128
-  checksum: 10c0/898703431b450177d5a948a08ac0d5bc78dbc9aa1be195187b9c74592797ddcc8bd82536b131773d674b4f4a27f4a583b08d1d38244cc049ddc571f028b31bb3
+    payload: 3.0.0-beta.131
+  checksum: 10c0/593c911ea5bcbba6e224de84807c9a436fac6c92549a6494a6b1debbe3429a67cb233e025132e1a11e67d658198cf0b62c5ddc028a07c090a7b501f182925145
   languageName: node
   linkType: hard
 
-"@payloadcms/plugin-nested-docs@npm:3.0.0-beta.128":
-  version: 3.0.0-beta.128
-  resolution: "@payloadcms/plugin-nested-docs@npm:3.0.0-beta.128"
+"@payloadcms/plugin-nested-docs@npm:3.0.0-beta.131":
+  version: 3.0.0-beta.131
+  resolution: "@payloadcms/plugin-nested-docs@npm:3.0.0-beta.131"
   peerDependencies:
-    payload: 3.0.0-beta.128
-  checksum: 10c0/56d435278d75c065f1c2d8130c41643c12e5952fea7821a6f72d02ee0bc893c25bbfa2e486fa4be8dfc9c4df9919dd4eccb4403b8461c78a84f4b9885e08705e
+    payload: 3.0.0-beta.131
+  checksum: 10c0/cf7dcfe075659165644a9682ae8ef24ed5c936d6def3d0e576a468464773087de0b104a84ba712d43996e747328b17252fe59a10264b64bf384efd234811a176
   languageName: node
   linkType: hard
 
-"@payloadcms/plugin-redirects@npm:3.0.0-beta.128":
-  version: 3.0.0-beta.128
-  resolution: "@payloadcms/plugin-redirects@npm:3.0.0-beta.128"
+"@payloadcms/plugin-redirects@npm:3.0.0-beta.131":
+  version: 3.0.0-beta.131
+  resolution: "@payloadcms/plugin-redirects@npm:3.0.0-beta.131"
   peerDependencies:
-    payload: 3.0.0-beta.128
-  checksum: 10c0/ff5fa97b41f6d0d00e26ddefe329221e260ce318ab9ec81eb89e471600be0a18bdab9edaa654a699674e4adb518f7b924fa45d90d2449531bdf8e7361c3f916c
+    payload: 3.0.0-beta.131
+  checksum: 10c0/e14db6281367c4ae1191f34fcbc155b7aa833cff0d76bd1f933698b71a4fdd6f2568cd347916f995c4e518a4c2bbee4203cd2cc696d1929d45d58f822b9edad6
   languageName: node
   linkType: hard
 
-"@payloadcms/plugin-seo@npm:3.0.0-beta.128":
-  version: 3.0.0-beta.128
-  resolution: "@payloadcms/plugin-seo@npm:3.0.0-beta.128"
+"@payloadcms/plugin-seo@npm:3.0.0-beta.131":
+  version: 3.0.0-beta.131
+  resolution: "@payloadcms/plugin-seo@npm:3.0.0-beta.131"
   dependencies:
-    "@payloadcms/translations": "npm:3.0.0-beta.128"
-    "@payloadcms/ui": "npm:3.0.0-beta.128"
+    "@payloadcms/translations": "npm:3.0.0-beta.131"
+    "@payloadcms/ui": "npm:3.0.0-beta.131"
   peerDependencies:
-    payload: 3.0.0-beta.128
+    payload: 3.0.0-beta.131
     react: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
     react-dom: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
-  checksum: 10c0/5c6e96d0b541b289df1f4bfa8b4cf024cc111bc8053e147e56cfd28e0d3a97114e8e5c2f2283dda8e17f39c2e80f14c3ec6b1a06c79fdb1efd0ed3263c293ffb
+  checksum: 10c0/7690b968bfeeaf0b58fb814d066bbc2925fac8076c2c02d6d55a6769a0a5a34453c64c56d8bb1dae6dc5c8b0a06c293c837dba762b31eabc8b76cb17f00b1bfc
   languageName: node
   linkType: hard
 
-"@payloadcms/richtext-lexical@npm:3.0.0-beta.128":
-  version: 3.0.0-beta.128
-  resolution: "@payloadcms/richtext-lexical@npm:3.0.0-beta.128"
+"@payloadcms/richtext-lexical@npm:3.0.0-beta.131":
+  version: 3.0.0-beta.131
+  resolution: "@payloadcms/richtext-lexical@npm:3.0.0-beta.131"
   dependencies:
     "@lexical/headless": "npm:0.20.0"
     "@lexical/link": "npm:0.20.0"
@@ -3799,8 +3799,8 @@ __metadata:
     "@lexical/rich-text": "npm:0.20.0"
     "@lexical/selection": "npm:0.20.0"
     "@lexical/utils": "npm:0.20.0"
-    "@payloadcms/translations": "npm:3.0.0-beta.128"
-    "@payloadcms/ui": "npm:3.0.0-beta.128"
+    "@payloadcms/translations": "npm:3.0.0-beta.131"
+    "@payloadcms/ui": "npm:3.0.0-beta.131"
     "@types/uuid": "npm:10.0.0"
     bson-objectid: "npm:2.0.4"
     dequal: "npm:2.0.3"
@@ -3822,27 +3822,27 @@ __metadata:
     "@lexical/selection": 0.20.0
     "@lexical/table": 0.20.0
     "@lexical/utils": 0.20.0
-    "@payloadcms/next": 3.0.0-beta.128
+    "@payloadcms/next": 3.0.0-beta.131
     lexical: 0.20.0
-    payload: 3.0.0-beta.128
+    payload: 3.0.0-beta.131
     react: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
     react-dom: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
-  checksum: 10c0/50f1d9ec62bf41035b27ba7252db7d92b80ab2a1428fb5fcf2c0ef1107b165af7cfd75be6ff335d34679f8122ebe2afc834941bbf25bbec64dec4c915e2bc602
+  checksum: 10c0/34d41a4c4f4724e3477231adbe04d21f2fe926d261c2197981c0bf4bf862c7a5bcca626d99b12377a99b1942341a0236e7f0b11d88d7641d3b563227ad44d705
   languageName: node
   linkType: hard
 
-"@payloadcms/translations@npm:3.0.0-beta.128":
-  version: 3.0.0-beta.128
-  resolution: "@payloadcms/translations@npm:3.0.0-beta.128"
+"@payloadcms/translations@npm:3.0.0-beta.131":
+  version: 3.0.0-beta.131
+  resolution: "@payloadcms/translations@npm:3.0.0-beta.131"
   dependencies:
-    date-fns: "npm:3.3.1"
-  checksum: 10c0/d18366347e3a9231d92f01033f5620fc4c4e9445d46385fc2bb3f6299ed3d574af39857ae66b93cfe61a3ebd84c1b3b21995c9b51d15fe5e9d213703f3de23ae
+    date-fns: "npm:4.1.0"
+  checksum: 10c0/4f31563191623cf37e7a0aeaa5ef7506496d3f79c6c7e8361d20a9684d77ae7810a77d9388596202f2e6b094c071c1dccdfec2d03c1d35c7bd5695c2108728c0
   languageName: node
   linkType: hard
 
-"@payloadcms/ui@npm:3.0.0-beta.128":
-  version: 3.0.0-beta.128
-  resolution: "@payloadcms/ui@npm:3.0.0-beta.128"
+"@payloadcms/ui@npm:3.0.0-beta.131":
+  version: 3.0.0-beta.131
+  resolution: "@payloadcms/ui@npm:3.0.0-beta.131"
   dependencies:
     "@dnd-kit/core": "npm:6.0.8"
     "@dnd-kit/sortable": "npm:7.0.2"
@@ -3850,10 +3850,10 @@ __metadata:
     "@faceless-ui/scroll-info": "npm:2.0.0-beta.0"
     "@faceless-ui/window-info": "npm:3.0.0-beta.0"
     "@monaco-editor/react": "npm:4.6.0"
-    "@payloadcms/translations": "npm:3.0.0-beta.128"
+    "@payloadcms/translations": "npm:3.0.0-beta.131"
     body-scroll-lock: "npm:4.0.0-beta.0"
     bson-objectid: "npm:2.0.4"
-    date-fns: "npm:3.3.1"
+    date-fns: "npm:4.1.0"
     dequal: "npm:2.0.3"
     md5: "npm:2.3.0"
     object-to-formdata: "npm:4.5.1"
@@ -3869,10 +3869,10 @@ __metadata:
     uuid: "npm:10.0.0"
   peerDependencies:
     next: ^15.0.0
-    payload: 3.0.0-beta.128
+    payload: 3.0.0-beta.131
     react: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
     react-dom: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
-  checksum: 10c0/004d99b06d21df1b593ce2407d46167057ded3709fd7c6f1200dc4720adce0d2b5fdddc28c1de77f5609ca83cb28e2d729ea60563eecd579b5d3e8d03eb6a777
+  checksum: 10c0/5567094ea568d5f90ae0334d321d2c7d1d7436169930f7b275baaba0d4fd3f5bf4c48ed1afa5926ae2e8b4b544fb33deeaddeb9208dab8a7f14c18d4d2fda2a1
   languageName: node
   linkType: hard
 
@@ -6595,10 +6595,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns@npm:3.3.1":
-  version: 3.3.1
-  resolution: "date-fns@npm:3.3.1"
-  checksum: 10c0/e04ff79244010e03b912d791cd3250af5f18866ce868604958d76bd87e5fb0b79f0a810b8e7066248452b41779b288c4fd21de1cac2cd4b6d384e9dd931c9674
+"date-fns@npm:4.1.0, date-fns@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "date-fns@npm:4.1.0"
+  checksum: 10c0/b79ff32830e6b7faa009590af6ae0fb8c3fd9ffad46d930548fbb5acf473773b4712ae887e156ba91a7b3dc30591ce0f517d69fd83bd9c38650fdc03b4e0bac8
   languageName: node
   linkType: hard
 
@@ -6606,13 +6606,6 @@ __metadata:
   version: 3.6.0
   resolution: "date-fns@npm:3.6.0"
   checksum: 10c0/0b5fb981590ef2f8e5a3ba6cd6d77faece0ea7f7158948f2eaae7bbb7c80a8f63ae30b01236c2923cf89bb3719c33aeb150c715ea4fe4e86e37dcf06bed42fb6
-  languageName: node
-  linkType: hard
-
-"date-fns@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "date-fns@npm:4.1.0"
-  checksum: 10c0/b79ff32830e6b7faa009590af6ae0fb8c3fd9ffad46d930548fbb5acf473773b4712ae887e156ba91a7b3dc30591ce0f517d69fd83bd9c38650fdc03b4e0bac8
   languageName: node
   linkType: hard
 
@@ -10348,13 +10341,13 @@ __metadata:
     "@cedx/akismet": "npm:^16.2.0"
     "@next/third-parties": "npm:15.0.0"
     "@octokit/rest": "npm:^21.0.2"
-    "@payloadcms/db-postgres": "npm:3.0.0-beta.128"
-    "@payloadcms/email-nodemailer": "npm:3.0.0-beta.128"
-    "@payloadcms/next": "npm:3.0.0-beta.128"
-    "@payloadcms/plugin-nested-docs": "npm:3.0.0-beta.128"
-    "@payloadcms/plugin-redirects": "npm:3.0.0-beta.128"
-    "@payloadcms/plugin-seo": "npm:3.0.0-beta.128"
-    "@payloadcms/richtext-lexical": "npm:3.0.0-beta.128"
+    "@payloadcms/db-postgres": "npm:3.0.0-beta.131"
+    "@payloadcms/email-nodemailer": "npm:3.0.0-beta.131"
+    "@payloadcms/next": "npm:3.0.0-beta.131"
+    "@payloadcms/plugin-nested-docs": "npm:3.0.0-beta.131"
+    "@payloadcms/plugin-redirects": "npm:3.0.0-beta.131"
+    "@payloadcms/plugin-seo": "npm:3.0.0-beta.131"
+    "@payloadcms/richtext-lexical": "npm:3.0.0-beta.131"
     "@react-email/components": "npm:^0.0.25"
     "@react-email/render": "npm:^1.0.1"
     "@svgr/webpack": "npm:^8.1.0"
@@ -10390,7 +10383,7 @@ __metadata:
     next: "npm:15.0.0"
     next-themes: "npm:^0.3.0"
     node-cron: "npm:^3.0.3"
-    payload: "npm:3.0.0-beta.128"
+    payload: "npm:3.0.0-beta.131"
     prettier: "npm:^3.3.3"
     react: "npm:19.0.0"
     react-dom: "npm:19.0.0"
@@ -10918,13 +10911,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"payload@npm:3.0.0-beta.128":
-  version: 3.0.0-beta.128
-  resolution: "payload@npm:3.0.0-beta.128"
+"payload@npm:3.0.0-beta.131":
+  version: 3.0.0-beta.131
+  resolution: "payload@npm:3.0.0-beta.131"
   dependencies:
     "@monaco-editor/react": "npm:4.6.0"
     "@next/env": "npm:^15.0.0"
-    "@payloadcms/translations": "npm:3.0.0-beta.128"
+    "@payloadcms/translations": "npm:3.0.0-beta.131"
     "@types/busboy": "npm:1.5.4"
     ajv: "npm:8.17.1"
     bson-objectid: "npm:2.0.4"
@@ -10952,7 +10945,7 @@ __metadata:
     graphql: ^16.8.1
   bin:
     payload: bin.js
-  checksum: 10c0/c3c18ccf495f959fe8199783c9cbf1bc60a1149cd5ac9d68a33fdc75f50bfc991d223f713e28e9461b07f9511d21ed5210ac81500583858f6bbc77261ab6edbe
+  checksum: 10c0/e10ffdd7d035b32caf8a22c5bde92f387983f6b6ac8b17169c461b28a4033febd13e5111067d57900a6b9429668a3b21a4c47e8d4fdb15725e348ddbbf70b07f
   languageName: node
   linkType: hard
 
