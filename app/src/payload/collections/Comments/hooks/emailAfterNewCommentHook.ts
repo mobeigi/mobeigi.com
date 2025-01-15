@@ -30,6 +30,7 @@ export const emailAfterNewCommentHook: CollectionAfterChangeHook = async ({ doc,
       postTitle: post.title,
       commentUrl: absoluteCommentUrl,
       displayName: comment.displayName,
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
       author: comment.author?.toString() || 'anonymous',
       email: comment.email,
       ipAddress: comment.ipAddress,
