@@ -1,7 +1,7 @@
 import { BASE_URL } from '@/constants/app';
 import { joinUrl } from '@/utils/url';
 import type { MetadataRoute } from 'next';
-import { getPayloadHMR } from '@payloadcms/next/utilities';
+import { getPayload } from 'payload';
 import config from '@payload-config';
 import { resolveCategoryUrl } from '@/payload/collections/Category/resolveUrl';
 import { resolvePostsUrl } from '@/payload/collections/Posts/resolveUrl';
@@ -9,7 +9,7 @@ import { resolvePostsUrl } from '@/payload/collections/Posts/resolveUrl';
 export const revalidate = 3600;
 
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
-  const payload = await getPayloadHMR({
+  const payload = await getPayload({
     config,
   });
 

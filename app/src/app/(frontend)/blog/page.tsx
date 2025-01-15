@@ -1,6 +1,6 @@
 import BlogPage from '@/containers/BlogPage';
 import { Metadata } from 'next';
-import { getPayloadHMR } from '@payloadcms/next/utilities';
+import { getPayload } from 'payload';
 import config from '@payload-config';
 import { mapPostToPostMeta } from '@/utils/payload';
 import { BlogPostMeta, BlogPostRelatedMeta } from '@/types/blog';
@@ -17,7 +17,7 @@ export const revalidate = 900;
 
 const getAllBlogPostMetas = unstable_cache_safe(
   async () => {
-    const payload = await getPayloadHMR({
+    const payload = await getPayload({
       config,
     });
 
