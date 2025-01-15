@@ -18,6 +18,8 @@ export const getNodeText = (node: ReactNode): string | null => {
         const props = element.props;
         return getNodeText(props.children);
       }
+
+      return null;
     }
     default:
       console.warn('Unresolved `node` of type:', typeof node, node);
