@@ -70,6 +70,7 @@ export default buildConfig({
   globals: [Resume],
   secret: requireEnvVar(process.env.PAYLOAD_SECRET, 'PAYLOAD_SECRET'),
   sharp,
+  telemetry: false,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
