@@ -168,7 +168,7 @@ export const generateMetadata = async ({
   const payloadCategory = await getPayloadCategoryFromParams({ params });
   if (!payloadCategory) {
     console.warn(`Failed to find payload category during generateMetadata. Params: ${params.slug.join('/')}`);
-    return notFound();
+    notFound();
   }
 
   const seoData = payloadCategory.meta;
