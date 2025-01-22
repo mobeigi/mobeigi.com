@@ -167,12 +167,14 @@ export const generateMetadata = async ({
 
   const payloadCategory = await getPayloadCategoryFromParams({ params });
   if (!payloadCategory) {
-    console.warn('Failed to find payload category during generateMetadata.');
+    console.warn(`Failed to find payload category during generateMetadata. Params: ${params.slug.join('/')}`);
     return notFound();
   }
+
   const seoData = payloadCategory.meta;
   const fallbackTitle = `Category: ${payloadCategory.title}`;
   const fallbackDescription = payloadCategory.description;
+
   return {
     title: seoData?.title || fallbackTitle,
     description: seoData?.description || fallbackDescription,

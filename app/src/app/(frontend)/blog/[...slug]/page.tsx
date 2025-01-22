@@ -133,15 +133,15 @@ export const generateMetadata = async ({
 
   await payloadRedirect({ currentUrl: joinUrl(['blog', ...params.slug]) });
 
-  const post = await getPayloadPostFromParams({ params });
-  if (!post) {
-    console.warn('Failed to find post during generateMetadata.');
+  const payloadPost = await getPayloadPostFromParams({ params });
+  if (!payloadPost) {
+    console.warn(`Failed to find payload post during generateMetadata. Params: ${params.slug.join('/')}`);
     notFound();
   }
 
-  const seoData = post.meta;
-  const fallbackTitle = post.title;
-  const fallbackDescription = post.excerpt;
+  const seoData = payloadPost.meta;
+  const fallbackTitle = payloadPost.title;
+  const fallbackDescription = payloadPost.excerpt;
 
   return {
     title: seoData?.title || fallbackTitle,
