@@ -6,6 +6,7 @@ import { format as formatDate } from 'date-fns';
 interface NewReplyToCommentEmailProps {
   postTitle: string;
   commentUrl: string;
+  unsubscribeUrl: string;
   replyCommentDisplayName: string;
   replyCommentUrl: string;
   replyCommentCreatedAt: Date;
@@ -15,6 +16,7 @@ interface NewReplyToCommentEmailProps {
 export const NewReplyToCommentEmail = ({
   postTitle,
   commentUrl,
+  unsubscribeUrl,
   replyCommentDisplayName,
   replyCommentUrl,
   replyCommentCreatedAt,
@@ -33,9 +35,7 @@ export const NewReplyToCommentEmail = ({
         <Section>
           <Heading as="h2">New reply to your comment on:</Heading>
           <Text>
-            {postTitle}
-            <br />
-            <Link href={commentUrl}>{commentUrl}</Link>
+            <Link href={commentUrl}>{postTitle}</Link>
           </Text>
         </Section>
         <Section>
@@ -56,6 +56,28 @@ export const NewReplyToCommentEmail = ({
         </Section>
         <Section>
           <Text>{replyCommentTextContent}</Text>
+        </Section>
+        <Section>
+          <Text
+            style={{
+              color: '#6c757d',
+              fontSize: '12px',
+              textAlign: 'center',
+            }}
+          >
+            <span>
+              <Link
+                href={unsubscribeUrl}
+                style={{
+                  color: '#6c757d',
+                  textDecoration: 'underline',
+                }}
+              >
+                Unsubscribe here
+              </Link>{' '}
+              to stop receiving emails for replies to this comment.
+            </span>
+          </Text>
         </Section>
       </Body>
     </Html>

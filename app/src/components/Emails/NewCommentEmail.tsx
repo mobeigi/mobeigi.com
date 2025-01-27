@@ -32,9 +32,7 @@ export const NewCommentEmail = ({
         <Section>
           <Heading as="h2">New comment on blog post:</Heading>
           <Text>
-            {postTitle}
-            <br />
-            <Link href={commentUrl}>{commentUrl}</Link>
+            <Link href={commentUrl}>{postTitle}</Link>
           </Text>
         </Section>
         <Section>
