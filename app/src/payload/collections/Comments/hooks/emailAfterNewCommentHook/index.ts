@@ -1,5 +1,5 @@
 import { CollectionAfterChangeHook } from 'payload';
-import { Comment, Post, User } from '@/payload-types';
+import { Comment, Post } from '@/payload-types';
 import { extractTextContent } from '@/utils/lexical';
 import { resolveCommentsUrl } from '../../resolveUrl';
 import { BASE_URL } from '@/constants/app';
@@ -8,6 +8,7 @@ import { requireEnvVar } from '@/utils/env';
 import { joinUrl } from '@/utils/url';
 import { EmailHelperFunctionProps } from './types';
 import { newReplyToCommentEmailHtml } from '@/components/Emails/NewReplyToCommentEmail';
+import { createPayloadHmac256 } from '@/utils/crypto/hmac256';
 
 // TODO: Should this be entirely non-blocking? Does slow email sending have any performance impact on payload at all?
 export const emailAfterNewCommentHook: CollectionAfterChangeHook = async ({ doc, operation, req }) => {
@@ -41,7 +42,7 @@ const emailBlogOwner = async ({ comment, req }: EmailHelperFunctionProps) => {
 
   const absoluteCommentUrl = joinUrl([BASE_URL, relativeCommentUrl], false);
 
-  const subject = `New comment on blog post: "${post.title}"`;
+  const subject = `New comment on blog post: ${post.title}`;
   const html = await newCommentEmailHtml({
     postTitle: post.title,
     commentUrl: absoluteCommentUrl,
@@ -96,10 +97,15 @@ const emailParentCommentAuthor = async ({ comment, req }: EmailHelperFunctionPro
   const absoluteCommentUrl = joinUrl([BASE_URL, relativeCommentUrl], false);
   const absoluteParentCommentUrl = joinUrl([BASE_URL, relativeParentCommentUrl], false);
 
-  const subject = `New reply to your comment on: "${post.title}"`;
+  const parentCommentIdHmac256 = createPayloadHmac256({ data: String(parentComment.id) });
+  const unsubscribeUrl =
+    joinUrl([BASE_URL, `/api/custom/comments/${parentComment.id}/unsubscribe/`]) + `?token=${parentCommentIdHmac256}`;
+
+  const subject = `New reply to your comment on: ${post.title}`;
   const html = await newReplyToCommentEmailHtml({
     postTitle: post.title,
     commentUrl: absoluteParentCommentUrl,
+    unsubscribeUrl,
     replyCommentDisplayName: comment.displayName,
     replyCommentUrl: absoluteCommentUrl,
     replyCommentCreatedAt: new Date(comment.createdAt),
@@ -110,5 +116,8 @@ const emailParentCommentAuthor = async ({ comment, req }: EmailHelperFunctionPro
     to: parentComment.email,
     subject: subject,
     html: html,
+    headers: {
+      'List-Unsubscribe': `<${unsubscribeUrl}>`,
+    },
   });
 };
