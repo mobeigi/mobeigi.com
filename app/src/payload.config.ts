@@ -57,7 +57,7 @@ export default buildConfig({
   }),
   email: nodemailerAdapter({
     defaultFromAddress: requireEnvVar(process.env.PAYLOAD_FROM_EMAIL_ADDRESS, 'PAYLOAD_FROM_EMAIL_ADDRESS'),
-    defaultFromName: 'Payload',
+    defaultFromName: requireEnvVar(process.env.PAYLOAD_FROM_NAME, 'PAYLOAD_FROM_NAME'),
     transportOptions: {
       host: requireEnvVar(process.env.SMTP_HOST, 'SMTP_HOST'),
       port: requireEnvVar(process.env.SMTP_PORT, 'SMTP_PORT'),

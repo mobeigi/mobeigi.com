@@ -98,6 +98,20 @@ export const Comments: CollectionConfig = {
         description: 'The browser user agent at the time the comment was submitted.',
       },
     },
+    {
+      name: 'notifyOnReply',
+      type: 'checkbox',
+      label: 'Notify On Reply',
+      defaultValue: true,
+      required: true,
+      access: {
+        read: authenticated,
+      },
+      admin: {
+        position: 'sidebar',
+        description: 'Determines whether the comment author receives notifications for replies to this comment.',
+      },
+    },
   ],
   hooks: {
     beforeValidate: [validationHook],

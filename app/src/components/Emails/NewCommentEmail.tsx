@@ -7,7 +7,6 @@ interface NewCommentEmailProps {
   postTitle: string;
   commentUrl: string;
   displayName: string;
-  author: string;
   email: string;
   ipAddress: string;
   createdAt: Date;
@@ -18,20 +17,20 @@ export const NewCommentEmail = ({
   postTitle,
   commentUrl,
   displayName,
-  author,
   email,
   ipAddress,
   createdAt,
   commentTextContent,
 }: NewCommentEmailProps) => {
-  const createdAtDateString = formatDate(createdAt, "d MMMM yyyy 'at' hh:mm a");
+  // TODO: Use timezone library to include server timezone
+  const createdAtDateString = formatDate(createdAt, "d MMMM yyyy 'at' hh:mm a '(Sydney, Australia time)'");
 
   return (
     <Html>
       <Body>
         <HeaderSection />
         <Section>
-          <Heading as="h2">New comment on blog post</Heading>
+          <Heading as="h2">New comment on blog post:</Heading>
           <Text>
             {postTitle}
             <br />
@@ -46,10 +45,6 @@ export const NewCommentEmail = ({
             </span>
             <br />
             <span>
-              <strong>Author:</strong> {author}
-            </span>
-            <br />
-            <span>
               <strong>Email:</strong> {email}
             </span>
             <br />
@@ -58,12 +53,15 @@ export const NewCommentEmail = ({
             </span>
             <br />
             <span>
+              <strong>Comment URL:</strong> {commentUrl}
+            </span>
+            <br />
+            <span>
               <strong>Created at:</strong> {createdAtDateString}
             </span>
           </Text>
         </Section>
         <Section>
-          <Heading as="h2">Comment</Heading>
           <Text>{commentTextContent}</Text>
         </Section>
       </Body>
