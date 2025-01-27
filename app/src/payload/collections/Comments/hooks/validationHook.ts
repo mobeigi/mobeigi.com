@@ -48,6 +48,7 @@ export const validationHook: CollectionBeforeValidateHook = async ({ data, req, 
       });
     }
 
+    // Authenticated comment path where the comment email belongs to a Payload user
     const userBeingImpersonatedDocs = await req.payload.find({
       collection: 'users',
       where: {
@@ -58,7 +59,6 @@ export const validationHook: CollectionBeforeValidateHook = async ({ data, req, 
       limit: 1,
     });
 
-    // Authenticated comment path where the comment email belongs to a user
     if (userBeingImpersonatedDocs.docs.length) {
       const userBeingImpersonated = userBeingImpersonatedDocs.docs[0];
 
