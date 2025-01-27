@@ -278,6 +278,10 @@ export interface Comment {
    * The browser user agent at the time the comment was submitted.
    */
   userAgent: string;
+  /**
+   * Determines whether the comment author receives notifications for replies to this comment.
+   */
+  notifyOnReply: boolean;
   parent?: (number | null) | Comment;
   breadcrumbs?:
     | {
@@ -538,6 +542,7 @@ export interface CommentsSelect<T extends boolean = true> {
   author?: T;
   ipAddress?: T;
   userAgent?: T;
+  notifyOnReply?: T;
   parent?: T;
   breadcrumbs?:
     | T
