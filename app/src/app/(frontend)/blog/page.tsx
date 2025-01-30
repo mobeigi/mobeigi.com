@@ -58,7 +58,7 @@ const getAllBlogPostMetas = unstable_cache_safe(
       .filter((obj) => obj !== null)
       .sort(sortBlogPostMetaByPublishedAtDate);
   },
-  [`get-all-blog-post-metas`],
+  [`getAllBlogPostMetas`],
   { revalidate: revalidate },
 );
 
