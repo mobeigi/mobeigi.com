@@ -34,6 +34,6 @@ export const getCachedGravatarAvatarUrl = ({ email, size = 80, rating = 'pg' }: 
     async () => {
       return getGravatarAvatarUrl({ email, size, rating });
     },
-    [`getGravatarAvatarUrl:${email}:${size}:${rating}`],
+    [`gravatar:getGravatarAvatarUrl:${email}:${size}:${rating}`],
     { tags: ['gravatar'], revalidate: 900 },
   )();
