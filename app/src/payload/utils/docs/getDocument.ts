@@ -20,7 +20,7 @@ export const getDocumentById = async (
 export const getCachedDocumentById = (relationTo: CollectionSlug, docId: number) =>
   unstable_cache_safe(
     async () => getDocumentById(relationTo, docId),
-    [`payload-get-document-by-id-${relationTo}-${docId}`],
+    [`payload:getDocumentById:${relationTo}:${docId}`],
     {
       tags: ['payload', `payload:collection:${relationTo}`, `payload:collection:${relationTo}:${docId}`],
     },
