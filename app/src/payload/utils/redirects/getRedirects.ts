@@ -20,6 +20,6 @@ export const getRedirects = async () => {
 /**
  * Cache all redirects together to avoid multiple fetches.
  */
-export const getCachedRedirects = unstable_cache_safe(async () => getRedirects(), ['redirects'], {
-  tags: ['redirects'],
+export const getCachedRedirects = unstable_cache_safe(async () => getRedirects(), ['payload:getRedirects'], {
+  tags: ['payload', 'redirects'],
 });

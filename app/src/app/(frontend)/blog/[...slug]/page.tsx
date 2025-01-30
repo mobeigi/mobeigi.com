@@ -64,7 +64,7 @@ const getPayloadPostFromParams = ({ params }: { params: { slug: string[] } }) =>
 
       return postsMatchingCategorySlugUrl[0];
     },
-    [`get-payload-post-from-params-${params.slug.join('-')}`],
+    [`getPayloadPostFromParams:${params.slug.join('-')}`],
     { revalidate: revalidate },
   )();
 
@@ -117,7 +117,7 @@ const transformPostToBlogPostProps = (post: PayloadPost) =>
 
       return blogPostProps;
     },
-    [`transformPostToBlogPostProps-${post.id}`],
+    [`transformPostToBlogPostProps:${post.id}`],
     { revalidate: revalidate },
   )();
 

@@ -4,7 +4,6 @@ import { getPayload } from 'payload';
 import config from '@payload-config';
 import { Category as PayloadCategory } from '@/payload-types';
 import { notFound } from 'next/navigation';
-import { PaginatedDocs } from 'payload';
 import { mapPostToPostMeta } from '@/utils/payload';
 import { BlogPostMeta, BlogPostRelatedMeta, Category } from '@/types/blog';
 import { sortBlogPostMetaByPublishedAtDate } from '@/utils/blog/post';
@@ -33,35 +32,43 @@ const getPayloadCategoryFromParams = ({ params }: { params: { slug: string[] } }
         return null;
       }
 
-      let currentParentId = null;
-      let category = null;
+      const categorySlug = categorySlugs[categorySlugs.length - 1];
+      const paramsCategorySlugUrl = joinUrl([...categorySlugs], false);
 
-      for (const slug of categorySlugs) {
-        const foundCategory: PaginatedDocs<PayloadCategory> = await payload.find({
-          collection: 'category',
-          where: {
-            slug: { equals: slug },
-            ...(currentParentId ? { parent: { equals: currentParentId } } : { parent: { exists: false } }),
+      // Find all categories matching the slug and breadcrumbs (filters by slug and URL but does not consider breadcrumb depth yet)
+      const payloadCategory = await payload.find({
+        collection: 'category',
+        where: {
+          slug: { equals: categorySlug },
+          'breadcrumbs.url': {
+            equals: paramsCategorySlugUrl,
           },
-          limit: 1, // We only expect one category with this slug and parent_id
-        });
+        },
+        depth: 1,
+        limit: 0,
+        pagination: false,
+      });
 
-        if (!foundCategory || foundCategory.docs.length === 0) {
-          return null;
-        }
-
-        // Set the current category and update the parent ID for the next iteration
-        category = foundCategory.docs[0];
-        currentParentId = category.id; // Set the parent_id for the next slug
+      if (!payloadCategory.docs.length) {
+        return null;
       }
 
-      return category;
+      // Additionally, filter categories by breadcrumbs length to ensure we select the correct hierarchy level
+      const filteredPayloadCategory = payloadCategory.docs.filter(
+        (payloadCategory) => payloadCategory.breadcrumbs?.length === categorySlugs.length,
+      );
+
+      if (!filteredPayloadCategory.length) {
+        return null;
+      }
+
+      return filteredPayloadCategory[0];
     },
-    [`getPayloadCategoryFromParams-${params.slug.join('-')}`],
+    [`getPayloadCategoryFromParams:${params.slug.join('-')}`],
     { revalidate: revalidate },
   )();
 
-const getData = (payloadCategory: PayloadCategory) =>
+const getCategoryData = (payloadCategory: PayloadCategory) =>
   unstable_cache_safe(
     async () => {
       const payload = await getPayload({
@@ -149,7 +156,7 @@ const getData = (payloadCategory: PayloadCategory) =>
         blogPostMetas,
       };
     },
-    [`getData-${payloadCategory.id}`],
+    [`getCategoryData:${payloadCategory.id}`],
     { revalidate: revalidate },
   )();
 
@@ -227,7 +234,7 @@ const CategoryDetailPageHandler = async ({ params: paramsPromise }: { params: Pr
     return null;
   }
 
-  const data = await getData(payloadCategory);
+  const data = await getCategoryData(payloadCategory);
   if (!data) {
     notFound();
     return null;

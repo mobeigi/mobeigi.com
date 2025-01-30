@@ -51,7 +51,7 @@ export const getLatestPhotographyImages = async ({
 
 export const getCachedLatestPhotographyImages = unstable_cache_safe(
   async () => getLatestPhotographyImages({}),
-  ['getLatestPhotographyImages'],
+  ['photography:getLatestPhotographyImages'],
   {
     revalidate: 900,
   },
