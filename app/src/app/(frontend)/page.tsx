@@ -1,11 +1,12 @@
 import HomePage from '@/containers/HomePage';
-import { getCachedLatestPhotographyImages } from '@/utils/photography';
 import { getPayload } from 'payload';
 import config from '@payload-config';
 import { mapPostToPostMeta } from '@/utils/payload';
 import { BlogPostMeta, BlogPostRelatedMeta } from '@/types/blog';
 import { sortBlogPostMetaByPublishedAtDate } from '@/utils/blog/post';
 import { generateBreadcrumbs } from './breadcrumbs';
+import { getCachedLatestPhotographyImages } from '@/utils/photography';
+import { getCachedLatestDevelopmentActivity } from '@/utils/github';
 
 export const revalidate = 900;
 
@@ -53,6 +54,7 @@ const Home = async () => {
     .sort(sortBlogPostMetaByPublishedAtDate);
 
   const breadcrumbs = generateBreadcrumbs();
+  const latestDevelopmentActivity = (await getCachedLatestDevelopmentActivity()) ?? undefined;
   const latestPhotographyImages = (await getCachedLatestPhotographyImages()) ?? undefined;
 
   return (
@@ -62,7 +64,11 @@ const Home = async () => {
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
         </>
       )}
-      <HomePage latestBlogPostMetas={blogPostMetas} latestPhotographyImages={latestPhotographyImages} />
+      <HomePage
+        latestBlogPostMetas={blogPostMetas}
+        latestDevelopmentActivity={latestDevelopmentActivity}
+        latestPhotographyImages={latestPhotographyImages}
+      />
     </div>
   );
 };
