@@ -43,7 +43,7 @@ export const ProjectBox = ({
             {blogUrl && (
               <IconWrapperBubbleNextLink
                 href={blogUrl}
-                data-tooltip-id="base-tooltip"
+                data-tooltip-id="global-tooltip"
                 data-tooltip-content="Related blog post"
               >
                 <BookSvg />
@@ -53,7 +53,7 @@ export const ProjectBox = ({
               <IconWrapperBubbleNextLink
                 href={githubUrl}
                 rel="nofollow"
-                data-tooltip-id="base-tooltip"
+                data-tooltip-id="global-tooltip"
                 data-tooltip-content="Source code"
               >
                 <GithubSvg />
@@ -67,9 +67,9 @@ export const ProjectBox = ({
               {urlActive ? <Link href={url}>{url}</Link> : <InactiveUrl>{url}</InactiveUrl>}
               <IconWrapper>
                 {urlActive ? (
-                  <ExternalSvg data-tooltip-id="base-tooltip" data-tooltip-content="External link" />
+                  <ExternalSvg data-tooltip-id="global-tooltip" data-tooltip-content="External link" />
                 ) : (
-                  <UnlinkSvg data-tooltip-id="base-tooltip" data-tooltip-content="Dead link" />
+                  <UnlinkSvg data-tooltip-id="global-tooltip" data-tooltip-content="Dead link" />
                 )}
               </IconWrapper>
             </UrlContainer>

@@ -11,7 +11,7 @@ import { Header, Main, MainContents, Footer } from './styled';
 import ThemedToastContainer from '@/components/ThemedToastContainer';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { GA_TAG_ID } from '@/constants/analytics';
-import GlobalTooltip from '@/containers/GlobalTooltip';
+import GlobalTooltip from '@/components/BaseTooltip';
 import ConsoleWelcomeMessage from '@/components/ConsoleWelcomeMessage';
 import HolyLoader from 'holy-loader';
 import { ThemeProvider } from 'next-themes';
@@ -76,7 +76,7 @@ const RootLayout = ({
         <StyledComponentsRegistry>
           <ThemeProvider enableSystem={true} defaultTheme="system">
             <GlobalStyle />
-            <GlobalTooltip />
+            <GlobalTooltip id="global-tooltip" />
             <ThemedToastContainer />
             <HolyLoader color={holyLoaderColor} height="0.2rem" />
             <ConsoleWelcomeMessage />
