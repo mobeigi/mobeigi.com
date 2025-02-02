@@ -26,6 +26,15 @@ export const IconAndTextContainer = styled.span`
   align-items: center;
 `;
 
+export const GitContributionGraphOverflow = styled.div`
+  overflow-x: auto;
+`;
+
+export const GitContributionGraphWrapper = styled.div`
+  /* Fixed width chart */
+  width: 1068px;
+`;
+
 export const PhotographyImagesWrapper = styled.div`
   display: flex;
   gap: 1em;

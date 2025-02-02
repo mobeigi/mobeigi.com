@@ -99,14 +99,14 @@ const SingleComment = ({ comment, postId, onSuccess, commentsEnabled }: SingleCo
             <DisplayNameWrapper>
               <DisplayName>{comment.displayName}</DisplayName>
               {comment.verified && (
-                <IconWrapper data-tooltip-id="base-tooltip" data-tooltip-content="Verified">
+                <IconWrapper data-tooltip-id="global-tooltip" data-tooltip-content="Verified">
                   <VerifiedBadgeSvg />
                 </IconWrapper>
               )}
             </DisplayNameWrapper>
             <CreatedAtTime
               dateTime={comment.createdAt.toISOString()}
-              data-tooltip-id="base-tooltip"
+              data-tooltip-id="global-tooltip"
               data-tooltip-content={createdAtTooltipDate}
             >
               <ClientFormattedDate date={comment.createdAt} format="d MMMM yyyy 'at' hh:mm a" useRelativeFormat />

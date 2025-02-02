@@ -28,6 +28,7 @@
   "dependencies": {
     "@cedx/akismet": "^17.0.1",
     "@next/third-parties": "15.1.3",
+    "@octokit/graphql": "^8.2.0",
     "@octokit/rest": "^21.1.0",
     "@payloadcms/db-postgres": "3.11.0",
     "@payloadcms/email-nodemailer": "3.11.0",
@@ -41,6 +42,8 @@
     "crawler-user-agents": "^1.0.158",
     "cross-env": "^7.0.3",
     "date-fns": "^4.1.0",
+    "echarts": "^5.6.0",
+    "echarts-for-react": "^3.0.2",
     "file-saver": "^2.0.5",
     "graphql": "^16.10.0",
     "highlight.js": "^11.11.1",
