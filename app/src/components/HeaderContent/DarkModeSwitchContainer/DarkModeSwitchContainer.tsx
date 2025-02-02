@@ -86,7 +86,7 @@ export const DarkModeSwitchContainer = () => {
   const tooltipHtml = useMemo(() => renderToStaticMarkup(tooltipElement), [tooltipElement]);
 
   return (
-    <IconWrapperBubble onClick={triggerClick} data-tooltip-id="base-tooltip" data-tooltip-html={tooltipHtml}>
+    <IconWrapperBubble onClick={triggerClick} data-tooltip-id="global-tooltip" data-tooltip-html={tooltipHtml}>
       <DarkModeSwitchWrapper>
         <DarkModeSwitch
           ref={darkModeSwitchRef}

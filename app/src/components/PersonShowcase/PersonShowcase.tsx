@@ -25,7 +25,7 @@ export const PersonShowcase = ({
       <StyledHeading as={headingLevel}>{SITE_TITLE}</StyledHeading>
       <Tagline>{TAGLINE}</Tagline>
       <InfoArea>
-        <Info data-tooltip-id="base-tooltip" data-tooltip-content="Location">
+        <Info data-tooltip-id="global-tooltip" data-tooltip-content="Location">
           <IconAndTextContainer>
             <IconWrapper>
               <MapPinSvg />
@@ -33,7 +33,7 @@ export const PersonShowcase = ({
             <span>Sydney, Australia</span>
           </IconAndTextContainer>
         </Info>
-        <Info data-tooltip-id="base-tooltip" data-tooltip-content="Languages spoken">
+        <Info data-tooltip-id="global-tooltip" data-tooltip-content="Languages spoken">
           <IconAndTextContainer>
             <IconWrapper>
               <LanguageOutlineSvg />

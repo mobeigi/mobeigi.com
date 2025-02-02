@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import { Tooltip } from 'react-tooltip';
 import zIndex from '@/styles/zindex';
 
-export const GlobalTooltipWrapper = styled.div`
+export const BaseTooltipWrapper = styled.div`
   // Set desired z-index
   z-index: ${zIndex.tooltip};
 
