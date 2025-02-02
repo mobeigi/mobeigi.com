@@ -6,6 +6,8 @@ import {
   PhotographyTag,
   BlogSummaryWrapper,
   PhotographyImagesWrapper,
+  GitContributionGraphOverflow,
+  GitContributionGraphWrapper,
 } from './styled';
 import CalendarSvg from '@/assets/icons/boxicons/bx-calendar.svg';
 import FileSvg from '@/assets/icons/boxicons/bx-file.svg';
@@ -15,8 +17,13 @@ import { format as formatDate } from 'date-fns';
 import { HomePageProps } from './types';
 import BlogSummary from '@/components/BlogSummary';
 import PersonShowcase from '@/components/PersonShowcase';
+import GitContributionGraph from '@/components/GitContributionGraph';
 
-export const HomePage = ({ latestBlogPostMetas, latestPhotographyImages }: HomePageProps) => (
+export const HomePage = ({
+  latestBlogPostMetas,
+  latestPhotographyImages,
+  latestDevelopmentActivity,
+}: HomePageProps) => (
   <HomePageSection>
     <header>
       <PersonShowcase headshotWidth="14em" headshotHeight="14em" headingLevel="h1" />
@@ -54,6 +61,30 @@ export const HomePage = ({ latestBlogPostMetas, latestPhotographyImages }: HomeP
           ))}
       </BlogSummaryWrapper>
     </section>
+    {latestDevelopmentActivity && (
+      <>
+        <hr />
+        <section>
+          <h2>Latest development activity</h2>
+          <p>
+            Showing <strong>{latestDevelopmentActivity.totalContributions}</strong>{' '}
+            {latestDevelopmentActivity.totalContributions === 1 ? 'contribution' : 'contributions'} in the last year.
+          </p>
+          <GitContributionGraphOverflow>
+            <GitContributionGraphWrapper>
+              <GitContributionGraph data={latestDevelopmentActivity.contributions} />
+            </GitContributionGraphWrapper>
+          </GitContributionGraphOverflow>
+          <p>
+            Check out my latest code on{' '}
+            <a href="https://github.com/mobeigi/" title="GitHub (mobeigi)" rel="nofollow">
+              GitHub
+            </a>
+            .
+          </p>
+        </section>
+      </>
+    )}
     {latestPhotographyImages && latestPhotographyImages.length > 0 && (
       <>
         <hr />
