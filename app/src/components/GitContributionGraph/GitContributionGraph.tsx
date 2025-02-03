@@ -55,7 +55,7 @@ export const GitContributionGraph = ({ data }: GitContributionGraphProps) => {
         color:
           resolvedThemeMode === ThemeMode.Dark
             ? ['#3a2e2f', '#5e2f33', '#84373a', '#af3a3d', '#fb4d56']
-            : ['#ffe5e7', '#ffb7bb', '#ff8a91', '#ff5c66', '#fb4d56'],
+            : ['#e8d6d8', '#ffb7bb', '#ff8a91', '#ff5c66', '#fb4d56'],
       },
       type: 'piecewise',
       splitNumber: 5,
