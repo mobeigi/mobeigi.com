@@ -16,7 +16,7 @@ export const BlogPostArticle = styled.article`
   width: 100%;
   gap: 1em;
 
-  // Media
+  /* Media */
   & img {
     display: block;
     margin: 0 auto;
@@ -36,7 +36,7 @@ export const BlogPostArticle = styled.article`
     border-radius: 0.2em;
   }
 
-  // Tables
+  /* Tables */
   & table {
     margin: 0 auto;
     width: 100%;
@@ -48,7 +48,7 @@ export const BlogPostArticle = styled.article`
     }
   }
 
-  // Embeds
+  /* Embeds */
   & iframe {
     display: block;
     margin: 0 auto;
