@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { getPayload } from 'payload';
 import config from '@payload-config';
 import { createPayloadHmac256 } from '@/utils/crypto/hmac256';
-import { headers } from 'next/headers';
 
 export const GET = async (request: Request, { params: paramsPromise }: { params: Promise<{ commentId: string }> }) => {
   try {
@@ -41,9 +40,6 @@ export const GET = async (request: Request, { params: paramsPromise }: { params:
       return NextResponse.json({ error: 'You have already unsubscribed from this comment.' }, { status: 400 });
     }
 
-    const headerList = await headers();
-    const result = await payload.auth({ headers: headerList });
-
     await payload.update({
       collection: 'comments',
       id: commentId,
@@ -51,7 +47,11 @@ export const GET = async (request: Request, { params: paramsPromise }: { params:
         notifyOnReply: false,
       },
       overrideAccess: true,
-      user: result.user,
+      context: {
+        // Avoid performing unnecessary validation since we are only updating the 'notifyOnReply'
+        bypassUserValidation: true,
+        bypassSpamValidation: true,
+      },
     });
 
     return NextResponse.json({ message: 'You have successfully unsubscribed from this comment.' }, { status: 200 });
