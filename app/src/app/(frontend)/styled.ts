@@ -25,7 +25,6 @@ export const Main = styled.main`
 `;
 
 export const MainContents = styled.div`
-  // display: flex;
   width: 100%;
   max-width: var(--max-layout-width);
 

@@ -12,6 +12,7 @@ import { GitContributionGraphContainer, SpinnerWrapper } from './styled';
 
 import * as echarts from 'echarts/core';
 import type { CallbackDataParams } from 'echarts/types/src/util/types.js';
+import type { CalendarOption } from 'echarts/types/dist/shared.js';
 import ReactEChartsCore from 'echarts-for-react/lib/core';
 import { HeatmapChart } from 'echarts/charts';
 import { TooltipComponent, VisualMapComponent, CalendarComponent } from 'echarts/components';
@@ -20,6 +21,7 @@ import { SVGRenderer } from 'echarts/renderers';
 echarts.use([HeatmapChart, TooltipComponent, VisualMapComponent, CalendarComponent, SVGRenderer]);
 
 const tooltipId = 'git-contribution-graph-tooltip';
+type CalendarMonthLabelFormatter = Exclude<NonNullable<CalendarOption['monthLabel']>['formatter'], string | undefined>;
 
 export const GitContributionGraph = ({ data }: GitContributionGraphProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -39,6 +41,9 @@ export const GitContributionGraph = ({ data }: GitContributionGraphProps) => {
   const startDate = data[0][0];
   const endDate = data[data.length - 1][0];
 
+  // Memoize formatter to prevent re-renders which can slow down chart
+  const monthLabelFormatter = useCallback<CalendarMonthLabelFormatter>((value) => `{padded|${value.nameMap}}`, []);
+
   const option: echarts.EChartsCoreOption = {
     backgroundColor: 'transparent', // avoid darkMode theme background colour
     tooltip: { show: false },
@@ -50,7 +55,7 @@ export const GitContributionGraph = ({ data }: GitContributionGraphProps) => {
         color:
           resolvedThemeMode === ThemeMode.Dark
             ? ['#3a2e2f', '#5e2f33', '#84373a', '#af3a3d', '#fb4d56']
-            : ['#ffe5e7', '#ffb7bb', '#ff8a91', '#ff5c66', '#fb4d56'],
+            : ['#e8d6d8', '#ffb7bb', '#ff8a91', '#ff5c66', '#fb4d56'],
       },
       type: 'piecewise',
       splitNumber: 5,
@@ -67,7 +72,18 @@ export const GitContributionGraph = ({ data }: GitContributionGraphProps) => {
         color: 'transparent',
       },
       dayLabel: {
+        silent: true,
         nameMap: ['', 'Mon', '', 'Wed', '', 'Fri', ''],
+      },
+      monthLabel: {
+        silent: true,
+        align: 'left',
+        rich: {
+          padded: {
+            padding: [0, 0, 0, 2], // Simulate margin
+          },
+        },
+        formatter: monthLabelFormatter,
       },
       yearLabel: { show: false },
       splitLine: { show: false },
