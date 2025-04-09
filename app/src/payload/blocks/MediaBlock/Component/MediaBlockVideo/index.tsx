@@ -30,6 +30,7 @@ export const MediaBlockVideo = ({ mediaDark, mediaLight, widthOverride, heightOv
   } else {
     // Dark is our default style
     return (
+      /* eslint-disable-next-line jsx-a11y/media-has-caption */
       <video src={mediaDarkData.url!} aria-label={mediaDarkData.alt} controls style={darkDimensions.style}></video>
     );
   }
