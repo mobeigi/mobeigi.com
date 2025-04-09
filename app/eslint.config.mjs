@@ -5,6 +5,11 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
 
+import eslintPluginNext from '@next/eslint-plugin-next';
+import eslintPluginJsxA11y from 'eslint-plugin-jsx-a11y';
+import eslintPluginReactHooks from 'eslint-plugin-react-hooks';
+import eslintPluginReact from 'eslint-plugin-react';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -23,8 +28,28 @@ const globalIgnores = {
   ],
 };
 
+// See: https://typescript-eslint.io/getting-started/typed-linting/
+const typedLinting = {
+  languageOptions: {
+    parserOptions: {
+      projectService: true,
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+};
+
 // TODO: The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
-const nextConfig = [...compat.extends('next/core-web-vitals', 'next/typescript')];
+const nextConfig = [
+  {
+    plugins: {
+      '@next/next': eslintPluginNext,
+    },
+    rules: {
+      ...eslintPluginNext.configs.recommended.rules,
+      ...eslintPluginNext.configs['core-web-vitals'].rules,
+    },
+  },
+];
 
 const typescriptConfig = [
   {
@@ -48,15 +73,20 @@ const typescriptConfig = [
   },
 ];
 
-// See: https://typescript-eslint.io/getting-started/typed-linting/
-const typedLinting = {
-  languageOptions: {
-    parserOptions: {
-      projectService: true,
-      tsconfigRootDir: import.meta.dirname,
+const miscConfig = [
+  {
+    plugins: {
+      'jsx-a11y': eslintPluginJsxA11y,
+      'react-hooks': eslintPluginReactHooks,
+      react: eslintPluginReact,
+    },
+    rules: {
+      ...eslintPluginJsxA11y.flatConfigs.recommended.rules,
+      ...eslintPluginReactHooks.configs['recommended-latest'].rules,
+      ...eslintPluginReact.configs.flat.rules,
     },
   },
-};
+];
 
 const prettierConfig = [
   ...compat.extends('plugin:prettier/recommended'),
@@ -75,5 +105,6 @@ export default tseslint.config(
   typedLinting,
   ...nextConfig,
   ...typescriptConfig,
+  ...miscConfig,
   ...prettierConfig,
 );
