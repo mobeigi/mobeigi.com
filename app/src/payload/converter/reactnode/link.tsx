@@ -29,7 +29,7 @@ export const LinkReactNodeConverter: ReactNodeConverter<SerializedLinkNode> = {
     }
 
     if (link.linkType === 'custom') {
-      href = link.url;
+      href = link.url || '';
     } else if (link.linkType === 'internal') {
       const relationTo = link.doc?.relationTo as CollectionSlug;
       const doc = link.doc?.value as unknown as DataFromCollectionSlug<typeof relationTo>;
