@@ -18,12 +18,12 @@ export const essentials = [
 ];
 
 export const networks = [
-  { href: 'https://github.com/mobeigi', name: 'Github' },
+  { href: 'https://github.com/mobeigi', name: 'GitHub' },
   { href: 'https://leetcode.com/u/mobeigi/', name: 'LeetCode' },
   { href: 'https://www.linkedin.com/in/mobeigi17/', name: 'LinkedIn' },
   { href: 'https://discordapp.com/users/356003102169759755', name: 'Discord' },
   { href: 'https://steamcommunity.com/profiles/76561198108407557', name: 'Steam' },
-  { href: 'https://www.youtube.com/c/mobeigi', name: 'Youtube' },
+  { href: 'https://www.youtube.com/c/mobeigi', name: 'YouTube' },
   { href: 'https://www.facebook.com/mobeigi', name: 'Facebook' },
   { href: 'https://www.instagram.com/mobeigi17/', name: 'Instagram' },
   { href: 'https://x.com/mobeigi17', name: 'Twitter' },
