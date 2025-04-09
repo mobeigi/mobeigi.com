@@ -136,13 +136,13 @@ export const AboutPage = () => {
           <IconWrapper>
             <JavascriptSvg />
           </IconWrapper>
-          <span>Javascript</span>
+          <span>JavaScript</span>
         </IconAndTextContainer>
         <IconAndTextContainer>
           <IconWrapper>
             <TypescriptSvg />
           </IconWrapper>
-          <span>Typescript</span>
+          <span>TypeScript</span>
         </IconAndTextContainer>
         <IconAndTextContainer>
           <IconWrapper>
