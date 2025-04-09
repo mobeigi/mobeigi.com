@@ -213,6 +213,7 @@ describe('extractHeadings', () => {
   });
 
   it('handles missing heading text by using "Untitled"', () => {
+    // eslint-disable-next-line jsx-a11y/heading-has-content
     const node: ReactElement = <h1></h1>;
     const result = extractHeadings(node);
 

@@ -130,6 +130,7 @@ export const ResumePage = () => {
             id="resumePassword"
             value={password}
             disabled={isSubmitting}
+            /* eslint-disable-next-line jsx-a11y/no-autofocus */
             autoFocus={true}
             onChange={(e) => {
               setPassword(e.target.value);
