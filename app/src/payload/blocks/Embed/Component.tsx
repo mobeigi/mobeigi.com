@@ -7,8 +7,11 @@ export const EmbedBlock = ({ url, width, height, title }: EmbedBlockType) => {
     ...(title ? { title } : {}),
   };
 
+  const iframeTitle = title || `Embedded content from ${url}`;
+
   return (
     <iframe
+      title={iframeTitle}
       src={url}
       {...optionalAttributes}
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

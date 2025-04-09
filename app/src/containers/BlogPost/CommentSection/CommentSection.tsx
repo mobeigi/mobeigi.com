@@ -116,6 +116,8 @@ const SingleComment = ({ comment, postId, onSuccess, commentsEnabled }: SingleCo
           <CommentActions>
             {commentsEnabled && (
               <span>
+                {/* TODO: This should really be a button or SVG icon instead of an anchor. */}
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <a href="#" onClick={handleReply}>
                   Reply
                 </a>
@@ -138,6 +140,7 @@ const SingleComment = ({ comment, postId, onSuccess, commentsEnabled }: SingleCo
             console.error(error);
             toast.error(error.message);
           }}
+          /* eslint-disable-next-line jsx-a11y/no-autofocus */
           autoFocus
         />
       )}
