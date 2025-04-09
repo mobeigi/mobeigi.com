@@ -240,6 +240,7 @@ const LeaveComment = ({
               id={displayNameUniqueId}
               value={displayName}
               disabled={isSubmitting}
+              /* eslint-disable-next-line jsx-a11y/no-autofocus */
               autoFocus={autoFocus}
               onChange={(e) => {
                 setDisplayName(e.target.value);

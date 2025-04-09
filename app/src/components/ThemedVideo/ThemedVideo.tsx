@@ -30,6 +30,7 @@ export const ThemedVideo = ({ dark, light }: ThemedVideoProps) => {
   const ariaLabel = hydrated ? (resolvedThemeMode === ThemeMode.Dark ? dark.ariaLabel : light.ariaLabel) : '';
 
   return (
+    /* eslint-disable-next-line jsx-a11y/media-has-caption */
     <video ref={videoRef} style={videoStyle} controls aria-label={ariaLabel}>
       {hydrated && <source src={videoSrc} type={videoType} />}
       Your browser does not support the video tag.
