@@ -64,7 +64,7 @@ export const GitContributionGraph = ({ data }: GitContributionGraphProps) => {
     calendar: {
       top: 20,
       left: 50,
-      right: 5,
+      right: 20,
       cellSize: [20],
       range: [startDate, endDate],
       itemStyle: {
