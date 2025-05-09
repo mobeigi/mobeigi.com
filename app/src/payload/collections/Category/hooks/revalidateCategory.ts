@@ -1,6 +1,6 @@
 import { Category, Post } from '@/payload-types';
 import { CollectionAfterChangeHook, CollectionAfterDeleteHook, PayloadRequest } from 'payload';
-import { getDocByIdOrObject } from '@/utils/payload';
+import { getDocByIdOrObject } from '@/utils/payload/server';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { resolveCategoryUrl } from '../resolveUrl';
 import { revalidatePost } from '@/payload/collections/Posts/hooks/revalidatePost';
