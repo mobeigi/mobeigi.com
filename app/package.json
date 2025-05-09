@@ -61,7 +61,6 @@
     "react-tooltip": "^5.28.1",
     "sharp": "^0.34.1",
     "styled-components": "^6.1.17",
-    "superjson": "^2.2.2",
     "validator": "^13.15.0"
   },
   "devDependencies": {

@@ -78,7 +78,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
      */
     {
       url: BASE_URL,
-      lastModified: new Date('2025-02-02T04:21:00+0000'),
+      lastModified: new Date('2025-05-09T06:42:00+0000'),
       changeFrequency: 'daily',
       priority: 1.0,
     },

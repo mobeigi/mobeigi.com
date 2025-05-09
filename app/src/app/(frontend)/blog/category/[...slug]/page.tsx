@@ -4,7 +4,7 @@ import { getPayload } from 'payload';
 import config from '@payload-config';
 import { Category as PayloadCategory } from '@/payload-types';
 import { notFound } from 'next/navigation';
-import { mapPostToPostMeta } from '@/utils/payload';
+import { mapPostToPostMeta } from '@/utils/payload/server';
 import { BlogPostMeta, BlogPostRelatedMeta, Category } from '@/types/blog';
 import { sortBlogPostMetaByPublishedAtDate } from '@/utils/blog/post';
 import { joinUrl } from '@/utils/url';
@@ -13,152 +13,150 @@ import { resolveCategoryUrl } from '@/payload/collections/Category/resolveUrl';
 import { sortCategoryByTitle } from '@/utils/blog/category';
 import { payloadRedirect } from '@/payload/utils/redirects';
 import { generateBreadcrumbs } from './breadcrumbs';
-import { unstable_cache_safe } from '@/utils/next';
-
-export const revalidate = 900;
+import { unstable_cacheLife as cacheLife } from 'next/cache';
 
 /**
  * Data fetching
  */
-const getPayloadCategoryFromParams = ({ params }: { params: { slug: string[] } }) =>
-  unstable_cache_safe(
-    async (): Promise<PayloadCategory | null> => {
-      const payload = await getPayload({
-        config,
-      });
+const getPayloadCategoryFromParams = async ({
+  params,
+}: {
+  params: { slug: string[] };
+}): Promise<PayloadCategory | null> => {
+  'use cache';
+  cacheLife('alwaysCheck15m');
 
-      const categorySlugs = params.slug;
-      if (categorySlugs.length === 0) {
-        return null;
-      }
+  const payload = await getPayload({
+    config,
+  });
 
-      const categorySlug = categorySlugs[categorySlugs.length - 1];
-      const paramsCategorySlugUrl = joinUrl([...categorySlugs], false);
+  const categorySlugs = params.slug;
+  if (categorySlugs.length === 0) {
+    return null;
+  }
 
-      // Find all categories matching the slug and breadcrumbs (filters by slug and URL but does not consider breadcrumb depth yet)
-      const payloadCategory = await payload.find({
-        collection: 'category',
-        where: {
-          slug: { equals: categorySlug },
-          'breadcrumbs.url': {
-            equals: paramsCategorySlugUrl,
-          },
-        },
-        depth: 1,
-        limit: 0,
-        pagination: false,
-      });
+  const categorySlug = categorySlugs[categorySlugs.length - 1];
+  const paramsCategorySlugUrl = joinUrl([...categorySlugs], false);
 
-      if (!payloadCategory.docs.length) {
-        return null;
-      }
-
-      // Additionally, filter categories by breadcrumbs length to ensure we select the correct hierarchy level
-      const filteredPayloadCategory = payloadCategory.docs.filter(
-        (payloadCategory) => payloadCategory.breadcrumbs?.length === categorySlugs.length,
-      );
-
-      if (!filteredPayloadCategory.length) {
-        return null;
-      }
-
-      return filteredPayloadCategory[0];
+  // Find all categories matching the slug and breadcrumbs (filters by slug and URL but does not consider breadcrumb depth yet)
+  const payloadCategory = await payload.find({
+    collection: 'category',
+    where: {
+      slug: { equals: categorySlug },
+      'breadcrumbs.url': {
+        equals: paramsCategorySlugUrl,
+      },
     },
-    [`getPayloadCategoryFromParams:${params.slug.join('-')}`],
-    { revalidate: revalidate },
-  )();
+    depth: 1,
+    limit: 0,
+    pagination: false,
+  });
 
-const getCategoryData = (payloadCategory: PayloadCategory) =>
-  unstable_cache_safe(
-    async () => {
-      const payload = await getPayload({
-        config,
-      });
+  if (!payloadCategory.docs.length) {
+    return null;
+  }
 
-      const payloadPosts = await payload.find({
-        collection: 'posts',
-        where: {
-          category: { equals: payloadCategory.id },
-          _status: { equals: 'published' },
-        },
-        depth: 1,
-        limit: 0,
-        pagination: false,
-      });
+  // Additionally, filter categories by breadcrumbs length to ensure we select the correct hierarchy level
+  const filteredPayloadCategory = payloadCategory.docs.filter(
+    (payloadCategory) => payloadCategory.breadcrumbs?.length === categorySlugs.length,
+  );
 
-      const blogPostMetas = (
-        await Promise.all(
-          payloadPosts.docs.map(async (post) => {
-            const postMeta = await mapPostToPostMeta(post);
-            if (!postMeta) {
-              console.warn('postMeta should not be null.');
-              return null;
-            }
-            const commentCount = await payload.count({
-              collection: 'comments',
-              where: { post: { equals: post.id } },
-            });
+  if (!filteredPayloadCategory.length) {
+    return null;
+  }
 
-            const relatedMeta: BlogPostRelatedMeta = {
-              commentCount: commentCount.totalDocs,
-            };
+  return filteredPayloadCategory[0];
+};
 
-            const blogPostMeta: BlogPostMeta = {
-              post: postMeta,
-              related: relatedMeta,
-            };
+const getCategoryData = async (payloadCategory: PayloadCategory) => {
+  'use cache';
+  cacheLife('alwaysCheck15m');
 
-            return blogPostMeta;
-          }),
-        )
-      )
-        .filter((obj) => obj !== null)
-        .sort(sortBlogPostMetaByPublishedAtDate);
+  const payload = await getPayload({
+    config,
+  });
 
-      const categoryUrl = resolveCategoryUrl(payloadCategory);
+  const payloadPosts = await payload.find({
+    collection: 'posts',
+    where: {
+      category: { equals: payloadCategory.id },
+      _status: { equals: 'published' },
+    },
+    depth: 1,
+    limit: 0,
+    pagination: false,
+  });
+
+  const blogPostMetas = (
+    await Promise.all(
+      payloadPosts.docs.map(async (post) => {
+        const postMeta = await mapPostToPostMeta(post);
+        if (!postMeta) {
+          console.warn('postMeta should not be null.');
+          return null;
+        }
+        const commentCount = await payload.count({
+          collection: 'comments',
+          where: { post: { equals: post.id } },
+        });
+
+        const relatedMeta: BlogPostRelatedMeta = {
+          commentCount: commentCount.totalDocs,
+        };
+
+        const blogPostMeta: BlogPostMeta = {
+          post: postMeta,
+          related: relatedMeta,
+        };
+
+        return blogPostMeta;
+      }),
+    )
+  )
+    .filter((obj) => obj !== null)
+    .sort(sortBlogPostMetaByPublishedAtDate);
+
+  const categoryUrl = resolveCategoryUrl(payloadCategory);
+  if (!categoryUrl) {
+    return null;
+  }
+
+  const category: Category = {
+    title: payloadCategory.title,
+    description: payloadCategory.description,
+    url: categoryUrl,
+  };
+
+  const payloadSubcategories = await payload.find({
+    collection: 'category',
+    where: { parent: { equals: payloadCategory.id } },
+    depth: 1,
+    limit: 0,
+    pagination: false,
+  });
+
+  const subcategories: Category[] = payloadSubcategories.docs
+    .map((payloadSubCategory) => {
+      const categoryUrl = resolveCategoryUrl(payloadSubCategory);
       if (!categoryUrl) {
         return null;
       }
-
-      const category: Category = {
-        title: payloadCategory.title,
-        description: payloadCategory.description,
+      const subCategory: Category = {
+        title: payloadSubCategory.title,
+        description: payloadSubCategory.description,
         url: categoryUrl,
       };
+      return subCategory;
+    })
+    .filter((obj) => obj !== null)
+    .sort(sortCategoryByTitle);
 
-      const payloadSubcategories = await payload.find({
-        collection: 'category',
-        where: { parent: { equals: payloadCategory.id } },
-        depth: 1,
-        limit: 0,
-        pagination: false,
-      });
-
-      const subcategories: Category[] = payloadSubcategories.docs
-        .map((payloadSubCategory) => {
-          const categoryUrl = resolveCategoryUrl(payloadSubCategory);
-          if (!categoryUrl) {
-            return null;
-          }
-          const subCategory: Category = {
-            title: payloadSubCategory.title,
-            description: payloadSubCategory.description,
-            url: categoryUrl,
-          };
-          return subCategory;
-        })
-        .filter((obj) => obj !== null)
-        .sort(sortCategoryByTitle);
-
-      return {
-        category,
-        subcategories,
-        blogPostMetas,
-      };
-    },
-    [`getCategoryData:${payloadCategory.id}`],
-    { revalidate: revalidate },
-  )();
+  return {
+    category,
+    subcategories,
+    blogPostMetas,
+  };
+};
 
 /**
  * Metadata

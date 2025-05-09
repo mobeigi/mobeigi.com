@@ -1,7 +1,7 @@
 import { Comment } from '@/payload-types';
 import { CollectionAfterChangeHook, CollectionAfterDeleteHook, PayloadRequest } from 'payload';
 import { revalidatePost } from '@/payload/collections/Posts/hooks/revalidatePost';
-import { getDocByIdOrObject } from '@/utils/payload';
+import { getDocByIdOrObject } from '@/utils/payload/server';
 import { revalidateTag } from 'next/cache';
 
 export const revalidateComment = async (req: PayloadRequest, doc: Comment) => {

@@ -1,7 +1,7 @@
-import { unstable_cache_safe } from '@/utils/next';
 import { GITHUB_USERNAME, GITHUB_PERSONAL_ACCESS_KEY } from '@/constants/github';
 import { ContributionEntry, DevelopmentActivity } from './types';
 import { graphql } from '@octokit/graphql';
+import { unstable_cacheLife as cacheLife } from 'next/cache';
 
 export const getLatestDevelopmentActivity = async (): Promise<DevelopmentActivity | null> => {
   try {
@@ -57,10 +57,9 @@ export const getLatestDevelopmentActivity = async (): Promise<DevelopmentActivit
   }
 };
 
-export const getCachedLatestDevelopmentActivity = unstable_cache_safe(
-  async () => getLatestDevelopmentActivity(),
-  ['github:getLatestDevelopmentActivity'],
-  {
-    revalidate: 900,
-  },
-);
+export const getCachedLatestDevelopmentActivity = async () => {
+  'use cache';
+  cacheLife('alwaysCheck15m');
+
+  return getLatestDevelopmentActivity();
+};

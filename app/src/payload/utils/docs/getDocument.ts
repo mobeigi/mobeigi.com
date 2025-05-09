@@ -1,7 +1,7 @@
 import config from '@payload-config';
 import { getPayload } from 'payload';
 import { CollectionSlug, DataFromCollectionSlug } from 'payload';
-import { unstable_cache_safe } from '@/utils/next/unstable_cache_safe';
+import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag } from 'next/cache';
 
 export const getDocumentById = async (
   relationTo: CollectionSlug,
@@ -17,11 +17,10 @@ export const getDocumentById = async (
   });
 };
 
-export const getCachedDocumentById = (relationTo: CollectionSlug, docId: number) =>
-  unstable_cache_safe(
-    async () => getDocumentById(relationTo, docId),
-    [`payload:getDocumentById:${relationTo}:${docId}`],
-    {
-      tags: ['payload', `payload:collection:${relationTo}`, `payload:collection:${relationTo}:${docId}`],
-    },
-  )();
+export const getCachedDocumentById = async (relationTo: CollectionSlug, docId: number) => {
+  'use cache';
+  cacheLife('cacheUntilInvalidated');
+  cacheTag('payload', `payload:collection:${relationTo}`, `payload:collection:${relationTo}:${docId}`);
+
+  return getDocumentById(relationTo, docId);
+};
