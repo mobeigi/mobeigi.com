@@ -23,8 +23,7 @@ export const getRedirects = async () => {
 export const getCachedRedirects = async () => {
   'use cache';
   cacheLife('cacheUntilInvalidated');
-  cacheTag('payload');
-  cacheTag('redirects');
+  cacheTag('payload', 'redirects');
 
   return getRedirects();
 };

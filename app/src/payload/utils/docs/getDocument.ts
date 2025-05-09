@@ -20,9 +20,7 @@ export const getDocumentById = async (
 export const getCachedDocumentById = async (relationTo: CollectionSlug, docId: number) => {
   'use cache';
   cacheLife('cacheUntilInvalidated');
-  cacheTag('payload');
-  cacheTag(`payload:collection:${relationTo}`);
-  cacheTag(`payload:collection:${relationTo}:${docId}`);
+  cacheTag('payload', `payload:collection:${relationTo}`, `payload:collection:${relationTo}:${docId}`);
 
   return getDocumentById(relationTo, docId);
 };
