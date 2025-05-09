@@ -1,6 +1,6 @@
-import { unstable_cache_safe } from '@/utils/next';
 import config from '@payload-config';
 import { getPayload } from 'payload';
+import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag } from 'next/cache';
 
 export const getRedirects = async () => {
   const payload = await getPayload({
@@ -20,6 +20,10 @@ export const getRedirects = async () => {
 /**
  * Cache all redirects together to avoid multiple fetches.
  */
-export const getCachedRedirects = unstable_cache_safe(async () => getRedirects(), ['payload:getRedirects'], {
-  tags: ['payload', 'redirects'],
-});
+export const getCachedRedirects = async () => {
+  'use cache';
+  cacheLife('cacheUntilInvalidated');
+  cacheTag('payload', 'redirects');
+
+  return getRedirects();
+};

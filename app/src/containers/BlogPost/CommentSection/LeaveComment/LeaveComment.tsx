@@ -23,7 +23,7 @@ import { PrimaryButton, SecondaryButton } from '@/styles/button';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { ButtonLabel, SpinnerOverlay } from '@/styles/spinner';
 import { toast } from 'react-toastify';
-import { extractValidationErrorResponseMessage } from '@/utils/payload';
+import { extractValidationErrorResponseMessage } from '@/utils/payload/shared';
 import { Comment as PayloadComment } from '@/payload-types';
 import { debounce } from 'lodash-es';
 import { InputError, InputWithError, LabelContainer, LabelDetails } from '@/styles/input';

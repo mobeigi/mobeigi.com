@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import { GetGravatarAvatarUrlProps } from './types';
 import { GRAVATAR_BASE_URL } from './constants';
-import { unstable_cache_safe } from '@/utils/next';
+import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag } from 'next/cache';
 
 export const getGravatarAvatarUrl = async ({
   email,
@@ -29,11 +29,10 @@ export const getGravatarAvatarUrl = async ({
   }
 };
 
-export const getCachedGravatarAvatarUrl = ({ email, size = 80, rating = 'pg' }: GetGravatarAvatarUrlProps) =>
-  unstable_cache_safe(
-    async () => {
-      return getGravatarAvatarUrl({ email, size, rating });
-    },
-    [`gravatar:getGravatarAvatarUrl:${email}:${size}:${rating}`],
-    { tags: ['gravatar'], revalidate: 900 },
-  )();
+export const getCachedGravatarAvatarUrl = async ({ email, size = 80, rating = 'pg' }: GetGravatarAvatarUrlProps) => {
+  'use cache';
+  cacheLife('alwaysCheck15m');
+  cacheTag('gravatar');
+
+  return getGravatarAvatarUrl({ email, size, rating });
+};

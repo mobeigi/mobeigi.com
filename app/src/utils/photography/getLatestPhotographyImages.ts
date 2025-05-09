@@ -1,6 +1,6 @@
-import { unstable_cache_safe } from '@/utils/next';
 import { GetLatestPhotographyImagesProps, PhotographyImage } from './types';
 import { Octokit } from '@octokit/rest';
+import { unstable_cacheLife as cacheLife } from 'next/cache';
 
 export const getLatestPhotographyImages = async ({
   limit = 4,
@@ -49,10 +49,9 @@ export const getLatestPhotographyImages = async ({
   }
 };
 
-export const getCachedLatestPhotographyImages = unstable_cache_safe(
-  async () => getLatestPhotographyImages({}),
-  ['photography:getLatestPhotographyImages'],
-  {
-    revalidate: 900,
-  },
-);
+export const getCachedLatestPhotographyImages = async () => {
+  'use cache';
+  cacheLife('alwaysCheck15m');
+
+  return getLatestPhotographyImages({});
+};
