@@ -4,7 +4,7 @@ import { appendItem } from '@/utils/seo/breadCrumbList';
 import { getLastItemId } from '@/utils/seo/listItem';
 import { BreadcrumbList, ListItem, WithContext } from 'schema-dts';
 import { Post as PayloadPost, Category as PayloadCategory } from '@/payload-types';
-import { getCategorySlugUrl } from '@/utils/payload';
+import { getCategorySlugUrl } from '@/utils/payload/shared';
 
 export const generateBreadcrumbs = (payloadPost: PayloadPost): WithContext<BreadcrumbList> | null => {
   if (!payloadPost || !payloadPost.slug) {

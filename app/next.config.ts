@@ -18,6 +18,21 @@ const nextConfig: NextConfig = {
     // Process all files & folders
     dirs: ['.'],
   },
+  experimental: {
+    useCache: true,
+    cacheLife: {
+      alwaysCheck15m: {
+        stale: 0,
+        revalidate: 900, // 15m
+        expire: 86400, // 1d
+      },
+      cacheUntilInvalidated: {
+        stale: 0,
+        revalidate: undefined, // forever
+        expire: undefined, // forever
+      },
+    },
+  },
   images: {
     contentDispositionType: 'inline',
     remotePatterns: [

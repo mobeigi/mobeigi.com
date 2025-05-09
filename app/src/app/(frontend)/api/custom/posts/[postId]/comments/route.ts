@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getPayload } from 'payload';
 import config from '@payload-config';
-import { mapComments } from '@/utils/payload';
+import { mapComments } from '@/utils/payload/server';
 import { CommentsForPost } from '@/types/api/commentsForPost';
 
 export const GET = async (request: Request, { params: paramsPromise }: { params: Promise<{ postId: string }> }) => {

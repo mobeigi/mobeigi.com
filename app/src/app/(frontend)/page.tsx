@@ -1,7 +1,7 @@
 import HomePage from '@/containers/HomePage';
 import { getPayload } from 'payload';
 import config from '@payload-config';
-import { mapPostToPostMeta } from '@/utils/payload';
+import { mapPostToPostMeta } from '@/utils/payload/server';
 import { BlogPostMeta, BlogPostRelatedMeta } from '@/types/blog';
 import { sortBlogPostMetaByPublishedAtDate } from '@/utils/blog/post';
 import { generateBreadcrumbs } from './breadcrumbs';

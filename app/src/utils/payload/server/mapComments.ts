@@ -1,8 +1,8 @@
 import { Comment } from '@/types/blog';
 import { Comment as PayloadComment } from '@/payload-types';
 import crypto from 'crypto';
-import { DISPLAY_PICTURE_SIZE } from './constants';
-import { requireEnvVar } from '../env';
+import { DISPLAY_PICTURE_SIZE } from '../constants';
+import { requireEnvVar } from '@/utils/env';
 import { getCachedGravatarAvatarUrl } from '@/utils/gravatar';
 
 /**

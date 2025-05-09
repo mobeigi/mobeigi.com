@@ -2,7 +2,7 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, PayloadReque
 import { revalidatePath, revalidateTag } from 'next/cache';
 import type { Post } from '@/payload-types';
 import { resolvePostsUrl } from '../resolveUrl';
-import { getDocByIdOrObject } from '@/utils/payload';
+import { getDocByIdOrObject } from '@/utils/payload/server';
 import { revalidateCategoryDetailPage } from '@payload/collections/Category/hooks/revalidateCategory';
 
 export const revalidatePostPage = async (req: PayloadRequest, doc: Post) => {
