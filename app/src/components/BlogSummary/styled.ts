@@ -55,3 +55,7 @@ export const IconAndTextContainer = styled.span`
   justify-content: center;
   align-items: center;
 `;
+
+export const StyledTime = styled.time`
+  min-width: max-content;
+`;
