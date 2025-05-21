@@ -1,0 +1,1 @@
+export { formatCompactNumber } from './number';
