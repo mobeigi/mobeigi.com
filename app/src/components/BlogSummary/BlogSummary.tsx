@@ -6,6 +6,7 @@ import {
   IconAndTextContainer,
   DetailIconWrapper as IconWrapper,
   StyledLink,
+  StyledTime,
 } from './styled';
 import { BlogSummaryProps } from './types';
 import Link from 'next/link';
@@ -58,9 +59,9 @@ export const BlogSummary = ({
             <IconWrapper>
               <CalendarSvg />
             </IconWrapper>
-            <time dateTime={publishedAtDate.toISOString()}>
+            <StyledTime dateTime={publishedAtDate.toISOString()}>
               <ClientFormattedDate date={publishedAtDate} format="d MMMM yyyy" />
-            </time>
+            </StyledTime>
           </IconAndTextContainer>
         </Detail>
         <Detail data-tooltip-id="global-tooltip" data-tooltip-content="Category">
