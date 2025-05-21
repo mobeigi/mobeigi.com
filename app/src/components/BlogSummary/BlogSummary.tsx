@@ -6,6 +6,7 @@ import {
   IconAndTextContainer,
   DetailIconWrapper as IconWrapper,
   StyledLink,
+  StyledTime,
 } from './styled';
 import { BlogSummaryProps } from './types';
 import Link from 'next/link';
@@ -14,6 +15,7 @@ import CategorySvg from '@/assets/icons/boxicons/bx-category.svg';
 import CommentDetailSvg from '@/assets/icons/boxicons/bx-comment-detail.svg';
 import BarChartSvg from '@/assets/icons/boxicons/bx-bar-chart.svg';
 import { ClientFormattedDate } from '@/components/ClientFormattedDate';
+import { formatCompactNumber } from '@/utils/format';
 
 export const BlogSummary = ({
   blogPostMeta,
@@ -24,6 +26,14 @@ export const BlogSummary = ({
   showExcerpt = true,
 }: BlogSummaryProps) => {
   const publishedAtDate = new Date(blogPostMeta.post.publishedAt);
+
+  const standardViewCount = Intl.NumberFormat('en', { notation: 'standard' }).format(blogPostMeta.post.views);
+  const compactViewCount = formatCompactNumber(blogPostMeta.post.views);
+
+  const standardCommentCount = Intl.NumberFormat('en', { notation: 'standard' }).format(
+    blogPostMeta.related.commentCount,
+  );
+  const compactCommentCount = formatCompactNumber(blogPostMeta.related.commentCount);
 
   const categoryElement = (
     <IconAndTextContainer>
@@ -39,7 +49,7 @@ export const BlogSummary = ({
       <IconWrapper>
         <CommentDetailSvg />
       </IconWrapper>
-      <span>{blogPostMeta.related.commentCount}</span>
+      <span>{compactCommentCount}</span>
     </IconAndTextContainer>
   );
 
@@ -58,9 +68,9 @@ export const BlogSummary = ({
             <IconWrapper>
               <CalendarSvg />
             </IconWrapper>
-            <time dateTime={publishedAtDate.toISOString()}>
+            <StyledTime dateTime={publishedAtDate.toISOString()}>
               <ClientFormattedDate date={publishedAtDate} format="d MMMM yyyy" />
-            </time>
+            </StyledTime>
           </IconAndTextContainer>
         </Detail>
         <Detail data-tooltip-id="global-tooltip" data-tooltip-content="Category">
@@ -70,15 +80,15 @@ export const BlogSummary = ({
             categoryElement
           )}
         </Detail>
-        <Detail data-tooltip-id="global-tooltip" data-tooltip-content="Views">
+        <Detail data-tooltip-id="global-tooltip" data-tooltip-html={`${standardViewCount} views`}>
           <IconAndTextContainer>
             <IconWrapper>
               <BarChartSvg />
             </IconWrapper>
-            <span>{blogPostMeta.post.views}</span>
+            <span>{compactViewCount}</span>
           </IconAndTextContainer>
         </Detail>
-        <Detail data-tooltip-id="global-tooltip" data-tooltip-content="Comments">
+        <Detail data-tooltip-id="global-tooltip" data-tooltip-html={`${standardCommentCount} comments`}>
           {commentsAnchor ? (
             <StyledLink href={`${blogPostMeta.post.url}#${commentsAnchor}`}>{commentCountElement}</StyledLink>
           ) : (
