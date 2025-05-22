@@ -16,6 +16,12 @@ describe('getNodeText', () => {
     expect(getNodeText(unsupportedNode)).toBeNull();
   });
 
+  it('returns null for unsupported object', () => {
+    const unsupportedObject = { key: 'value' };
+    // @ts-expect-error We are purposely passing in a object that is not a ReactNode
+    expect(getNodeText(unsupportedObject)).toBeNull();
+  });
+
   it('logs a warning for unresolved node types', () => {
     console.warn = jest.fn();
     const unsupportedNode = () => {}; // Function is unsupported node type
