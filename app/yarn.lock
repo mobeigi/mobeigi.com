@@ -11140,6 +11140,7 @@ __metadata:
     react-toastify: "npm:^11.0.5"
     react-toggle-dark-mode: "file:./packages/react-toggle-dark-mode-v2.0.0.tgz"
     react-tooltip: "npm:^5.28.1"
+    react-wrap-balancer: "npm:^1.1.1"
     schema-dts: "npm:^1.1.5"
     sharp: "npm:^0.34.1"
     styled-components: "npm:^6.1.17"
@@ -12491,6 +12492,15 @@ __metadata:
     react: ">=16.6.0"
     react-dom: ">=16.6.0"
   checksum: 10c0/2ba754ba748faefa15f87c96dfa700d5525054a0141de8c75763aae6734af0740e77e11261a1e8f4ffc08fd9ab78510122e05c21c2d79066c38bb6861a886c82
+  languageName: node
+  linkType: hard
+
+"react-wrap-balancer@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "react-wrap-balancer@npm:1.1.1"
+  peerDependencies:
+    react: ">=16.8.0 || ^17.0.0 || ^18"
+  checksum: 10c0/2045625cef0095eae9af9363052a0259a15e292d07e36ce8b085924ad65627a5807f986aeaf91068a9d384c6d2266787edb5d0eaba3ac021f8789437464e245d
   languageName: node
   linkType: hard
 
