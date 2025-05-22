@@ -16,6 +16,7 @@ import CommentDetailSvg from '@/assets/icons/boxicons/bx-comment-detail.svg';
 import BarChartSvg from '@/assets/icons/boxicons/bx-bar-chart.svg';
 import { ClientFormattedDate } from '@/components/ClientFormattedDate';
 import { formatCompactNumber } from '@/utils/format';
+import Balancer from 'react-wrap-balancer';
 
 export const BlogSummary = ({
   blogPostMeta,
@@ -40,7 +41,10 @@ export const BlogSummary = ({
       <IconWrapper>
         <CategorySvg />
       </IconWrapper>
-      <span>{blogPostMeta.post.category.title}</span>
+      {/* TODO: Replace with a native CSS solution when the CSS gods bless us with one (see issue #248).
+          This workaround does not correctly unwrap text when the viewport width increases.
+      */}
+      <Balancer preferNative={false}>{blogPostMeta.post.category.title}</Balancer>
     </IconAndTextContainer>
   );
 

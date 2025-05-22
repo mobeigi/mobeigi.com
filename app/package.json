@@ -59,6 +59,7 @@
     "react-toastify": "^11.0.5",
     "react-toggle-dark-mode": "file:./packages/react-toggle-dark-mode-v2.0.0.tgz",
     "react-tooltip": "^5.28.1",
+    "react-wrap-balancer": "^1.1.1",
     "sharp": "^0.34.1",
     "styled-components": "^6.1.17",
     "validator": "^13.15.0"
