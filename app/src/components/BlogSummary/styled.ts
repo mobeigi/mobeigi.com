@@ -19,7 +19,9 @@ export const BlogSummaryContainer = styled.header`
   }
 `;
 
-export const Heading = styled.h2``;
+export const Heading = styled.h2`
+  text-wrap: pretty;
+`;
 
 export const DetailContainer = styled.div`
   display: flex;
@@ -58,4 +60,8 @@ export const IconAndTextContainer = styled.span`
 
 export const StyledTime = styled.time`
   min-width: max-content;
+`;
+
+export const Excerpt = styled.span`
+  text-wrap: pretty;
 `;

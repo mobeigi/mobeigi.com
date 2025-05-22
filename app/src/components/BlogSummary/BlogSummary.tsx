@@ -7,6 +7,7 @@ import {
   DetailIconWrapper as IconWrapper,
   StyledLink,
   StyledTime,
+  Excerpt,
 } from './styled';
 import { BlogSummaryProps } from './types';
 import Link from 'next/link';
@@ -100,7 +101,7 @@ export const BlogSummary = ({
           )}
         </Detail>
       </DetailContainer>
-      {showExcerpt && <span>{blogPostMeta.post.excerpt}</span>}
+      {showExcerpt && <Excerpt>{blogPostMeta.post.excerpt}</Excerpt>}
     </BlogSummaryContainer>
   );
 };
