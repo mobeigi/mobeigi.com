@@ -3065,6 +3065,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@img/sharp-libvips-win32-ia32@npm:1.1.0":
+  version: 1.1.0
+  resolution: "@img/sharp-libvips-win32-ia32@npm:1.1.0"
+  checksum: 10c0/e1847b357c1f6f89be7630d86b7f724ef3fc36855d4e84b7ef7ae067a371d01130421b4eb719190f4f9171ca4f85556dfe678419180b544bce5bf3cfb97a1e9c
+  languageName: node
+  linkType: hard
+
+"@img/sharp-libvips-win32-x64@npm:1.1.0":
+  version: 1.1.0
+  resolution: "@img/sharp-libvips-win32-x64@npm:1.1.0"
+  checksum: 10c0/e8dd6541a05412edb0596683ecb428ac4db80600558d7c2fc40bb3879eea4985e06d68fd6c9e96edf98ea93fb1fc3e3e45b35727ef97af68b56166ce7b0cb3ca
+  languageName: node
+  linkType: hard
+
 "@img/sharp-linux-arm64@npm:0.34.1":
   version: 0.34.1
   resolution: "@img/sharp-linux-arm64@npm:0.34.1"
@@ -11235,6 +11249,24 @@ __metadata:
     "@cedx/akismet": "npm:^17.1.0"
     "@eslint/eslintrc": "npm:^3.3.1"
     "@eslint/js": "npm:^9.30.1"
+    "@img/sharp-darwin-arm64": "npm:0.34.2"
+    "@img/sharp-darwin-x64": "npm:0.34.2"
+    "@img/sharp-libvips-darwin-arm64": "npm:1.1.0"
+    "@img/sharp-libvips-darwin-x64": "npm:1.1.0"
+    "@img/sharp-libvips-linux-arm": "npm:1.1.0"
+    "@img/sharp-libvips-linux-arm64": "npm:1.1.0"
+    "@img/sharp-libvips-linux-x64": "npm:1.1.0"
+    "@img/sharp-libvips-linuxmusl-arm64": "npm:1.1.0"
+    "@img/sharp-libvips-linuxmusl-x64": "npm:1.1.0"
+    "@img/sharp-libvips-win32-ia32": "npm:1.1.0"
+    "@img/sharp-libvips-win32-x64": "npm:1.1.0"
+    "@img/sharp-linux-arm": "npm:0.34.2"
+    "@img/sharp-linux-arm64": "npm:0.34.2"
+    "@img/sharp-linux-x64": "npm:0.34.2"
+    "@img/sharp-linuxmusl-arm64": "npm:0.34.2"
+    "@img/sharp-linuxmusl-x64": "npm:0.34.2"
+    "@img/sharp-win32-ia32": "npm:0.34.2"
+    "@img/sharp-win32-x64": "npm:0.34.2"
     "@next/eslint-plugin-next": "npm:^15.3.5"
     "@next/third-parties": "npm:15.3.5"
     "@octokit/graphql": "npm:^9.0.1"
@@ -11299,6 +11331,43 @@ __metadata:
     typescript: "npm:^5.8.3"
     typescript-eslint: "npm:^8.36.0"
     validator: "npm:^13.15.15"
+  dependenciesMeta:
+    "@img/sharp-darwin-arm64":
+      optional: true
+    "@img/sharp-darwin-x64":
+      optional: true
+    "@img/sharp-libvips-darwin-arm64":
+      optional: true
+    "@img/sharp-libvips-darwin-x64":
+      optional: true
+    "@img/sharp-libvips-linux-arm":
+      optional: true
+    "@img/sharp-libvips-linux-arm64":
+      optional: true
+    "@img/sharp-libvips-linux-x64":
+      optional: true
+    "@img/sharp-libvips-linuxmusl-arm64":
+      optional: true
+    "@img/sharp-libvips-linuxmusl-x64":
+      optional: true
+    "@img/sharp-libvips-win32-ia32":
+      optional: true
+    "@img/sharp-libvips-win32-x64":
+      optional: true
+    "@img/sharp-linux-arm":
+      optional: true
+    "@img/sharp-linux-arm64":
+      optional: true
+    "@img/sharp-linux-x64":
+      optional: true
+    "@img/sharp-linuxmusl-arm64":
+      optional: true
+    "@img/sharp-linuxmusl-x64":
+      optional: true
+    "@img/sharp-win32-ia32":
+      optional: true
+    "@img/sharp-win32-x64":
+      optional: true
   languageName: unknown
   linkType: soft
 
