@@ -11160,7 +11160,7 @@ __metadata:
     react-tooltip: "npm:^5.29.1"
     react-wrap-balancer: "npm:^1.1.1"
     schema-dts: "npm:^1.1.5"
-    sharp: "npm:^0.34.1"
+    sharp: "npm:0.34.1"
     styled-components: "npm:^6.1.19"
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5.8.3"
@@ -12918,7 +12918,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sharp@npm:^0.34.1":
+"sharp@npm:0.34.1, sharp@npm:^0.34.1":
   version: 0.34.1
   resolution: "sharp@npm:0.34.1"
   dependencies:
