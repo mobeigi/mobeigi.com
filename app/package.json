@@ -60,7 +60,7 @@
     "react-toggle-dark-mode": "file:./packages/react-toggle-dark-mode-v2.0.0.tgz",
     "react-tooltip": "^5.29.1",
     "react-wrap-balancer": "^1.1.1",
-    "sharp": "^0.34.2",
+    "sharp": "^0.34.1",
     "styled-components": "^6.1.19",
     "validator": "^13.15.15"
   },
@@ -95,26 +95,6 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.36.0"
-  },
-  "optionalDependencies": {
-    "@img/sharp-darwin-arm64": "0.34.2",
-    "@img/sharp-darwin-x64": "0.34.2",
-    "@img/sharp-libvips-darwin-arm64": "1.1.0",
-    "@img/sharp-libvips-darwin-x64": "1.1.0",
-    "@img/sharp-libvips-linux-arm": "1.1.0",
-    "@img/sharp-libvips-linux-arm64": "1.1.0",
-    "@img/sharp-libvips-linux-x64": "1.1.0",
-    "@img/sharp-libvips-linuxmusl-arm64": "1.1.0",
-    "@img/sharp-libvips-linuxmusl-x64": "1.1.0",
-    "@img/sharp-libvips-win32-ia32": "1.1.0",
-    "@img/sharp-libvips-win32-x64": "1.1.0",
-    "@img/sharp-linux-arm": "0.34.2",
-    "@img/sharp-linux-arm64": "0.34.2",
-    "@img/sharp-linux-x64": "0.34.2",
-    "@img/sharp-linuxmusl-arm64": "0.34.2",
-    "@img/sharp-linuxmusl-x64": "0.34.2",
-    "@img/sharp-win32-ia32": "0.34.2",
-    "@img/sharp-win32-x64": "0.34.2"
   },
   "engines": {
     "node": ">=22"
