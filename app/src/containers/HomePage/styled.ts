@@ -1,7 +1,8 @@
 'use client';
 
-import { IconWrapper } from '@/styles/icon';
 import styled from 'styled-components';
+import { breakpoints } from '@/styles/breakpoints';
+import { IconWrapper } from '@/styles/icon';
 
 export const HomePageSection = styled.section`
   display: flex;
@@ -28,11 +29,19 @@ export const IconAndTextContainer = styled.span`
 
 export const GitContributionGraphOverflow = styled.div`
   overflow-x: auto;
+  @media (max-width: ${breakpoints.mobile.maxWidth}px) {
+    overflow-x: inherit;
+  }
 `;
 
 export const GitContributionGraphWrapper = styled.div`
   /* Fixed width chart */
   width: 1068px;
+
+  @media (max-width: ${breakpoints.mobile.maxWidth}px) {
+    width: 400px;
+    justify-self: center;
+  }
 `;
 
 export const PhotographyImagesWrapper = styled.div`

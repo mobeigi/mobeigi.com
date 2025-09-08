@@ -17,6 +17,7 @@ import ReactEChartsCore from 'echarts-for-react/lib/core';
 import { HeatmapChart } from 'echarts/charts';
 import { TooltipComponent, VisualMapComponent, CalendarComponent } from 'echarts/components';
 import { SVGRenderer } from 'echarts/renderers';
+import { useBreakpoint } from '@/utils/breakpoints';
 
 echarts.use([HeatmapChart, TooltipComponent, VisualMapComponent, CalendarComponent, SVGRenderer]);
 
@@ -32,6 +33,8 @@ export const GitContributionGraph = ({ data }: GitContributionGraphProps) => {
 
   const { resolvedTheme } = useTheme();
   const resolvedThemeMode = resolvedThemeToThemeMode(resolvedTheme);
+
+  const { isMobileWidth } = useBreakpoint();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -67,6 +70,7 @@ export const GitContributionGraph = ({ data }: GitContributionGraphProps) => {
       right: 20,
       cellSize: [20],
       range: [startDate, endDate],
+      orient: isMobileWidth ? 'vertical' : 'horizontal',
       itemStyle: {
         borderWidth: 0,
         color: 'transparent',
@@ -93,7 +97,7 @@ export const GitContributionGraph = ({ data }: GitContributionGraphProps) => {
       coordinateSystem: 'calendar',
       itemStyle: {
         borderRadius: 6,
-        borderWidth: 2,
+        borderWidth: isMobileWidth ? 5 : 2,
         borderColor: 'var(--theme-background)', // should match background colour of the chart container
       },
       data: data,
@@ -165,7 +169,7 @@ export const GitContributionGraph = ({ data }: GitContributionGraphProps) => {
         option={option}
         theme={resolvedThemeMode === ThemeMode.Dark ? 'dark' : undefined}
         onEvents={onEvents}
-        style={{ width: '100%', height: '165px' }}
+        style={{ width: '100%', height: '100%' }}
       />
 
       <BaseTooltip id={tooltipId} isOpen={isTooltipOpen} />
