@@ -68,7 +68,7 @@ export const GitContributionGraph = ({ data }: GitContributionGraphProps) => {
       top: 20,
       left: 50,
       right: 20,
-      cellSize: [20],
+      cellSize: [isMobileWidth ? 20 : 18.83],
       range: [startDate, endDate],
       orient: isMobileWidth ? 'vertical' : 'horizontal',
       itemStyle: {
