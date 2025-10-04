@@ -36,6 +36,6 @@ export const ThemedPicture = ({ dark, light }: ThemedPictureProps) => {
       }}
     ></img>
   ) : (
-    <Image src={imageSrc} alt={imageAlt} width={imageWidth} height={imageHeight} style={imageStyle} />
+    <Image src={imageSrc} alt={imageAlt} width={imageWidth} height={imageHeight} style={imageStyle} quality={100} />
   );
 };
