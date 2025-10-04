@@ -49,7 +49,7 @@ export const AboutPage = () => {
         </IconWrapper>
       </p>
       <ImageWrapper>
-        <Image src="/images/about/sydney.webp" alt="Sydney" fill />
+        <Image src="/images/about/sydney.webp" alt="Sydney" fill quality={75} />
       </ImageWrapper>
       <p>
         I am a full stack Software Engineer and a{' '}

@@ -92,7 +92,13 @@ const SingleComment = ({ comment, postId, onSuccess, commentsEnabled }: SingleCo
     <SingleCommentContainer id={`comment-${comment.id}`}>
       <CommentBox>
         <DisplayPicture $isCustomDisplayPicture={isCustomDisplayPicture}>
-          <Image src={displayPictureUrl} alt={`Display picture for ${comment.displayName}`} width={55} height={55} />
+          <Image
+            src={displayPictureUrl}
+            alt={`Display picture for ${comment.displayName}`}
+            width={55}
+            height={55}
+            quality={100}
+          />
         </DisplayPicture>
         <CommentMain>
           <CommentMetaHeader>

@@ -39,6 +39,7 @@ export const MediaBlockImage = ({ mediaDark, mediaLight, widthOverride, heightOv
         width={darkDimensions.width}
         height={darkDimensions.height}
         style={darkDimensions.style}
+        quality={100}
       />
     );
   }
