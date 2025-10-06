@@ -32,6 +32,9 @@ const nextConfig: NextConfig = {
         expire: undefined, // forever
       },
     },
+    serverActions: {
+      bodySizeLimit: '3mb' /* Support larger sized chunked updates in Payload */,
+    },
   },
   images: {
     contentDispositionType: 'inline',
