@@ -36,30 +36,32 @@ export const TableReactNodeConverter: ReactNodeConverter<SerializedTableNode> = 
     }
 
     return (
-      <table>
-        {headerRows.length > 0 && (
-          <thead>
+      <div className="table-wrapper">
+        <table>
+          {headerRows.length > 0 && (
+            <thead>
+              {convertLexicalNodesToReactNode({
+                converters,
+                lexicalNodes: headerRows,
+                parent: {
+                  ...node,
+                  parent,
+                },
+              })}
+            </thead>
+          )}
+          <tbody>
             {convertLexicalNodesToReactNode({
               converters,
-              lexicalNodes: headerRows,
+              lexicalNodes: bodyRows,
               parent: {
                 ...node,
                 parent,
               },
             })}
-          </thead>
-        )}
-        <tbody>
-          {convertLexicalNodesToReactNode({
-            converters,
-            lexicalNodes: bodyRows,
-            parent: {
-              ...node,
-              parent,
-            },
-          })}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     );
   },
   nodeTypes: ['table'],
