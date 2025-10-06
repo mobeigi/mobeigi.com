@@ -37,15 +37,24 @@ export const BlogPostArticle = styled.article`
   }
 
   /* Tables */
-  & table {
-    margin: 0 auto;
+  & .table-wrapper {
     width: 100%;
+    overflow-x: auto;
+  }
 
-    /* Break text when vw is limited */
-    * {
-      word-break: break-word;
-      white-space: normal;
-    }
+  & .table-wrapper > table {
+    font-size: 0.9em; /* support tightly packed tables better */
+    width: 100%; /* fill container when it fits */
+    min-width: max-content; /* but don't shrink below intrinsic width */
+    table-layout: auto;
+    margin: 0 auto;
+  }
+
+  & .table-wrapper th *,
+  & .table-wrapper td * {
+    white-space: nowrap;
+    word-break: keep-all;
+    margin: 0;
   }
 
   /* Embeds */
