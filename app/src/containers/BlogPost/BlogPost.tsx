@@ -13,8 +13,9 @@ import Sidebar from './Sidebar';
 import CommentSection from './CommentSection';
 import { serializeLexical } from '@/payload/lexical/serializeLexical';
 import RegisterView from './RegisterView';
+import EngagementSection from './EngagementSection';
 
-export const BlogPost = ({ meta, content, comments }: BlogPostProps) => {
+export const BlogPost = ({ meta, content, externalDiscussions, comments }: BlogPostProps) => {
   const contentBodyReactNode = serializeLexical(content.body);
 
   return (
@@ -35,6 +36,12 @@ export const BlogPost = ({ meta, content, comments }: BlogPostProps) => {
             </BlogPostSidebarWrapper>
           </BlogPostBodyContainer>
         </BlogPostArticle>
+        {externalDiscussions.length > 0 && (
+          <>
+            <hr />
+            <EngagementSection externalDiscussions={externalDiscussions} />
+          </>
+        )}
         <hr />
         <CommentSection comments={comments} postId={meta.post.id} commentsEnabled={meta.post.commentsEnabled} />
       </BlogPostContainer>

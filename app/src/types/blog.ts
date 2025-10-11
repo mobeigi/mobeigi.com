@@ -43,8 +43,14 @@ export type Comment = {
   children: Comment[];
 };
 
+export type ExternalDiscussion = {
+  title?: string;
+  url: string;
+};
+
 export type BlogPostData = {
   meta: BlogPostMeta;
   content: BlogPostContent;
   comments: Comment[];
+  externalDiscussions: ExternalDiscussion[];
 };

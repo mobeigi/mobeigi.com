@@ -4,7 +4,7 @@ import config from '@payload-config';
 import BlogPost from '@/containers/BlogPost';
 import { notFound } from 'next/navigation';
 import { BlogPostProps } from '@/containers/BlogPost';
-import { BlogPostContent, BlogPostMeta, BlogPostRelatedMeta } from '@/types/blog';
+import { BlogPostContent, BlogPostMeta, BlogPostRelatedMeta, ExternalDiscussion } from '@/types/blog';
 import { mapPostToPostMeta, mapComments } from '@/utils/payload/server';
 import { getCategorySlugUrl } from '@/utils/payload/shared';
 import { countTotalComments } from '@/utils/blog/comments';
@@ -86,6 +86,12 @@ const transformPostToBlogPostProps = async (post: PayloadPost): Promise<BlogPost
     config,
   });
 
+  const externalDiscussions: ExternalDiscussion[] =
+    post.externalDiscussions?.map((externalDiscussion) => ({
+      title: externalDiscussion.title ?? undefined,
+      url: externalDiscussion.url,
+    })) ?? [];
+
   const comments = await payload.find({
     collection: 'comments',
     where: {
@@ -110,6 +116,7 @@ const transformPostToBlogPostProps = async (post: PayloadPost): Promise<BlogPost
   const blogPostProps: BlogPostProps = {
     meta,
     content,
+    externalDiscussions,
     comments: mappedComments,
   };
 
