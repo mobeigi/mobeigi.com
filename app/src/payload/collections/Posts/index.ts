@@ -97,6 +97,27 @@ export const Posts: CollectionConfig = {
           label: 'Comments',
         },
         {
+          fields: [
+            {
+              name: 'externalDiscussions',
+              type: 'array',
+              label: 'External Discussions',
+              fields: [
+                {
+                  name: 'title',
+                  type: 'text',
+                },
+                {
+                  name: 'url',
+                  type: 'text',
+                  required: true,
+                },
+              ],
+            },
+          ],
+          label: 'External Discussions',
+        },
+        {
           name: 'meta',
           label: 'SEO',
           fields: [

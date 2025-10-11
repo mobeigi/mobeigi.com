@@ -255,6 +255,13 @@ export interface Post {
    */
   excerpt: string;
   commentsEnabled?: boolean | null;
+  externalDiscussions?:
+    | {
+        title?: string | null;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -550,6 +557,13 @@ export interface PostsSelect<T extends boolean = true> {
   content?: T;
   excerpt?: T;
   commentsEnabled?: T;
+  externalDiscussions?:
+    | T
+    | {
+        title?: T;
+        url?: T;
+        id?: T;
+      };
   meta?:
     | T
     | {
