@@ -3,7 +3,6 @@ import {
   Detail,
   DetailContainer,
   Heading,
-  IconAndTextContainer,
   DetailIconWrapper as IconWrapper,
   StyledTime,
   Excerpt,
@@ -18,6 +17,7 @@ import { ClientFormattedDate } from '@/components/ClientFormattedDate';
 import { formatCompactNumber } from '@/utils/format';
 import Balancer from 'react-wrap-balancer';
 import { StyledSublteLink } from '@/styles/link';
+import { IconAndTextContainer } from '@/styles/icon';
 
 export const BlogSummary = ({
   blogPostMeta,

@@ -20,13 +20,6 @@ export const CustomIconWrapper = styled(IconWrapper)`
   }
 `;
 
-export const IconAndTextContainer = styled.span`
-  display: flex;
-  gap: 0.2em;
-  justify-content: center;
-  align-items: center;
-`;
-
 export const GitContributionGraphOverflow = styled.div`
   overflow-x: auto;
   @media (max-width: ${breakpoints.mobile.maxWidth}px) {

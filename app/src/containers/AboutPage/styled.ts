@@ -1,6 +1,6 @@
 'use client';
 
-import { IconWrapper } from '@/styles/icon';
+import { IconAndTextContainer, IconWrapper } from '@/styles/icon';
 import styled from 'styled-components';
 import { breakpoints } from '@/styles/breakpoints';
 
@@ -32,13 +32,9 @@ export const ProgrammingLanguagesContainer = styled.div`
   }
 `;
 
-export const IconAndTextContainer = styled.span`
-  display: flex;
+export const ProgrammingLanguageIconAndTextContainer = styled(IconAndTextContainer)`
   flex-direction: column;
   gap: 0.4em;
-  justify-content: center;
-  align-items: center;
-
   svg {
     font-size: 2em;
   }

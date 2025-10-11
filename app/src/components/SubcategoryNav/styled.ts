@@ -1,7 +1,6 @@
 'use client';
 
 import { IconWrapper } from '@/styles/icon';
-import Link from 'next/link';
 import styled from 'styled-components';
 
 export const ContainerNav = styled.nav`
@@ -31,11 +30,4 @@ export const CategoryIconWrapper = styled(IconWrapper)`
   svg {
     fill: var(--theme-text-link);
   }
-`;
-
-export const IconAndTextContainer = styled.span`
-  display: flex;
-  gap: 0.2em;
-  justify-content: center;
-  align-items: center;
 `;
