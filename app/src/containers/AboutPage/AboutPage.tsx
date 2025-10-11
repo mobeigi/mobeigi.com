@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  IconAndTextContainer,
+  ProgrammingLanguageIconAndTextContainer,
   ImageWrapper,
   ProgrammingLanguagesContainer,
   CustomIconWrapper as IconWrapper,
@@ -102,60 +102,60 @@ export const AboutPage = () => {
       </blockquote>
       <p>I dedicate my time and energy to staying proficient in these programming languages:</p>
       <ProgrammingLanguagesContainer>
-        <IconAndTextContainer>
+        <ProgrammingLanguageIconAndTextContainer>
           <IconWrapper>
             <CSvg />
           </IconWrapper>
           <span>C</span>
-        </IconAndTextContainer>
-        <IconAndTextContainer>
+        </ProgrammingLanguageIconAndTextContainer>
+        <ProgrammingLanguageIconAndTextContainer>
           <IconWrapper>
             <CppSvg />
           </IconWrapper>
           <span>C++</span>
-        </IconAndTextContainer>
-        <IconAndTextContainer>
+        </ProgrammingLanguageIconAndTextContainer>
+        <ProgrammingLanguageIconAndTextContainer>
           <IconWrapper>
             <JavaSvg />
           </IconWrapper>
           <span>Java</span>
-        </IconAndTextContainer>
-        <IconAndTextContainer>
+        </ProgrammingLanguageIconAndTextContainer>
+        <ProgrammingLanguageIconAndTextContainer>
           <IconWrapper>
             <KotlinSvg />
           </IconWrapper>
           <span>Kotlin</span>
-        </IconAndTextContainer>
-        <IconAndTextContainer>
+        </ProgrammingLanguageIconAndTextContainer>
+        <ProgrammingLanguageIconAndTextContainer>
           <IconWrapper>
             <PythonSvg />
           </IconWrapper>
           <span>Python</span>
-        </IconAndTextContainer>
-        <IconAndTextContainer>
+        </ProgrammingLanguageIconAndTextContainer>
+        <ProgrammingLanguageIconAndTextContainer>
           <IconWrapper>
             <JavascriptSvg />
           </IconWrapper>
           <span>JavaScript</span>
-        </IconAndTextContainer>
-        <IconAndTextContainer>
+        </ProgrammingLanguageIconAndTextContainer>
+        <ProgrammingLanguageIconAndTextContainer>
           <IconWrapper>
             <TypescriptSvg />
           </IconWrapper>
           <span>TypeScript</span>
-        </IconAndTextContainer>
-        <IconAndTextContainer>
+        </ProgrammingLanguageIconAndTextContainer>
+        <ProgrammingLanguageIconAndTextContainer>
           <IconWrapper>
             <ReactSvg />
           </IconWrapper>
           <span>React</span>
-        </IconAndTextContainer>
-        <IconAndTextContainer>
+        </ProgrammingLanguageIconAndTextContainer>
+        <ProgrammingLanguageIconAndTextContainer>
           <IconWrapper>
             <DataSvg />
           </IconWrapper>
           <span>SQL</span>
-        </IconAndTextContainer>
+        </ProgrammingLanguageIconAndTextContainer>
       </ProgrammingLanguagesContainer>
     </section>
   );

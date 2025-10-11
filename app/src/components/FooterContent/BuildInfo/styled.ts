@@ -23,10 +23,3 @@ export const CustomIconWrapper = styled(IconWrapper)`
     fill: var(--theme-text-subtle);
   }
 `;
-
-export const IconAndTextContainer = styled.span`
-  display: flex;
-  gap: 0.2em;
-  justify-content: center;
-  align-items: center;
-`;

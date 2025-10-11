@@ -32,7 +32,7 @@ const GlobalStyle = createGlobalStyle`
 
     /* Text Colors */
     --theme-text-base: #404040;
-    --theme-text-base-highlight: #424242;
+    --theme-text-base-highlight: #1a1a1a;
     --theme-text-subtle: #6a6a6a;
     --theme-text-subtle-highlight: #424242;
     --theme-text-link: #af363c;
@@ -67,6 +67,14 @@ const GlobalStyle = createGlobalStyle`
     --theme-status-disabled-highlight: #666666;
     --theme-status-disabled-accent: #999999;
     --theme-status-disabled-complement: #333333;
+
+    /* Engagement Section */
+    --theme-engagement-platform-reddit-foreground: #ff5700;
+    --theme-engagement-platform-reddit-background: #ffffff;
+    --theme-engagement-platform-github-foreground: #1f2328;
+    --theme-engagement-platform-github-background: #f6f8fa;
+    --theme-engagement-platform-ycombinator-foreground: #fff;
+    --theme-engagement-platform-ycombinator-background: #f60;
   }
 
   /* Dark Theme */
@@ -116,6 +124,14 @@ const GlobalStyle = createGlobalStyle`
     --theme-status-disabled-highlight: #666666;
     --theme-status-disabled-accent: #999999;
     --theme-status-disabled-complement: #333333;
+
+    /* Engagement Section */
+    --theme-engagement-platform-reddit-foreground: #ff5700;
+    --theme-engagement-platform-reddit-background: #ffffff;
+    --theme-engagement-platform-github-foreground: #f0f6fc;
+    --theme-engagement-platform-github-background: #15191f;
+    --theme-engagement-platform-ycombinator-foreground: #fff;
+    --theme-engagement-platform-ycombinator-background: #f60;
   }
 
   /* Base font size */

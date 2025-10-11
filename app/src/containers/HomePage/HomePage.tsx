@@ -1,7 +1,6 @@
 import {
   HomePageSection,
   CustomIconWrapper as IconWrapper,
-  IconAndTextContainer,
   PhotographyImageWrapper,
   PhotographyTag,
   BlogSummaryWrapper,
@@ -9,6 +8,7 @@ import {
   GitContributionGraphOverflow,
   GitContributionGraphWrapper,
 } from './styled';
+import { IconAndTextContainer } from '@/styles/icon';
 import CalendarSvg from '@/assets/icons/boxicons/bx-calendar.svg';
 import FileSvg from '@/assets/icons/boxicons/bx-file.svg';
 import Link from 'next/link';

@@ -45,3 +45,10 @@ export const IconWrapperBubbleButton = styled(IconWrapperBubble).attrs({ as: Sty
 export const IconWrapperBubbleLink = styled(IconWrapperBubble).attrs({ as: 'a' })``;
 
 export const IconWrapperBubbleNextLink = styled(IconWrapperBubble).attrs({ as: Link })``;
+
+export const IconAndTextContainer = styled.span`
+  display: flex;
+  gap: 0.2em;
+  justify-content: center;
+  align-items: center;
+`;

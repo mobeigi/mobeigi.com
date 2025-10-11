@@ -3,9 +3,7 @@ import {
   Detail,
   DetailContainer,
   Heading,
-  IconAndTextContainer,
   DetailIconWrapper as IconWrapper,
-  StyledLink,
   StyledTime,
   Excerpt,
 } from './styled';
@@ -18,6 +16,8 @@ import BarChartSvg from '@/assets/icons/boxicons/bx-bar-chart.svg';
 import { ClientFormattedDate } from '@/components/ClientFormattedDate';
 import { formatCompactNumber } from '@/utils/format';
 import Balancer from 'react-wrap-balancer';
+import { StyledSublteLink } from '@/styles/link';
+import { IconAndTextContainer } from '@/styles/icon';
 
 export const BlogSummary = ({
   blogPostMeta,
@@ -80,7 +80,7 @@ export const BlogSummary = ({
         </Detail>
         <Detail data-tooltip-id="global-tooltip" data-tooltip-content="Category">
           {linkCategory ? (
-            <StyledLink href={blogPostMeta.post.category.url}>{categoryElement}</StyledLink>
+            <StyledSublteLink href={blogPostMeta.post.category.url}>{categoryElement}</StyledSublteLink>
           ) : (
             categoryElement
           )}
@@ -95,7 +95,9 @@ export const BlogSummary = ({
         </Detail>
         <Detail data-tooltip-id="global-tooltip" data-tooltip-html={`${standardCommentCount} comments`}>
           {commentsAnchor ? (
-            <StyledLink href={`${blogPostMeta.post.url}#${commentsAnchor}`}>{commentCountElement}</StyledLink>
+            <StyledSublteLink href={`${blogPostMeta.post.url}#${commentsAnchor}`}>
+              {commentCountElement}
+            </StyledSublteLink>
           ) : (
             commentCountElement
           )}

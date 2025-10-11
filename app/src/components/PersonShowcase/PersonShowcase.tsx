@@ -2,7 +2,6 @@ import {
   HeaderRows,
   Headshot,
   PersonShowcaseSection,
-  IconAndTextContainer,
   Info,
   InfoArea,
   StyledHeading,
@@ -13,6 +12,7 @@ import MapPinSvg from '@/assets/icons/boxicons/bx-map-pin.svg';
 import LanguageOutlineSvg from '@/assets/icons/misc/language-outline.svg';
 import { SITE_TITLE, TAGLINE } from '@/constants/app';
 import { PersonShowcaseProps } from './types';
+import { IconAndTextContainer } from '@/styles/icon';
 
 export const PersonShowcase = ({
   headshotWidth = '9em',

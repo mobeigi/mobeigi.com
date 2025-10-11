@@ -70,10 +70,3 @@ export const CustomIconWrapper = styled(IconWrapper)`
     }
   }
 `;
-
-export const IconAndTextContainer = styled.span`
-  display: flex;
-  gap: 0.2em;
-  justify-content: center;
-  align-items: center;
-`;

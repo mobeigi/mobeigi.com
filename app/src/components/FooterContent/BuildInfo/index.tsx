@@ -1,7 +1,8 @@
-import { BuildInfoSpan, IconAndTextContainer, StyledA, CustomIconWrapper as IconWrapper } from './styled';
+import { BuildInfoSpan, StyledA, CustomIconWrapper as IconWrapper } from './styled';
 import GithubSvg from '@/assets/icons/boxicons/bxl-github.svg';
 import GitCommitSvg from '@/assets/icons/boxicons/bx-git-commit.svg';
 import { COMMIT_HASH } from '@/constants/build';
+import { IconAndTextContainer } from '@/styles/icon';
 
 export const BuildInfo = () => (
   <>
