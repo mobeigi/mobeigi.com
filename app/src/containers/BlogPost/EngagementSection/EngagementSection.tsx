@@ -8,7 +8,7 @@ import {
 import { EngagementSectionProps } from './types';
 import { IconAndTextContainer, IconWrapper } from '@/styles/icon';
 import { enrichExternalDiscussions } from './utils';
-import { StyledLink } from '@/styles/link';
+import { StyledBaseLink } from '@/styles/link';
 
 export const EngagementSection = ({ externalDiscussions }: EngagementSectionProps) => {
   const enrichedExternalDiscussions = enrichExternalDiscussions(externalDiscussions);
@@ -22,14 +22,14 @@ export const EngagementSection = ({ externalDiscussions }: EngagementSectionProp
           <ExternalDiscussionItemWrapper>
             {enrichedExternalDiscussions.map((enrichedExternalDiscussion, index) => (
               <ExternalDiscussionItem key={index}>
-                <StyledLink href={enrichedExternalDiscussion.externalDiscussion.url} rel="nofollow">
+                <StyledBaseLink href={enrichedExternalDiscussion.externalDiscussion.url} rel="nofollow">
                   <IconAndTextContainer>
                     <IconWrapper>
                       <enrichedExternalDiscussion.Icon />
                     </IconWrapper>
                     <span>{enrichedExternalDiscussion.enrichedTitle}</span>
                   </IconAndTextContainer>
-                </StyledLink>
+                </StyledBaseLink>
               </ExternalDiscussionItem>
             ))}
           </ExternalDiscussionItemWrapper>

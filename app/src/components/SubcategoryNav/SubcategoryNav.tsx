@@ -1,12 +1,7 @@
 import CategorySvg from '@/assets/icons/boxicons/bx-category.svg';
-import {
-  ContainerNav,
-  IconAndTextContainer,
-  SubcategoryContainer,
-  CategoryIconWrapper as IconWrapper,
-  StyledLink,
-} from './styled';
+import { ContainerNav, IconAndTextContainer, SubcategoryContainer, CategoryIconWrapper as IconWrapper } from './styled';
 import { SubcategoryNavProps } from './types';
+import { StyledLink } from '@/styles/link';
 
 export const SubcategoryNav = ({ category, subcategories }: SubcategoryNavProps) => {
   return (

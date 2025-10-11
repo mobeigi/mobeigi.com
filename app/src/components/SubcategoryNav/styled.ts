@@ -27,17 +27,6 @@ export const SubcategoryContainer = styled.div`
   color: var(--theme-text-link);
 `;
 
-export const StyledLink = styled(Link)`
-  color: var(--theme-text-link);
-  &:hover {
-    color: var(--theme-text-link-highlight);
-
-    svg {
-      fill: var(--theme-text-link-highlight);
-    }
-  }
-`;
-
 export const CategoryIconWrapper = styled(IconWrapper)`
   svg {
     fill: var(--theme-text-link);

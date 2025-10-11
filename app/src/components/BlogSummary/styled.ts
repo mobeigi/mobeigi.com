@@ -34,17 +34,6 @@ export const Detail = styled.span`
   color: var(--theme-text-subtle);
 `;
 
-export const StyledLink = styled(Link)`
-  color: var(--theme-text-subtle);
-  &:hover {
-    color: var(--theme-text-subtle-highlight);
-
-    svg {
-      fill: var(--theme-text-subtle-highlight);
-    }
-  }
-`;
-
 export const DetailIconWrapper = styled(IconWrapper)`
   svg {
     fill: var(--theme-text-subtle);
