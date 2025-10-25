@@ -1,8 +1,8 @@
 import ProjectBox from '@/components/ProjectBox';
 import { ProjectsContainer } from './styled';
-import { projects } from '@/constants/projects';
+import { ProjectsPageProps } from './types';
 
-export const ProjectsPage = () => (
+export const ProjectsPage = ({ projects }: ProjectsPageProps) => (
   <section>
     <h1>Projects</h1>
     <p>
@@ -13,22 +13,19 @@ export const ProjectsPage = () => (
       .
     </p>
     <ProjectsContainer>
-      {projects
-        .slice()
-        .sort((a, b) => a.title.localeCompare(b.title))
-        .map((project) => (
-          <ProjectBox
-            key={project.title}
-            imgSrc={project.imgSrc}
-            imgAlt={project.imgAlt}
-            title={project.title}
-            description={project.description}
-            url={project.url}
-            urlActive={project.urlActive}
-            blogUrl={project.blogUrl}
-            githubUrl={project.githubUrl}
-          />
-        ))}
+      {projects.slice().map((project) => (
+        <ProjectBox
+          key={project.title}
+          imgSrc={project.image.url}
+          imgAlt={project.image.alt}
+          title={project.title}
+          description={project.description}
+          url={project.url}
+          urlActive={project.urlActive}
+          blogPostUrl={project.blogPostUrl}
+          githubUrl={project.githubUrl}
+        />
+      ))}
     </ProjectsContainer>
   </section>
 );

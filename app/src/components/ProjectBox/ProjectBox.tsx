@@ -28,7 +28,7 @@ export const ProjectBox = ({
   description,
   url,
   urlActive = true,
-  blogUrl,
+  blogPostUrl,
   githubUrl,
 }: ProjectBoxProps) => (
   <ProjectBoxContainer>
@@ -40,9 +40,9 @@ export const ProjectBox = ({
         <Header>
           <Title>{title}</Title>
           <Icons>
-            {blogUrl && (
+            {blogPostUrl && (
               <IconWrapperBubbleNextLink
-                href={blogUrl}
+                href={blogPostUrl}
                 data-tooltip-id="global-tooltip"
                 data-tooltip-content="Related blog post"
               >

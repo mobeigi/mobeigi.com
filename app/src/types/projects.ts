@@ -1,10 +1,12 @@
-export interface ProjectBoxProps {
-  imgSrc: string;
-  imgAlt: string;
+export type Project = {
   title: string;
   description: string;
+  image: {
+    url: string;
+    alt: string;
+  };
   url?: string;
   urlActive?: boolean;
   blogPostUrl?: string;
   githubUrl?: string;
-}
+};
