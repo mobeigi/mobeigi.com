@@ -18,6 +18,7 @@ import { PrivateFiles } from '@payload/collections/PrivateFiles';
 import { Posts } from '@payload/collections/Posts';
 import { Category } from '@payload/collections/Category';
 import { Comments } from '@payload/collections/Comments';
+import { Projects } from '@payload/collections/Projects';
 import { Resume } from '@payload/globals/Resume';
 
 import { revalidateRedirects } from '@payload/hooks/revalidateRedirects';
@@ -33,7 +34,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Files, PrivateFiles, Posts, Category, Comments],
+  collections: [Users, Media, Files, PrivateFiles, Posts, Category, Comments, Projects],
   db: postgresAdapter({
     migrationDir: './src/payload/migrations',
     pool: {

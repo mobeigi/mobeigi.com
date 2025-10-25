@@ -29,6 +29,9 @@ export const customUrlResolvers: Record<
   redirects: () => {
     throw new Error('Function not implemented.');
   },
+  projects: () => {
+    throw new Error('Function not implemented.');
+  },
   'payload-preferences': () => {
     throw new Error('Function not implemented.');
   },
