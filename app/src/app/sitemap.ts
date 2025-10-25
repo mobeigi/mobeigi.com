@@ -72,13 +72,24 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     .filter((obj) => obj !== null)
     .flat();
 
+  const mostRecentlyUpdatedPayloadProject = await payload.find({
+    collection: 'projects',
+    depth: 0,
+    limit: 1,
+    sort: '-updatedAt',
+  });
+  const mostRecentlyUpdatedPayloadProjectDate =
+    mostRecentlyUpdatedPayloadProject.docs.length > 0
+      ? new Date(mostRecentlyUpdatedPayloadProject.docs[0].updatedAt)
+      : new Date('2025-10-25T02:50:55+0000');
+
   return [
     /**
      * Static pages (main)
      */
     {
       url: BASE_URL,
-      lastModified: new Date('2025-05-09T06:42:00+0000'),
+      lastModified: new Date('2025-10-25T02:50:55+0000'),
       changeFrequency: 'daily',
       priority: 1.0,
     },
@@ -90,7 +101,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     },
     {
       url: joinUrl([BASE_URL, 'projects']),
-      lastModified: new Date('2024-09-26T04:30:00+0000'),
+      lastModified: mostRecentlyUpdatedPayloadProjectDate,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
