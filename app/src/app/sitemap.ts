@@ -95,7 +95,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     },
     {
       url: joinUrl([BASE_URL, 'blog']),
-      lastModified: new Date('2024-09-26T04:30:00+0000'),
+      lastModified: new Date('2025-11-08T04:42:47+0000'),
       changeFrequency: 'daily',
       priority: 0.8,
     },

@@ -427,6 +427,27 @@ const GlobalStyle = createGlobalStyle`
     font-family: inherit;
     resize: none;
   }
+
+  // Select
+  select {
+    font-size: 1em;
+    padding: 0.3em 0.7em;
+    color: var(--theme-text-base);
+    background-color: var(--theme-container-background);
+    border: 0.1em solid var(--theme-container-accent);
+    border-radius: 0.2em;
+    transition: border-color 0.3s ease;
+  }
+
+  select:focus,
+  select:focus-visible {
+    outline: none;
+    border-color: var(--theme-text-subtle);
+  }
+
+  select:disabled {
+    color: var(--theme-text-subtle);
+  }
 `;
 
 export default GlobalStyle;

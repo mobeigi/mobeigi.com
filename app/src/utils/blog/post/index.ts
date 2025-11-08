@@ -1,1 +1,1 @@
-export { sortBlogPostMetaByPublishedAtDate } from './sort';
+export { sortBlogPostMetaByPublishedAtDate, sortBlogPostMetaByViews } from './sort';
