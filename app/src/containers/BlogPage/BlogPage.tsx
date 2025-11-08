@@ -2,6 +2,7 @@ import { BlogPageProps } from './types';
 import { BlogPageSection, BlogSummaryWrapper } from './styled';
 import BlogSummary from '@/components/BlogSummary';
 import Link from 'next/link';
+import BlogSortDropdown from './BlogSortDropdown';
 
 export const BlogPage = ({ blogPostMetas }: BlogPageProps) => {
   return (
@@ -18,6 +19,7 @@ export const BlogPage = ({ blogPostMetas }: BlogPageProps) => {
       ) : (
         <p>There are no posts found to display.</p>
       )}
+      <BlogSortDropdown />
       <BlogSummaryWrapper>
         {blogPostMetas.length > 0 &&
           blogPostMetas.map((meta) => (

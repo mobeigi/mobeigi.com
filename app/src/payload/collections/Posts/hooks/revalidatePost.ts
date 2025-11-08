@@ -28,6 +28,7 @@ export const revalidatePost = async (req: PayloadRequest, doc: Post) => {
 
     req.payload.logger.info(`Revalidating: /blog/`);
     revalidatePath('/blog/');
+    revalidatePath('/blog/top/');
 
     const docCategory = await getDocByIdOrObject(req, 'category', doc.category);
     if (!docCategory) {

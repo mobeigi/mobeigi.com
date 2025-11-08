@@ -27,6 +27,7 @@ export const revalidateCategory = async (req: PayloadRequest, doc: Category) => 
 
   req.payload.logger.info(`Revalidating: /blog/`);
   revalidatePath('/blog/');
+  revalidatePath('/blog/top/');
 
   req.payload.logger.info(`Revalidating: /blog/category/`);
   revalidatePath('/blog/category/');
