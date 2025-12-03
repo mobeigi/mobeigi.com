@@ -37,6 +37,7 @@ export const GitContributionGraph = ({ data }: GitContributionGraphProps) => {
   const { isMobileWidth } = useBreakpoint();
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsLoaded(true);
   }, []);
 

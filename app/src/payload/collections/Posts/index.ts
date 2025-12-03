@@ -19,6 +19,7 @@ import { MediaBlock } from '@payload/blocks/MediaBlock/config';
 import { File } from '@/payload/blocks/File/config';
 import { Embed } from '@payload/blocks/Embed/config';
 import { noone } from '@/payload/access/noone';
+import { toFieldAccess } from '@/payload/utils/access';
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -172,7 +173,7 @@ export const Posts: CollectionConfig = {
       },
       access: {
         // Avoid exposing this field on read to prevent potential performance issues due to its large size.
-        read: noone,
+        read: toFieldAccess(noone),
       },
       fields: [
         {

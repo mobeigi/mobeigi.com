@@ -13,6 +13,7 @@ export const ThemedPicture = ({ dark, light }: ThemedPictureProps) => {
   const resolvedThemeMode = resolvedThemeToThemeMode(resolvedTheme);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHydrated(true);
   }, []);
 
