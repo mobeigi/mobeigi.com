@@ -69,6 +69,7 @@ export const DarkModeSwitchContainer = () => {
   const darkModeSwitchRef = useRef<DarkModeSwitchHandle>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -82,8 +83,10 @@ export const DarkModeSwitchContainer = () => {
     }
   };
 
-  const tooltipElement = getTooltip(themeMode);
-  const tooltipHtml = useMemo(() => renderToStaticMarkup(tooltipElement), [tooltipElement]);
+  const tooltipHtml = useMemo(() => {
+    const tooltipElement = getTooltip(themeMode);
+    return renderToStaticMarkup(tooltipElement);
+  }, [themeMode]);
 
   return (
     <IconWrapperBubble onClick={triggerClick} data-tooltip-id="global-tooltip" data-tooltip-html={tooltipHtml}>

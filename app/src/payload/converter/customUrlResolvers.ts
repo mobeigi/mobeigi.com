@@ -41,4 +41,7 @@ export const customUrlResolvers: Record<
   'payload-locked-documents': () => {
     throw new Error('Function not implemented.');
   },
+  'payload-kv': () => {
+    throw new Error('Function not implemented.');
+  },
 };

@@ -10,6 +10,7 @@ import {
   revalidateCommentParentPostAfterChange,
   revalidateCommentParentPostAfterDelete,
 } from './hooks/revalidateComment';
+import { toFieldAccess } from '@/payload/utils/access';
 
 export const Comments: CollectionConfig = {
   slug: 'comments',
@@ -38,7 +39,7 @@ export const Comments: CollectionConfig = {
       type: 'email',
       required: true,
       access: {
-        read: authenticated,
+        read: toFieldAccess(authenticated),
       },
       admin: {
         description: 'The email is for internal use only and will not be displayed publicly.',
@@ -79,7 +80,7 @@ export const Comments: CollectionConfig = {
       type: 'text',
       required: true,
       access: {
-        read: authenticated,
+        read: toFieldAccess(authenticated),
       },
       admin: {
         position: 'sidebar',
@@ -91,7 +92,7 @@ export const Comments: CollectionConfig = {
       type: 'text',
       required: true,
       access: {
-        read: authenticated,
+        read: toFieldAccess(authenticated),
       },
       admin: {
         position: 'sidebar',
@@ -105,7 +106,7 @@ export const Comments: CollectionConfig = {
       defaultValue: true,
       required: true,
       access: {
-        read: authenticated,
+        read: toFieldAccess(authenticated),
       },
       admin: {
         position: 'sidebar',

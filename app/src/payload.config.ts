@@ -108,7 +108,7 @@ export default buildConfig({
           await pruneViewsCache();
           payload.logger.info('Views cache pruning completed successfully.');
         } catch (error) {
-          payload.logger.error('Error during views cache pruning:', error);
+          payload.logger.error({ error, msg: 'Error during views cache pruning' });
         }
       })();
     });

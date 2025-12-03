@@ -1,0 +1,1 @@
+export { toFieldAccess } from './toFieldAccess';

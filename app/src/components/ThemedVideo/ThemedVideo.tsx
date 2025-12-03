@@ -14,6 +14,7 @@ export const ThemedVideo = ({ dark, light }: ThemedVideoProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHydrated(true);
   }, []);
 
