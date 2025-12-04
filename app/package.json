@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@cedx/akismet": "^17.1.0",
-    "@next/third-parties": "15.4.7",
+    "@next/third-parties": "15.4.8",
     "@octokit/graphql": "^9.0.3",
     "@octokit/rest": "^22.0.1",
     "@payloadcms/db-postgres": "3.65.0",
@@ -68,7 +68,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
     "@eslint/js": "^9.39.1",
-    "@next/eslint-plugin-next": "^15.4.7",
+    "@next/eslint-plugin-next": "15.4.8",
     "@svgr/webpack": "^8.1.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",

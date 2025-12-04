@@ -4115,12 +4115,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/eslint-plugin-next@npm:^15.4.7":
-  version: 15.5.2
-  resolution: "@next/eslint-plugin-next@npm:15.5.2"
+"@next/eslint-plugin-next@npm:15.4.8":
+  version: 15.4.8
+  resolution: "@next/eslint-plugin-next@npm:15.4.8"
   dependencies:
     fast-glob: "npm:3.3.1"
-  checksum: 10c0/5bafb42b15c23f8a1c5460e4eda4cb45b7c07832f80ce734cad138781606cd9c954ee37b93fd2a973b064ea39469dfc1409301cb2c90995ce5226a3b2b07a891
+  checksum: 10c0/37ed005e71f464d8f63d7c8a514440c36621e58031d91d42b19b82b42af6d2c4a699e4ecdbfd81aabcd2d75d3bcc8b518240d3e28b0774673268774bb7185f7e
   languageName: node
   linkType: hard
 
@@ -4180,15 +4180,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/third-parties@npm:15.4.7":
-  version: 15.4.7
-  resolution: "@next/third-parties@npm:15.4.7"
+"@next/third-parties@npm:15.4.8":
+  version: 15.4.8
+  resolution: "@next/third-parties@npm:15.4.8"
   dependencies:
     third-party-capital: "npm:1.0.20"
   peerDependencies:
     next: ^13.0.0 || ^14.0.0 || ^15.0.0
     react: ^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0
-  checksum: 10c0/30261c22d91274f5107800701b917d996792c7fee1a356f40e819451f1511bafd990215232aa21feb84193f294bb8d31e53d361fc7eecde25d12630646f490ec
+  checksum: 10c0/99597d6b2ae48f23592209f626748c19eee57aa1d8781d86ce5d55a7f018d6857fc922a7f657fc7466f62f204a8a102432e70f840f61c4253d2524274c19a453
   languageName: node
   linkType: hard
 
@@ -11455,8 +11455,8 @@ __metadata:
     "@cedx/akismet": "npm:^17.1.0"
     "@eslint/eslintrc": "npm:^3.3.3"
     "@eslint/js": "npm:^9.39.1"
-    "@next/eslint-plugin-next": "npm:^15.4.7"
-    "@next/third-parties": "npm:15.4.7"
+    "@next/eslint-plugin-next": "npm:15.4.8"
+    "@next/third-parties": "npm:15.4.8"
     "@octokit/graphql": "npm:^9.0.3"
     "@octokit/rest": "npm:^22.0.1"
     "@payloadcms/db-postgres": "npm:3.65.0"
