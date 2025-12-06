@@ -31,7 +31,7 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: {
-    mimeTypes: ['image/*', 'video/*'],
+    mimeTypes: ['image/*', 'video/*', 'audio/*'],
     // Use webp as preferred format for all media
     formatOptions: {
       format: 'webp',

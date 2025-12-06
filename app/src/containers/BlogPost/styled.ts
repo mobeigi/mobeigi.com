@@ -36,6 +36,12 @@ export const BlogPostArticle = styled.article`
     border-radius: 0.2em;
   }
 
+  & audio {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+  }
+
   /* Tables */
   & .table-wrapper {
     width: 100%;
