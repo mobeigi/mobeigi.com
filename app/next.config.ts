@@ -4,7 +4,10 @@ import svgrConfig from './svgr.config.mjs';
 import { execSync } from 'child_process';
 import type { Configuration, RuleSetRule } from 'webpack';
 
-const commitHash = execSync('git log --pretty=format:"%h" -n1').toString().trim();
+const commitHash = execSync('git rev-parse --short HEAD', {
+  encoding: 'utf8',
+  windowsHide: true,
+}).trim();
 
 const nextConfig: NextConfig = {
   compiler: {
