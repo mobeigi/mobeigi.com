@@ -6,12 +6,15 @@ import { getDomain } from 'tldts';
 import RedditColoredSvg from '@/assets/icons/platforms/reddit-colored.svg';
 import GithubColoredSvg from '@/assets/icons/platforms/github-colored.svg';
 import YcombinatorColoredSvg from '@/assets/icons/platforms/ycombinator-colored.svg';
+import DiscordColoredSvg from '@/assets/icons/platforms/discord-colored.svg';
 import ExternalLinkSvg from '@/assets/icons/boxicons/bx-link-external.svg';
 
 const platformMap = new Map([
   ['reddit.com', { name: 'Reddit', icon: RedditColoredSvg }],
   ['github.com', { name: 'GitHub', icon: GithubColoredSvg }],
   ['ycombinator.com', { name: 'Hacker News', icon: YcombinatorColoredSvg }],
+  ['discord.com', { name: 'Discord', icon: DiscordColoredSvg }],
+  ['discord.gg', { name: 'Discord', icon: DiscordColoredSvg }],
 ]);
 
 export const enrichExternalDiscussions = (items: ExternalDiscussion[]): EnrichedExternalDiscussion[] => {

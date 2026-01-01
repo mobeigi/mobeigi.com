@@ -75,6 +75,8 @@ const GlobalStyle = createGlobalStyle`
     --theme-engagement-platform-github-background: #f6f8fa;
     --theme-engagement-platform-ycombinator-foreground: #fff;
     --theme-engagement-platform-ycombinator-background: #f60;
+    --theme-engagement-platform-discord-foreground: #fff;
+    --theme-engagement-platform-discord-background: #5865f2;
   }
 
   /* Dark Theme */
@@ -132,6 +134,8 @@ const GlobalStyle = createGlobalStyle`
     --theme-engagement-platform-github-background: #15191f;
     --theme-engagement-platform-ycombinator-foreground: #fff;
     --theme-engagement-platform-ycombinator-background: #f60;
+    --theme-engagement-platform-discord-foreground: #fff;
+    --theme-engagement-platform-discord-background: #5865f2;
   }
 
   /* Base font size */
