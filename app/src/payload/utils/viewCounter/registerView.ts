@@ -41,7 +41,6 @@ export const registerView = async ({ postId, ipAddress, userAgent }: RegisterVie
     where: {
       id: { equals: postId },
     },
-    depth: 1,
   });
 
   if (payloadPosts.totalDocs !== 1) {
