@@ -5,7 +5,7 @@ import type { CollectionConfig } from 'payload';
 import { validateDisplayName, validateEmail, validateContent } from './validators';
 import { emailAfterNewCommentHook } from './hooks/emailAfterNewCommentHook';
 import { validationHook } from './hooks/validationHook';
-import { SerializedEditorState } from 'lexical';
+import { SerializedEditorState, SerializedLexicalNode } from 'lexical';
 import {
   revalidateCommentParentPostAfterChange,
   revalidateCommentParentPostAfterDelete,
@@ -55,7 +55,7 @@ export const Comments: CollectionConfig = {
         },
       }),
       required: true,
-      validate: (value: SerializedEditorState | null | undefined) => validateContent(value),
+      validate: (value) => validateContent(value as SerializedEditorState<SerializedLexicalNode> | null | undefined),
     },
     {
       name: 'post',
