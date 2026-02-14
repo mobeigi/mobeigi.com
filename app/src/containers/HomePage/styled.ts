@@ -14,9 +14,6 @@ export const HomePageSection = styled.section`
 export const CustomIconWrapper = styled(IconWrapper)`
   svg {
     fill: var(--theme-text-subtle);
-    path: {
-      stroke: var(--theme-text-subtle);
-    }
   }
 `;
 
