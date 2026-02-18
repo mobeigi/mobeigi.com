@@ -11832,7 +11832,7 @@ __metadata:
     react-wrap-balancer: "npm:^1.1.1"
     schema-dts: "npm:^1.1.5"
     sharp: "npm:0.34.5"
-    styled-components: "npm:^6.3.9"
+    styled-components: "npm:^6.3.10-prerelease.0"
     tldts: "npm:^7.0.23"
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5.9.3"
@@ -14212,9 +14212,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"styled-components@npm:^6.3.9":
-  version: 6.3.9
-  resolution: "styled-components@npm:6.3.9"
+"styled-components@npm:^6.3.10-prerelease.0":
+  version: 6.3.10-prerelease.0
+  resolution: "styled-components@npm:6.3.10-prerelease.0"
   dependencies:
     "@emotion/is-prop-valid": "npm:1.4.0"
     "@emotion/unitless": "npm:0.10.0"
@@ -14231,7 +14231,7 @@ __metadata:
   peerDependenciesMeta:
     react-dom:
       optional: true
-  checksum: 10c0/3c9c71255442e95fdb1feeba40fab615cd810836262b3637ef71aa9c5193d3b5d98d172d20a133a9d58c95512e29a4a6c5543e554835319a539212c28e380656
+  checksum: 10c0/7695ed4ca05c1d07f221b24f594348b53edd147cdefaafe90fbb582b65ec714609d9c009ae69f8f1d25b21bdbe233197ceba728464c9c5fd0bcd77e4a651f670
   languageName: node
   linkType: hard
 

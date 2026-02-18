@@ -1,5 +1,3 @@
-'use client';
-
 import { IconWrapper } from '@/styles/icon';
 import Link from 'next/link';
 import styled from 'styled-components';
