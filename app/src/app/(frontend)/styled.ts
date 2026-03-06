@@ -1,5 +1,3 @@
-'use client';
-
 import styled from 'styled-components';
 import zIndex from '@/styles/zindex';
 
