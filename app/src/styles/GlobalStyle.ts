@@ -1,5 +1,3 @@
-'use client';
-
 import { createGlobalStyle } from 'styled-components';
 import HighlightJsStyles from './highlightjs';
 import { breakpoints } from '@/styles/breakpoints';

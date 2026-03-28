@@ -6,7 +6,6 @@ import { APPLICATION_NAME, BASE_URL, SITE_TITLE } from '@/constants/app';
 import HeaderContent from '@/components/HeaderContent';
 import FooterContent from '@/components/FooterContent';
 import GlobalStyle from '@/styles/GlobalStyle';
-import StyledComponentsRegistry from '@/lib/StyledComponentsRegistry';
 import { Header, Main, MainContents, Footer } from './styled';
 import ThemedToastContainer from '@/components/ThemedToastContainer';
 import { GoogleAnalytics } from '@next/third-parties/google';
@@ -73,24 +72,22 @@ const RootLayout = ({
     // suppressHydrationWarning needed for next-themes
     <html lang="en" suppressHydrationWarning>
       <body className={roboto.className}>
-        <StyledComponentsRegistry>
-          <ThemeProvider enableSystem={true} defaultTheme="system">
-            <GlobalStyle />
-            <GlobalTooltip id="global-tooltip" />
-            <ThemedToastContainer />
-            <HolyLoader color={holyLoaderColor} height="0.2rem" />
-            <ConsoleWelcomeMessage />
-            <Header id="header">
-              <HeaderContent />
-            </Header>
-            <Main id="main">
-              <MainContents>{children}</MainContents>
-            </Main>
-            <Footer id="footer">
-              <FooterContent />
-            </Footer>
-          </ThemeProvider>
-        </StyledComponentsRegistry>
+        <ThemeProvider enableSystem={true} defaultTheme="system">
+          <GlobalStyle />
+          <GlobalTooltip id="global-tooltip" />
+          <ThemedToastContainer />
+          <HolyLoader color={holyLoaderColor} height="0.2rem" />
+          <ConsoleWelcomeMessage />
+          <Header id="header">
+            <HeaderContent />
+          </Header>
+          <Main id="main">
+            <MainContents>{children}</MainContents>
+          </Main>
+          <Footer id="footer">
+            <FooterContent />
+          </Footer>
+        </ThemeProvider>
         <GoogleAnalytics gaId={GA_TAG_ID} />
       </body>
     </html>

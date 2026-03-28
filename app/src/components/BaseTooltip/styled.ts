@@ -1,5 +1,3 @@
-'use client';
-
 import { styled } from 'styled-components';
 import { Tooltip } from 'react-tooltip';
 import zIndex from '@/styles/zindex';
