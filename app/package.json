@@ -32,7 +32,7 @@
     "@octokit/rest": "^22.0.1",
     "@payloadcms/db-postgres": "3.76.1",
     "@payloadcms/email-nodemailer": "3.76.1",
-    "@payloadcms/next": "3.76.1",
+    "@payloadcms/next": "3.78.0",
     "@payloadcms/plugin-nested-docs": "3.76.1",
     "@payloadcms/plugin-redirects": "3.76.1",
     "@payloadcms/plugin-seo": "3.76.1",
