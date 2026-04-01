@@ -4792,6 +4792,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@payloadcms/translations@npm:3.79.1":
+  version: 3.79.1
+  resolution: "@payloadcms/translations@npm:3.79.1"
+  dependencies:
+    date-fns: "npm:4.1.0"
+  checksum: 10c0/62ceb9fc44f8a83d1231275afae3d2834c86779045d496d212fe6875115a7bc88678c09aecf6380a0154503412b68fcfdd68b4e4e576b78441b1ed72168b2fc1
+  languageName: node
+  linkType: hard
+
 "@payloadcms/ui@npm:3.76.1":
   version: 3.76.1
   resolution: "@payloadcms/ui@npm:3.76.1"
@@ -11814,7 +11823,7 @@ __metadata:
     next: "npm:15.4.11"
     next-themes: "npm:^0.4.6"
     node-cron: "npm:^4.2.1"
-    payload: "npm:3.76.1"
+    payload: "npm:3.79.1"
     prettier: "npm:^3.8.1"
     react: "npm:19.2.4"
     react-dom: "npm:19.2.4"
@@ -12400,6 +12409,49 @@ __metadata:
   bin:
     payload: bin.js
   checksum: 10c0/2e50c49d791ecc106cad3304a4c3de1375c507ca1ce94013fc94cfdadc0bf5ec041d594409c0db77425d9f49268de1c55f8ed04548ea4fd9df235a5a4321dd10
+  languageName: node
+  linkType: hard
+
+"payload@npm:3.79.1":
+  version: 3.79.1
+  resolution: "payload@npm:3.79.1"
+  dependencies:
+    "@next/env": "npm:^15.1.5"
+    "@payloadcms/translations": "npm:3.79.1"
+    "@types/busboy": "npm:1.5.4"
+    ajv: "npm:8.17.1"
+    bson-objectid: "npm:2.0.4"
+    busboy: "npm:^1.6.0"
+    ci-info: "npm:^4.1.0"
+    console-table-printer: "npm:2.12.1"
+    croner: "npm:9.1.0"
+    dataloader: "npm:2.2.3"
+    deepmerge: "npm:4.3.1"
+    file-type: "npm:19.3.0"
+    get-tsconfig: "npm:4.8.1"
+    http-status: "npm:2.1.0"
+    image-size: "npm:2.0.2"
+    ipaddr.js: "npm:2.2.0"
+    jose: "npm:5.9.6"
+    json-schema-to-typescript: "npm:15.0.3"
+    minimist: "npm:1.2.8"
+    path-to-regexp: "npm:6.3.0"
+    pino: "npm:9.14.0"
+    pino-pretty: "npm:13.1.2"
+    pluralize: "npm:8.0.0"
+    qs-esm: "npm:7.0.2"
+    range-parser: "npm:1.2.1"
+    sanitize-filename: "npm:1.6.3"
+    ts-essentials: "npm:10.0.3"
+    tsx: "npm:4.21.0"
+    undici: "npm:7.18.2"
+    uuid: "npm:10.0.0"
+    ws: "npm:^8.16.0"
+  peerDependencies:
+    graphql: ^16.8.1
+  bin:
+    payload: bin.js
+  checksum: 10c0/dd76f9babb401f8b8c2bec30f818a5d719c61ca0b65656d1ff4867467630922275c0ef7989da7431f73f0e3ba4f6e3ab5be64c681411236195fc36654dbaef19
   languageName: node
   linkType: hard
 
