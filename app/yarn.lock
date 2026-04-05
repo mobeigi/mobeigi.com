@@ -4900,12 +4900,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-email/body@npm:0.2.1":
-  version: 0.2.1
-  resolution: "@react-email/body@npm:0.2.1"
+"@react-email/body@npm:0.3.0":
+  version: 0.3.0
+  resolution: "@react-email/body@npm:0.3.0"
   peerDependencies:
     react: ^18.0 || ^19.0 || ^19.0.0-rc
-  checksum: 10c0/2c5e49ed72a275babe6a490d89b2da2f449d734ca5bda555b28b7f3b430670a266a503e9c080b42bc4f6e83986132627e1b0dce0f1ef348ece39ff9f3c50d626
+  checksum: 10c0/81796d310f1c404eab035964cead670902d4de047b088218589a8ad6be1953d6494bbd5d586ec09c871484779bd944fa3637afa232ec1e7850c995e94b642c81
   languageName: node
   linkType: hard
 
@@ -4947,11 +4947,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-email/components@npm:^1.0.7":
-  version: 1.0.7
-  resolution: "@react-email/components@npm:1.0.7"
+"@react-email/components@npm:^1.0.11":
+  version: 1.0.11
+  resolution: "@react-email/components@npm:1.0.11"
   dependencies:
-    "@react-email/body": "npm:0.2.1"
+    "@react-email/body": "npm:0.3.0"
     "@react-email/button": "npm:0.2.1"
     "@react-email/code-block": "npm:0.2.1"
     "@react-email/code-inline": "npm:0.0.6"
@@ -4966,14 +4966,14 @@ __metadata:
     "@react-email/link": "npm:0.0.13"
     "@react-email/markdown": "npm:0.0.18"
     "@react-email/preview": "npm:0.0.14"
-    "@react-email/render": "npm:2.0.4"
+    "@react-email/render": "npm:2.0.5"
     "@react-email/row": "npm:0.0.13"
     "@react-email/section": "npm:0.0.17"
-    "@react-email/tailwind": "npm:2.0.4"
+    "@react-email/tailwind": "npm:2.0.7"
     "@react-email/text": "npm:0.1.6"
   peerDependencies:
     react: ^18.0 || ^19.0 || ^19.0.0-rc
-  checksum: 10c0/870202c80bc18950f78fe687ea3b7f15a514aee350eae8611c8e2a458794c20635036d501b43f9e97224e2134e465de78360351262e77b2461d15bef4ee3980d
+  checksum: 10c0/eb9aef600346dd15e852bd31d25a4af8e5c12a18850d741fe2c5fe969b87e26eb4383d2be3291218fc0ca32618e4cfbb5a775ce80fd7d0734257610c631b5a1d
   languageName: node
   linkType: hard
 
@@ -5069,16 +5069,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-email/render@npm:2.0.4, @react-email/render@npm:^2.0.4":
-  version: 2.0.4
-  resolution: "@react-email/render@npm:2.0.4"
+"@react-email/render@npm:2.0.5, @react-email/render@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "@react-email/render@npm:2.0.5"
   dependencies:
     html-to-text: "npm:^9.0.5"
     prettier: "npm:^3.5.3"
   peerDependencies:
     react: ^18.0 || ^19.0 || ^19.0.0-rc
     react-dom: ^18.0 || ^19.0 || ^19.0.0-rc
-  checksum: 10c0/47bb26bc31c7ccaf7995ce39742e22a72e32af7c7d03d2e39f3b6c8b19079c575646c34aa099ce73f7d755062b87d60320b54bbc89135f80a0bf54d069b77c9c
+  checksum: 10c0/6c7e6b4f4dc28e2c061400de8cc761c0cf418238baa3345a3bef7679ab3392d1e81ec3b45d7f02f0c7b3c3c85ee13ea8db15b651efec2fe510ee5d7cafdfda23
   languageName: node
   linkType: hard
 
@@ -5100,23 +5100,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-email/tailwind@npm:2.0.4":
-  version: 2.0.4
-  resolution: "@react-email/tailwind@npm:2.0.4"
+"@react-email/tailwind@npm:2.0.7":
+  version: 2.0.7
+  resolution: "@react-email/tailwind@npm:2.0.7"
   dependencies:
     tailwindcss: "npm:^4.1.18"
   peerDependencies:
-    "@react-email/body": 0.2.1
-    "@react-email/button": 0.2.1
-    "@react-email/code-block": 0.2.1
-    "@react-email/code-inline": 0.0.6
-    "@react-email/container": 0.0.16
-    "@react-email/heading": 0.0.16
-    "@react-email/hr": 0.0.12
-    "@react-email/img": 0.0.12
-    "@react-email/link": 0.0.13
-    "@react-email/preview": 0.0.14
-    "@react-email/text": 0.1.6
+    "@react-email/body": ">=0"
+    "@react-email/button": ">=0"
+    "@react-email/code-block": ">=0"
+    "@react-email/code-inline": ">=0"
+    "@react-email/container": ">=0"
+    "@react-email/heading": ">=0"
+    "@react-email/hr": ">=0"
+    "@react-email/img": ">=0"
+    "@react-email/link": ">=0"
+    "@react-email/preview": ">=0"
+    "@react-email/text": ">=0"
     react: ^18.0 || ^19.0 || ^19.0.0-rc
   peerDependenciesMeta:
     "@react-email/body":
@@ -5139,7 +5139,7 @@ __metadata:
       optional: true
     "@react-email/preview":
       optional: true
-  checksum: 10c0/1420baa01380c62c7abb609a3f011f2af326b440c9941527a91ca56b14c8a902e1ed823124b04a3001fd726d363092405758a4f251d3b330097896d20a6a1f92
+  checksum: 10c0/6cd9277829d7a207ecf97abd8bca14235f70e2a83ca3022b8189e6a2ada00968acc1092d26f3f2d02a39021a84931368e26d66f414a40885519415e1da30caa7
   languageName: node
   linkType: hard
 
@@ -11899,8 +11899,8 @@ __metadata:
     "@payloadcms/plugin-redirects": "npm:3.81.0"
     "@payloadcms/plugin-seo": "npm:3.81.0"
     "@payloadcms/richtext-lexical": "npm:3.81.0"
-    "@react-email/components": "npm:^1.0.7"
-    "@react-email/render": "npm:^2.0.4"
+    "@react-email/components": "npm:^1.0.11"
+    "@react-email/render": "npm:^2.0.5"
     "@svgr/webpack": "npm:^8.1.0"
     "@testing-library/dom": "npm:^10.4.1"
     "@testing-library/jest-dom": "npm:^6.9.1"
