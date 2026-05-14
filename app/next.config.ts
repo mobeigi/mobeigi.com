@@ -2,7 +2,6 @@ import type { NextConfig } from 'next';
 import { withPayload } from '@payloadcms/next/withPayload';
 import svgrConfig from './svgr.config.mjs';
 import { execSync } from 'child_process';
-import type { Configuration, RuleSetRule } from 'webpack';
 
 const commitHash = execSync('git rev-parse --short HEAD', {
   encoding: 'utf8',
@@ -71,52 +70,25 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   turbopack: {
     rules: {
-      '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.js',
-      },
-    },
-  },
-  webpack(config: Configuration) {
-    // TODO: Find a better way to type the SVGR next config below.
-    // https://react-svgr.com/docs/next/
-
-    // Grab the existing rule that handles SVG imports
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    const fileLoaderRule = config.module?.rules?.find((rule: any) => rule.test?.test?.('.svg')) as RuleSetRule;
-
-    config.module?.rules?.push(
-      // Reapply the existing rule, but only for svg imports ending in ?url
-      {
-        ...fileLoaderRule,
-        test: /\.svg$/i,
-        resourceQuery: /url/, // *.svg?url
-      },
-      // Convert all other *.svg imports to React components
-      {
-        test: /\.svg$/i,
-        issuer: fileLoaderRule.issuer,
-        resourceQuery: {
-          not: [
-            // @ts-expect-error not cannot type resourceQuery properly
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            ...(fileLoaderRule.resourceQuery?.not || []),
-            /url/,
+      '*.svg': [
+        // Import SVGs with `?url` as file assets, returning a URL string.
+        {
+          condition: { query: /url/ },
+          type: 'asset',
+        },
+        // Import all other SVGs as React components via SVGR.
+        {
+          condition: { not: { query: /url/ } },
+          loaders: [
+            {
+              loader: '@svgr/webpack',
+              options: svgrConfig,
+            },
           ],
-        }, // exclude if *.svg?url
-        use: [
-          {
-            loader: '@svgr/webpack',
-            options: svgrConfig,
-          },
-        ],
-      },
-    );
-
-    // Modify the file loader rule to ignore *.svg, since we have it handled now.
-    fileLoaderRule.exclude = /\.svg$/i;
-
-    return config;
+          as: '*.js',
+        },
+      ],
+    },
   },
 };
 
