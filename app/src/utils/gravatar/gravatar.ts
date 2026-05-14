@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import { GetGravatarAvatarUrlProps } from './types';
 import { GRAVATAR_BASE_URL } from './constants';
-import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag } from 'next/cache';
+import { cacheLife, cacheTag } from 'next/cache';
 
 export const getGravatarAvatarUrl = async ({
   email,

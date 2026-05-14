@@ -9,7 +9,7 @@ export const revalidateComment = async (req: PayloadRequest, doc: Comment) => {
 
   // TODO: Avoid hard coding collection name while also avoiding cycling import issue
   req.payload.logger.info(`Revalidating tag: payload:collection:comments:${doc.id}`);
-  revalidateTag(`payload:collection:comments:${doc.id}`);
+  revalidateTag(`payload:collection:comments:${doc.id}`, 'expireImmediately');
 
   const post = await getDocByIdOrObject(req, 'posts', doc.post);
   if (post) {

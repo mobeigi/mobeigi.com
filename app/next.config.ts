@@ -10,6 +10,32 @@ const commitHash = execSync('git rev-parse --short HEAD', {
 }).trim();
 
 const nextConfig: NextConfig = {
+  // cacheComponents: true, // TODO: Explore migrating to this over experimental.useCache
+  cacheLife: {
+    alwaysCheck15m: {
+      stale: 0,
+      revalidate: 900, // 15m
+      expire: 86400, // 1d
+    },
+    alwaysCheckHourly: {
+      stale: 0,
+      revalidate: 3600, // 1h
+      expire: 86400, // 1d
+    },
+    alwaysCheckDaily: {
+      stale: 0,
+      revalidate: 86400, // 1d
+      expire: 172800, // 2d
+    },
+    cacheUntilInvalidated: {
+      stale: 0,
+      revalidate: undefined, // forever
+      expire: undefined, // forever
+    },
+    expireImmediately: {
+      expire: 0,
+    },
+  },
   compiler: {
     styledComponents: true,
   },
@@ -17,30 +43,15 @@ const nextConfig: NextConfig = {
     COMMIT_HASH: commitHash,
     NEXT_TELEMETRY_DISABLED: '1',
   },
-  eslint: {
-    // Process all files & folders
-    dirs: ['.'],
-  },
   experimental: {
     useCache: true,
-    cacheLife: {
-      alwaysCheck15m: {
-        stale: 0,
-        revalidate: 900, // 15m
-        expire: 86400, // 1d
-      },
-      cacheUntilInvalidated: {
-        stale: 0,
-        revalidate: undefined, // forever
-        expire: undefined, // forever
-      },
-    },
     serverActions: {
       bodySizeLimit: '3mb' /* Support larger sized chunked updates in Payload */,
     },
   },
   images: {
     contentDispositionType: 'inline',
+    qualities: [75, 100],
     remotePatterns: [
       {
         protocol: 'https',
@@ -58,6 +69,14 @@ const nextConfig: NextConfig = {
   },
   output: 'standalone',
   trailingSlash: true,
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
+  },
   webpack(config: Configuration) {
     // TODO: Find a better way to type the SVGR next config below.
     // https://react-svgr.com/docs/next/

@@ -1,6 +1,6 @@
 import config from '@payload-config';
 import { getPayload } from 'payload';
-import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag } from 'next/cache';
+import { cacheLife, cacheTag } from 'next/cache';
 
 export const getRedirects = async () => {
   const payload = await getPayload({

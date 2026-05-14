@@ -20,7 +20,7 @@ export const revalidateCategory = async (req: PayloadRequest, doc: Category) => 
 
   // TODO: Avoid hard coding collection name while also avoiding cycling import issue
   req.payload.logger.info(`Revalidating tag: payload:collection:category:${doc.id}`);
-  revalidateTag(`payload:collection:category:${doc.id}`);
+  revalidateTag(`payload:collection:category:${doc.id}`, 'expireImmediately');
 
   req.payload.logger.info(`Revalidating: /`);
   revalidatePath('/');

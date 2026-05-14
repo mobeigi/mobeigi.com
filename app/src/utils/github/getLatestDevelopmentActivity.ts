@@ -1,7 +1,7 @@
 import { GITHUB_USERNAME, GITHUB_PERSONAL_ACCESS_KEY } from '@/constants/github';
 import { ContributionEntry, DevelopmentActivity } from './types';
 import { graphql } from '@octokit/graphql';
-import { unstable_cacheLife as cacheLife } from 'next/cache';
+import { cacheLife } from 'next/cache';
 
 export const getLatestDevelopmentActivity = async (): Promise<DevelopmentActivity | null> => {
   try {

@@ -14,7 +14,7 @@ import { payloadRedirect } from '@/payload/utils/redirects';
 import { generateBreadcrumbs } from './breadcrumbs';
 import { Post as PayloadPost, Category as PayloadCategory } from '@/payload-types';
 import { resolvePostsUrl } from '@/payload/collections/Posts/resolveUrl';
-import { unstable_cacheLife as cacheLife } from 'next/cache';
+import { cacheLife } from 'next/cache';
 
 /**
  * Data fetching

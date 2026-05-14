@@ -13,7 +13,7 @@ import { resolveCategoryUrl } from '@/payload/collections/Category/resolveUrl';
 import { sortCategoryByTitle } from '@/utils/blog/category';
 import { payloadRedirect } from '@/payload/utils/redirects';
 import { generateBreadcrumbs } from './breadcrumbs';
-import { unstable_cacheLife as cacheLife } from 'next/cache';
+import { cacheLife } from 'next/cache';
 
 /**
  * Data fetching
