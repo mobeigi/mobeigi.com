@@ -21,7 +21,7 @@ export const revalidatePost = async (req: PayloadRequest, doc: Post) => {
 
     // TODO: Avoid hard coding collection name while also avoiding cycling import issue
     req.payload.logger.info(`Revalidating tag: payload:collection:posts:${doc.id}`);
-    revalidateTag(`payload:collection:posts:${doc.id}`);
+    revalidateTag(`payload:collection:posts:${doc.id}`, 'expireImmediately');
 
     req.payload.logger.info(`Revalidating: /`);
     revalidatePath('/');
