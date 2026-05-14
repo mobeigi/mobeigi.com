@@ -110,13 +110,15 @@ const SingleComment = ({ comment, postId, onSuccess, commentsEnabled }: SingleCo
                 </IconWrapper>
               )}
             </DisplayNameWrapper>
-            <CreatedAtTime
-              dateTime={comment.createdAt.toISOString()}
-              data-tooltip-id="global-tooltip"
-              data-tooltip-content={createdAtTooltipDate}
-            >
-              <ClientFormattedDate date={comment.createdAt} format="d MMMM yyyy 'at' hh:mm a" useRelativeFormat />
-            </CreatedAtTime>
+            <a href={`#comment-${comment.id}`}>
+              <CreatedAtTime
+                dateTime={comment.createdAt.toISOString()}
+                data-tooltip-id="global-tooltip"
+                data-tooltip-content={createdAtTooltipDate}
+              >
+                <ClientFormattedDate date={comment.createdAt} format="d MMMM yyyy 'at' hh:mm a" useRelativeFormat />
+              </CreatedAtTime>
+            </a>
           </CommentMetaHeader>
           <CommentContents>{commentContentReactNode}</CommentContents>
           <CommentActions>
