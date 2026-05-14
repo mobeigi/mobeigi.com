@@ -22,7 +22,7 @@ import Image from 'next/image';
 import { getRandomAnimalSvgUrl } from '@/utils/avatar';
 import { countTotalCommenters, countTotalComments } from '@/utils/blog/comments';
 import { Comment } from '@/types/blog';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import LeaveComment from './LeaveComment';
 import { serializeLexical } from '@/payload/lexical/serializeLexical';
 import { deserialize as deserializeComment } from '@/utils/blog/comments';
@@ -156,7 +156,7 @@ const SingleComment = ({ comment, postId, onSuccess, commentsEnabled }: SingleCo
 
 export const CommentSection = ({ comments: initialComments, postId, commentsEnabled }: CommentSectionProps) => {
   const [comments, setComments] = useState<Array<Comment>>(initialComments);
-  const [scrollToCommentId, setScrollToCommentId] = useState<string | null>(null);
+  const scrollToCommentIdRef = useRef<string | null>(null);
 
   const commentCount = countTotalComments(comments);
   const commentersCount = countTotalCommenters(comments);
@@ -184,21 +184,22 @@ export const CommentSection = ({ comments: initialComments, postId, commentsEnab
 
   const onCommentAdded = async (comment: PayloadComment) => {
     toast.success('Comment published!');
+    scrollToCommentIdRef.current = `#comment-${comment.id}`;
+
     const isRefreshSuccessful = await refreshComments();
-    if (isRefreshSuccessful) {
-      setScrollToCommentId(`#comment-${comment.id}`);
+    if (!isRefreshSuccessful) {
+      scrollToCommentIdRef.current = null;
     }
   };
 
   /**
-   * When comments are updated, scroll to comment if state is set
+   * After comments refresh, scroll to the pending comment target if one exists.
    */
   useEffect(() => {
-    if (scrollToCommentId) {
-      window.location.hash = scrollToCommentId;
-      setScrollToCommentId(null);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (!scrollToCommentIdRef.current) return;
+
+    window.location.hash = scrollToCommentIdRef.current;
+    scrollToCommentIdRef.current = null;
   }, [comments]);
 
   return (
