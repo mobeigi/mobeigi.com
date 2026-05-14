@@ -21,6 +21,7 @@ const globalIgnores = {
   ignores: [
     '**/node_modules/',
     '.next/',
+    'next-env.d.ts',
     'src/app/(payload)/',
     'coverage/',
     //TODO: Add supporting for parsing this mjs file
