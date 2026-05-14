@@ -92,7 +92,7 @@
     "jest": "^30.4.1",
     "jest-environment-jsdom": "^30.4.1",
     "prettier": "^3.8.3",
-    "schema-dts": "^1.1.5",
+    "schema-dts": "^2.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.59.3"
