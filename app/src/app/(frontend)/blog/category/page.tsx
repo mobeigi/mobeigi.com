@@ -8,7 +8,7 @@ import { sortCategoryByTitle } from '@/utils/blog/category';
 import CategoryPage from '@/containers/CategoryPage';
 import { CategoryWithSubcategories } from '@/containers/CategoryPage/types';
 import { generateBreadcrumbs } from './breadcrumbs';
-import { unstable_cacheLife as cacheLife } from 'next/cache';
+import { cacheLife } from 'next/cache';
 
 /**
  * Data fetching

@@ -7,7 +7,7 @@ import { BlogPostMeta, BlogPostRelatedMeta } from '@/types/blog';
 import { sortBlogPostMetaByPublishedAtDate } from '@/utils/blog/post';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { generateBreadcrumbs } from './breadcrumbs';
-import { unstable_cacheLife as cacheLife } from 'next/cache';
+import { cacheLife } from 'next/cache';
 
 /**
  * Data fetching

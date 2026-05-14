@@ -1,6 +1,6 @@
 import { GetLatestPhotographyImagesProps, PhotographyImage } from './types';
 import { Octokit } from '@octokit/rest';
-import { unstable_cacheLife as cacheLife } from 'next/cache';
+import { cacheLife } from 'next/cache';
 
 export const getLatestPhotographyImages = async ({
   limit = 4,

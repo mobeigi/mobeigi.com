@@ -4,7 +4,7 @@ import { getPayload } from 'payload';
 import config from '@payload-config';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { generateBreadcrumbs } from './breadcrumbs';
-import { unstable_cacheLife as cacheLife } from 'next/cache';
+import { cacheLife } from 'next/cache';
 import { Project } from '@/types/projects';
 import { Media, Post } from '@/payload-types';
 import { resolvePostsUrl } from '@/payload/collections/Posts/resolveUrl';
