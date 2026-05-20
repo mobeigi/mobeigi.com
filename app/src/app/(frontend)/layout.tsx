@@ -71,7 +71,7 @@ const RootLayout = ({
 }>) => {
   return (
     // suppressHydrationWarning needed for next-themes
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className={roboto.className}>
         <StyledComponentsRegistry>
           <ThemeProvider enableSystem={true} defaultTheme="system">
