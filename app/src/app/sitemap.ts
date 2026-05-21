@@ -128,7 +128,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     },
     {
       url: joinUrl([BASE_URL, 'easter-eggs']),
-      lastModified: new Date('2024-09-26T04:30:00+0000'),
+      lastModified: new Date('2026-05-21T16:51:42+0000'),
       changeFrequency: 'monthly',
       priority: 0.4,
     },
