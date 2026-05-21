@@ -16,7 +16,9 @@ export const ContactPage = () => (
         <h2>Need some privacy?</h2>
         <p>I have a PGP Public key available if you prefer to encrypt your emails to me.</p>
         <p>
-          <a href="/sec/mo-beigi-pgp-pub.asc">Mo Beigi&apos;s PGP Public Key</a>
+          <a href="/sec/mo-beigi-pgp-pub.asc" download>
+            Mo Beigi&apos;s PGP Public Key
+          </a>
         </p>
         <h2>Networks</h2>
         <p>You can also reach me on other networks where I&apos;m active.</p>
