@@ -15,7 +15,9 @@ export const EasterEggsPage = () => (
     <h2>Public Private Key</h2>
     <p>I&apos;ll trust you not to spy on me. 🙏</p>
     <p>
-      <Link href="/sec/mo-beigi-pgp-priv.asc">mo-beigi-pgp-priv.asc</Link>
+      <a href="/sec/mo-beigi-pgp-priv.asc" download>
+        mo-beigi-pgp-priv.asc
+      </a>
     </p>
     <h2>Leaked .env</h2>
     <p>Oops, forgot to exclude this from the build.</p>
