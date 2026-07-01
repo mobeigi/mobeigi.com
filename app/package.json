@@ -42,7 +42,7 @@
     "crawler-user-agents": "^1.45.0",
     "cross-env": "^10.1.0",
     "date-fns": "^4.1.0",
-    "echarts": "^6.0.0",
+    "echarts": "^6.1.0",
     "echarts-for-react": "^3.0.6",
     "file-saver": "^2.0.5",
     "graphql": "^16.14.0",
