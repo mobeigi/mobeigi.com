@@ -60,7 +60,7 @@
     "react-toggle-dark-mode": "file:./packages/react-toggle-dark-mode-v2.0.0.tgz",
     "react-tooltip": "^5.30.1",
     "react-wrap-balancer": "^1.1.1",
-    "sharp": "0.34.5",
+    "sharp": "0.35.4",
     "styled-components": "^6.4.4",
     "tldts": "^7.4.9",
     "validator": "^13.15.35"
@@ -98,7 +98,7 @@
     "typescript-eslint": "^8.64.0"
   },
   "resolutions": {
-    "sharp": "0.34.5"
+    "sharp": "0.35.4"
   },
   "engines": {
     "node": ">=24"
