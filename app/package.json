@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@cedx/akismet": "^17.1.0",
-    "@next/third-parties": "16.2.7",
+    "@next/third-parties": "16.3.3",
     "@octokit/graphql": "^9.0.5",
     "@octokit/rest": "^22.0.1",
     "@payloadcms/db-postgres": "3.90.1",
