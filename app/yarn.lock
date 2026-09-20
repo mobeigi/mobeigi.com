@@ -6086,12 +6086,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:19.3.0":
-  version: 19.3.0
-  resolution: "@types/react-dom@npm:19.3.0"
+"@types/react-dom@npm:19.2.7":
+  version: 19.2.7
+  resolution: "@types/react-dom@npm:19.2.7"
   peerDependencies:
-    "@types/react": ^19.3.0
-  checksum: 10c0/ce0066d28b62bc6afdd17ca84756b8fbe0f6ffc0c8b1e60739abc30e81510da2edbc1007e6ab3d974d30f5a8c25bb0f7de8d7ce09736c909fe84c0f9aed0b946
+    "@types/react": ^19.2.0
+  checksum: 10c0/226ab7e2b62114125e2276b3dcc3a25060177a673f8abadb7e31f395003de72ad68075c6edc5f51b02dd1e47443920ee030239c474c47fad075ded7410836909
   languageName: node
   linkType: hard
 
@@ -6114,12 +6114,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:19.3.0":
-  version: 19.3.0
-  resolution: "@types/react@npm:19.3.0"
+"@types/react@npm:19.2.7":
+  version: 19.2.7
+  resolution: "@types/react@npm:19.2.7"
   dependencies:
     csstype: "npm:^3.2.2"
-  checksum: 10c0/fbcabf303f935ca9f36ed2dcf81751cf84744098c5a683c8a62a0fa7edd31714b48d5c46b12fd0014f7f2dfe4d9ec6de428a850748eec719a70294e51029551b
+  checksum: 10c0/a7b75f1f9fcb34badd6f84098be5e35a0aeca614bc91f93d2698664c0b2ba5ad128422bd470ada598238cebe4f9e604a752aead7dc6f5a92261d0c7f9b27cfd1
   languageName: node
   linkType: hard
 
@@ -12293,8 +12293,8 @@ __metadata:
     "@types/lodash-es": "npm:^4.17.12"
     "@types/node": "npm:^24.13.5"
     "@types/node-cron": "npm:^3.0.11"
-    "@types/react": "npm:19.3.0"
-    "@types/react-dom": "npm:19.3.0"
+    "@types/react": "npm:19.2.7"
+    "@types/react-dom": "npm:19.2.7"
     "@types/validator": "npm:^13.15.10"
     "@types/webpack": "npm:^5.28.5"
     crawler-user-agents: "npm:^1.60.0"
