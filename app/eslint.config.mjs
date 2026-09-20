@@ -30,10 +30,22 @@ const globalIgnores = {
 };
 
 // See: https://typescript-eslint.io/getting-started/typed-linting/
+// App files use tsconfig.json.
+// Test files override with tsconfig.test.json so they get @types/jest globals in scope.
 const typedLinting = {
   languageOptions: {
     parserOptions: {
-      projectService: true,
+      project: './tsconfig.json',
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+};
+
+const typedLintingTests = {
+  files: ['**/*.test.ts', '**/*.test.tsx'],
+  languageOptions: {
+    parserOptions: {
+      project: './tsconfig.test.json',
       tsconfigRootDir: import.meta.dirname,
     },
   },
@@ -104,6 +116,7 @@ export default tseslint.config(
   eslint.configs.recommended,
   tseslint.configs.recommendedTypeChecked,
   typedLinting,
+  typedLintingTests,
   ...nextConfig,
   ...typescriptConfig,
   ...miscConfig,

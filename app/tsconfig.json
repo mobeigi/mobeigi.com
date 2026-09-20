@@ -25,6 +25,7 @@
       "@payload-config": ["./src/payload.config.ts"],
     },
     "target": "ES2022",
+    "types": ["node"],
   },
   "include": [
     "svgr.d.ts",
