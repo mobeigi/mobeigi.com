@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -25,6 +24,7 @@
       "@payload-config": ["./src/payload.config.ts"],
     },
     "target": "ES2022",
+    "types": ["node"],
   },
   "include": [
     "svgr.d.ts",
@@ -35,5 +35,12 @@
     ".next/dev/types/**/*.ts",
     "next.config.ts",
   ],
-  "exclude": ["**/node_modules/", ".next/", "src/app/(payload)/", "coverage/"],
+  "exclude": [
+    "**/node_modules/",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    ".next/",
+    "src/app/(payload)/",
+    "coverage/",
+  ],
 }

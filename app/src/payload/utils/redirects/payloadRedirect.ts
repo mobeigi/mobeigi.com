@@ -85,7 +85,7 @@ export const payloadRedirect = async ({ currentUrl }: PayloadRedirectProps): Pro
     }
     const resolveUrlFn = customUrlResolvers[redirect.to.reference.relationTo];
 
-    let targetDocUrl: string | null = null;
+    let targetDocUrl: string | null;
     try {
       targetDocUrl = await resolveUrlFn(doc);
     } catch (e) {

@@ -17,7 +17,7 @@ export const LinkReactNodeConverter: ReactNodeConverter<SerializedLinkNode> = {
     });
 
     const rel: string[] = [];
-    let href = '';
+    let href;
     let target = '';
 
     const link = node.fields;
